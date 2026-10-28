@@ -56,9 +56,11 @@ Integrated standard inspired by **Dashi PPT** (`chuspeeism/dashi-ppt-skill`) and
   * **In-Place Content Editing**: Press `E` or click on any heading, paragraph, card, or metric to edit text directly with auto-save persistence to `/api/deck/persist`.
   * **Instant One-Click Export**: Vector-crisp 16:9 PDF (`export-cdp.mjs`), fully editable PowerPoint presentation (`export-pptx.py`), and standalone HTML.
   * **Fullscreen Present Mode**: Press `F5` or `F` for clean, distraction-free stage presentation.
-- **Frontend Slides Design System**:
+- **Frontend Slides Design System & Archetype Vault**:
+  * **34 Design Archetype Folders**: Full specs in `references/bold-archetypes/` (each with `design.md` token guide and `preview.md` slide layout).
+  * **Master Slide Design Rules**: `references/slide-design-rules.md` (mandatory 40% negative space, single focal point, zero text overflow, and strict 80px safe margins).
   * 18+ visual themes: *Bold Signal*, *Electric Studio*, *Creative Voltage*, *Editorial Forest*, *Emerald Editorial*, *Neo Grid Bold*, *Cobalt CAD*, *Capsule Modern*, *Soft Editorial*, *Monochrome Minimal*, *Broadside Poster*, *Cyber Glow*, *Tech Code*, *Noir Luxe*, *Modern Clean*.
-  * 7 core layout archetypes: *Cover/Hero*, *Bento Grid Matrix*, *Metric Hero Cards*, *Progression Pipeline Flow*, *Asymmetric Split*, *Quote Spotlight*, *Structured Table*.
+  * 8 core layout archetypes: *Cover/Hero*, *Bento Grid Matrix*, *Metric Hero Cards*, *Progression Pipeline Flow*, *Asymmetric Split (60/40)*, *Comparison / Versus*, *Quote Spotlight*, *Structured Table*.
 
 ### 2. Universal Master Agent & Autonomous Router (`opus-distills`)
 - Automatically dispatches user tasks to specialist skills based on intent.

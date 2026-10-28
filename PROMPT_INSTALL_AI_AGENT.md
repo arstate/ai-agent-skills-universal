@@ -46,9 +46,11 @@ And verify global auto-boot rules:
   * In-place content editing (`E`) with debounced auto-save persistence to `/api/deck/persist`.
   * One-click instant exports: Vector PDF (`window.print` / CDP), PowerPoint (`.pptx`), and standalone HTML.
   * Fullscreen Present Mode (`F5` / `F`).
-- **Frontend Slides Design System (`zarazhangrui/frontend-slides`):**
+- **Frontend Slides Design System & Archetype Vault (`zarazhangrui/frontend-slides`):**
+  * Full 34 design archetype folders stored in `references/bold-archetypes/` (each with `design.md` token specs and `preview.md` slide layouts).
+  * Master Slide Design Rules in `references/slide-design-rules.md` (mandatory 40% negative space, single focal point, zero text overflow, and strict 80px safe margins).
   * 18+ visual presets: Bold Signal, Electric Studio, Creative Voltage, Editorial Forest, Emerald Editorial, Neo Grid Bold (Swiss Bento), Cobalt CAD, Capsule Modern, Soft Editorial, Monochrome Minimal, Cyber Glow, Tech Code, Noir Luxe.
-  * 7 core layout archetypes: Cover/Hero, Bento Grid Matrix, Metric Hero Cards, Progression Flow, Asymmetric Split, Quote Spotlight, Structured Table.
+  * 8 core layout archetypes: Cover/Hero, Bento Grid Matrix, Metric Hero Cards, Asymmetric Split (60/40), Comparison / Versus, Progression Flow / Timeline, Quote Spotlight, and Structured Table.
   * Zero AI slop: Abstract geometric shapes, bold typography pairings, and clean physical materiality.
 
 ### 2. Autonomous Master Agent & Router (`opus-distills` + `web-master-agent`)
