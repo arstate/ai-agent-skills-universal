@@ -83,6 +83,13 @@ if [ -d "$HOME/.agents/skills/dashi-ppt/project" ]; then
     npm install --no-audit 2>/dev/null || npm install
     npx --no-install playwright-core install chromium-headless-shell 2>/dev/null || true
   ) || true
+  if [ -d "$HOME/.agents/skills/dashi-ppt/project/node_modules" ]; then
+    for other in "$HOME/.gemini/antigravity-cli/skills/dashi-ppt/project" "$HOME/.gemini/config/skills/dashi-ppt/project" "$HOME/.gemini/antigravity/skills/dashi-ppt/project"; do
+      if [ -d "$other" ] && [ ! -d "$other/node_modules" ]; then
+        ln -s "$HOME/.agents/skills/dashi-ppt/project/node_modules" "$other/node_modules" 2>/dev/null || true
+      fi
+    done
+  fi
 fi
 
 # Run slidedeck-gen engine installer & diagnostics

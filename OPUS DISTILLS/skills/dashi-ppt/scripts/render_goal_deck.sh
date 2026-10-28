@@ -57,14 +57,23 @@ OUT_DIR="$(dirname "$OUT_PATH")"
 PREVIEW_PORT="${DASHI_PPT_PREVIEW_PORT:-5200}"
 npm run preview:start -- "$OUT_DIR" "$PREVIEW_PORT"
 
-# Auto-open visible browser with Live Dashi Studio
-AUTO_URL="http://127.0.0.1:${PREVIEW_PORT}/"
+# Auto-open visible Google Chrome GUI with Live Dashi Studio
+STATE_FILE="$OUT_DIR/.preview-server.json"
+ACTUAL_URL="http://127.0.0.1:${PREVIEW_PORT}/"
+if [ -f "$STATE_FILE" ]; then
+  READ_URL="$(node -e "try { const d = JSON.parse(fs.readFileSync('$STATE_FILE', 'utf8')); console.log(d.httpUrl || d.url || ''); } catch {}" 2>/dev/null || true)"
+  if [ -n "$READ_URL" ]; then
+    ACTUAL_URL="$READ_URL"
+  fi
+fi
+
+echo "🌐 Otomatis membuka Google Chrome GUI ke Live Dashi PPT Studio: $ACTUAL_URL"
 if [ -x "$HOME/.local/bin/launch-visible-chrome" ]; then
-  "$HOME/.local/bin/launch-visible-chrome" 9223 "$AUTO_URL" >/dev/null 2>&1 &
+  "$HOME/.local/bin/launch-visible-chrome" 9223 "$ACTUAL_URL" >/dev/null 2>&1 &
 elif command -v google-chrome >/dev/null 2>&1; then
-  google-chrome "$AUTO_URL" >/dev/null 2>&1 &
+  google-chrome "$ACTUAL_URL" >/dev/null 2>&1 &
 elif command -v xdg-open >/dev/null 2>&1; then
-  xdg-open "$AUTO_URL" >/dev/null 2>&1 &
+  xdg-open "$ACTUAL_URL" >/dev/null 2>&1 &
 elif command -v open >/dev/null 2>&1; then
-  open "$AUTO_URL" >/dev/null 2>&1 &
+  open "$ACTUAL_URL" >/dev/null 2>&1 &
 fi

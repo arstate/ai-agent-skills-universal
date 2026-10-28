@@ -9,18 +9,24 @@ You are tasked with installing and configuring the Universal AI Agent Skills Eco
 Execute the following instructions step-by-step:
 
 ## Step 1: Detect Host Environment & Run Auto-Installer
-Run this one-liner in your terminal to download and install all 23+ universal skills, browser control tools, and global rules:
+Run this one-liner in your terminal to download/pull, install, and configure all universal skills, Dashi PPT dependencies, browser control tools, and global rules:
 
 ```bash
-curl -sSL "https://raw.githubusercontent.com/arstate/ai-agent-skills-universal/main/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip 2>/dev/null || \
-curl -sSL "https://accuracy-translations-nights-situations.trycloudflare.com/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip && \
+if [ -d "$HOME/ai-agent-skills-universal" ]; then
+  cd "$HOME/ai-agent-skills-universal" && git pull origin main
+else
+  git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+fi && bash "OPUS DISTILLS/install-default-opus.sh"
+```
+
+*(Offline / Zip Fallback alternative):*
+```bash
+curl -sSL "https://raw.githubusercontent.com/arstate/ai-agent-skills-universal/main/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip 2>/dev/null && \
 mkdir -p /tmp/opus_pack && \
 unzip -q -o /tmp/opus_pack.zip -d /tmp/opus_pack && \
 bash /tmp/opus_pack/"OPUS DISTILLS"/install-default-opus.sh && \
 rm -rf /tmp/opus_pack.zip /tmp/opus_pack
 ```
-
-*(If running offline or working directly from local repository, execute: `bash "OPUS DISTILLS/install-default-opus.sh"`)*
 
 ## Step 2: Verify Target Directory Installations
 Ensure skills are installed into the following agent directories:

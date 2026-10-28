@@ -220,21 +220,27 @@ Seluruh skill desain (`web-design`, `taste-design`, dan `opus-distills`) telah d
 
 ---
 
-## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK (`@slidedeck-gen`) — WAJIB BRIEFING MENU JIKA MINIM DETAIL + AUTO-OPEN CHROME CDP LIVE DEV EDITOR!
+## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK (@dashi-ppt & @slidedeck-gen) — WAJIB PAKAI ENGINE DASHI PPT RESMI & AUTO-OPEN CHROME DASHI STUDIO LIVE!
 
 Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan presentasi PDF:
 1. **Interactive Briefing & Clarification Gate (Anti-Guessing):**
    - Jika request user minim detail (belum menentukan tema dari 12 themes, jumlah slide, ada/tidaknya contoh referensi PDF/gambar/URL, target audiens, dan format akhir PDF/PPTX/Web), **AGENT DILARANG KERAS MENEBAK!**
    - Agen **WAJIB** langsung menyajikan **Menu Briefing Interaktif 5 Poin** (Pilihan Theme, Referensi Desain/Aset Brand, Jumlah Slide & Pacing, Target Audiens & Tujuan Utama, Format Deliverable Akhir) dan menunggu respon user.
-2. **Auto-Open Chrome CDP Live Dev Editor Saat Mulai Bekerja:**
-   - Begitu user mengonfirmasi atau saat mulai mengerjakan slide deck, jalankan background dev server:
-     `slidedeck-gen dev <dir> --theme <theme>`
-   - Browser Google Chrome GUI **langsung terbuka di layar monitor** via CDP port 9223 menampilkan engine editor slide deck dengan badge Live AI Cursor HUD: `"Building Slide Deck Live..."`.
-   - Setiap kali agen menulis atau menambahkan slide ke dalam file `deck.md` / `goal.json`, server dev otomatis mengompilasi ulang dalam `< 25ms` dan melakukan hot-reload instan via SSE.
-   - User dapat melihat secara langsung slide deck bertambah dan ter-render rapi detik demi detik di monitornya.
-3. **Session Handover ke In-Browser Live Editor:**
-   - Ketika seluruh slide selesai dibuat, jalankan:
-     `slidedeck-gen done`
-   - HUD AI akan beralih ke `"✅ Slide Deck Ready — In-Browser Live Editor Active"` lalu memudar, membiarkan jendela Chrome tetap terbuka.
-   - User dapat langsung mengklik teks apa saja (judul, paragraf, kartu metrik, list) langsung di layar Chrome untuk melakukan live in-place editing yang otomatis tersimpan ke file `index.html` (auto-save persistence).
-   - Ekspor final dilakukan dengan `slidedeck-gen export-pdf` dan `slidedeck-gen export-pptx`.
+2. **MANDAT WAJIB PAKAI ENGINE RESMI DASHI PPT (`@dashi-ppt`):**
+   - Untuk menghasilkan kualitas slide presentasi kelas dunia (bukan slide amatir), agent **WAJIB** merancang deck menggunakan standar Dashi PPT:
+     1) Tulis rencana konten terstruktur per slide ke `output/<deck-name>/page-content-pack.json`.
+     2) Generate arsitektur slide multi-varian 3+1 (3 template layout berbeda + 1 bespoke variant) dengan scaffold resmi:
+        `node ~/.agents/skills/dashi-ppt/project/scripts/goal-scaffold.mjs --title "<Title>" --goal "<Goal>" --theme "<themePack>" --pages <N> --layout-variants 3 --content-plan output/<deck-name>/page-content-pack.json --seed "<seed>" --out output/<deck-name>/goal.json`
+     3) Render output dan jalankan preview server resmi:
+        `dashi-ppt output/<deck-name>/goal.json output/<deck-name>/ppt/index.html`
+3. **MANDAT WAJIB AUTO-OPEN GOOGLE CHROME GUI DI LAYAR MONITOR:**
+   - Script `dashi-ppt` (dan `render_goal_deck.sh`) **WAJIB OTOMATIS** membuka jendela Google Chrome GUI di monitor user tanpa flag `--headless` mengarah ke URL Live Dashi Studio (`http://127.0.0.1:5200/`).
+   - Monitor user langsung menampilkan interface **Dashi Presentation Studio**:
+     * Filmstrip thumbnail slide interaktif di sidebar kiri (`#slide-rail`).
+     * Real-time multi-variant switcher (v1, v2, v3, v4) di panel kanan.
+     * Tombol aksi instan di topbar: `[▶ Present (F5)]`, `[⬇ Export PDF]`, `[⬇ Export PPTX]`, dan toggle bahasa/tema.
+     * Inline text editing langsung di kanvas slide dengan auto-save persistence ke disk.
+4. **Ekspor Resolusi Penuh:**
+   - PDF 16:9 ultra-crisp vektor dan PPTX dapat diekspor langsung via tombol di topbar browser atau command terminal:
+     `npm --prefix ~/.agents/skills/dashi-ppt/project run export:pdf -- output/<deck-name>/ppt <out.pdf>`
+     `npm --prefix ~/.agents/skills/dashi-ppt/project run export:pptx -- output/<deck-name>/ppt <out.pptx>`

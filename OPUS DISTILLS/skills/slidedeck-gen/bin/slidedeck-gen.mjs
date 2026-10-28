@@ -416,6 +416,21 @@ async function handleCompile(args) {
   const targetHtml = path.join(path.resolve(process.cwd(), outDir), 'index.html');
 
   if (inputFile.endsWith('.json')) {
+    // Official Dashi PPT Engine priority compilation
+    const homeDir = process.env.HOME || '';
+    const dashiScript = path.join(homeDir, '.agents/skills/dashi-ppt/scripts/render_goal_deck.sh');
+    if (existsSync(dashiScript)) {
+      try {
+        console.log(`[*] Compiling presentation using official Dashi PPT engine (React/Swiss)...`);
+        execFileSync(dashiScript, [fullInput, targetHtml], {
+          stdio: 'inherit'
+        });
+        console.log(`[✓] Compiled deck to: ${targetHtml}`);
+        return;
+      } catch (err) {
+        console.warn(`[!] Dashi PPT script execution error: ${err.message}`);
+      }
+    }
     const runtimeDir = path.join(SKILL_ROOT, 'runtime');
     if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules'))) {
       try {
