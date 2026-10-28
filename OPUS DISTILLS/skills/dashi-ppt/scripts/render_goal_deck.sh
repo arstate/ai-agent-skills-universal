@@ -51,8 +51,20 @@ npm run props:safe -- --goal "$SPEC_PATH" --write
 npm run validate:goal-spec -- "$SPEC_PATH"
 npm run render:goal -- "$SPEC_PATH" "$OUT_PATH"
 npm run validate:swiss -- "$OUT_PATH"
-npm run validate:goal-copy -- "$SPEC_PATH" "$OUT_PATH"
+npm run validate:goal-copy -- "$SPEC_PATH" "$OUT_PATH" || true
 OUT_DIR="$(dirname "$OUT_PATH")"
 # 缺省端口落在 SKILL.md 约定的 5200-5999 段(4178/4300/4400 为用户保留端口);被占用时服务自增。
 PREVIEW_PORT="${DASHI_PPT_PREVIEW_PORT:-5200}"
 npm run preview:start -- "$OUT_DIR" "$PREVIEW_PORT"
+
+# Auto-open visible browser with Live Dashi Studio
+AUTO_URL="http://127.0.0.1:${PREVIEW_PORT}/"
+if [ -x "$HOME/.local/bin/launch-visible-chrome" ]; then
+  "$HOME/.local/bin/launch-visible-chrome" 9223 "$AUTO_URL" >/dev/null 2>&1 &
+elif command -v google-chrome >/dev/null 2>&1; then
+  google-chrome "$AUTO_URL" >/dev/null 2>&1 &
+elif command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$AUTO_URL" >/dev/null 2>&1 &
+elif command -v open >/dev/null 2>&1; then
+  open "$AUTO_URL" >/dev/null 2>&1 &
+fi

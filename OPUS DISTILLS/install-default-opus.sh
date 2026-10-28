@@ -75,6 +75,16 @@ ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>
 ln -sf "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.local/bin/slidedeck-gen" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/dashi-ppt/scripts/render_goal_deck.sh" "$HOME/.local/bin/dashi-ppt" 2>/dev/null || true
 
+# Ensure and install Dashi PPT runtime dependencies
+if [ -d "$HOME/.agents/skills/dashi-ppt/project" ]; then
+  echo "📦 Menyiapkan runtime Dashi PPT & Playwright di ~/.agents/skills/dashi-ppt/project..."
+  (
+    cd "$HOME/.agents/skills/dashi-ppt/project"
+    npm install --no-audit 2>/dev/null || npm install
+    npx --no-install playwright-core install chromium-headless-shell 2>/dev/null || true
+  ) || true
+fi
+
 # Run slidedeck-gen engine installer & diagnostics
 if [ -f "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" ]; then
   bash "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" || true
