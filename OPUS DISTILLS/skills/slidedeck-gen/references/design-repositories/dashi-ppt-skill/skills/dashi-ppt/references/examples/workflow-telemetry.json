@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261028092751217-ee8834de",
+  "goalPath": "/tmp/deck-analysis/dashi-ppt-skill/skills/dashi-ppt/references/examples/annual-review.json",
+  "startedAt": "2026-10-28T09:27:51.218Z",
+  "updatedAt": "2026-10-28T09:27:51.524Z",
+  "totalDurationMs": 306,
+  "totalStageCount": 1,
+  "failureCount": 0,
+  "retryCount": 0,
+  "stages": {
+    "render": {
+      "count": 1,
+      "successCount": 1,
+      "failureCount": 0,
+      "retryCount": 0,
+      "durationMs": 306,
+      "lastStatus": "passed",
+      "lastFailureCategory": null,
+      "lastFailureReason": null,
+      "metrics": {
+        "logicalPageCount": 5,
+        "renderedSlideCount": 5
+      }
+    }
+  },
+  "failures": []
+}

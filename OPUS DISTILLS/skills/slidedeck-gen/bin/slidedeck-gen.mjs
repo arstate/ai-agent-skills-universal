@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync } from
 import path from 'node:path';
 import http from 'node:http';
 import net from 'node:net';
-import { spawn } from 'node:child_process';
+import { spawn, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -270,11 +270,30 @@ async function handleCompile(args) {
   }
 
   mkdirSync(path.resolve(process.cwd(), outDir), { recursive: true });
+  const targetHtml = path.join(path.resolve(process.cwd(), outDir), 'index.html');
 
-  if (inputFile.endsWith('.md') || inputFile.endsWith('.json')) {
+  if (inputFile.endsWith('.json')) {
+    const runtimeDir = path.join(SKILL_ROOT, 'runtime');
+    if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules'))) {
+      try {
+        console.log(`[*] Compiling presentation using GitHub Dashi runtime engine (React/TSX)...`);
+        execFileSync('npx', ['tsx', 'scripts/render-goal-deck.jsx', fullInput, targetHtml], {
+          cwd: runtimeDir,
+          stdio: 'inherit'
+        });
+        console.log(`[✓] Compiled deck to: ${targetHtml}`);
+        return;
+      } catch (err) {
+        console.warn(`[!] Dashi runtime failed, falling back to built-in compiler: ${err.message}`);
+      }
+    }
     const { compileDeck } = await import('../scripts/compile-markdown.mjs');
     const html = compileDeck(fullInput, { theme, title });
-    const targetHtml = path.join(path.resolve(process.cwd(), outDir), 'index.html');
+    writeFileSync(targetHtml, html, 'utf8');
+    console.log(`[✓] Compiled deck to: ${targetHtml} (${(html.length / 1024).toFixed(1)} KB)`);
+  } else if (inputFile.endsWith('.md')) {
+    const { compileDeck } = await import('../scripts/compile-markdown.mjs');
+    const html = compileDeck(fullInput, { theme, title });
     writeFileSync(targetHtml, html, 'utf8');
     console.log(`[✓] Compiled deck to: ${targetHtml} (${(html.length / 1024).toFixed(1)} KB)`);
   } else {
@@ -315,6 +334,21 @@ async function handleExportPdf(args) {
   const outIdx = args.indexOf('--out');
   const outFile = outIdx !== -1 ? args[outIdx + 1] : path.join(targetBaseDir, 'presentation.pdf');
 
+  const runtimeDir = path.join(SKILL_ROOT, 'runtime');
+  if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules')) && existsSync(path.join(targetBaseDir, 'goal.json'))) {
+    try {
+      console.log(`[*] Exporting 16:9 PDF via GitHub Dashi runtime engine...`);
+      execFileSync('node', ['scripts/export-pptx.mjs', targetBaseDir, outFile, '--pdf'], {
+        cwd: runtimeDir,
+        stdio: 'inherit'
+      });
+      console.log(`[✓] Successfully exported 16:9 PDF: ${outFile}`);
+      return;
+    } catch (err) {
+      console.warn(`[!] Dashi PDF export warning, falling back to Chrome CDP exporter: ${err.message}`);
+    }
+  }
+
   const { exportDeckToPdf } = await import('../scripts/export-cdp.mjs');
   console.log(`[*] Exporting 16:9 PDF via Chrome CDP...`);
   try {
@@ -337,6 +371,21 @@ async function handleExportPptx(args) {
   const targetBaseDir = isFile ? path.dirname(target) : target;
   const outIdx = args.indexOf('--out');
   const outFile = outIdx !== -1 ? args[outIdx + 1] : path.join(targetBaseDir, 'presentation.pptx');
+
+  const runtimeDir = path.join(SKILL_ROOT, 'runtime');
+  if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules')) && existsSync(path.join(targetBaseDir, 'goal.json'))) {
+    try {
+      console.log(`[*] Exporting editable PowerPoint PPTX via GitHub Dashi runtime engine...`);
+      execFileSync('node', ['scripts/export-pptx.mjs', targetBaseDir, outFile], {
+        cwd: runtimeDir,
+        stdio: 'inherit'
+      });
+      console.log(`[✓] Successfully exported editable PPTX: ${outFile}`);
+      return;
+    } catch (err) {
+      console.warn(`[!] Dashi PPTX export warning, falling back to Python PPTX engine: ${err.message}`);
+    }
+  }
 
   // Auto-compile if target is markdown/json or if directory has no index.html
   let targetHtml = target;
