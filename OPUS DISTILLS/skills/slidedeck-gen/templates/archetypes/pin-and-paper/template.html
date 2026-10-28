@@ -647,7 +647,48 @@ section.slide.ink .footer { color: var(--paper); opacity: .75; }
   font-size: 22px; letter-spacing: -.005em; margin: 0 0 4px;
 }
 .s-cta .pane.r .step p { font-size: 18px; line-height: 1.4; margin: 0; }
-</style>
+
+      /* High-Fidelity 16:9 PDF Export Styles */
+      @media print {
+        @page {
+          size: 16in 9in;
+          margin: 0;
+        }
+        html, body {
+          width: 1920px !important;
+          height: auto !important;
+          overflow: visible !important;
+          background: transparent !important;
+        }
+        #nav-dots, #slide-counter, .deck-controls, .deck-topbar {
+          display: none !important;
+        }
+        #deck, .deck-stage {
+          display: block !important;
+          height: auto !important;
+          transform: none !important;
+        }
+        .slide {
+          width: 1920px !important;
+          height: 1080px !important;
+          min-height: 1080px !important;
+          max-height: 1080px !important;
+          flex: none !important;
+          position: relative !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          page-break-after: always !important;
+          break-after: page !important;
+        }
+        [data-anim] {
+          opacity: 1 !important;
+          transform: none !important;
+          clip-path: none !important;
+          animation: none !important;
+        }
+      }
+
+    </style>
 <script src="deck-stage.js"></script>
 
 <!-- reusable safety pin svg, used via <use href="#pin"> -->

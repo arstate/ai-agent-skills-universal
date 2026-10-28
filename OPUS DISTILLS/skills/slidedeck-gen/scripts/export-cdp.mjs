@@ -108,8 +108,29 @@ export async function exportDeckToPdf(inputTarget, outFile, options = {}) {
           '.woff2': 'font/woff2',
           '.ttf': 'font/ttf'
         };
+
+        let content = readFileSync(filePath);
+        if (ext === '.html') {
+          let text = content.toString('utf8');
+          if (!text.includes('@media print') && text.includes('</style>')) {
+            const printCss = `
+              /* Auto-Injected High-Fidelity 16:9 PDF Export Styles */
+              @media print {
+                @page { size: 16in 9in; margin: 0; }
+                html, body { width: 1920px !important; height: auto !important; overflow: visible !important; background: transparent !important; }
+                #nav-dots, #slide-counter, .deck-controls, .deck-topbar { display: none !important; }
+                #deck, .deck-stage { display: block !important; height: auto !important; transform: none !important; }
+                .slide { width: 1920px !important; height: 1080px !important; min-height: 1080px !important; max-height: 1080px !important; flex: none !important; position: relative !important; visibility: visible !important; opacity: 1 !important; page-break-after: always !important; break-after: page !important; }
+                [data-anim] { opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important; }
+              }
+            `;
+            text = text.replace('</style>', printCss + '\n</style>');
+            content = Buffer.from(text, 'utf8');
+          }
+        }
+
         res.writeHead(200, { 'Content-Type': mimeMap[ext] || 'application/octet-stream' });
-        res.end(readFileSync(filePath));
+        res.end(content);
       } else {
         res.writeHead(404);
         res.end('Not Found');

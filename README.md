@@ -48,13 +48,16 @@ Enforce the split-channel communication rule: concise chat responses paired with
 ## 🚀 Key Highlights & Capabilities
 
 ### 1. Presentation Deck Studio & Slide Engine (`slidedeck-gen`)
-Integrated standard inspired by **Dashi PPT** (`chuspeeism/dashi-ppt-skill`) and **Frontend Slides** (`zarazhangrui/frontend-slides`):
+Integrated standard combining **Frontend Slides** (`zarazhangrui/frontend-slides`) 34 editorial archetypes with **Dashi PPT** in-browser editor:
+- **Strict Anti-Dashboard Rule (Ban Dashi Generic Cards)**:
+  * Eliminates ugly, monotonous developer dashboard cards (cyan rounded rectangles and progress bars).
+  * Automatically applies Zara Zhang's **34 Bold Production Archetypes** (`signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, `cobalt-grid`, etc.) with bespoke magazine editorial typography (`Source Serif 4`, `Archivo`, `Syne`), hairline 1px dividers, and 40% breathing room.
 - **Full In-Browser Studio Editor**:
   * **Top Navigation Bar**: Deck title display, dynamic slide counter (`1 / 8`), `🟢 Live Sync` pulse indicator, quick `+ Add Slide` menu, and runtime theme switcher.
   * **Interactive Filmstrip Sidebar (Slide Rail)**: Live 16:9 thumbnail previews of every slide, active slide highlight, and hover actions (duplicate, move up/down, delete).
   * **Fluid 16:9 Stage**: Authored at 1920×1080 design frame, automatically scaled to fit viewport without line-wrap jitter or layout shifts.
   * **In-Place Content Editing**: Press `E` or click on any heading, paragraph, card, or metric to edit text directly with auto-save persistence to `/api/deck/persist`.
-  * **Instant One-Click Export**: Vector-crisp 16:9 PDF (`export-cdp.mjs`), fully editable PowerPoint presentation (`export-pptx.py`), and standalone HTML.
+  * **Instant One-Click Export**: Vector-crisp 16:9 PDF via Chrome CDP (`export-cdp.mjs`), fully editable PowerPoint presentation (`export-pptx.py`), and standalone HTML.
   * **Fullscreen Present Mode**: Press `F5` or `F` for clean, distraction-free stage presentation.
 - **Frontend Slides Design System & Archetype Vault**:
   * **34 Design Archetype Folders**: Full specs in `references/bold-archetypes/` (each with `design.md` token guide and `preview.md` slide layout).
