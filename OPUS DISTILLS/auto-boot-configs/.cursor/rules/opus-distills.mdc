@@ -1,0 +1,14 @@
+---
+description: Default Always-On Master Brain (opus-distills + find-skills + Phase-Gated Router)
+globs: "**/*"
+alwaysApply: true
+---
+# GLOBAL DEFAULT BRAIN: `opus-distills` (AUTO-ACTIVE ON EVERY TURN)
+
+1. **Always-On Default Skill (`opus-distills`):**
+   - At the start of every session and on every user prompt, you MUST automatically read and apply the `opus-distills` skill (`skills/opus-distills/SKILL.md`) as your default master router—even when the user does NOT type `@opus-distills` or `/opus-distills`.
+2. **Built-In `find-skills` Auto-Routing:**
+   - Automatically scan installed skills and load ONLY the 1–3 skills matching the current active phase (Phase-Gated Skill Loading). If a capability is missing locally, use the `find-skills` protocol (`npx skills find <query>` / web search) to discover and integrate it.
+3. **Anti-Plenger Smart Read Gate & Split-Channel `terse-respon`:**
+   - Always read target source code files (`< 400 lines`) in full before editing; filter only noisy terminal build logs (`> 500 lines`).
+   - Keep conversational chat replies ultra-terse in casual Indonesian (`gw/lu/Bro`), use symbolic Chain-of-Draft (`<= 8 words/step`) for internal reasoning, and output **100% uncut, production-complete code and UI designs**.
