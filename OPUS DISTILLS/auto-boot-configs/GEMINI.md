@@ -44,12 +44,13 @@ Mulai detik ini:
      1) `visual-breakdown/SKILL.md`
      2) `prompt-generator/SKILL.md`
      3) `image-gen/SKILL.md`
-   - **User minta bikin slide presentation / pitch deck / ekspor PPTX atau PDF (`@slidedeck-gen`):**
+   - **User minta bikin slide presentation / pitch deck / ekspor PPTX atau PDF (`@slidedeck-gen` atau `@dashi-ppt`):**
      WAJIB `view_file` ke:
      1) `slidedeck-gen/SKILL.md`
-     2) `taste-design/SKILL.md`
-     3) `slidedeck-gen/references/slide-design-and-export-guide.md`
-     4) `slidedeck-gen/references/theme-and-layout-catalog.md`
+     2) `dashi-ppt/SKILL.md`
+     3) `taste-design/SKILL.md`
+     4) `slidedeck-gen/references/slide-design-and-export-guide.md`
+     5) `slidedeck-gen/references/theme-and-layout-catalog.md`
 3. **WAJIB CETAK BUKTI BACA (`🔧 [Skills Auto-Loaded]`) DI BARIS PERTAMA CHAT:**
    Di baris paling atas setiap balasanmu ke user, kamu **WAJIB** mencantumkan file `SKILL.md` dan `references/*.md` apa saja yang baru saja kamu baca lewat `view_file` pada turn tersebut:
    `🔧 [Skills Auto-Loaded: opus-distills -> web-design/SKILL.md, taste-design/SKILL.md, references/14-pass-critique-rubric.md, references/cat-08-luxury-automotive-hardware.md]`

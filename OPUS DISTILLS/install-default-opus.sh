@@ -69,9 +69,11 @@ python3 -c "import pptx" 2>/dev/null || pip install --quiet python-pptx 2>/dev/n
 
 # Symlink convenience binaries to ~/.local/bin
 chmod +x "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.agents/skills/slidedeck-gen/scripts"/*.mjs "$HOME/.agents/skills/slidedeck-gen/scripts"/*.py "$HOME/.agents/skills/slidedeck-gen/scripts"/*.sh 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/dashi-ppt/scripts"/*.sh "$HOME/.agents/skills/dashi-ppt/scripts"/*.mjs 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/launch-visible-chrome.sh" "$HOME/.local/bin/launch-visible-chrome" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.local/bin/slidedeck-gen" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/dashi-ppt/scripts/render_goal_deck.sh" "$HOME/.local/bin/dashi-ppt" 2>/dev/null || true
 
 # Run slidedeck-gen engine installer & diagnostics
 if [ -f "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" ]; then

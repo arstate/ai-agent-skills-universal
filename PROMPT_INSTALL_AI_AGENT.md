@@ -38,22 +38,17 @@ And verify global auto-boot rules:
 
 ## Step 3: Verified Capabilities Overview
 
-### 1. Presentation Deck Studio & Slide Engine (`slidedeck-gen`)
-- **Strict Anti-Dashboard Rule (Ban Dashi Generic Cards):**
-  * DILARANG membuat slide bertumpuk kotak rounded cyan/navy dan progress bar dashboard pengembang!
-  * WAJIB OTOMATIS menggunakan salah satu dari **34 Zara Zhang Bold Archetypes (`frontend-slides`)** di `templates/archetypes/<slug>/`:
-    * *AI / Deep Tech:* `signal` (Obsidian gold, serif 80pt, hairline rules), `cobalt-grid`, `8-bit-orbit`
-    * *Executive / Strategy:* `capsule` (Pill badges, clean slate), `broadside`, `blue-professional`
-    * *Product Keynote:* `studio` (Sculptural serif), `creative-mode` (Vibrant gradient), `sakura-chroma`
-    * *Modern Bento / Corporate:* `neo-grid-bold` (Desain modern tegas), `cartesian`, `block-frame`
-    * *Editorial / Advisory:* `editorial-forest` (Deep emerald & cream), `soft-editorial`, `vellum`
-- **Full In-Browser Studio Editor & 16:9 Print-to-PDF Engine:**
-  * Top navigation bar with deck title, slide counter (`1 / 8`), live sync status (`🟢 Live Sync`), and theme switcher.
-  * Left sidebar filmstrip rail with live interactive 16:9 thumbnail previews, active slide tracking, and hover actions (duplicate, move up/down, delete).
-  * Center fluid 16:9 widescreen stage (1920×1080) with dynamic viewport scale and zero text overflow.
-  * In-place content editing (`E`) with debounced auto-save persistence to `/api/deck/persist`.
-  * One-click instant exports: Vector PDF (`export-cdp.mjs` / Chrome CDP `@media print` 16:9 exact dimensions), PowerPoint (`.pptx`), and standalone HTML.
-  * Fullscreen Present Mode (`F5` / `F`).
+### 1. Presentation Deck Engines: `dashi-ppt` & `slidedeck-gen`
+- **Official Dashi PPT Engine (`dashi-ppt` — chuspeeism/dashi-ppt-skill):**
+  * Official standalone Dashi PPT skill from `chuspeeism/dashi-ppt-skill` repository.
+  * Direct shell renderer: `dashi-ppt <goal-spec.json> <output/ppt/index.html>`.
+  * Background HTTPS/HTTP preview server with multi-variant 3+1 layouts across 12 themes.
+  * Schema v2 JSON goal planning with `goal:scaffold` and `layout:query`.
+- **Zara Zhang Editorial & Live Preview Engine (`slidedeck-gen`):**
+  * Live Preview Daemon: `slidedeck-gen dev <dir> --template <archetype> --daemon` immediately opens Chrome GUI on CDP port 9223.
+  * Live Studio HUD: In-place text editing auto-saved to disk via `/api/deck/persist`, live SSE auto-reload (<50ms).
+  * 34 Zara Zhang Bold Archetypes (`frontend-slides`): `signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.
+  * Strict 16:9 multi-page print-to-pdf: `slidedeck-gen export-pdf <dir>`.
 - **Frontend Slides Design System & Archetype Vault (`zarazhangrui/frontend-slides`):**
   * Full 34 design archetype folders stored in `references/bold-archetypes/` (each with `design.md` token specs and `preview.md` slide layouts).
   * Master Slide Design Rules in `references/slide-design-rules.md` (mandatory 40% negative space, single focal point, zero text overflow, and strict 80px safe margins).

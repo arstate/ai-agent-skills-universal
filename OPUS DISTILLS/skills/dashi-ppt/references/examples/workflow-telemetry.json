@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261028172735344-d5c785e7",
+  "goalPath": "/tmp/dashi-ppt-skill/skills/dashi-ppt/references/examples/portfolio.json",
+  "startedAt": "2026-10-28T17:27:35.345Z",
+  "updatedAt": "2026-10-28T17:27:35.645Z",
+  "totalDurationMs": 300,
+  "totalStageCount": 1,
+  "failureCount": 0,
+  "retryCount": 0,
+  "stages": {
+    "render": {
+      "count": 1,
+      "successCount": 1,
+      "failureCount": 0,
+      "retryCount": 0,
+      "durationMs": 300,
+      "lastStatus": "passed",
+      "lastFailureCategory": null,
+      "lastFailureReason": null,
+      "metrics": {
+        "logicalPageCount": 5,
+        "renderedSlideCount": 5
+      }
+    }
+  },
+  "failures": []
+}
