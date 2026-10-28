@@ -184,7 +184,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Real-time deck persistence endpoint
+  // Real-time deck persistence endpoint (In-Place Live Editor Auto-Save)
   if (pathname === '/api/deck/persist' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
@@ -194,15 +194,32 @@ const server = http.createServer(async (req, res) => {
         const targetHtml = path.join(serveDir, 'index.html');
         if (payload.html && existsSync(targetHtml)) {
           lastPersistTimestamp = Date.now();
-          let currentContent = readFileSync(targetHtml, 'utf8');
-          const stageRegex = /(<div class="slide-stage"[^>]*>)([\s\S]*?)(<\/div>\s*<\/main>|<div class="deck-hud"|<footer class="deck-hud")/i;
-          if (stageRegex.test(currentContent)) {
-            currentContent = currentContent.replace(stageRegex, (match, p1, p2, p3) => `${p1}\n${payload.html}\n${p3}`);
+          let rawHtml = payload.html;
+
+          // Strip injected studio bar and scripts before saving to disk
+          rawHtml = rawHtml.replace(/<div id="slidedeck-studio-bar"[\s\S]*?<\/div>\s*<\/div>/i, '');
+          rawHtml = rawHtml.replace(/<script id="slidedeck-live-hud-script"[\s\S]*?<\/script>/gi, '');
+          rawHtml = rawHtml.replace(/style="padding-top:\s*38px;?"/i, '');
+          rawHtml = rawHtml.replace(/contenteditable="true"/gi, '');
+
+          if (rawHtml.includes('<!DOCTYPE') || rawHtml.includes('<html')) {
+            writeFileSync(targetHtml, rawHtml, 'utf8');
+          } else {
+            let currentContent = readFileSync(targetHtml, 'utf8');
+            if (currentContent.includes('<div id="deck"')) {
+              currentContent = currentContent.replace(/(<div id="deck"[^>]*>)([\s\S]*?)(<\/div>\s*<!--\s*\/deck|<footer>|<\/body>)/i, `$1\n${rawHtml}\n$3`);
+            } else {
+              const stageRegex = /(<div class="slide-stage"[^>]*>)([\s\S]*?)(<\/div>\s*<\/main>|<div class="deck-hud"|<footer class="deck-hud")/i;
+              if (stageRegex.test(currentContent)) {
+                currentContent = currentContent.replace(stageRegex, (match, p1, p2, p3) => `${p1}\n${rawHtml}\n${p3}`);
+              }
+            }
+            if (payload.theme) {
+              currentContent = currentContent.replace(/data-theme="[^"]*"/i, `data-theme="${payload.theme}"`);
+            }
+            writeFileSync(targetHtml, currentContent, 'utf8');
           }
-          if (payload.theme) {
-            currentContent = currentContent.replace(/data-theme="[^"]*"/i, `data-theme="${payload.theme}"`);
-          }
-          writeFileSync(targetHtml, currentContent, 'utf8');
+          console.log(`[slidedeck-gen] Auto-saved in-place edits to: ${path.basename(targetHtml)}`);
         }
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, savedAt: Date.now() }));
@@ -269,7 +286,14 @@ const server = http.createServer(async (req, res) => {
       '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
     };
 
-    const content = readFileSync(filePath);
+    let content = readFileSync(filePath);
+    if (ext === '.html') {
+      let htmlText = content.toString('utf8');
+      if (!htmlText.includes('slidedeck-live-hud-script')) {
+        htmlText = injectLiveEditorHud(htmlText, currentStatus);
+        content = Buffer.from(htmlText, 'utf8');
+      }
+    }
     res.writeHead(200, {
       'Content-Type': mimeMap[ext] || 'application/octet-stream',
       'Access-Control-Allow-Origin': '*'
@@ -420,3 +444,227 @@ function checkPortAvailable(port, bindHost) {
 }
 
 startServer();
+
+
+function injectLiveEditorHud(html, statusText) {
+  const hudHtml = `
+  <!-- slidedeck-gen Live Studio & In-Place Editor HUD -->
+  <div id="slidedeck-studio-bar" style="position:fixed;top:0;left:0;right:0;height:38px;background:rgba(15,23,42,0.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.12);z-index:999999;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-family:system-ui,-apple-system,sans-serif;color:#fff;box-sizing:border-box;user-select:none;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="font-weight:800;font-size:11px;letter-spacing:0.06em;color:#000;background:#00f0ff;padding:3px 8px;border-radius:4px;box-shadow:0 0 10px rgba(0,240,255,0.4);">LIVE PREVIEW</span>
+      <span id="slidedeck-live-status-text" style="font-size:12px;color:#94a3b8;font-family:ui-monospace,monospace;">🟢 Live Sync: ${statusText}</span>
+    </div>
+    <div id="slidedeck-nav-controls" style="display:flex;align-items:center;gap:8px;">
+      <button id="slidedeck-prev-btn" style="background:#1e293b;border:1px solid #334155;color:#e2e8f0;padding:3px 8px;border-radius:4px;font-size:11px;cursor:pointer;">◀ Prev (K)</button>
+      <span id="slidedeck-slide-badge" style="font-size:12px;font-weight:600;color:#cbd5e1;min-width:60px;text-align:center;">Slide 1 / 1</span>
+      <button id="slidedeck-next-btn" style="background:#1e293b;border:1px solid #334155;color:#e2e8f0;padding:3px 8px;border-radius:4px;font-size:11px;cursor:pointer;">Next (J) ▶</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span id="slidedeck-save-indicator" style="font-size:11px;color:#10b981;font-family:ui-monospace,monospace;">✓ Auto-Saved</span>
+      <button id="slidedeck-toggle-edit" style="background:#2563eb;border:1px solid #3b82f6;color:#fff;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;">✏️ Edit Mode: ON</button>
+      <button id="slidedeck-export-pdf-btn" style="background:#1e293b;border:1px solid #334155;color:#e2e8f0;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;">⬇ Export PDF</button>
+      <button id="slidedeck-export-pptx-btn" style="background:#1e293b;border:1px solid #334155;color:#e2e8f0;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;">⬇ Export PPTX</button>
+      <button id="slidedeck-present-btn" style="background:#1e293b;border:1px solid #334155;color:#e2e8f0;padding:3px 8px;border-radius:5px;font-size:11px;cursor:pointer;">▶ F5</button>
+    </div>
+  </div>
+
+  <style>
+    @media print {
+      #slidedeck-studio-bar { display: none !important; }
+      body { padding-top: 0 !important; }
+    }
+    [contenteditable="true"]:hover {
+      outline: 1px dashed rgba(59, 130, 246, 0.6) !important;
+      cursor: text !important;
+    }
+    [contenteditable="true"]:focus {
+      outline: 2px solid #3b82f6 !important;
+      background: rgba(59, 130, 246, 0.08) !important;
+    }
+  </style>
+
+  <script id="slidedeck-live-hud-script">
+  (function() {
+    // 1. SSE Live Hot-Reload & Status Updates
+    try {
+      const es = new EventSource('/events');
+      es.onmessage = function(e) {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.type === 'reload') {
+            window.location.reload();
+          } else if (data.type === 'status') {
+            const badge = document.getElementById('slidedeck-live-status-text');
+            if (badge) badge.textContent = '🟢 Live Sync: ' + data.message;
+          }
+        } catch(err) {}
+      };
+    } catch(err) {}
+
+    // 2. In-Place Live Editing & Real-Time Auto-Save
+    let isEditing = true;
+    function setupEditableElements() {
+      const selectors = 'h1, h2, h3, h4, h5, h6, p, li, blockquote, .metric-value, .stat-num, [data-editable]';
+      document.querySelectorAll(selectors).forEach(el => {
+        if (!el.closest('#slidedeck-studio-bar')) {
+          el.setAttribute('contenteditable', isEditing ? 'true' : 'false');
+          el.addEventListener('blur', triggerAutoSave);
+          el.addEventListener('input', () => debounceAutoSave(600));
+        }
+      });
+      updateSlideBadge();
+    }
+
+    let saveTimer = null;
+    function debounceAutoSave(ms) {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(triggerAutoSave, ms);
+    }
+
+    function triggerAutoSave() {
+      const indicator = document.getElementById('slidedeck-save-indicator');
+      if (indicator) indicator.textContent = 'Menyimpan...';
+      const cleanClone = document.documentElement.cloneNode(true);
+      const bar = cleanClone.querySelector('#slidedeck-studio-bar');
+      if (bar) bar.remove();
+      const sc = cleanClone.querySelector('#slidedeck-live-hud-script');
+      if (sc) sc.remove();
+
+      fetch('/api/deck/persist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html: cleanClone.outerHTML })
+      }).then(r => r.json()).then(res => {
+        if (indicator) {
+          indicator.textContent = '✓ Auto-Saved';
+          setTimeout(() => { if (indicator) indicator.textContent = '✓ Auto-Saved'; }, 2000);
+        }
+      }).catch(() => {
+        if (indicator) indicator.textContent = '! Gagal Simpan';
+      });
+    }
+
+    // 3. Slide Navigation & Counter
+    function getSlides() {
+      const slides = document.querySelectorAll('.slide, section.slide');
+      if (slides.length > 0) return Array.from(slides);
+      const stage = document.querySelector('.slide-stage, #deck');
+      if (stage && stage.children.length > 0) return Array.from(stage.children);
+      return [];
+    }
+
+    function getCurrentSlideIndex() {
+      const slides = getSlides();
+      for (let i = 0; i < slides.length; i++) {
+        const rect = slides[i].getBoundingClientRect();
+        if (rect.top >= -100 && rect.top <= window.innerHeight / 2) return i;
+      }
+      return 0;
+    }
+
+    function updateSlideBadge() {
+      const slides = getSlides();
+      const badge = document.getElementById('slidedeck-slide-badge');
+      if (badge && slides.length > 0) {
+        badge.textContent = 'Slide ' + (getCurrentSlideIndex() + 1) + ' / ' + slides.length;
+      }
+    }
+
+    function goToSlide(idx) {
+      const slides = getSlides();
+      if (idx >= 0 && idx < slides.length) {
+        slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(updateSlideBadge, 300);
+      }
+    }
+
+    // Bind controls
+    document.addEventListener('DOMContentLoaded', () => {
+      setupEditableElements();
+      document.body.style.paddingTop = '38px';
+
+      const prevBtn = document.getElementById('slidedeck-prev-btn');
+      const nextBtn = document.getElementById('slidedeck-next-btn');
+      if (prevBtn) prevBtn.onclick = () => goToSlide(getCurrentSlideIndex() - 1);
+      if (nextBtn) nextBtn.onclick = () => goToSlide(getCurrentSlideIndex() + 1);
+
+      const toggleEdit = document.getElementById('slidedeck-toggle-edit');
+      if (toggleEdit) {
+        toggleEdit.onclick = () => {
+          isEditing = !isEditing;
+          toggleEdit.textContent = isEditing ? '✏️ Edit Mode: ON' : '👁️ View Only';
+          toggleEdit.style.background = isEditing ? '#2563eb' : '#475569';
+          setupEditableElements();
+        };
+      }
+
+      const pdfBtn = document.getElementById('slidedeck-export-pdf-btn');
+      if (pdfBtn) {
+        pdfBtn.onclick = () => {
+          pdfBtn.textContent = 'Exporting...';
+          fetch('/api/export/pdf', { method: 'POST' })
+            .then(r => r.json())
+            .then(res => {
+              pdfBtn.textContent = '⬇ Export PDF';
+              if (res.downloadUrl) window.open(res.downloadUrl, '_blank');
+            })
+            .catch(() => { pdfBtn.textContent = '! Error'; });
+        };
+      }
+
+      const pptxBtn = document.getElementById('slidedeck-export-pptx-btn');
+      if (pptxBtn) {
+        pptxBtn.onclick = () => {
+          pptxBtn.textContent = 'Exporting...';
+          fetch('/api/export/pptx', { method: 'POST' })
+            .then(r => r.json())
+            .then(res => {
+              pptxBtn.textContent = '⬇ Export PPTX';
+              if (res.downloadUrl) window.open(res.downloadUrl, '_blank');
+            })
+            .catch(() => { pptxBtn.textContent = '! Error'; });
+        };
+      }
+
+      const presentBtn = document.getElementById('slidedeck-present-btn');
+      if (presentBtn) {
+        presentBtn.onclick = () => {
+          const bar = document.getElementById('slidedeck-studio-bar');
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+            if (bar) bar.style.display = 'flex';
+            document.body.style.paddingTop = '38px';
+          } else {
+            document.documentElement.requestFullscreen();
+            if (bar) bar.style.display = 'none';
+            document.body.style.paddingTop = '0px';
+          }
+        };
+      }
+
+      window.addEventListener('scroll', updateSlideBadge);
+      window.addEventListener('keydown', (e) => {
+        if (e.target && e.target.isContentEditable) return;
+        if (e.key === 'ArrowRight' || e.key === 'j' || e.key === 'J' || e.key === ' ') {
+          goToSlide(getCurrentSlideIndex() + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'k' || e.key === 'K') {
+          goToSlide(getCurrentSlideIndex() - 1);
+        } else if (e.key === 'F5' || e.key === 'f' || e.key === 'F') {
+          if (presentBtn) presentBtn.click();
+        } else if (e.key === 'e' || e.key === 'E') {
+          if (toggleEdit) toggleEdit.click();
+        }
+      });
+    });
+  })();
+  </script>
+`;
+
+  if (html.includes('</body>')) {
+    return html.replace('</body>', hudHtml + '\n</body>');
+  } else if (html.includes('</html>')) {
+    return html.replace('</html>', hudHtml + '\n</html>');
+  } else {
+    return html + hudHtml;
+  }
+}

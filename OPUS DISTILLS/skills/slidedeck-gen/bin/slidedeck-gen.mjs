@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, openSync } from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import net from 'node:net';
@@ -256,14 +256,65 @@ Executive Presentation Deck
 
 async function handleDev(args) {
   const target = args.find(a => !a.startsWith('--')) || '.';
-  const serveScript = path.join(SKILL_ROOT, 'scripts/serve-preview.mjs');
+  const isDaemon = args.includes('--daemon') || args.includes('--bg');
+  const templateIdx = args.indexOf('--template');
+  const templateName = templateIdx !== -1 ? args[templateIdx + 1] : 'signal';
+  const titleIdx = args.indexOf('--title');
+  const presentationTitle = titleIdx !== -1 ? args[titleIdx + 1] : 'Presentation Slide Deck';
+  const portIdx = args.indexOf('--port');
+  const port = portIdx !== -1 ? args[portIdx + 1] : '5200';
 
+  const outDir = path.resolve(process.cwd(), target);
+
+  // Auto-scaffold if target folder or index.html is missing
+  if (!existsSync(outDir) || (!existsSync(path.join(outDir, 'index.html')) && !existsSync(path.join(outDir, 'deck.md')) && !existsSync(path.join(outDir, 'goal.json')))) {
+    console.log(`[*] Target "${target}" not initialized. Auto-scaffolding template: ${templateName}...`);
+    await handleInit([target, '--template', templateName, '--title', presentationTitle]);
+  }
+
+  const serveScript = path.join(SKILL_ROOT, 'scripts/serve-preview.mjs');
   const childArgs = [serveScript, target, '--dev'];
   for (let i = 0; i < args.length; i++) {
     const a = args[i];
-    if (a !== target && a !== '--dev') {
+    if (a !== target && a !== '--dev' && a !== '--daemon' && a !== '--bg') {
       childArgs.push(a);
     }
+  }
+
+  if (isDaemon) {
+    console.log(`[*] Starting Live Preview Engine in background daemon mode for: ${target}`);
+    const outLog = path.join(outDir, '.preview-server.log');
+    const logFd = openSync(outLog, 'a');
+    const child = spawn(process.execPath, childArgs, {
+      cwd: process.cwd(),
+      detached: true,
+      stdio: ['ignore', logFd, logFd]
+    });
+    child.unref();
+
+    // Wait up to 5s for preview server to be available
+    let serverReady = false;
+    for (let i = 0; i < 25; i++) {
+      await new Promise(r => setTimeout(r, 200));
+      const isListening = await checkPortOpen(Number(port), '127.0.0.1', 200);
+      if (isListening) {
+        serverReady = true;
+        break;
+      }
+    }
+
+    const previewUrl = `http://127.0.0.1:${port}/`;
+    writeFileSync(path.join(outDir, '.preview-server.json'), JSON.stringify({
+      pid: child.pid,
+      port: Number(port),
+      url: previewUrl,
+      target
+    }, null, 2), 'utf8');
+
+    console.log(`[✓] Live Preview Server running at: ${previewUrl}`);
+    console.log(`[✓] Visible Chrome opened on screen via CDP port 9223 with Live AI Cursor HUD.`);
+    console.log(`[✓] In-place live editor active: edits are auto-saved to disk.`);
+    return;
   }
 
   const child = spawn(process.execPath, childArgs, {
