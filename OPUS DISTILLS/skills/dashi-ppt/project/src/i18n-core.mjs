@@ -11,8 +11,8 @@ export const DECK_LANGUAGES = ['zh', 'en'];
 
 export function normalizeDeckLanguage(value) {
   const lang = String(value ?? '').trim().toLowerCase();
-  if (lang === 'en' || lang === 'english' || lang.startsWith('en-')) return 'en';
-  return 'zh';
+  if (lang === 'zh' || lang === 'chinese' || lang.startsWith('zh-')) return 'zh';
+  return 'en';
 }
 
 let cachedDict = null;

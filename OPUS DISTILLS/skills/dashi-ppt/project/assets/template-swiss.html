@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/skill/dashi-ppt-favicon.png">
-<title>[必填] 替换为 PPT 标题 · Deck Title</title>
+<title>Slide Presentation · Deck Title</title>
 <!-- Self-hosted fonts (no external CDN): Anton, Archivo, Caveat, IBM Plex Mono, IBM Plex Sans, Inter, JetBrains Mono, Newsreader, Space Grotesk, Space Mono. -->
 <!-- Noto Sans SC / Noto Serif SC / Zhi Mang Xing are NOT self-hosted (unicode-range-sharded CJK webfonts exceed size budget); system CJK fonts are used as fallback via the --sans / --sans-zh stacks below. -->
 <style>
@@ -1853,48 +1853,48 @@
 </head>
 <body>
 <div id="hint" aria-hidden="true"></div>
-<div id="deck-save-status" role="status" aria-live="polite" hidden>更改仅保存在本浏览器,分发前请导出</div>
+<div id="deck-save-status" role="status" aria-live="polite" hidden>Changes saved locally in browser. Export to share.</div>
 
-<header id="deck-topbar" aria-label="演示控制台工具栏">
+<header id="deck-topbar" aria-label="Presentation Studio Toolbar">
   <div class="pp-topbar-brand">
     <span class="pp-topbar-dot" aria-hidden="true"></span>
-    <span class="pp-topbar-title">演示控制台</span>
-    <span class="pp-topbar-count" id="preview-slide-count">0/0页</span>
+    <span class="pp-topbar-title">Presentation Studio</span>
+    <span class="pp-topbar-count" id="preview-slide-count">0/0</span>
   </div>
   <div class="pp-topbar-actions">
-    <button class="pp-present" id="preview-present-btn" data-present-toggle="true" type="button" aria-label="播放预览" title="播放预览">
+    <button class="pp-present" id="preview-present-btn" data-present-toggle="true" type="button" aria-label="Start presentation" title="Start presentation">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.8v12.4c0 .8.9 1.3 1.6.9l9.1-6.2a1 1 0 0 0 0-1.8L9.6 4.9C8.9 4.5 8 5 8 5.8Z"/></svg>
-      <span>播放</span>
+      <span>Present</span>
     </button>
     <div class="pp-export" id="preview-export-wrap">
       <button id="preview-export-main" type="button" aria-haspopup="true" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
-        <span>导出</span>
+        <span>Export</span>
         <svg class="pp-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="m6 9 6 6 6-6"/></svg>
       </button>
       <div class="pp-export-menu" role="menu">
-        <button id="preview-export" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/></svg><span>HTML</span><kbd>离线包</kbd></button>
-        <button id="preview-export-pdf" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg><span>PDF</span><kbd>下载</kbd></button>
-        <button id="preview-export-pptx" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h20"/><path d="M4 4v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4"/><path d="m9 20 3-3 3 3"/></svg><span>PPTX</span><kbd>可编辑</kbd></button>
+        <button id="preview-export" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/></svg><span>HTML</span><kbd>Offline</kbd></button>
+        <button id="preview-export-pdf" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg><span>PDF</span><kbd>Download</kbd></button>
+        <button id="preview-export-pptx" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h20"/><path d="M4 4v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4"/><path d="m9 20 3-3 3 3"/></svg><span>PPTX</span><kbd>Editable</kbd></button>
       </div>
     </div>
-    <button id="preview-reset" type="button" title="重置全部">
+    <button id="preview-reset" type="button" title="Reset All">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4.5v4h-4"/></svg>
-      <span>重置</span>
+      <span>Reset</span>
     </button>
     <span class="pp-topbar-sep" aria-hidden="true"></span>
-    <button id="preview-lang-toggle" type="button" aria-label="切换语言 / Switch language" title="切换语言 / Switch language"></button>
-    <button id="preview-theme-toggle" type="button" aria-label="切换明暗" title="切换明暗"></button>
+    <button id="preview-lang-toggle" type="button" aria-label="Switch language" title="Switch language"></button>
+    <button id="preview-theme-toggle" type="button" aria-label="Toggle light/dark" title="Toggle light/dark"></button>
   </div>
 </header>
 
-<aside id="slide-rail" data-slide-rail="true" aria-label="页面缩略图目录">
+<aside id="slide-rail" data-slide-rail="true" aria-label="Slide Thumbnails">
   <div class="slide-rail-head">
-    <div class="slide-rail-title">目录</div>
+    <div class="slide-rail-title">Slides</div>
     <div class="slide-rail-count" id="slide-rail-count">0</div>
   </div>
   <div id="slide-rail-list" data-rail-scroll="true"></div>
-  <button class="slide-rail-resize" data-rail-resize-handle="true" type="button" aria-label="调整目录宽度" title="调整目录宽度"></button>
+  <button class="slide-rail-resize" data-rail-resize-handle="true" type="button" aria-label="Resize slide list" title="Resize slide list"></button>
 </aside>
 
 <div id="deck-viewport">
@@ -1904,71 +1904,62 @@
 
 </div>
 </div>
-<div id="deck-page-pager" aria-label="页面导航">
-  <button id="deck-page-prev" type="button" aria-label="上一页" title="上一页">
+<div id="deck-page-pager" aria-label="Page navigation">
+  <button id="deck-page-prev" type="button" aria-label="Previous page" title="Previous page">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
   </button>
   <div id="deck-page-count">01 / 01</div>
-  <button id="deck-page-next" type="button" aria-label="下一页" title="下一页">
+  <button id="deck-page-next" type="button" aria-label="Next page" title="Next page">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
   </button>
 </div>
 
 <div id="nav" aria-hidden="true"></div>
-<button id="preview-panel-collapse" type="button" aria-controls="preview-panel slide-rail" aria-expanded="true" aria-label="收起面板" title="收起面板">
+<button id="preview-panel-collapse" type="button" aria-controls="preview-panel slide-rail" aria-expanded="true" aria-label="Toggle panels" title="Toggle panels">
   <img src="assets/ui-icons/sidebar.svg" data-ui-icon="sidebar-collapse" alt="" aria-hidden="true">
 </button>
-<aside id="preview-panel" aria-label="预览控制器">
-  <button class="preview-panel-resize" data-panel-resize-handle="true" type="button" aria-label="调整控制面板宽度" title="调整控制面板宽度"></button>
+<aside id="preview-panel" aria-label="Preview controls">
+  <button class="preview-panel-resize" data-panel-resize-handle="true" type="button" aria-label="Resize control panel" title="Resize control panel"></button>
   <div class="preview-fields">
     <div class="preview-field" id="preview-theme-field">
-      <label for="preview-theme-pack">预览风格</label>
+      <label for="preview-theme-pack">Theme</label>
       <select id="preview-theme-pack"></select>
     </div>
     <div class="preview-field is-hidden" id="preview-layout-variants-field">
-      <label>页面版式</label>
-      <div class="preview-prop-choice-group preview-layout-variants" id="preview-layout-variants" role="group" aria-label="页面版式"></div>
-      <div class="preview-layout-variant-readonly is-hidden" id="preview-layout-variant-readonly">Agent 定制方案：Agent 根据当前内容和主题风格定制，布局固定</div>
+      <label>Page Layout</label>
+      <div class="preview-prop-choice-group preview-layout-variants" id="preview-layout-variants" role="group" aria-label="Page Layout"></div>
+      <div class="preview-layout-variant-readonly is-hidden" id="preview-layout-variant-readonly">Agent Bespoke Layout: Custom designed for this content and theme (fixed layout)</div>
     </div>
     <div class="preview-field">
-      <label for="preview-transition">切换动画</label>
+      <label for="preview-transition">Transition</label>
       <select id="preview-transition">
-        <option value="none">无动画</option>
-        <option value="liquidMorph">液态形变</option>
-        <option value="containerClip">切入</option>
-        <option value="containerSlide">横滑</option>
-        <option value="pixelReveal">行扫</option>
-        <option value="pixelZoom">缩放</option>
-        <option value="pixelBarsY">竖条</option>
-        <option value="sliceReveal">混合</option>
-        <option value="sliceHorizontal">横切</option>
-        <option value="sliceGallery">画廊</option>
+        <option value="none">None</option>
+        <option value="liquidMorph">Liquid Morph</option>
+        <option value="containerClip">Clip In</option>
+        <option value="containerSlide">Slide In</option>
+        <option value="pixelReveal">Row Sweep</option>
+        <option value="pixelZoom">Zoom</option>
+        <option value="pixelBarsY">Bars</option>
+        <option value="sliceReveal">Mixed</option>
+        <option value="sliceHorizontal">Slices</option>
+        <option value="sliceGallery">Gallery</option>
       </select>
     </div>
     <div class="preview-field is-hidden" id="preview-transition-color-field">
-      <label>色块颜色</label>
+      <label>Accent Color</label>
       <div class="preview-transition-color-control">
-        <div class="preview-transition-color-options" id="preview-transition-color-options" role="group" aria-label="色块颜色"></div>
+        <div class="preview-transition-color-options" id="preview-transition-color-options" role="group" aria-label="Accent Color"></div>
       </div>
     </div>
     <div class="preview-field is-hidden" id="preview-props-field">
       <div class="preview-props" id="preview-props"></div>
     </div>
   </div>
-  <div class="preview-author" aria-label="作者信息">
-    <div class="preview-author-name">@大师的AI小灶</div>
-    <div class="preview-author-links" aria-label="作者社媒链接">
+  <div class="preview-author" aria-label="Presentation Engine">
+    <div class="preview-author-name">Dashi Presentation Studio</div>
+    <div class="preview-author-links" aria-label="Links">
       <a href="https://github.com/chuspeeism/dashi-ppt-skill" target="_blank" rel="noopener noreferrer" data-platform="github" aria-label="GitHub" title="GitHub">
         <img src="assets/social-icons/github.svg" data-social-icon="github" alt="" aria-hidden="true">
-      </a>
-      <a href="https://www.douyin.com/user/MS4wLjABAAAAohe8JB4RvITJitJ69b7cV4NTaYTMYrVI43C-3SUnPPc" target="_blank" rel="noopener noreferrer" data-platform="douyin" aria-label="抖音" title="抖音">
-        <img src="assets/social-icons/douyin.svg" data-social-icon="douyin" alt="" aria-hidden="true">
-      </a>
-      <a href="https://www.xiaohongshu.com/user/profile/62e0c2bb000000001501408c" target="_blank" rel="noopener noreferrer" data-platform="xiaohongshu" aria-label="小红书" title="小红书">
-        <img src="assets/social-icons/redbook.svg" data-social-icon="xiaohongshu" alt="" aria-hidden="true">
-      </a>
-      <a href="https://space.bilibili.com/3537118131391269/" target="_blank" rel="noopener noreferrer" data-platform="bilibili" aria-label="Bilibili" title="Bilibili">
-        <img src="assets/social-icons/bilibili.svg" data-social-icon="bilibili" alt="" aria-hidden="true">
       </a>
     </div>
   </div>
@@ -1985,8 +1976,8 @@
   // 界面语言解析优先级:用户手动选择(localStorage)> 系统语言(zh* → 中文,
   // 其它 → 英文)> goal.language(渲染时指定,系统语言不可得时的回退)> 中文。
   const LANG_KEY = 'dashi-deck-lang';
-  let language = 'zh';
-  let deckLanguage = 'zh';
+  let language = 'en';
+  let deckLanguage = 'en';
   let metaDict = {};
   try {
     const opts = JSON.parse(document.getElementById('preview-options')?.textContent || '{}');
@@ -2000,8 +1991,7 @@
   } else {
     const systemLanguage = String(navigator.language || '').toLowerCase();
     if(systemLanguage.startsWith('zh')) language = 'zh';
-    else if(systemLanguage) language = 'en';
-    else language = deckLanguage;
+    else language = 'en';
   }
 
   function setLanguage(next){
@@ -2014,12 +2004,12 @@
   // template 自身 UI 文案词典(中文原文 → 英文)。动态插值词条用 {name} 占位符。
   const UI_STRINGS_EN = {
     // Topbar / shell
-    '更改仅保存在本浏览器,分发前请导出': 'Changes are saved only in this browser. Export before sharing.',
-    '演示控制台工具栏': 'Presenter console toolbar',
-    '演示控制台': 'Presenter console',
-    '0/0页': '0/0',
+    'Changes saved locally in browser. Export to share.': 'Changes are saved only in this browser. Export before sharing.',
+    'Presentation Studio Toolbar': 'Presenter console toolbar',
+    'Presentation Studio': 'Presenter console',
+    '0/0': '0/0',
     '{current}/{total}页': '{current}/{total}',
-    '播放预览': 'Start presentation',
+    'Start presentation': 'Start presentation',
     '播放': 'Present',
     '导出': 'Export',
     '离线包': 'Offline bundle',
@@ -2027,20 +2017,20 @@
     '可编辑': 'Editable',
     '重置全部': 'Reset all',
     '重置': 'Reset',
-    '切换明暗': 'Toggle light/dark',
+    'Toggle light/dark': 'Toggle light/dark',
     '切换到明亮': 'Switch to light mode',
     '切换到暗色': 'Switch to dark mode',
     // Slide rail / pager / panels
-    '页面缩略图目录': 'Slide thumbnails',
+    'Slide Thumbnails': 'Slide thumbnails',
     '目录': 'Slides',
-    '调整目录宽度': 'Resize slide list',
-    '页面导航': 'Page navigation',
-    '上一页': 'Previous page',
-    '下一页': 'Next page',
-    '收起面板': 'Collapse panels',
+    'Resize slide list': 'Resize slide list',
+    'Page navigation': 'Page navigation',
+    'Previous page': 'Previous page',
+    'Next page': 'Next page',
+    'Toggle panels': 'Collapse panels',
     '展开面板': 'Expand panels',
-    '预览控制器': 'Preview controls',
-    '调整控制面板宽度': 'Resize control panel',
+    'Preview controls': 'Preview controls',
+    'Resize control panel': 'Resize control panel',
     '复制页面': 'Duplicate page',
     '跳过页面': 'Skip page',
     '取消跳过': 'Unskip page',
@@ -2056,7 +2046,7 @@
     '页面版式': 'Page layout',
     '版式 {n}': 'Layout {n}',
     'Agent 定制方案': 'Agent custom layout',
-    'Agent 定制方案：Agent 根据当前内容和主题风格定制，布局固定': 'Agent custom layout: tailored to this content and theme; the layout is fixed.',
+    'Agent Bespoke Layout: Custom designed for this content and theme (fixed layout)': 'Agent custom layout: tailored to this content and theme; the layout is fixed.',
     '切换动画': 'Transition',
     '无动画': 'None',
     '液态形变': 'Liquid morph',
@@ -6996,7 +6986,7 @@ refreshRailCatalog();
     layoutVariantsControl.style.setProperty('--pp-choice-index', String(activeIndex));
     layoutVariantsField.classList.remove('is-hidden');
     if(layoutVariantReadonly){
-      layoutVariantReadonly.textContent = window.__deckI18n.ui('Agent 定制方案：Agent 根据当前内容和主题风格定制，布局固定');
+      layoutVariantReadonly.textContent = window.__deckI18n.ui('Agent Bespoke Layout: Custom designed for this content and theme (fixed layout)');
       layoutVariantReadonly.classList.toggle('is-hidden', activeVariant?.kind !== 'bespoke');
     }
   }
@@ -7871,7 +7861,7 @@ refreshRailCatalog();
       if(slideRail) slideRail.inert = collapsed;
     }
     if(panelCollapse){
-      const label = window.__deckI18n.ui(collapsed ? '展开面板' : '收起面板');
+      const label = window.__deckI18n.ui(collapsed ? '展开面板' : 'Toggle panels');
       panelCollapse.classList.toggle('is-collapsed', collapsed);
       panelCollapse.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
       panelCollapse.setAttribute('aria-label', label);
