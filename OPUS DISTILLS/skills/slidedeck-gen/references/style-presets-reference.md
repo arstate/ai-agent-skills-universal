@@ -337,7 +337,7 @@ right: -clamp(28px, 3.5vw, 44px);   /* Browser ignores this */
 margin-left: -min(10vw, 100px);      /* Browser ignores this */
 ```
 
-**CORRECT — wrap in `calc`:**
+**CORRECT — wrap in `calc()`:**
 ```css
 right: calc(-1 * clamp(28px, 3.5vw, 44px));  /* Works */
 margin-left: calc(-1 * min(10vw, 100px));     /* Works */

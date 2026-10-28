@@ -2954,7 +2954,42 @@ export function getThemeStyles(theme) {
           --rail-border: #260a45;
         `
       };
-    default:
+    default: {
+      // Dynamic lookup from 34 Zara Zhang bold archetypes if template.json exists
+      try {
+        const archetypeJsonPath = path.join(path.dirname(import.meta.filename), '../templates/archetypes', t, 'template.json');
+        if (existsSync(archetypeJsonPath)) {
+          const arch = JSON.parse(readFileSync(archetypeJsonPath, 'utf8'));
+          const pal = arch.palette || {};
+          const isLight = arch.scheme === 'light';
+          return {
+            cssVariables: `
+              --bg-canvas: ${pal.bg_alt || pal.bg || (isLight ? '#f4f4f5' : '#0e1118')};
+              --bg-slide: ${pal.bg || (isLight ? '#ffffff' : '#141824')};
+              --text-main: ${pal.fg || (isLight ? '#18181b' : '#e2dcd0')};
+              --text-title: ${pal.fg || (isLight ? '#09090b' : '#ffffff')};
+              --text-body: ${isLight ? '#3f3f46' : '#94a3b8'};
+              --text-muted: ${isLight ? '#71717a' : '#64748b'};
+              --accent-color: ${pal.accent || (isLight ? '#000000' : '#c8a870')};
+              --accent-contrast: ${isLight ? '#ffffff' : '#0e1118'};
+              --card-bg: ${pal.bg_alt ? pal.bg_alt : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)')};
+              --card-border: ${pal.accent ? pal.accent + '33' : (isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)')};
+              --card-shadow: 0 16px 36px -10px rgba(0, 0, 0, ${isLight ? '0.1' : '0.6'});
+              --table-header-bg: ${pal.bg_alt || (isLight ? '#f4f4f5' : '#1a2234')};
+              --stage-shadow: 0 30px 90px -20px rgba(0, 0, 0, ${isLight ? '0.2' : '0.85'});
+              --stage-radius: 12px;
+              --hud-bg: ${isLight ? 'rgba(255,255,255,0.92)' : 'rgba(15,23,42,0.92)'};
+              --hud-border: ${isLight ? '#e4e4e7' : '#1e293b'};
+              --hud-hover: ${isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.1)'};
+              --topbar-bg: ${pal.bg_alt || (isLight ? '#ffffff' : '#0b0f19')};
+              --topbar-border: ${isLight ? '#e4e4e7' : '#1e293b'};
+              --rail-bg: ${pal.bg || (isLight ? '#fafafa' : '#0d1320')};
+              --rail-border: ${isLight ? '#e4e4e7' : '#1e293b'};
+            `
+          };
+        }
+      } catch {}
+
       // modern-clean / theme01
       return {
         cssVariables: `
@@ -2981,6 +3016,7 @@ export function getThemeStyles(theme) {
           --rail-border: #e4e4e7;
         `
       };
+    }
   }
 }
 

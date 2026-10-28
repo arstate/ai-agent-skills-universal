@@ -73,6 +73,10 @@ async function main() {
     case 'review':
       await handleReview(argv.slice(1));
       break;
+    case 'templates':
+    case 'list-templates':
+      await handleListTemplates(argv.slice(1));
+      break;
     case 'install-engine':
     case 'doctor':
       await handleInstallEngine(argv.slice(1));
@@ -93,7 +97,8 @@ Usage:
 
 Commands:
   dev [deck-path]          Start live dev server + auto-open visible Chrome CDP with Live AI Cursor HUD
-  init <deck-name>         Scaffold a new presentation project
+  init <deck-name>         Scaffold a new presentation project (supports 34 Zara Zhang bold archetypes)
+  templates, list-templates List all 34 available Zara Zhang presentation archetypes
   compile <input>          Compile Markdown or Goal JSON to 16:9 presentation HTML
   serve <deck-dir>         Launch live preview server with real-time persistence
   done [options]           Finalize AI generation session and keep in-browser editor active
@@ -105,29 +110,115 @@ Commands:
 Options:
   -h, --help               Display help information
   -v, --version            Display version information
-  --theme <theme>          Theme to apply (e.g. cyber-glow, tech-code, noir-luxe, minimal-executive)
+  --template <template>    Template or archetype to use (e.g. signal, studio, neo-grid-bold, capsule)
+  --theme <theme>          Theme to apply (e.g. cyber-glow, tech-code, noir-luxe, signal)
+  --title <title>          Presentation title
   --port <port>            HTTP server port (default: 5200)
   --no-cdp                 Disable auto-launch of visible Chrome CDP in dev mode
 
 Examples:
-  slidedeck-gen dev my-deck --theme cyber-glow
-  slidedeck-gen init my-deck --template pitch-deck
-  slidedeck-gen compile my-deck/deck.md --out dist/my-deck --theme cyber-glow
-  slidedeck-gen serve dist/my-deck --port 5200 --open
+  slidedeck-gen list-templates
+  slidedeck-gen init my-pitch --template signal --title "Executive Strategic Pitch"
+  slidedeck-gen dev my-pitch
   slidedeck-gen done
-  slidedeck-gen export-pdf dist/my-deck --out dist/my-deck/presentation.pdf
-  slidedeck-gen export-pptx dist/my-deck --out dist/my-deck/presentation.pptx
-  slidedeck-gen review dist/my-deck --port 9223
+  slidedeck-gen export-pdf my-pitch
 `);
+}
+
+async function handleListTemplates(args) {
+  const indexFile = path.join(SKILL_ROOT, 'templates/archetypes/selection-index.json');
+  if (!existsSync(indexFile)) {
+    console.error(`Archetype index not found at: ${indexFile}`);
+    process.exit(1);
+  }
+
+  const data = JSON.parse(readFileSync(indexFile, 'utf8'));
+  const templates = data.templates || [];
+
+  console.log(`\n📚 slidedeck-gen — 34 Zara Zhang Presentation Archetypes:\n`);
+  console.log(`${'SLUG'.padEnd(20)} | ${'SCHEME'.padEnd(8)} | ${'NAME'.padEnd(22)} | ${'TAGLINE'}`);
+  console.log('-'.repeat(100));
+
+  for (const t of templates) {
+    const slug = (t.slug || '').padEnd(20);
+    const scheme = (t.scheme || 'dark').padEnd(8);
+    const name = (t.name || '').padEnd(22);
+    const tagline = (t.tagline || '').slice(0, 50);
+    console.log(`${slug} | ${scheme} | ${name} | ${tagline}`);
+  }
+
+  console.log(`\nTo scaffold an archetype project:`);
+  console.log(`  slidedeck-gen init <project-name> --template <slug> --title "My Title"\n`);
 }
 
 async function handleInit(args) {
   const deckName = args.find(a => !a.startsWith('--')) || 'my-presentation';
   const templateIdx = args.indexOf('--template');
-  const templateName = templateIdx !== -1 ? args[templateIdx + 1] : 'pitch-deck';
+  const templateName = templateIdx !== -1 ? args[templateIdx + 1] : 'signal';
+  const titleIdx = args.indexOf('--title');
+  const presentationTitle = titleIdx !== -1 ? args[titleIdx + 1] : 'Presentation Slide Deck';
   const outDir = path.resolve(process.cwd(), deckName);
 
   mkdirSync(outDir, { recursive: true });
+
+  // 1. Check if templateName is one of the 34 Zara Zhang bold archetypes
+  const archetypeDir = path.join(SKILL_ROOT, 'templates/archetypes', templateName);
+  const archetypeHtml = path.join(archetypeDir, 'template.html');
+
+  if (existsSync(archetypeHtml)) {
+    let htmlContent = readFileSync(archetypeHtml, 'utf8');
+    htmlContent = htmlContent.replace(/<html lang="[^"]*"/i, '<html lang="en"');
+    if (presentationTitle !== 'Presentation Slide Deck') {
+      htmlContent = htmlContent.replace(/<title>.*?<\/title>/i, `<title>${presentationTitle}</title>`);
+      htmlContent = htmlContent.replace(/(class=["'][^"']*(?:display|title)[^"']*["'][^>]*>)(.*?)(<\/)/i, `$1${presentationTitle}$3`);
+    }
+    writeFileSync(path.join(outDir, 'index.html'), htmlContent, 'utf8');
+
+    // Copy metadata files if present
+    const metaFiles = ['deck-stage.js', 'template.json', 'design.md'];
+    for (const f of metaFiles) {
+      const src = path.join(archetypeDir, f);
+      if (existsSync(src)) {
+        copyFileSync(src, path.join(outDir, f));
+      }
+    }
+    const baseStage = path.join(SKILL_ROOT, 'references/deck-stage.js');
+    if (!existsSync(path.join(outDir, 'deck-stage.js')) && existsSync(baseStage)) {
+      copyFileSync(baseStage, path.join(outDir, 'deck-stage.js'));
+    }
+
+    const starterMd = `<!-- theme: ${templateName} -->
+<!-- title: ${presentationTitle} -->
+
+# ${presentationTitle}
+Executive Presentation Deck
+
+---
+
+<!-- layout: split -->
+## Core Mission & Strategic Value
+- 16:9 Widescreen Fixed Stage
+- High-Taste Typography & Micro-Interactions
+- Vector-Sharp Chrome CDP Export
+
+---
+
+<!-- layout: stats -->
+## Key Operational Impact
+- **+145%** Efficiency Growth
+- **< 25ms** Hot-Reload Response
+- **100%** Uncut Production Standards
+`;
+    writeFileSync(path.join(outDir, 'deck.md'), starterMd, 'utf8');
+
+    console.log(`[✓] Created presentation project "${deckName}" at: ${outDir}`);
+    console.log(`[✓] Scaffolded Zara Zhang archetype: "${templateName}" -> index.html (ready-to-serve)`);
+    console.log(`\nNext steps:`);
+    console.log(`  1. Start Live Dev Server: slidedeck-gen dev ${deckName}`);
+    console.log(`  2. Finalize & Live Edit: slidedeck-gen done`);
+    console.log(`  3. Export PDF: slidedeck-gen export-pdf ${deckName}`);
+    return;
+  }
 
   const templateMap = {
     'pitch-deck': 'pitch-deck.md',
@@ -158,6 +249,7 @@ async function handleInit(args) {
     console.log(`  3. Compile: slidedeck-gen compile ${deckName}/${destName} --out ${deckName}/dist`);
   } else {
     console.error(`Template not found: ${templateName}`);
+    console.log(`Run "slidedeck-gen list-templates" to see all available archetypes.`);
     process.exit(1);
   }
 }
