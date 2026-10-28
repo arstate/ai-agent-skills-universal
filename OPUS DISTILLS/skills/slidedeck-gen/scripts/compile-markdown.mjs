@@ -841,14 +841,64 @@ function generateFullDeckHtml(parsedSlides, documentTitle, globalTheme) {
     grid-template-columns: 1.15fr 0.85fr;
     gap: 68px;
     align-items: center;
+    width: 100%;
+    height: 100%;
   }
 
-  .cards-container {
+  .split-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .split-col-primary h1, .split-col-primary h2 {
+    margin-bottom: 0;
+  }
+
+  .comparison-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 28px;
+    width: 100%;
+  }
+
+  .comparison-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .comparison-card.card-accent {
+    border-color: var(--accent-color);
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.4);
+  }
+
+  .comparison-card h4 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-title);
+    margin: 0;
+  }
+
+  .cards-container, .bento-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 26px;
     margin-top: 28px;
     width: 100%;
+  }
+
+  .grid-card.card-wide {
+    grid-column: span 2;
   }
 
   .grid-card {
@@ -1932,8 +1982,156 @@ function renderSlideBody(lines, layout, kicker, metadata) {
     `;
   }
 
+  // Pre-scan for split / two-column layout
+  if (layout === 'split' || layout === 'columns' || layout === 'two-column') {
+    let leftLines = [];
+    let rightLines = [];
+    let foundDivider = false;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed === '|||' || trimmed === '===' || /^<!--\s*col\s*-->$/i.test(trimmed)) {
+        foundDivider = true;
+        continue;
+      }
+      if (!foundDivider) {
+        leftLines.push(line);
+      } else {
+        rightLines.push(line);
+      }
+    }
+
+    if (!foundDivider) {
+      leftLines = [];
+      rightLines = [];
+      let pastIntro = false;
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (pastIntro) {
+          rightLines.push(line);
+        } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('### ') || trimmed.startsWith('|')) {
+          pastIntro = true;
+          rightLines.push(line);
+        } else {
+          leftLines.push(line);
+        }
+      }
+    }
+
+    function renderColumnLines(colLines) {
+      let colHtml = '';
+      let inColList = false;
+      for (const raw of colLines) {
+        const t = raw.trim();
+        if (!t) {
+          if (inColList) { colHtml += '</ul>\n'; inColList = false; }
+          continue;
+        }
+        if (t.startsWith('# ')) {
+          if (inColList) { colHtml += '</ul>\n'; inColList = false; }
+          colHtml += `<h1 contenteditable="true">${escapeHtml(t.slice(2))}</h1>\n`;
+        } else if (t.startsWith('## ')) {
+          if (inColList) { colHtml += '</ul>\n'; inColList = false; }
+          colHtml += `<h2 contenteditable="true">${escapeHtml(t.slice(3))}</h2>\n`;
+        } else if (t.startsWith('### ')) {
+          if (inColList) { colHtml += '</ul>\n'; inColList = false; }
+          colHtml += `<div class="grid-card"><h4 contenteditable="true">${escapeHtml(t.slice(4))}</h4></div>\n`;
+        } else if (t.startsWith('- ') || t.startsWith('* ')) {
+          if (!inColList) { colHtml += '<ul>\n'; inColList = true; }
+          colHtml += `<li contenteditable="true">${formatInlineMarkdown(t.slice(2))}</li>\n`;
+        } else {
+          if (inColList) { colHtml += '</ul>\n'; inColList = false; }
+          colHtml += `<p contenteditable="true">${formatInlineMarkdown(t)}</p>\n`;
+        }
+      }
+      if (inColList) colHtml += '</ul>\n';
+      return colHtml;
+    }
+
+    return `
+      <div class="layout-split">
+        <div class="split-col split-col-primary">
+          ${renderColumnLines(leftLines)}
+        </div>
+        <div class="split-col split-col-secondary">
+          ${renderColumnLines(rightLines)}
+        </div>
+      </div>
+      ${metadata ? `<div class="slide-footer-meta" contenteditable="true">${escapeHtml(metadata)}</div>\n` : ''}
+    `;
+  }
+
+  // Pre-scan for comparison / vs layout
+  if (layout === 'comparison' || layout === 'vs') {
+    let titleLines = [];
+    let leftLines = [];
+    let rightLines = [];
+    let section = 'title';
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      if (trimmed === '|||' || trimmed === '===' || /^<!--\s*col\s*-->$/i.test(trimmed) || /^##?\s*VS/i.test(trimmed)) {
+        section = 'right';
+        continue;
+      }
+      if (section === 'title') {
+        if (trimmed.startsWith('# ') || trimmed.startsWith('## ')) {
+          titleLines.push(line);
+          continue;
+        } else {
+          section = 'left';
+        }
+      }
+      if (section === 'left') {
+        leftLines.push(line);
+      } else {
+        rightLines.push(line);
+      }
+    }
+
+    let compHtml = '';
+    for (const t of titleLines) {
+      const trimmed = t.trim();
+      if (trimmed.startsWith('# ')) compHtml += `<h1 contenteditable="true">${escapeHtml(trimmed.slice(2))}</h1>\n`;
+      else if (trimmed.startsWith('## ')) compHtml += `<h2 contenteditable="true">${escapeHtml(trimmed.slice(3))}</h2>\n`;
+      else if (trimmed.startsWith('### ')) compHtml += `<h3 contenteditable="true">${escapeHtml(trimmed.slice(4))}</h3>\n`;
+    }
+
+    function renderCompBlock(blockLines, isAccent) {
+      let bHtml = `<div class="comparison-card ${isAccent ? 'card-accent' : 'card-challenge'}">\n`;
+      let inBList = false;
+      for (const raw of blockLines) {
+        const t = raw.trim();
+        if (!t) continue;
+        if (t.startsWith('### ')) {
+          if (inBList) { bHtml += '</ul>\n'; inBList = false; }
+          bHtml += `<h4 contenteditable="true">${escapeHtml(t.slice(4))}</h4>\n`;
+        } else if (t.startsWith('- ') || t.startsWith('* ')) {
+          if (!inBList) { bHtml += '<ul>\n'; inBList = true; }
+          bHtml += `<li contenteditable="true">${formatInlineMarkdown(t.slice(2))}</li>\n`;
+        } else {
+          if (inBList) { bHtml += '</ul>\n'; inBList = false; }
+          bHtml += `<p contenteditable="true">${formatInlineMarkdown(t)}</p>\n`;
+        }
+      }
+      if (inBList) bHtml += '</ul>\n';
+      bHtml += '</div>\n';
+      return bHtml;
+    }
+
+    compHtml += `
+      <div class="comparison-container">
+        ${renderCompBlock(leftLines, false)}
+        ${renderCompBlock(rightLines, true)}
+      </div>
+      ${metadata ? `<div class="slide-footer-meta" contenteditable="true">${escapeHtml(metadata)}</div>\n` : ''}
+    `;
+    return compHtml;
+  }
+
   // Pre-scan for metrics layout
-  if (layout === 'metrics') {
+  if (layout === 'metrics' || layout === 'stat' || layout === 'stats') {
     const metrics = [];
     const nonMetricLines = [];
     for (const line of lines) {
@@ -1972,7 +2170,7 @@ function renderSlideBody(lines, layout, kicker, metadata) {
   }
 
   // Pre-scan for flow / steps layout
-  if (layout === 'flow') {
+  if (layout === 'flow' || layout === 'timeline' || layout === 'roadmap' || layout === 'steps') {
     const steps = [];
     const nonStepLines = [];
     for (const line of lines) {
@@ -2011,18 +2209,37 @@ function renderSlideBody(lines, layout, kicker, metadata) {
     return html;
   }
 
-  // Pre-scan for cards grid
-  if (layout === 'grid') {
+  // Pre-scan for cards grid / bento
+  if (layout === 'grid' || layout === 'bento' || layout === 'cards') {
     const cards = [];
     const nonCardLines = [];
+    let currentCard = null;
+
     for (const line of lines) {
-      const cardMatch = line.match(/^-\s*\*\*(.*?)(?::\*\*|\*\*:|\*\*)\s*(?:[-:]\s*)?(.*)$/);
-      if (cardMatch && cardMatch[1].trim()) {
-        cards.push({ title: cardMatch[1].trim(), desc: cardMatch[2].trim() });
+      const trimmed = line.trim();
+      const bulletCardMatch = trimmed.match(/^-\s*\*\*(.*?)(?::\*\*|\*\*:|\*\*)\s*(?:[-:]\s*)?(.*)$/);
+      const headingCardMatch = trimmed.match(/^###\s+(.*)$/);
+
+      if (bulletCardMatch && bulletCardMatch[1].trim()) {
+        if (currentCard) { cards.push(currentCard); currentCard = null; }
+        const title = bulletCardMatch[1].trim();
+        const desc = bulletCardMatch[2].trim();
+        const isWide = /\[(?:wide|hero|full)\]/i.test(title);
+        cards.push({ title: title.replace(/\[(?:wide|hero|full)\]/i, '').trim(), desc, isWide });
+      } else if (headingCardMatch) {
+        if (currentCard) { cards.push(currentCard); }
+        const title = headingCardMatch[1].trim();
+        const isWide = /\[(?:wide|hero|full)\]/i.test(title);
+        currentCard = { title: title.replace(/\[(?:wide|hero|full)\]/i, '').trim(), desc: '', isWide };
+      } else if (currentCard) {
+        if (trimmed) {
+          currentCard.desc = currentCard.desc ? `${currentCard.desc} ${trimmed}` : trimmed;
+        }
       } else {
         nonCardLines.push(line);
       }
     }
+    if (currentCard) { cards.push(currentCard); }
 
     for (const line of nonCardLines) {
       const trimmed = line.trim();
@@ -2038,11 +2255,11 @@ function renderSlideBody(lines, layout, kicker, metadata) {
     }
 
     if (cards.length > 0) {
-      html += '<div class="cards-container">\n';
+      html += '<div class="cards-container bento-grid">\n';
       for (const c of cards) {
-        html += `  <div class="grid-card">\n`;
+        html += `  <div class="grid-card ${c.isWide ? 'card-wide' : ''}">\n`;
         html += `    <h4 contenteditable="true">${escapeHtml(c.title)}</h4>\n`;
-        html += `    <p contenteditable="true">${escapeHtml(c.desc)}</p>\n`;
+        html += `    <p contenteditable="true">${formatInlineMarkdown(c.desc)}</p>\n`;
         html += `  </div>\n`;
       }
       html += '</div>\n';

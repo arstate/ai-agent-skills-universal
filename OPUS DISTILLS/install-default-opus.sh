@@ -63,15 +63,21 @@ cp -rf "$SCRIPT_DIR/tools"/* "$HOME/browser-tools/"
 chmod +x "$HOME/.agents/tools"/*.sh "$HOME/.agents/tools"/*/*.sh "$HOME/.agents/tools"/*/*.command "$HOME/.agents/tools"/*.py 2>/dev/null || true
 chmod +x "$HOME/browser-tools"/*.sh "$HOME/browser-tools"/*/*.sh "$HOME/browser-tools"/*/*.command "$HOME/browser-tools"/*.py 2>/dev/null || true
 
-# Ensure Python websockets dependency is present for CDP engine
+# Ensure Python websockets and python-pptx dependencies are present
 python3 -c "import websockets" 2>/dev/null || pip install --quiet websockets 2>/dev/null || pip3 install --quiet websockets 2>/dev/null || true
+python3 -c "import pptx" 2>/dev/null || pip install --quiet python-pptx 2>/dev/null || pip3 install --quiet python-pptx 2>/dev/null || true
 
 # Symlink convenience binaries to ~/.local/bin
-chmod +x "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.agents/skills/slidedeck-gen/scripts"/*.mjs "$HOME/.agents/skills/slidedeck-gen/scripts"/*.py 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.agents/skills/slidedeck-gen/scripts"/*.mjs "$HOME/.agents/skills/slidedeck-gen/scripts"/*.py "$HOME/.agents/skills/slidedeck-gen/scripts"/*.sh 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/launch-visible-chrome.sh" "$HOME/.local/bin/launch-visible-chrome" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.local/bin/slidedeck-gen" 2>/dev/null || true
-echo "✅ Tools berhasil dipasang dan dioptimasi!"
+
+# Run slidedeck-gen engine installer & diagnostics
+if [ -f "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" ]; then
+  bash "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" || true
+fi
+echo "✅ Tools & Slide Deck Engines berhasil dipasang dan dioptimasi!"
 
 echo ""
 echo "=========================================================================="
