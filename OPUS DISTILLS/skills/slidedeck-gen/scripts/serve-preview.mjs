@@ -109,6 +109,8 @@ let compileDebounceTimer = null;
 const watchDirs = new Set([serveDir]);
 if (sourceFile) watchDirs.add(path.dirname(sourceFile));
 
+let lastPersistTimestamp = 0;
+
 for (const dirToWatch of watchDirs) {
   try {
     watch(dirToWatch, { recursive: true }, (eventType, filename) => {
@@ -121,6 +123,10 @@ for (const dirToWatch of watchDirs) {
           broadcastSse({ type: 'reload', filename, time: Date.now() });
         }, 50);
       } else if (lower.endsWith('.html') || lower.endsWith('.css') || lower.endsWith('.js')) {
+        // Prevent auto-save persistence from looping and reloading the editing browser
+        if (lower.endsWith('index.html') && Date.now() - lastPersistTimestamp < 2500) {
+          return;
+        }
         clearTimeout(compileDebounceTimer);
         compileDebounceTimer = setTimeout(() => {
           broadcastSse({ type: 'reload', filename, time: Date.now() });
@@ -187,8 +193,9 @@ const server = http.createServer(async (req, res) => {
         const payload = JSON.parse(body);
         const targetHtml = path.join(serveDir, 'index.html');
         if (payload.html && existsSync(targetHtml)) {
+          lastPersistTimestamp = Date.now();
           let currentContent = readFileSync(targetHtml, 'utf8');
-          const stageRegex = /(<div class="slide-stage"[^>]*>)([\s\S]*?)(<\/div>\s*<\/main>|<div class="deck-hud")/i;
+          const stageRegex = /(<div class="slide-stage"[^>]*>)([\s\S]*?)(<\/div>\s*<\/main>|<div class="deck-hud"|<footer class="deck-hud")/i;
           if (stageRegex.test(currentContent)) {
             currentContent = currentContent.replace(stageRegex, (match, p1, p2, p3) => `${p1}\n${payload.html}\n${p3}`);
           }

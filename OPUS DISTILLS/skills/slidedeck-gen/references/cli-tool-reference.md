@@ -173,3 +173,28 @@ Autonomous visual audit using visible Chrome GUI and the AI Cursor HUD (`cdp_vis
 ```bash
 slidedeck-gen review dist/architecture --port 9223 --screenshots dist/architecture/qa-shots
 ```
+
+---
+
+### `slidedeck-gen install-engine`
+Runs an automated environment diagnostic and installation suite for both vector PDF and editable PPTX slide deck engines.
+
+**Checks & Actions:**
+1. Validates Node.js (>= 18) runtime.
+2. Validates Python 3 and verifies/installs `python-pptx` (via pip3 or uv).
+3. Detects system Chrome or Chromium executables.
+4. Symlinks `slidedeck-gen` binary to `~/.local/bin/slidedeck-gen`.
+5. Runs an automated end-to-end self-test compiling a sample slide and verifying both `.pdf` and `.pptx` generation.
+
+**Direct Script Alternative:**
+```bash
+bash scripts/install-engine.sh
+```
+
+---
+
+### Direct Script: `scripts/export-pdf.sh`
+Standalone shell script for headless zero-margin 16:9 PDF export, inspired by `zarazhangrui/frontend-slides`:
+```bash
+bash scripts/export-pdf.sh <path-to-deck-or-html> [output.pdf]
+```

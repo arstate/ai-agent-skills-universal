@@ -1115,6 +1115,8 @@ function generateFullDeckHtml(parsedSlides, documentTitle, globalTheme) {
     }
 
     .slide {
+      background: var(--bg-slide) !important;
+      color: var(--text-body) !important;
       position: relative !important;
       width: 1920px !important;
       height: 1080px !important;
@@ -1126,6 +1128,15 @@ function generateFullDeckHtml(parsedSlides, documentTitle, globalTheme) {
       transform: none !important;
       display: flex !important;
       overflow: hidden !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .grid-card, .metric-card, .flow-step, .quote-spotlight, .layout-split > div {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      background: var(--card-bg) !important;
+      border: 1px solid var(--card-border) !important;
     }
 
     .deck-topbar, .slide-rail, .rail-toggle-btn, .deck-hud, .no-print {
@@ -1203,7 +1214,8 @@ function generateFullDeckHtml(parsedSlides, documentTitle, globalTheme) {
         <span>⬇ Export ▾</span>
       </button>
       <div class="dropdown-content" id="export-dropdown">
-        <button class="dropdown-item" id="opt-export-pdf">📄 Export PDF (Vector / Print)</button>
+        <button class="dropdown-item" id="opt-export-pdf">📄 Download PDF (Zero-Margin Engine)</button>
+        <button class="dropdown-item" id="opt-print-pdf">🖨 Print / System PDF (Browser Dialog)</button>
         <button class="dropdown-item" id="opt-export-pptx">📊 Export PPTX (PowerPoint)</button>
         <button class="dropdown-item" id="opt-export-html">🌐 Export Standalone HTML</button>
       </div>
@@ -1617,6 +1629,27 @@ function generateFullDeckHtml(parsedSlides, documentTitle, globalTheme) {
   const optPdf = document.getElementById('opt-export-pdf');
   if (optPdf) {
     optPdf.addEventListener('click', () => {
+      optPdf.textContent = '⏳ Exporting PDF...';
+      fetch('/api/export/pdf', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          optPdf.textContent = '📄 Download PDF (Zero-Margin Engine)';
+          if (data.downloadUrl) {
+            window.location.href = data.downloadUrl;
+          } else {
+            window.print();
+          }
+        })
+        .catch(() => {
+          optPdf.textContent = '📄 Download PDF (Zero-Margin Engine)';
+          window.print();
+        });
+    });
+  }
+
+  const optPrintPdf = document.getElementById('opt-print-pdf');
+  if (optPrintPdf) {
+    optPrintPdf.addEventListener('click', () => {
       window.print();
     });
   }

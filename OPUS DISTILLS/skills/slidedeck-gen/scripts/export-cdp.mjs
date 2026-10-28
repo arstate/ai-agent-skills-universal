@@ -6,7 +6,7 @@
  */
 
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, statSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import net from 'node:net';
 import path from 'node:path';
@@ -88,8 +88,12 @@ export async function exportDeckToPdf(inputTarget, outFile, options = {}) {
     server = http.createServer((req, res) => {
       let reqPath = req.url.split('?')[0];
       if (reqPath === '/' || reqPath === '') reqPath = `/${path.basename(htmlFile)}`;
-      const filePath = path.join(serveDir, reqPath);
-      if (existsSync(filePath)) {
+      let filePath = path.join(serveDir, reqPath);
+      if (existsSync(filePath) && statSync(filePath).isDirectory()) {
+        const candidate = path.join(filePath, 'index.html');
+        if (existsSync(candidate)) filePath = candidate;
+      }
+      if (existsSync(filePath) && statSync(filePath).isFile()) {
         const ext = path.extname(filePath).toLowerCase();
         const mimeMap = {
           '.html': 'text/html; charset=utf-8',
@@ -98,7 +102,11 @@ export async function exportDeckToPdf(inputTarget, outFile, options = {}) {
           '.json': 'application/json; charset=utf-8',
           '.png': 'image/png',
           '.jpg': 'image/jpeg',
-          '.svg': 'image/svg+xml'
+          '.jpeg': 'image/jpeg',
+          '.svg': 'image/svg+xml',
+          '.woff': 'font/woff',
+          '.woff2': 'font/woff2',
+          '.ttf': 'font/ttf'
         };
         res.writeHead(200, { 'Content-Type': mimeMap[ext] || 'application/octet-stream' });
         res.end(readFileSync(filePath));

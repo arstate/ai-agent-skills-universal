@@ -73,6 +73,10 @@ async function main() {
     case 'review':
       await handleReview(argv.slice(1));
       break;
+    case 'install-engine':
+    case 'doctor':
+      await handleInstallEngine(argv.slice(1));
+      break;
     default:
       console.error(`Unknown command: ${command}`);
       printHelp();
@@ -95,6 +99,7 @@ Commands:
   done [options]           Finalize AI generation session and keep in-browser editor active
   export-pdf <target>      Export high-fidelity zero-margin 16:9 PDF via Chrome CDP
   export-pptx <target>     Export editable PowerPoint (.pptx) file
+  install-engine           Verify and install PDF & PPTX dependencies and link CLI binary
   review <target>          Launch visible Chrome CDP reviewer with AI cursor HUD
 
 Options:
@@ -133,6 +138,10 @@ async function handleInit(args) {
     'frontend-slides-bento-grid': 'frontend-slides-bento-grid.md',
     'frontend-slides-bold-signal': 'frontend-slides-bold-signal.md',
     'frontend-slides-metric-spotlight': 'frontend-slides-metric-spotlight.md',
+    'frontend-slides-creative-mode': 'frontend-slides-creative-mode.md',
+    'frontend-slides-cobalt-cad': 'frontend-slides-cobalt-cad.md',
+    'frontend-slides-neo-grid-swiss': 'frontend-slides-neo-grid-swiss.md',
+    'frontend-slides-soft-editorial': 'frontend-slides-soft-editorial.md',
   };
 
   const filename = templateMap[templateName] || 'pitch-deck.md';
@@ -390,6 +399,15 @@ async function handleReview(args) {
     cwd: process.cwd()
   });
 
+  child.on('close', code => process.exit(code || 0));
+}
+
+async function handleInstallEngine() {
+  const installScript = path.join(SKILL_ROOT, 'scripts/install-engine.sh');
+  const child = spawn('bash', [installScript], {
+    stdio: 'inherit',
+    cwd: process.cwd()
+  });
   child.on('close', code => process.exit(code || 0));
 }
 

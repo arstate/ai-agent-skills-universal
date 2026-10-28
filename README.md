@@ -114,6 +114,9 @@ Integrated standard inspired by **Dashi PPT** (`chuspeeism/dashi-ppt-skill`) and
 ## 🛠️ CLI Quick Reference (`slidedeck-gen`)
 
 ```bash
+# Verify runtime dependencies & install engines:
+slidedeck-gen install-engine
+
 # Start live presentation dev server with visible Chrome auto-open:
 slidedeck-gen dev my-deck --theme bold-signal
 
