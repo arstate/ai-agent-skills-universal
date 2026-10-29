@@ -1,6 +1,6 @@
 ---
 name: next-slidedeck-engine
-description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on Next.js. Features full creative design freedom (Light Mode, Cream Editorial, Bold Accent, Minimalist Monochrome Dark), 26 curated themes from SlideSpeak and Zara Zhang frontend-slides, zero emoji clutter, 3-panel studio layout (left slide filmstrip, center fixed 16:9 canvas with zero UI overlay buttons, right inspector for style/text/elements/morph animations/universal export), and multi-format vector PDF, raster 4K PDF, editable PPTX, and pure SVG output.
+description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on Next.js. Features full creative design freedom (Light Mode, Cream Editorial, Bold Accent, Minimalist Monochrome Dark), 39 curated themes from SlideSpeak, Zara Zhang frontend-slides, and Dashi 12 Curated Themes, zero emoji clutter, 3-panel studio layout (left slide filmstrip, center fixed 16:9 canvas with zero UI overlay buttons, right inspector for style/text/elements/morph animations/universal export), and multi-format vector PDF, raster 4K PDF, editable PPTX, and pure SVG output.
 ---
 
 # `next-slidedeck-engine` — Autonomous Multi-Aesthetic Presentation Studio
@@ -12,10 +12,10 @@ description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on
 ## 1. Core Visual & UX Principles
 
 1. **Full Creative Design Freedom (Never Locked to Dark Mode Only):**
-   - **Light & Cream Editorial Modes:** McKinsey/BCG Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Japanese Kanagi Washi (`#EFEAE2`), Munich Bauhaus Neue Klasse (`#FFFFFF`), OpEx Executive Navy (`#FFFFFF`), and Broadsheet Paper & Ink (`#FAF9F7`).
-   - **Vibrant & Bold Modern Modes:** Venture Pitch Cobalt (`#2563EB`), Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), and Neon Cyber (`#00FFCC`).
-   - **Minimalist Monochrome Dark Modes:** Obsidian Pure (`#000000`), Titanium Precision (`#090A0C`), Swiss Modernist Dark (`#09090B`), Editorial Noir (`#080809`), and Graphite Telemetry (`#070809`).
-   - **One-Click Light/Dark Mode Palette Toggle** in the Topbar with zero SSR hydration mismatch.
+   - **Light & Cream Editorial Modes:** McKinsey/BCG Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Japanese Kanagi Washi (`#EFEAE2`), Munich Bauhaus Neue Klasse (`#FFFFFF`), OpEx Executive Navy (`#FFFFFF`), Broadsheet Paper & Ink (`#FAF9F7`), Dashi Soft Neumorphism (`#F0F4F8`), and Dashi Crisp Whitepaper (`#FAFAFA`).
+   - **Vibrant & Bold Modern Modes:** Venture Pitch Cobalt (`#2563EB`), Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Neon Cyber (`#00FFCC`), Dashi High Growth (`#3B82F6`), and Dashi Sonic Neon (`#EC4899`).
+   - **Minimalist Monochrome Dark & Tech Modes:** Obsidian Pure (`#000000`), Titanium Precision (`#090A0C`), Swiss Modernist Dark (`#09090B`), Editorial Noir (`#080809`), Graphite Telemetry (`#070809`), SlideSpeak Hypergradient (`#0B0420`), Dashi Cyber Glow (`#00FFAA`), Dashi Tech Code (`#58A6FF`), Dashi Financial Index (`#10B981`), and Dashi Noir Luxe (`#D4AF37`).
+   - **One-Click Light/Dark Mode Palette Toggle & Preset Deck Switcher** in the Topbar with zero SSR hydration mismatch.
    - **Zero decorative emojis, cartoon badges, or chaotic AI slop.** Pure mathematical, typography-led elegance.
 
 2. **Fixed 16:9 Canvas Ratio (Anti-Responsive Distortion):**
@@ -37,7 +37,7 @@ description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on
    - **Left Sidebar:** Slide page thumbnails list (filmstrip), add slide menu (8 layout archetypes), reorder up/down, duplicate slide, delete slide.
    - **Center Canvas:** The pristine 16:9 presentation frame with fixed scaling and dark surround.
    - **Right Sidebar:** 5-tab inspector workstation:
-     - `STYLE`: 26 Curated palettes categorized into `All`, `Light`, `Dark`, and `Vibrant` + active slide layout switcher.
+     - `STYLE`: 39 Curated palettes categorized into `All`, `Light`, `Dark`, and `Vibrant` + active slide layout switcher.
      - `TEXT`: Kicker / context tag, headline title, subtitle summary, footnote telemetry.
      - `ELEMENTS`: Dynamic item controls for metric cards, 3-pillar columns, bento grid cards, comparison points, and quotes.
      - `ANIMATION`: Smooth Morph transitions (shared layout interpolation), Crossfade, Directional Slides, Zoom, Clip, Flip 3D, and Stagger Blur with duration and easing controls.
@@ -112,8 +112,13 @@ skills/next-slidedeck-engine/
 ├── export/
 │   └── ExportEngine.ts          # Vector PDF, 4K PDF, PPTX, and SVG export algorithms
 ├── presets/
-│   ├── sampleDecks.ts           # Initial executive and consulting slides
-│   └── themes.ts                # 26 Curated palettes (SlideSpeak, Zara Zhang, Monochrome)
+│   ├── sampleDecks.ts           # 8 Curated sample decks (Monochrome, Consulting, SlideSpeak, Dashi, Zara Zhang)
+│   └── themes.ts                # 39 Curated palettes (SlideSpeak, Zara Zhang, Dashi 12, Monochrome)
+├── references/
+│   ├── COMBO_DESIGN_SYSTEM_GUIDE.md # Master guide for combining Dashi, SlideSpeak & Zara Zhang
+│   ├── dashi/                   # Dashi 12 themes catalog, blueprints, manifest, components & 4 sample JSONs
+│   ├── slidespeak/              # 8 Consulting archetypes, McKinsey specs, design rules, 26 engine files & 6 HTML slide decks
+│   └── zara-zhang-frontend-slides/ # 34 Bold archetypes, manifests, patterns & 11 markdown templates
 ├── types/
 │   └── slide.ts                 # TypeScript domain contracts
 └── package.json                 # Next.js, Framer Motion, pptxgenjs, jspdf dependencies

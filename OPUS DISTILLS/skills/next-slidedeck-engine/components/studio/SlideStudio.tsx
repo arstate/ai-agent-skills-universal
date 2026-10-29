@@ -217,6 +217,13 @@ export const SlideStudio: React.FC = () => {
     }
   };
 
+  const handleSelectSampleDeck = (deckKey: string) => {
+    if (SAMPLE_DECKS[deckKey]) {
+      setDeck(SAMPLE_DECKS[deckKey]);
+      setActiveSlideIndex(0);
+    }
+  };
+
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden bg-[#09090b] text-white">
       {/* Studio Topbar */}
@@ -231,6 +238,7 @@ export const SlideStudio: React.FC = () => {
         isMounted={mounted}
         isEditMode={isEditMode}
         onToggleEditMode={() => setIsEditMode((prev) => !prev)}
+        onSelectSampleDeck={handleSelectSampleDeck}
       />
 
       {/* Main 3-Panel Studio Workstation */}

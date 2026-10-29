@@ -353,6 +353,7 @@ function renderLayoutContent(
           </div>
 
           <motion.div
+            layoutId={isMorph ? 'slide-title' : undefined}
             className="text-7xl font-bold tracking-tight leading-[1.08] mb-8"
             style={{ color: slide.elements.titleColor || theme.textPrimary }}
           >

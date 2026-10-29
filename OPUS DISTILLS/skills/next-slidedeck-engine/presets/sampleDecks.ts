@@ -494,10 +494,639 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
   ],
 };
 
+// ==========================================
+// 4. DASHI FINANCIAL INDEX DECK (Adapted from Dashi annual-review.json)
+// ==========================================
+export const DASHI_FINANCIAL_INDEX_DECK: SlideDeck = {
+  id: 'deck-dashi-financial-2026',
+  title: 'Fiscal Year 2026 Executive Review',
+  themeId: 'dashi-financial-index',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: '2026-10-29T00:00:00.000Z',
+  slides: [
+    {
+      id: 'dfi-1',
+      kicker: 'EXECUTIVE BRIEFING // AUDITED RESULTS',
+      title: 'FY2026 Strategic Performance',
+      subtitle: 'Audited financial metrics, business unit unit economics, and capital allocation plan',
+      layout: 'cover',
+      elements: {
+        footnote: 'SOURCE: ANNUAL AUDIT & COMPLIANCE REVIEW // CONFIDENTIAL',
+      },
+    },
+    {
+      id: 'dfi-2',
+      kicker: 'FINANCIAL HIGHLIGHTS // SCALE & EFFICIENCY',
+      title: 'Consolidated Growth Metrics',
+      subtitle: 'Key audited indicators demonstrating enterprise expansion and cash flow durability',
+      layout: 'metrics',
+      elements: {
+        metrics: [
+          {
+            id: 'm1',
+            value: '$184.2M',
+            label: 'ANNUAL RECURRING REVENUE',
+            subtext: '48% YoY organic growth across enterprise tiers',
+            change: '+48.2%',
+            iconName: 'bar-chart',
+            color: '#10B981',
+          },
+          {
+            id: 'm2',
+            value: '142%',
+            label: 'NET REVENUE RETENTION',
+            subtext: 'Negative net churn across Global 2000 accounts',
+            change: '+14% YoY',
+            iconName: 'activity',
+            color: '#34D399',
+          },
+          {
+            id: 'm3',
+            value: '78.4%',
+            label: 'NON-GAAP GROSS MARGIN',
+            subtext: 'Expansion driven by automated edge infrastructure',
+            change: '+320 bps',
+            iconName: 'target',
+            color: '#6EE7B7',
+          },
+          {
+            id: 'm4',
+            value: '4.2x',
+            label: 'RULE OF 40 SCORE',
+            subtext: 'Top-decile capital efficiency and EBITDA margin',
+            change: 'Top Decile',
+            iconName: 'shield',
+            color: '#F59E0B',
+          },
+        ],
+        footnote: 'AUDITED TELEMETRY // FY2026 GAAP COMPLIANT METRICS',
+      },
+    },
+    {
+      id: 'dfi-3',
+      kicker: 'CAPITAL ALLOCATION // STRATEGIC HORIZONS',
+      title: 'Resource Deployment Strategy',
+      subtitle: 'Disciplined capital deployment balancing core platform durability with frontier expansion',
+      layout: 'pillars',
+      elements: {
+        pillars: [
+          {
+            id: 'p1',
+            title: 'I. Platform Automation',
+            tag: 'CORE ENGINE (45%)',
+            description:
+              'Continuous hardening of deterministic real-time processing and edge pipelines to maintain gross margin expansion above 78%.',
+            iconName: 'cpu',
+            color: '#10B981',
+          },
+          {
+            id: 'p2',
+            title: 'II. Autonomous Agents',
+            tag: 'GROWTH VECTOR (35%)',
+            description:
+              'Scaling parallel multi-agent swarm systems delivering direct enterprise workflows with sub-second task latency.',
+            iconName: 'zap',
+            color: '#3B82F6',
+          },
+          {
+            id: 'p3',
+            title: 'III. Global Distribution',
+            tag: 'GEO SCALE (20%)',
+            description:
+              'Targeted EMEA and APAC enterprise channel partnerships ensuring compliant data residency and localized execution.',
+            iconName: 'globe',
+            color: '#8B5CF6',
+          },
+        ],
+        footnote: 'CAPITAL COMMITTEE MANDATE // FY2026-2027 BUDGETING',
+      },
+    },
+    {
+      id: 'dfi-4',
+      kicker: 'OPERATING LEVERAGE // BEFORE & AFTER',
+      title: 'Economic Transformation Model',
+      subtitle: 'Structural comparison of legacy manual workflows versus automated agent operations',
+      layout: 'comparison',
+      elements: {
+        comparison: {
+          leftTitle: 'LEGACY OPERATING MODEL',
+          leftItems: [
+            'Linear headcount scaling directly coupled to revenue growth',
+            'Fragmented manual reconciliation requiring 14-day close',
+            'High operational overhead with 22% support expenditure',
+            'Unpredictable customer acquisition costs and churn risk',
+          ],
+          rightTitle: 'AUTONOMOUS ENTERPRISE MODEL',
+          rightItems: [
+            'Sub-linear cost curves with autonomous multi-agent swarms',
+            'Continuous real-time settlement and deterministic audit log',
+            'Self-healing workflows with sub-5% operational expenditure',
+            'Compounding customer lifetime value with 142% NRR',
+          ],
+        },
+        footnote: 'OPERATING BENCHMARKS // SOURCE: INTERNAL CORPORATE FINANCE',
+      },
+    },
+  ],
+};
+
+// ==========================================
+// 5. DASHI TECH CODE DECK (Adapted from Dashi workflow-telemetry.json)
+// ==========================================
+export const DASHI_TECH_TELEMETRY_DECK: SlideDeck = {
+  id: 'deck-dashi-tech-telemetry-2026',
+  title: 'Distributed Infrastructure Telemetry',
+  themeId: 'dashi-tech-code',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: '2026-10-29T00:00:00.000Z',
+  slides: [
+    {
+      id: 'dtt-1',
+      kicker: 'INFRASTRUCTURE TELEMETRY // EDGE DEPLOYMENT',
+      title: 'Distributed Mesh Systems',
+      subtitle: 'Deterministic consensus, sub-millisecond telemetry, and partitioned fault recovery',
+      layout: 'cover',
+      elements: {
+        footnote: 'PRODUCTION CLUSTER LOG // EDGE MESH 2026',
+      },
+    },
+    {
+      id: 'dtt-2',
+      kicker: 'NETWORK BENCHMARKS // DISTRIBUTED HEALTH',
+      title: 'Real-Time Edge Telemetry',
+      subtitle: 'Telemetry streams collected across 128 globally distributed physical PoPs',
+      layout: 'metrics',
+      elements: {
+        metrics: [
+          {
+            id: 'm1',
+            value: '<8ms',
+            label: 'GLOBAL P99 LATENCY',
+            subtext: 'BGP Anycast routing to closest edge node',
+            change: '-45% ms',
+            iconName: 'activity',
+            color: '#58A6FF',
+          },
+          {
+            id: 'm2',
+            value: '99.999%',
+            label: 'NODE AVAILABILITY',
+            subtext: 'Zero planned downtime in trailing 12 months',
+            change: '100% Up',
+            iconName: 'shield',
+            color: '#3FB950',
+          },
+          {
+            id: 'm3',
+            value: '128',
+            label: 'PHYSICAL POPS',
+            subtext: 'Tier-4 datacenter facilities globally',
+            change: '+32 PoPs',
+            iconName: 'server',
+            color: '#A371F7',
+          },
+          {
+            id: 'm4',
+            value: '0.00%',
+            label: 'PACKET DROP RATE',
+            subtext: 'Hardware offload with RDMA fabric',
+            change: 'Zero Loss',
+            iconName: 'network',
+            color: '#58A6FF',
+          },
+        ],
+        footnote: 'EDGE TELEMETRY PROTOCOL v4.8 // UTC MONITORED',
+      },
+    },
+    {
+      id: 'dtt-3',
+      kicker: 'SYSTEM TOPOLOGY // SPLIT PARTITIONING',
+      title: 'Edge Consensus Architecture',
+      subtitle: 'Decoupled state replication guarantees bounded consistency without latency spikes',
+      layout: 'split',
+      elements: {
+        bullets: [
+          'Stateless edge proxies terminate TLS 1.3 handshakes within 2ms of client endpoints.',
+          'Raft consensus clusters process state mutations with cryptographic quorum verification.',
+          'Zero-copy memory pipelines bypass kernel buffers to sustain wire-speed packet throughput.',
+          'Automated isolation protocols partition degraded nodes without impacting global cluster health.',
+        ],
+        footnote: 'TECHNICAL SPECIFICATION // CONSENSUS SUITE v2.6',
+      },
+    },
+  ],
+};
+
+// ==========================================
+// 6. ZARA ZHANG BENTO GRID DECK (Adapted from frontend-slides-bento-grid.md)
+// ==========================================
+export const ZARA_ZHANG_BENTO_DECK: SlideDeck = {
+  id: 'deck-zara-bento-2026',
+  title: 'High-Density Bento Matrix Architecture',
+  themeId: 'obsidian-pure',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: '2026-10-29T00:00:00.000Z',
+  slides: [
+    {
+      id: 'zzb-1',
+      kicker: 'MODULAR DESIGN SYSTEM // BENTO ARCHITECTURE',
+      title: 'High-Density Bento Matrix',
+      subtitle: 'Structured visual hierarchy combining quantitative metrics, capability cards, and graphic taxonomy',
+      layout: 'cover',
+      elements: {
+        footnote: 'DESIGN BLUEPRINT // ZARA ZHANG ARCHETYPE ADAPTATION',
+      },
+    },
+    {
+      id: 'zzb-2',
+      kicker: 'SUBSYSTEM CAPABILITY // BENTO GRID',
+      title: 'Modular Engine Components',
+      subtitle: 'Structured card layout balancing information density with pristine editorial breathing room',
+      layout: 'bento',
+      elements: {
+        bentoCards: [
+          {
+            id: 'b1',
+            title: 'Universal Export Engine',
+            subtitle: 'MULTI-TARGET COMPILER',
+            description:
+              'Mathematical vector SVG, lossless PDF via Chrome CDP, and native Microsoft PowerPoint .pptx generation.',
+            spanCol: 2,
+            spanRow: 1,
+            badge: 'PRODUCTION READY',
+            stat: '100% Vector',
+            iconName: 'layers',
+            color: '#3B82F6',
+          },
+          {
+            id: 'b2',
+            title: 'On-Canvas PowerPoint Mode',
+            subtitle: 'LIVE WYSIWYG',
+            description:
+              'Instant in-place editing across all headlines, metrics, and cards with live state synchronization.',
+            spanCol: 1,
+            spanRow: 1,
+            badge: 'KEY [E]',
+            stat: '<1ms Latency',
+            iconName: 'edit',
+            color: '#10B981',
+          },
+          {
+            id: 'b3',
+            title: 'Curated Theme Presets',
+            subtitle: '38 DESIGN PALETTES',
+            description:
+              'Complete spectrum spanning Minimalist Monochrome, McKinsey Cream, and High-Energy Vibrant modes.',
+            spanCol: 1,
+            spanRow: 1,
+            badge: '38 THEMES',
+            stat: '4 Categories',
+            iconName: 'sparkles',
+            color: '#8B5CF6',
+          },
+          {
+            id: 'b4',
+            title: 'Hardware Morph Motion',
+            subtitle: 'SPRING PHYSICS',
+            description:
+              'Shared layout interpolation delivering fluid element morphing between slide transitions without raster jitter.',
+            spanCol: 2,
+            spanRow: 1,
+            badge: 'ZERO JITTER',
+            stat: '60 FPS',
+            iconName: 'zap',
+            color: '#F59E0B',
+          },
+        ],
+        footnote: 'BENTO ARCHITECTURE BLUEPRINT // FULL HD 1080P GRID',
+      },
+    },
+    {
+      id: 'zzb-3',
+      kicker: 'DESIGN DOCTRINE // CORE PRINCIPLE',
+      title: 'The Discipline of Simplicity',
+      subtitle: 'Engineering excellence requires relentless subtraction of non-essential ornamentation',
+      layout: 'quote',
+      elements: {
+        quote: {
+          text:
+            'Simplicity is prerequisite for reliability. A system that cannot be understood at a glance cannot be trusted in production.',
+          author: 'Edsger W. Dijkstra',
+          role: 'Foundational Systems Axiom',
+        },
+        footnote: 'ARCHITECTURAL DOCTRINE // ZERO AI SLOP ENFORCEMENT',
+      },
+    },
+  ],
+};
+
+// ==========================================
+// 7. ZARA ZHANG BOLD SIGNAL DECK (Adapted from frontend-slides-bold-signal.md)
+// ==========================================
+export const ZARA_ZHANG_BOLD_SIGNAL_DECK: SlideDeck = {
+  id: 'deck-zara-bold-signal-2026',
+  title: 'Signal Mode: The Velocity Thesis',
+  themeId: 'bold-signal',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: '2026-10-29T00:00:00.000Z',
+  slides: [
+    {
+      id: 'zbs-1',
+      kicker: 'VENTURE BRIEFING // VELOCITY THESIS',
+      title: 'Signal Over Noise',
+      subtitle: 'High-conviction presentation framework for category-defining strategic pitches',
+      layout: 'cover',
+      elements: {
+        footnote: 'CONFIDENTIAL // HIGH VELOCITY STRATEGY 2026',
+      },
+    },
+    {
+      id: 'zbs-2',
+      kicker: 'GROWTH VELOCITY // EXPONENTIAL TRACTION',
+      title: 'Category Dominance Metrics',
+      subtitle: 'Defensive market momentum driven by product superiority and viral customer adoption',
+      layout: 'metrics',
+      elements: {
+        metrics: [
+          {
+            id: 'm1',
+            value: '12.4x',
+            label: 'ANNUAL REVENUE MULTIPLIER',
+            subtext: 'Accelerating growth trajectory across enterprise tiers',
+            change: '+1,140% YoY',
+            iconName: 'zap',
+            color: '#FF5722',
+          },
+          {
+            id: 'm2',
+            value: '94%',
+            label: 'ORGANIC ADOPTION RATE',
+            subtext: 'Zero paid acquisition spend in customer acquisition',
+            change: 'Word of Mouth',
+            iconName: 'target',
+            color: '#FF7043',
+          },
+          {
+            id: 'm3',
+            value: '$42M',
+            label: 'COMMITTED ENTERPRISE PIPELINE',
+            subtext: 'Fortune 500 pilots converting at 88% win rate',
+            change: '88% Win Rate',
+            iconName: 'bar-chart',
+            color: '#FF8A65',
+          },
+          {
+            id: 'm4',
+            value: '2.1M',
+            label: 'ACTIVE DEVELOPER WORKSPACES',
+            subtext: 'Daily active engine workflows globally',
+            change: '+240k / mo',
+            iconName: 'cpu',
+            color: '#FFA726',
+          },
+        ],
+        footnote: 'MARKET METRICS // AUDITED TRACTION STREAM',
+      },
+    },
+    {
+      id: 'zbs-3',
+      kicker: 'STRATEGIC SHIFT // MARKET FORCES',
+      title: 'The Asymmetric Advantage',
+      subtitle: 'Three compounding vectors creating an insurmountable category lead',
+      layout: 'split',
+      elements: {
+        bullets: [
+          'Full-stack deterministic execution eliminates brittle third-party cloud dependencies.',
+          'Pure vector mathematical rendering ensures pristine reproduction across any resolution or format.',
+          'Autonomous multi-agent swarms accelerate development velocity by an order of magnitude.',
+          'Uncompromising editorial aesthetics create immediate category differentiation and customer trust.',
+        ],
+        footnote: 'COMPETITIVE MOAT // VELOCITY ENGINE 2026',
+      },
+    },
+  ],
+};
+
+// ==========================================
+// 8. SLIDESPEAK AI TRUST PITCH DECK (Adapted from ai-trust-layer-pitch.html)
+// ==========================================
+export const SLIDESPEAK_AI_TRUST_PITCH_DECK: SlideDeck = {
+  id: 'deck-slidespeak-ai-trust',
+  title: 'AI Trust & Governance Infrastructure',
+  themeId: 'slidespeak-hypergradient',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: '2026-10-29T00:00:00.000Z',
+  slides: [
+    {
+      id: 'sat-1',
+      kicker: 'SLIDESPEAK ADVISORY // VENTURE BRIEF',
+      title: 'The AI Trust Layer',
+      subtitle: 'Cryptographic attestation and deterministic safety guardrails for autonomous enterprise intelligence',
+      layout: 'cover',
+      elements: {
+        footnote: 'CONFIDENTIAL // ADAPTED FROM SLIDESPEAK AI TRUST PITCH ARCHETYPE',
+      },
+    },
+    {
+      id: 'sat-2',
+      kicker: 'QUANTITATIVE ASSURANCE // BENCHMARKS',
+      title: 'Verifiable Safety Benchmarks',
+      subtitle: 'Deterministic audit metrics measured across 100M+ real-time enterprise model inferences',
+      layout: 'metrics',
+      elements: {
+        metrics: [
+          {
+            id: 'sm1',
+            value: '99.99%',
+            label: 'POLICY ADHERENCE',
+            subtext: 'Zero hallucinated execution escapes',
+            change: 'Provable Safe',
+            iconName: 'shield',
+            color: '#A78BFA',
+          },
+          {
+            id: 'sm2',
+            value: '<1.2ms',
+            label: 'GATEWAY LATENCY',
+            subtext: 'Hardware enclave cryptographic checks',
+            change: '-82% overhead',
+            iconName: 'zap',
+            color: '#818CF8',
+          },
+          {
+            id: 'sm3',
+            value: '0',
+            label: 'DATA ESCAPES',
+            subtext: 'Confidential compute memory boundary',
+            change: 'Zero Leak',
+            iconName: 'lock',
+            color: '#C084FC',
+          },
+          {
+            id: 'sm4',
+            value: '100%',
+            label: 'AUDIT TRACEABILITY',
+            subtext: 'Zero-knowledge deterministic proof log',
+            change: 'Cryptographic',
+            iconName: 'file-check',
+            color: '#E879F9',
+          },
+        ],
+        footnote: 'AUDITED TELEMETRY // SLIDESPEAK HYPERGRADIENT RIGOR',
+      },
+    },
+    {
+      id: 'sat-3',
+      kicker: 'STRATEGIC TENSION // THE PROBLEM',
+      title: 'The Enterprise Black-Box Dilemma',
+      subtitle: 'Unmonitored LLM agents operating against mission-critical databases create existential regulatory liability',
+      layout: 'split',
+      elements: {
+        bullets: [
+          'Enterprise adoption is blocked not by model capability, but by the absence of cryptographic verifiability.',
+          'Post-hoc logging fails: once unauthorized data leaves the perimeter, data sovereignty is irrevocably broken.',
+          'Prompt injection and non-deterministic agent workflows demand hardware-enforced policy gates at the kernel level.',
+          'Autonomous systems require deterministic rollbacks and multi-party quorum signatures before executing mutations.',
+        ],
+        footnote: 'SECURITY MEMORANDUM // ENTERPRISE RISK ASSESSMENT',
+      },
+    },
+    {
+      id: 'sat-4',
+      kicker: 'ARCHITECTURE // THREE TRUST PILLARS',
+      title: 'Deterministic Control Plane',
+      subtitle: 'Three cryptographic layers isolating generative model output from enterprise state modification',
+      layout: 'pillars',
+      elements: {
+        pillars: [
+          {
+            id: 'sp1',
+            title: 'I. Runtime Attestation',
+            tag: 'ENCLAVE SECURITY',
+            description:
+              'Cryptographically sealed micro-VM execution environment verifying binary integrity before prompt ingestion.',
+            iconName: 'shield',
+            color: '#A78BFA',
+          },
+          {
+            id: 'sp2',
+            title: 'II. Deterministic Interceptor',
+            tag: 'POLICY ENGINE',
+            description:
+              'Sub-millisecond AST parser evaluating all tool calls, database queries, and external API requests against strict ACL schemas.',
+            iconName: 'cpu',
+            color: '#818CF8',
+          },
+          {
+            id: 'sp3',
+            title: 'III. Zero-Knowledge Ledger',
+            tag: 'IMMUTABLE AUDIT',
+            description:
+              'Mathematical proof bundles recorded to distributed append-only ledger for regulatory compliance without leaking prompt data.',
+            iconName: 'database',
+            color: '#C084FC',
+          },
+        ],
+        footnote: 'SYSTEMS ARCHITECTURE // ZERO-TRUST AI GATEWAY',
+      },
+    },
+    {
+      id: 'sat-5',
+      kicker: 'CAPABILITIES // ARCHITECTURAL BENTO',
+      title: 'Integrated Enterprise Platform',
+      subtitle: 'Modular infrastructure components designed for instant drop-in integration across cloud providers',
+      layout: 'bento',
+      elements: {
+        bentoCards: [
+          {
+            id: 'sb1',
+            title: 'Zero-Knowledge Proof Generator',
+            subtitle: 'CRYPTOGRAPHIC ATTESTATION',
+            description:
+              'Generates succinct non-interactive arguments of knowledge (SNARKs) verifying that model inference adhered to governance rules.',
+            spanCol: 2,
+            spanRow: 1,
+            badge: 'PROVABLE AI',
+            stat: '0.00% DRIFT',
+            iconName: 'lock',
+            color: '#A78BFA',
+          },
+          {
+            id: 'sb2',
+            title: 'Model Context Protocol Bridge',
+            subtitle: 'AGENT RUNTIME',
+            description:
+              'Native MCP server intercepting tool interactions with strict JSON Schema verification.',
+            spanCol: 1,
+            spanRow: 1,
+            badge: 'MCP PROTOCOL',
+            stat: '<1ms Overhead',
+            iconName: 'terminal',
+            color: '#818CF8',
+          },
+          {
+            id: 'sb3',
+            title: 'Continuous Telemetry Ledger',
+            subtitle: 'REGULATORY COMPLIANCE',
+            description:
+              'Automated compliance reporting compatible with EU AI Act, HIPAA, and SOC2 Type II audit standards.',
+            spanCol: 1,
+            spanRow: 1,
+            badge: 'EU AI ACT',
+            stat: '100% READY',
+            iconName: 'server',
+            color: '#C084FC',
+          },
+          {
+            id: 'sb4',
+            title: 'Automated Quorum Signatures',
+            subtitle: 'MULTI-PARTY CONSENSUS',
+            description:
+              'Requires threshold cryptographic signatures from human overseers before executing high-value wire transfers or data deletions.',
+            spanCol: 2,
+            spanRow: 1,
+            badge: 'M-OF-N QUORUM',
+            stat: 'AIR-GAPPED',
+            iconName: 'git-branch',
+            color: '#E879F9',
+          },
+        ],
+        footnote: 'PLATFORM SPECIFICATION // DISTRIBUTED ARCHITECTURE',
+      },
+    },
+  ],
+};
+
 export const SAMPLE_DECKS: Record<string, SlideDeck> = {
   'gemini-4-argon': GEMINI_ARGON_DECK,
   'strategic-dark': INITIAL_DECK,
   'consulting-light': LIGHT_CONSULTING_DECK,
+  'slidespeak-ai-trust': SLIDESPEAK_AI_TRUST_PITCH_DECK,
+  'dashi-financial-index': DASHI_FINANCIAL_INDEX_DECK,
+  'dashi-tech-telemetry': DASHI_TECH_TELEMETRY_DECK,
+  'zara-zhang-bento': ZARA_ZHANG_BENTO_DECK,
+  'zara-zhang-bold-signal': ZARA_ZHANG_BOLD_SIGNAL_DECK,
 };
+
 
 

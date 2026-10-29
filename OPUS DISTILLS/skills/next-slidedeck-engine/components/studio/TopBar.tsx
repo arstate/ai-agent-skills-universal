@@ -15,6 +15,7 @@ interface TopBarProps {
   isMounted?: boolean;
   isEditMode?: boolean;
   onToggleEditMode?: () => void;
+  onSelectSampleDeck?: (deckKey: string) => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -28,6 +29,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   isMounted: propMounted,
   isEditMode = false,
   onToggleEditMode,
+  onSelectSampleDeck,
 }) => {
   const [internalMounted, setInternalMounted] = useState<boolean>(false);
 
@@ -75,8 +77,33 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
       </div>
 
-      {/* RIGHT: Actions (Edit Mode, Theme Toggle, Present, Export) */}
+      {/* RIGHT: Actions (Preset Decks, Edit Mode, Theme Toggle, Present, Export) */}
       <div className="flex items-center gap-3">
+        {/* Preset Decks Switcher */}
+        {onSelectSampleDeck && (
+          <select
+            onChange={(e) => {
+              if (e.target.value) {
+                onSelectSampleDeck(e.target.value);
+                e.target.value = '';
+              }
+            }}
+            defaultValue=""
+            className="border border-[#27272a] bg-[#121214] hover:border-zinc-500 text-zinc-300 px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:border-white transition-colors cursor-pointer"
+            title="Load Preset Decks (Dashi, SlideSpeak, Zara Zhang, Monochrome)"
+          >
+            <option value="" disabled>PRESET DECKS ▾</option>
+            <option value="strategic-dark">Strategic Architecture (Obsidian)</option>
+            <option value="consulting-light">McKinsey Consulting (Cream)</option>
+            <option value="slidespeak-ai-trust">SlideSpeak AI Trust Pitch (Hypergradient)</option>
+            <option value="gemini-4-argon">Gemini 4 Argon (Cyber)</option>
+            <option value="dashi-financial-index">Dashi Financial KPI (Index)</option>
+            <option value="dashi-tech-telemetry">Dashi Infrastructure (Code)</option>
+            <option value="zara-zhang-bento">Zara Zhang Bento (Matrix)</option>
+            <option value="zara-zhang-bold-signal">Zara Zhang Bold Signal (Venture)</option>
+          </select>
+        )}
+
         {/* PowerPoint-like On-Canvas Edit Mode Toggle */}
         {onToggleEditMode && (
           <button
