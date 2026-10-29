@@ -239,13 +239,6 @@ export const SlideStudio: React.FC = () => {
     }
   };
 
-  const handleSelectSampleDeck = (deckKey: string) => {
-    if (SAMPLE_DECKS[deckKey]) {
-      setDeck(SAMPLE_DECKS[deckKey]);
-      setActiveSlideIndex(0);
-    }
-  };
-
   return (
     <div
       className={`flex h-screen w-screen flex-col overflow-hidden transition-colors duration-150 ${
@@ -265,7 +258,6 @@ export const SlideStudio: React.FC = () => {
         isMounted={mounted}
         isEditMode={isEditMode}
         onToggleEditMode={() => setIsEditMode((prev) => !prev)}
-        onSelectSampleDeck={handleSelectSampleDeck}
       />
 
       {/* Main 3-Panel Studio Workstation */}
@@ -274,6 +266,7 @@ export const SlideStudio: React.FC = () => {
         <LeftSidebar
           slides={deck.slides}
           activeSlideIndex={activeSlideIndex}
+          theme={activeTheme}
           studioMode={studioMode}
           onSelectSlide={handleSelectSlide}
           onAddSlide={handleAddSlide}

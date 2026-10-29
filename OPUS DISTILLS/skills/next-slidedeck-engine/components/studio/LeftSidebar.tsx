@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Plus,
   ChevronUp,
@@ -8,11 +8,14 @@ import {
   Copy,
   Trash2,
 } from 'lucide-react';
-import { Slide, LayoutType } from '../../types/slide';
+import { Slide, LayoutType, ThemeConfig } from '../../types/slide';
+import { THEMES } from '../../presets/themes';
+import { SlideRenderer } from '../slides/SlideRenderer';
 
 interface LeftSidebarProps {
   slides: Slide[];
   activeSlideIndex: number;
+  theme?: ThemeConfig;
   studioMode?: 'dark' | 'light';
   onSelectSlide: (index: number) => void;
   onAddSlide: (layout: LayoutType) => void;
@@ -21,9 +24,61 @@ interface LeftSidebarProps {
   onMoveSlide: (index: number, direction: 'up' | 'down') => void;
 }
 
+const SlideThumbnailPreview: React.FC<{
+  slide: Slide;
+  theme: ThemeConfig;
+  index: number;
+  totalSlides: number;
+}> = ({ slide, theme, index, totalSlides }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState<number>(0.11);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateScale = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.clientWidth;
+        if (width > 0) {
+          setScale(width / 1920);
+        }
+      }
+    };
+    updateScale();
+    const ro = new ResizeObserver(updateScale);
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full aspect-[16/9] overflow-hidden border border-black/20 bg-zinc-950 pointer-events-none select-none shadow-sm mb-2"
+    >
+      <div
+        style={{
+          width: '1920px',
+          height: '1080px',
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+        }}
+      >
+        <SlideRenderer
+          slide={slide}
+          theme={theme}
+          transition={{ type: 'crossfade', duration: 0 }}
+          index={index}
+          totalSlides={totalSlides}
+          isThumbnail={true}
+        />
+      </div>
+    </div>
+  );
+};
+
 export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   slides,
   activeSlideIndex,
+  theme,
   studioMode = 'dark',
   onSelectSlide,
   onAddSlide,
@@ -33,6 +88,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 }) => {
   const [showAddMenu, setShowAddMenu] = useState(false);
   const isLight = studioMode === 'light';
+  const activeTheme = theme || THEMES['obsidian-pure'];
 
   const availableLayouts: { type: LayoutType; label: string; desc: string }[] = [
     { type: 'cover', label: 'Cover Title', desc: 'Hero headline with metadata' },
@@ -151,9 +207,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
               }`}
             >
               {/* Top metadata of thumbnail */}
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-1.5">
                 <span
-                  className={`text-[10px] font-mono font-bold tracking-widest ${
+                  className={`text-[11px] font-mono font-bold tracking-widest ${
                     isLight ? 'text-zinc-900' : 'text-white'
                   }`}
                 >
@@ -174,9 +230,17 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                 </span>
               </div>
 
+              {/* Real Visual 16:9 Slide Canvas Preview */}
+              <SlideThumbnailPreview
+                slide={slide}
+                theme={activeTheme}
+                index={idx}
+                totalSlides={slides.length}
+              />
+
               {/* Slide Title preview */}
               <div
-                className={`text-xs font-medium line-clamp-2 leading-snug mb-3 ${
+                className={`text-[11px] font-medium line-clamp-1 leading-tight mb-2 ${
                   isLight
                     ? 'text-zinc-700 group-hover:text-zinc-900'
                     : 'text-[#d4d4d8] group-hover:text-white'

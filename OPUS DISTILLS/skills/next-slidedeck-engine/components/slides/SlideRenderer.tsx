@@ -304,10 +304,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           >
             <motion.div
               layoutId={transition.type === 'morph' ? 'slide-kicker' : undefined}
-              className="flex items-center gap-3"
+              className="flex items-center gap-3.5"
             >
               <span
-                className="inline-block h-2.5 w-2.5 rounded-none"
+                className="inline-block h-3 w-3 rounded-none"
                 style={{ backgroundColor: theme.accent }}
               />
               <EditableText
@@ -316,20 +316,20 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                 isSelected={selectedId === 'kicker'}
                 onSelect={() => onSelectElement?.('kicker')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
-                className="text-xs font-mono font-medium tracking-[0.25em] uppercase"
+                className="text-base font-mono font-bold tracking-[0.2em] uppercase"
                 style={{ color: theme.textMuted }}
                 as="span"
               />
             </motion.div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-8">
               <span
-                className="text-xs font-mono tracking-widest uppercase"
+                className="text-sm font-mono tracking-widest uppercase font-medium"
                 style={{ color: theme.textMuted }}
               >
                 16:9 FIXED CANVAS
               </span>
               <span
-                className="text-xs font-mono font-semibold"
+                className="text-base font-mono font-bold"
                 style={{ color: theme.textSecondary }}
               >
                 {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
@@ -349,7 +349,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           >
             <motion.div
               layoutId={transition.type === 'morph' ? 'slide-footnote' : undefined}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2.5"
             >
               <EditableText
                 value={slide.elements.footnote || 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM'}
@@ -362,13 +362,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                     elements: { ...prev.elements, footnote: val },
                   }))
                 }
-                className="text-xs font-mono tracking-wider uppercase"
+                className="text-sm font-mono font-semibold tracking-wider uppercase"
                 style={{ color: theme.textMuted }}
                 as="span"
               />
             </motion.div>
             <span
-              className="text-xs font-mono tracking-wider"
+              className="text-sm font-mono tracking-wider font-medium"
               style={{ color: theme.textMuted }}
             >
               NEXT-SLIDEDECK-ENGINE // v1.2
@@ -428,20 +428,20 @@ function renderLayoutContent(
       return (
         <div className="flex flex-col justify-center max-w-5xl">
           <div
-            className="mb-6 inline-flex w-fit items-center gap-2.5 border px-4 py-1.5 text-xs font-mono tracking-widest uppercase"
+            className="mb-8 inline-flex w-fit items-center gap-3 border px-5 py-2 text-sm font-mono font-bold tracking-widest uppercase"
             style={{
               borderColor: theme.border,
               backgroundColor: theme.surface,
               color: theme.textSecondary,
             }}
           >
-            <SvgIcon name="sparkles" size={13} color={theme.accent} />
+            <SvgIcon name="sparkles" size={15} color={theme.accent} />
             <span>SYSTEM SPECIFICATION & ARCHITECTURE</span>
           </div>
 
           <motion.div
             layoutId={isMorph ? 'slide-title' : undefined}
-            className="text-7xl font-bold tracking-tight leading-[1.08] mb-8"
+            className="text-8xl font-black tracking-tight leading-[1.05] mb-8"
             style={{ color: slide.elements.titleColor || theme.textPrimary }}
           >
             <EditableText
@@ -456,7 +456,7 @@ function renderLayoutContent(
           </motion.div>
 
           <div
-            className="text-2xl font-normal leading-relaxed max-w-3xl mb-4"
+            className="text-3xl font-medium leading-relaxed max-w-4xl mb-6"
             style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
           >
             <EditableText
@@ -471,44 +471,44 @@ function renderLayoutContent(
           </div>
 
           <div
-            className="mt-14 flex items-center gap-8 border-t pt-8"
+            className="mt-14 flex items-center gap-10 border-t pt-8"
             style={{ borderColor: theme.border }}
           >
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               <span
-                className="text-[11px] font-mono uppercase tracking-widest flex items-center gap-1.5"
+                className="text-xs font-mono uppercase tracking-widest font-semibold flex items-center gap-2"
                 style={{ color: theme.textMuted }}
               >
-                <SvgIcon name="cpu" size={11} color={theme.textMuted} />
+                <SvgIcon name="cpu" size={14} color={theme.textMuted} />
                 ENGINE ARCHITECTURE
               </span>
-              <span className="text-sm font-medium" style={{ color: theme.textPrimary }}>
+              <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>
                 Next.js App Router / Vector SVG
               </span>
             </div>
-            <div className="h-8 w-[1px]" style={{ backgroundColor: theme.border }} />
-            <div className="flex flex-col gap-1">
+            <div className="h-10 w-[1px]" style={{ backgroundColor: theme.border }} />
+            <div className="flex flex-col gap-1.5">
               <span
-                className="text-[11px] font-mono uppercase tracking-widest flex items-center gap-1.5"
+                className="text-xs font-mono uppercase tracking-widest font-semibold flex items-center gap-2"
                 style={{ color: theme.textMuted }}
               >
-                <SvgIcon name="target" size={11} color={theme.textMuted} />
+                <SvgIcon name="target" size={14} color={theme.textMuted} />
                 RATIO SPECIFICATION
               </span>
-              <span className="text-sm font-medium" style={{ color: theme.textPrimary }}>
+              <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>
                 1920 × 1080 px (16:9 Standard)
               </span>
             </div>
-            <div className="h-8 w-[1px]" style={{ backgroundColor: theme.border }} />
-            <div className="flex flex-col gap-1">
+            <div className="h-10 w-[1px]" style={{ backgroundColor: theme.border }} />
+            <div className="flex flex-col gap-1.5">
               <span
-                className="text-[11px] font-mono uppercase tracking-widest flex items-center gap-1.5"
+                className="text-xs font-mono uppercase tracking-widest font-semibold flex items-center gap-2"
                 style={{ color: theme.textMuted }}
               >
-                <SvgIcon name="shield" size={11} color={theme.textMuted} />
+                <SvgIcon name="shield" size={14} color={theme.textMuted} />
                 SECURITY CLASSIFICATION
               </span>
-              <span className="text-sm font-medium" style={{ color: theme.textPrimary }}>
+              <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>
                 Proprietary & Unrestricted
               </span>
             </div>
@@ -519,9 +519,9 @@ function renderLayoutContent(
     case 'metrics':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl flex flex-col gap-3">
+          <div className="mb-10 max-w-4xl flex flex-col gap-4">
             <motion.div
-              className="text-5xl font-bold tracking-tight leading-tight"
+              className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
@@ -534,7 +534,7 @@ function renderLayoutContent(
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
+            <div className="text-2xl leading-relaxed font-normal" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
@@ -574,15 +574,15 @@ function renderLayoutContent(
                   }}
                 >
                   {metric.color && (
-                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: metric.color }} />
+                    <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: metric.color }} />
                   )}
-                  <TelemetryCrosshair color={metric.color || theme.textMuted} className="absolute top-2 right-2" />
+                  <TelemetryCrosshair color={metric.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="flex items-center gap-2.5">
                         <SvgIcon
                           name={metric.iconName || 'activity'}
-                          size={14}
+                          size={18}
                           color={accentColor}
                         />
                         <EditableText
@@ -597,7 +597,7 @@ function renderLayoutContent(
                               return { ...prev, elements: { ...prev.elements, metrics: updated } };
                             })
                           }
-                          className="text-xs font-mono font-medium tracking-widest uppercase"
+                          className="text-base font-mono font-bold tracking-wider uppercase"
                           style={{ color: theme.textMuted }}
                           as="span"
                         />
@@ -615,7 +615,7 @@ function renderLayoutContent(
                               return { ...prev, elements: { ...prev.elements, metrics: updated } };
                             })
                           }
-                          className="text-xs font-mono border px-2 py-0.5"
+                          className="text-sm font-mono font-semibold border px-2.5 py-1"
                           style={{
                             borderColor: metric.color ? metric.color + '66' : theme.border,
                             backgroundColor: theme.surfaceRaised,
@@ -626,7 +626,7 @@ function renderLayoutContent(
                       )}
                     </div>
                     <div
-                      className="text-6xl font-bold tracking-tight mb-4 tabular-nums"
+                      className="text-7xl lg:text-8xl font-black tracking-tight mb-4 tabular-nums"
                       style={{ color: metric.color || theme.textPrimary }}
                     >
                       <EditableText
@@ -647,7 +647,7 @@ function renderLayoutContent(
                     </div>
                   </div>
                   {metric.subtext && (
-                    <div className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
+                    <div className="text-lg font-medium leading-relaxed" style={{ color: theme.textSecondary }}>
                       <EditableText
                         value={metric.subtext}
                         isEditMode={isEditMode}
@@ -674,11 +674,11 @@ function renderLayoutContent(
     case 'split':
       return (
         <div className="flex flex-col justify-center">
-          <div className="grid grid-cols-12 gap-12 items-start">
+          <div className="grid grid-cols-12 gap-14 items-start">
             {/* Left Column (5 Cols) */}
             <div className="col-span-5 min-w-0 flex flex-col justify-center">
               <motion.div
-                className="text-4xl font-bold tracking-tight mb-4 leading-tight"
+                className="text-6xl font-black tracking-tight mb-6 leading-tight"
                 style={{ color: slide.elements.titleColor || theme.textPrimary }}
               >
                 <EditableText
@@ -692,7 +692,7 @@ function renderLayoutContent(
                 />
               </motion.div>
               <div
-                className="text-xl leading-relaxed mb-8"
+                className="text-2xl font-normal leading-relaxed mb-10"
                 style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
               >
                 <EditableText
@@ -724,7 +724,7 @@ function renderLayoutContent(
                         onSelectElement?.('callout');
                       }
                     }}
-                    className={`relative border p-6 transition-all ${
+                    className={`relative border p-7 transition-all ${
                       isCalloutSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                     }`}
                     style={{
@@ -733,11 +733,11 @@ function renderLayoutContent(
                     }}
                   >
                     {callout.color && (
-                      <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: callout.color }} />
+                      <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: callout.color }} />
                     )}
-                    <TelemetryCrosshair color={callout.color || theme.textMuted} className="absolute top-2 right-2" />
-                    <div className="flex items-center gap-2 mb-2">
-                      <SvgIcon name={callout.iconName || 'cpu'} size={13} color={calloutColor} />
+                    <TelemetryCrosshair color={callout.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <SvgIcon name={callout.iconName || 'cpu'} size={16} color={calloutColor} />
                       <EditableText
                         value={callout.kicker || 'CORE THESIS'}
                         isEditMode={isEditMode}
@@ -752,12 +752,12 @@ function renderLayoutContent(
                             },
                           }))
                         }
-                        className="text-xs font-mono uppercase tracking-widest font-semibold"
+                        className="text-sm font-mono uppercase tracking-widest font-bold"
                         style={{ color: calloutColor }}
                         as="span"
                       />
                     </div>
-                    <div className="text-sm font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
+                    <div className="text-lg font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
                       <EditableText
                         value={callout.text}
                         isEditMode={isEditMode}
@@ -781,7 +781,7 @@ function renderLayoutContent(
             </div>
 
             {/* Right Column (7 Cols) */}
-            <div className="col-span-7 min-w-0 flex flex-col gap-4">
+            <div className="col-span-7 min-w-0 flex flex-col gap-5">
               {slide.elements.bullets?.map((bullet, i) => {
                 const bulletIcons = ['network', 'layers', 'terminal', 'shield', 'zap'];
                 const iconName = bulletIcons[i % bulletIcons.length];
@@ -796,7 +796,7 @@ function renderLayoutContent(
                         onSelectElement?.(bulletId);
                       }
                     }}
-                    className={`relative flex items-start gap-4 border p-6 transition-all ${
+                    className={`relative flex items-start gap-5 border p-7 transition-all ${
                       isBulletSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-md' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                     }`}
                     style={{
@@ -805,13 +805,13 @@ function renderLayoutContent(
                     }}
                   >
                     <div
-                      className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center border"
+                      className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center border"
                       style={{ borderColor: theme.border, backgroundColor: theme.surface }}
                     >
-                      <SvgIcon name={iconName} size={14} color={theme.accent} />
+                      <SvgIcon name={iconName} size={18} color={theme.accent} />
                     </div>
                     <div
-                      className="text-base leading-relaxed flex-1"
+                      className="text-xl font-medium leading-relaxed flex-1"
                       style={{ color: theme.textPrimary }}
                     >
                       <EditableText
@@ -841,9 +841,9 @@ function renderLayoutContent(
     case 'timeline':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl flex flex-col gap-3">
+          <div className="mb-10 max-w-4xl flex flex-col gap-4">
             <motion.div
-              className="text-5xl font-bold tracking-tight leading-tight"
+              className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
@@ -856,7 +856,7 @@ function renderLayoutContent(
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
+            <div className="text-2xl leading-relaxed font-normal" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
@@ -892,18 +892,18 @@ function renderLayoutContent(
                   }}
                 >
                   {pillar.color && (
-                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: pillar.color }} />
+                    <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: pillar.color }} />
                   )}
-                  <TelemetryCrosshair color={pillar.color || theme.textMuted} className="absolute top-2 right-2" />
+                  <TelemetryCrosshair color={pillar.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
                   <div>
                     <div
                       className="flex items-center justify-between mb-6 border-b pb-4"
                       style={{ borderColor: theme.border }}
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2.5">
                         <SvgIcon
                           name={pillar.iconName || 'layers'}
-                          size={14}
+                          size={18}
                           color={accentColor}
                         />
                         <EditableText
@@ -918,17 +918,17 @@ function renderLayoutContent(
                               return { ...prev, elements: { ...prev.elements, pillars: updated } };
                             })
                           }
-                          className="text-xs font-mono uppercase tracking-widest font-semibold"
+                          className="text-base font-mono uppercase tracking-widest font-bold"
                           style={{ color: pillar.color || theme.textMuted }}
                           as="span"
                         />
                       </div>
-                      <span className="text-xs font-mono" style={{ color: pillar.color || theme.textSecondary }}>
+                      <span className="text-base font-mono font-bold" style={{ color: pillar.color || theme.textSecondary }}>
                         0{i + 1}
                       </span>
                     </div>
                     <div
-                      className="text-2xl font-bold tracking-tight mb-4"
+                      className="text-3xl font-extrabold tracking-tight mb-4"
                       style={{ color: theme.textPrimary }}
                     >
                       <EditableText
@@ -947,7 +947,7 @@ function renderLayoutContent(
                       />
                     </div>
                     <div
-                      className="text-base leading-relaxed"
+                      className="text-xl font-normal leading-relaxed"
                       style={{ color: theme.textSecondary }}
                     >
                       <EditableText
@@ -971,12 +971,12 @@ function renderLayoutContent(
                     style={{ borderColor: theme.border }}
                   >
                     <span
-                      className="text-[11px] font-mono uppercase tracking-wider"
+                      className="text-xs font-mono uppercase tracking-wider font-semibold"
                       style={{ color: theme.textMuted }}
                     >
                       SYSTEM STANDARD APPROVED
                     </span>
-                    <SvgIcon name="check-circle" size={13} color={pillar.color || theme.textMuted} />
+                    <SvgIcon name="check-circle" size={15} color={pillar.color || theme.textMuted} />
                   </div>
                 </motion.div>
               );
@@ -988,9 +988,9 @@ function renderLayoutContent(
     case 'bento':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-8 max-w-4xl flex flex-col gap-2">
+          <div className="mb-8 max-w-4xl flex flex-col gap-3">
             <motion.div
-              className="text-5xl font-bold tracking-tight leading-tight"
+              className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
@@ -1003,7 +1003,7 @@ function renderLayoutContent(
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
+            <div className="text-2xl font-normal leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
@@ -1042,15 +1042,15 @@ function renderLayoutContent(
                   }}
                 >
                   {card.color && (
-                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: card.color }} />
+                    <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: card.color }} />
                   )}
-                  <TelemetryCrosshair color={card.color || theme.textMuted} className="absolute top-2 right-2" />
+                  <TelemetryCrosshair color={card.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2.5">
                         <SvgIcon
                           name={card.iconName || 'box'}
-                          size={14}
+                          size={18}
                           color={accentColor}
                         />
                         <EditableText
@@ -1068,7 +1068,7 @@ function renderLayoutContent(
                               };
                             })
                           }
-                          className="text-xs font-mono uppercase tracking-widest font-semibold"
+                          className="text-base font-mono uppercase tracking-widest font-bold"
                           style={{ color: card.color || theme.textMuted }}
                           as="span"
                         />
@@ -1089,7 +1089,7 @@ function renderLayoutContent(
                               };
                             })
                           }
-                          className="border px-2 py-0.5 text-xs font-mono uppercase tracking-wider font-semibold"
+                          className="border px-3 py-1 text-sm font-mono uppercase tracking-wider font-semibold"
                           style={{
                             borderColor: card.color ? card.color + '66' : theme.border,
                             backgroundColor: theme.surfaceRaised,
@@ -1100,7 +1100,7 @@ function renderLayoutContent(
                       )}
                     </div>
                     <div
-                      className="text-2xl font-bold tracking-tight mb-3"
+                      className="text-3xl font-extrabold tracking-tight mb-3"
                       style={{ color: theme.textPrimary }}
                     >
                       <EditableText
@@ -1122,7 +1122,7 @@ function renderLayoutContent(
                       />
                     </div>
                     <div
-                      className="text-sm leading-relaxed"
+                      className="text-xl font-normal leading-relaxed"
                       style={{ color: theme.textSecondary }}
                     >
                       <EditableText
@@ -1150,7 +1150,7 @@ function renderLayoutContent(
                       style={{ borderColor: theme.border }}
                     >
                       <span
-                        className="text-xs font-mono uppercase tracking-wider"
+                        className="text-xs font-mono uppercase tracking-wider font-semibold"
                         style={{ color: theme.textMuted }}
                       >
                         TELEMETRY RATING
@@ -1170,7 +1170,7 @@ function renderLayoutContent(
                             };
                           })
                         }
-                        className="text-2xl font-bold font-mono"
+                        className="text-3xl font-black font-mono"
                         style={{ color: card.color || theme.textPrimary }}
                         as="span"
                       />
@@ -1188,20 +1188,20 @@ function renderLayoutContent(
         <div className="flex flex-col justify-center max-w-5xl mx-auto text-center py-6">
           <div className="mb-8 flex justify-center">
             <span
-              className="border px-4 py-1.5 text-xs font-mono tracking-widest uppercase flex items-center gap-2"
+              className="border px-5 py-2 text-sm font-mono tracking-widest uppercase font-bold flex items-center gap-2.5"
               style={{
                 borderColor: theme.border,
                 backgroundColor: theme.surface,
                 color: theme.textMuted,
               }}
             >
-              <SvgIcon name="sparkles" size={12} color={theme.accent} />
+              <SvgIcon name="sparkles" size={15} color={theme.accent} />
               EXECUTIVE DOCTRINE
             </span>
           </div>
           <blockquote className="relative my-8">
             <div
-              className="text-4xl md:text-5xl font-serif font-normal leading-[1.35] tracking-tight mb-10"
+              className="text-5xl md:text-6xl font-serif font-normal leading-[1.3] tracking-tight mb-10"
               style={{ color: theme.textPrimary }}
             >
               &ldquo;
@@ -1224,7 +1224,7 @@ function renderLayoutContent(
               />
               &rdquo;
             </div>
-            <div className="flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-col items-center justify-center gap-2">
               <EditableText
                 value={slide.elements.quote?.author || 'PRINCIPAL ARCHITECT'}
                 isEditMode={isEditMode}
@@ -1240,7 +1240,7 @@ function renderLayoutContent(
                     },
                   }))
                 }
-                className="text-lg font-bold tracking-wider uppercase"
+                className="text-2xl font-bold tracking-wider uppercase"
                 style={{ color: theme.textPrimary }}
                 as="span"
               />
@@ -1259,7 +1259,7 @@ function renderLayoutContent(
                     },
                   }))
                 }
-                className="text-sm font-mono tracking-widest uppercase"
+                className="text-base font-mono tracking-widest uppercase"
                 style={{ color: theme.textMuted }}
                 as="span"
               />
@@ -1272,9 +1272,9 @@ function renderLayoutContent(
       const comp = slide.elements.comparison;
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl flex flex-col gap-3">
+          <div className="mb-10 max-w-4xl flex flex-col gap-4">
             <motion.div
-              className="text-5xl font-bold tracking-tight leading-tight"
+              className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
@@ -1284,7 +1284,7 @@ function renderLayoutContent(
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl" style={{ color: theme.textSecondary }}>
+            <div className="text-2xl leading-relaxed font-normal" style={{ color: theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
@@ -1293,16 +1293,16 @@ function renderLayoutContent(
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-10">
             {/* Left Box */}
             <div
-              className="relative border p-8 flex flex-col justify-between"
+              className="relative border p-9 flex flex-col justify-between"
               style={{
                 backgroundColor: theme.surface,
                 borderColor: theme.border,
               }}
             >
-              <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
+              <TelemetryCrosshair color={theme.textMuted} className="absolute top-2.5 right-2.5" />
               <div>
                 <EditableText
                   value={comp?.leftTitle || 'BASELINE SYSTEM'}
@@ -1323,18 +1323,18 @@ function renderLayoutContent(
                       },
                     }))
                   }
-                  className="text-xs font-mono uppercase tracking-widest block mb-6 border-b pb-3 font-semibold"
+                  className="text-base font-mono uppercase tracking-widest block mb-6 border-b pb-4 font-bold"
                   style={{ color: theme.textMuted, borderColor: theme.border }}
                   as="h3"
                 />
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-5">
                   {comp?.leftItems?.map((item, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-3 text-sm leading-relaxed"
+                      className="flex items-start gap-4 text-xl leading-relaxed font-normal"
                       style={{ color: theme.textSecondary }}
                     >
-                      <span className="text-xs font-mono text-zinc-500 mt-0.5">✕</span>
+                      <span className="text-sm font-mono text-zinc-500 mt-1">✕</span>
                       <EditableText
                         value={item}
                         isEditMode={isEditMode}
@@ -1368,16 +1368,16 @@ function renderLayoutContent(
 
             {/* Right Box (Target Architecture) */}
             <div
-              className="relative border p-8 flex flex-col justify-between"
+              className="relative border p-9 flex flex-col justify-between"
               style={{
                 backgroundColor: theme.surfaceRaised,
                 borderColor: theme.accent,
               }}
             >
-              <TelemetryCrosshair color={theme.accent} className="absolute top-2 right-2" />
+              <TelemetryCrosshair color={theme.accent} className="absolute top-2.5 right-2.5" />
               <div>
                 <div
-                  className="flex items-center justify-between mb-6 border-b pb-3"
+                  className="flex items-center justify-between mb-6 border-b pb-4"
                   style={{ borderColor: theme.border }}
                 >
                   <EditableText
@@ -1399,20 +1399,20 @@ function renderLayoutContent(
                         },
                       }))
                     }
-                    className="text-xs font-mono uppercase tracking-widest font-bold"
+                    className="text-base font-mono uppercase tracking-widest font-bold"
                     style={{ color: theme.textPrimary }}
                     as="h3"
                   />
                   <StatusPill label="SUPERIOR SOTA" color={theme.accent} />
                 </div>
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-5">
                   {comp?.rightItems?.map((item, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-3 text-sm leading-relaxed font-medium"
+                      className="flex items-start gap-4 text-xl leading-relaxed font-medium"
                       style={{ color: theme.textPrimary }}
                     >
-                      <SvgIcon name="check-circle" size={14} color={theme.accent} className="mt-0.5" />
+                      <SvgIcon name="check-circle" size={18} color={theme.accent} className="mt-1" />
                       <EditableText
                         value={item}
                         isEditMode={isEditMode}

@@ -151,10 +151,8 @@ assert(!sampleDecksContent.includes('dashi-financial-index'), 'SAMPLE_DECKS must
 
 const topBarPath = path.join(engineDir, 'components/studio/TopBar.tsx');
 const topBarContent = fs.readFileSync(topBarPath, 'utf8');
-assert(topBarContent.includes('value="slidespeak-ai-trust"'), 'TopBar must include slidespeak-ai-trust option');
-assert(topBarContent.includes('value="zara-zhang-soft-editorial"'), 'TopBar must include zara-zhang-soft-editorial option');
-assert(topBarContent.includes('value="zara-zhang-editorial-forest"'), 'TopBar must include zara-zhang-editorial-forest option');
-assert(!topBarContent.includes('value="dashi-financial-index"'), 'TopBar must not include Dashi options');
-console.log('[PASS] Verified presets: 39 themes, 8 sample decks, and TopBar dropdown switcher.');
+assert(!topBarContent.includes('PRESET DECKS'), 'TopBar must not contain preset decks dropdown (authoring freedom)');
+assert(!topBarContent.includes('onSelectSampleDeck'), 'TopBar must not contain onSelectSampleDeck');
+console.log('[PASS] Verified presets: 39 themes, 8 sample decks, and TopBar clean authoring mode (preset dropdown removed).');
 
 console.log('\n[SUCCESS] ALL AUDIT CHECKS PASSED WITH 100% COMPLIANCE!');
