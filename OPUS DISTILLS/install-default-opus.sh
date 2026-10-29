@@ -28,7 +28,8 @@ for src_base in "$SCRIPT_DIR/skills" "$SCRIPT_DIR"; do
       if [ "$dirname" != "auto-boot-configs" ] && [ "$dirname" != "skills" ] && [ "$dirname" != "tools" ] && [ "$dirname" != "readme-ai-agent-starter-template" ] && [ -f "$dir/SKILL.md" ]; then
         for dest in "${DEST_DIRS[@]}"; do
           [ -L "$dest/$dirname" ] && rm -f "$dest/$dirname"
-          cp -rf "$dir" "$dest/"
+          mkdir -p "$dest/$dirname"
+          rsync -a --delete --exclude="node_modules" --exclude=".next" --exclude=".git" "$dir/" "$dest/$dirname/"
         done
         echo "  -> Skill installed: $dirname"
       fi

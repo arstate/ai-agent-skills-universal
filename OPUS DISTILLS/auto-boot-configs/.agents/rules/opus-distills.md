@@ -44,10 +44,10 @@ Mulai detik ini:
      1) `visual-breakdown/SKILL.md`
      2) `prompt-generator/SKILL.md`
      3) `image-gen/SKILL.md`
-   - **User minta bikin slide presentation / pitch deck / ekspor PPTX atau PDF (`@slidedeck-gen` atau `@dashi-ppt`):**
+   - **User minta bikin slide presentation / pitch deck / ekspor PPTX atau PDF (`@slidedeck-gen` atau `@next-slidedeck-engine`):**
      WAJIB `view_file` ke:
-     1) `slidedeck-gen/SKILL.md`
-     2) `dashi-ppt/SKILL.md`
+     1) `next-slidedeck-engine/SKILL.md`
+     2) `slidedeck-gen/SKILL.md`
      3) `taste-design/SKILL.md`
      4) `slidedeck-gen/references/slide-design-and-export-guide.md`
      5) `slidedeck-gen/references/theme-and-layout-catalog.md`
@@ -220,27 +220,34 @@ Seluruh skill desain (`web-design`, `taste-design`, dan `opus-distills`) telah d
 
 ---
 
-## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK (@dashi-ppt & @slidedeck-gen) — WAJIB PAKAI ENGINE DASHI PPT RESMI & AUTO-OPEN CHROME DASHI STUDIO LIVE!
+## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK ENGINE (@next-slidedeck-engine, @slide-design, & @slidedeck-gen) — ENGINE NEXT.JS MULTI-AESTHETIC & CREATIVE FREEDOM (LIGHT, CREAM EDITORIAL, BOLD ACCENT, & MINIMALIST DARK) + AUTO-OPEN STUDIO LIVE!
 
 Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan presentasi PDF:
 1. **Interactive Briefing & Clarification Gate (Anti-Guessing):**
-   - Jika request user minim detail (belum menentukan tema dari 12 themes, jumlah slide, ada/tidaknya contoh referensi PDF/gambar/URL, target audiens, dan format akhir PDF/PPTX/Web), **AGENT DILARANG KERAS MENEBAK!**
-   - Agen **WAJIB** langsung menyajikan **Menu Briefing Interaktif 5 Poin** (Pilihan Theme, Referensi Desain/Aset Brand, Jumlah Slide & Pacing, Target Audiens & Tujuan Utama, Format Deliverable Akhir) dan menunggu respon user.
-2. **MANDAT WAJIB PAKAI ENGINE RESMI DASHI PPT (`@dashi-ppt`):**
-   - Untuk menghasilkan kualitas slide presentasi kelas dunia (bukan slide amatir), agent **WAJIB** merancang deck menggunakan standar Dashi PPT:
-     1) Tulis rencana konten terstruktur per slide ke `output/<deck-name>/page-content-pack.json`.
-     2) Generate arsitektur slide multi-varian 3+1 (3 template layout berbeda + 1 bespoke variant) dengan scaffold resmi:
-        `node ~/.agents/skills/dashi-ppt/project/scripts/goal-scaffold.mjs --title "<Title>" --goal "<Goal>" --theme "<themePack>" --pages <N> --layout-variants 3 --content-plan output/<deck-name>/page-content-pack.json --seed "<seed>" --out output/<deck-name>/goal.json`
-     3) Render output dan jalankan preview server resmi:
-        `dashi-ppt output/<deck-name>/goal.json output/<deck-name>/ppt/index.html`
-3. **MANDAT WAJIB AUTO-OPEN GOOGLE CHROME GUI DI LAYAR MONITOR:**
-   - Script `dashi-ppt` (dan `render_goal_deck.sh`) **WAJIB OTOMATIS** membuka jendela Google Chrome GUI di monitor user tanpa flag `--headless` mengarah ke URL Live Dashi Studio (`http://127.0.0.1:5200/`).
-   - Monitor user langsung menampilkan interface **Dashi Presentation Studio**:
-     * Filmstrip thumbnail slide interaktif di sidebar kiri (`#slide-rail`).
-     * Real-time multi-variant switcher (v1, v2, v3, v4) di panel kanan.
-     * Tombol aksi instan di topbar: `[▶ Present (F5)]`, `[⬇ Export PDF]`, `[⬇ Export PPTX]`, dan toggle bahasa/tema.
-     * Inline text editing langsung di kanvas slide dengan auto-save persistence ke disk.
-4. **Ekspor Resolusi Penuh:**
-   - PDF 16:9 ultra-crisp vektor dan PPTX dapat diekspor langsung via tombol di topbar browser atau command terminal:
-     `npm --prefix ~/.agents/skills/dashi-ppt/project run export:pdf -- output/<deck-name>/ppt <out.pdf>`
-     `npm --prefix ~/.agents/skills/dashi-ppt/project run export:pptx -- output/<deck-name>/ppt <out.pptx>`
+   - Jika request user minim detail (belum menentukan tema, format visual, target audiens, dan format deliverable), **AGENT DILARANG KERAS MENEBAK!**
+   - Tawarkan opsi arah visual kreatif (Light Consulting Cream ala McKinsey/BCG, Academic Slate, Washi Ivory, Swiss Modernist, Venture Pitch Cobalt, Bold Signal Coral, atau Minimalist Dark Obsidian) dan tunggu konfirmasi user.
+2. **MANDAT WAJIB PAKAI ENGINE NEXT.JS SLIDE DECK (`@next-slidedeck-engine`, `@slide-design`, `@slidedeck-gen`):**
+   - **DILARANG ME-LOCK KE DARK MODE SAJA!** AI Agent wajib memiliki fleksibilitas kreatif penuh menggunakan 26 palet desain berkelas dari SlideSpeak (`slide-design-skill`) dan Zara Zhang (`frontend-slides`):
+     * **Light & Editorial:** Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink.
+     * **Vibrant & Bold:** Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Blue (`#2563EB`), Neon Cyber (`#00FFCC`).
+     * **Minimalist Dark:** Obsidian Pure (`#000000`), Titanium Precision, Swiss Monochrome Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal.
+     * **0% Emoji/Emoticon Kartun:** Desain tipografi berkelas, tata letak proporsional, dan penataan elemen profesional tanpa AI slop.
+   - **3-Panel Studio Layout:**
+     - **Sidebar Kiri:** Filmstrip daftar thumbnail slide (tambah slide 8 template, reorder up/down, duplikasi, hapus slide).
+     - **Kanvas Tengah:** Pristine 16:9 presentation stage (`1920x1080` coordinates) dengan scaling margin tetap (fixed aspect ratio, TIDAK responsif gepeng/penyok). **DI DALAM KANVAS DECK HARAM ADA TOMBOL/OVERLAY UI APAPUN** agar fokus 100% ke desain slide!
+     - **Sidebar Kanan:** Inspector & Editor 5-tab:
+       1) *Style:* 26 Palet Desain Berkelas (All, Light, Dark, Vibrant) + switcher layout (Cover, Split, Metrics, Pillars, Bento, Quote, Comparison, Timeline).
+       2) *Text:* Kicker context tag, declarative headline title, subtitle summary, footnote telemetry.
+       3) *Elements:* Dynamic editor cards (metric stats, 3-pillar columns, bento cards, bullet points, quote doctrine).
+       4) *Animation:* Morph Smooth (shared-layout spring motion), Crossfade, Slide X, Slide Y, Scale Zoom, Clip Reveal, Flip 3D, Stagger Blur + slider duration & easing.
+       5) *Export:* Universal export pipeline (Vector PDF, Raster 4K PDF, Editable PPTX, SVG Only).
+   - **Topbar Quick Toggle:** Tombol beralih Light Mode / Dark Mode instan tanpa error hidrasi Next.js.
+   - **Fullscreen Presentation Mode (`F5`):** Tekan `F5` atau tombol Present untuk mode presentasi layar penuh, navigasi keyboard lengkap (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
+3. **MANDAT WAJIB AUTO-OPEN GOOGLE CHROME GUI DI MONITOR:**
+   - Jalankan engine studio Next.js (`next-slidedeck dev 5200` atau `slidedeck-gen dev <dir>`) dan buka Chrome GUI monitor user (port 9223) tanpa flag `--headless` mengarah ke `http://127.0.0.1:5200/`.
+4. **Ekspor Multi-Format Langsung:**
+   - Pilih satu dari 4 format deliverable:
+     1) Vector PDF (SVG Print CSS `@page 16in 9in` zero margin)
+     2) Raster PDF (4K canvas snapshot)
+     3) Editable PowerPoint (.pptx via native PPTX builder)
+     4) Pure SVG Vector (Single slide atau seluruh slide dalam format ZIP bundle)

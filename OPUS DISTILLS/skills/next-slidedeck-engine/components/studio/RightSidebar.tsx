@@ -45,6 +45,15 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   onExport,
 }) => {
   const [activeTab, setActiveTab] = useState<TabKey>('style');
+  const [themeCategoryFilter, setThemeCategoryFilter] = useState<'all' | 'light' | 'dark' | 'vibrant'>('all');
+
+  const filteredThemes = Object.values(THEMES).filter((t) => {
+    if (themeCategoryFilter === 'all') return true;
+    if (themeCategoryFilter === 'light') return t.isLight === true || t.category === 'light' || t.category === 'editorial';
+    if (themeCategoryFilter === 'dark') return t.isLight === false && (t.category === 'dark' || !t.category);
+    if (themeCategoryFilter === 'vibrant') return t.category === 'vibrant';
+    return true;
+  });
 
   const transitionOptions: { type: TransitionType; label: string; desc: string }[] = [
     { type: 'morph', label: 'Morph Smooth', desc: 'Seamless shared-layout element morphing' },
@@ -136,29 +145,72 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
           <div className="flex flex-col gap-6">
             {/* Theme Palettes Selector */}
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-3">
-                MONOCHROME DARK PALETTES
-              </span>
-              <div className="flex flex-col gap-2">
-                {Object.values(THEMES).map((theme) => {
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#71717a]">
+                  DESIGN STYLES & PALETTES
+                </span>
+                <span className="text-[10px] font-mono text-[#a1a1aa]">
+                  {filteredThemes.length} / {Object.keys(THEMES).length}
+                </span>
+              </div>
+
+              {/* Category Filter Chips */}
+              <div className="grid grid-cols-4 gap-1 mb-3">
+                {(['all', 'light', 'dark', 'vibrant'] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setThemeCategoryFilter(cat)}
+                    className={`py-1 text-center text-[10px] font-mono uppercase tracking-wider transition-colors border ${
+                      themeCategoryFilter === cat
+                        ? 'border-white bg-[#18181c] text-white font-semibold'
+                        : 'border-[#222227] bg-[#101014] text-[#71717a] hover:text-[#d4d4d8]'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex flex-col gap-2 max-h-[380px] overflow-y-auto pr-1">
+                {filteredThemes.map((theme) => {
                   const isSelected = deck.themeId === theme.id;
                   return (
                     <button
                       key={theme.id}
                       onClick={() => onUpdateDeckTheme(theme.id)}
-                      className={`flex flex-col p-3 border text-left transition-all ${
+                      className={`flex flex-col p-2.5 border text-left transition-all ${
                         isSelected
                           ? 'border-white bg-[#18181c]'
                           : 'border-[#222227] bg-[#101014] hover:border-[#383842]'
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs font-mono font-medium text-white uppercase">
-                          {theme.name}
-                        </span>
-                        {isSelected && <Check className="h-3.5 w-3.5 text-white" />}
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-2">
+                          {/* Color Palette Preview Swatches */}
+                          <div className="flex items-center gap-1">
+                            <span
+                              className="h-3 w-3 border border-[#3f3f46] rounded-none shrink-0"
+                              style={{ backgroundColor: theme.bg }}
+                              title={`Background: ${theme.bg}`}
+                            />
+                            <span
+                              className="h-3 w-3 border border-[#3f3f46] rounded-none shrink-0"
+                              style={{ backgroundColor: theme.surface }}
+                              title={`Surface: ${theme.surface}`}
+                            />
+                            <span
+                              className="h-3 w-3 border border-[#3f3f46] rounded-none shrink-0"
+                              style={{ backgroundColor: theme.accent }}
+                              title={`Accent: ${theme.accent}`}
+                            />
+                          </div>
+                          <span className="text-xs font-mono font-medium text-white truncate max-w-[160px]">
+                            {theme.name}
+                          </span>
+                        </div>
+                        {isSelected && <Check className="h-3.5 w-3.5 text-white shrink-0" />}
                       </div>
-                      <span className="text-[10px] text-[#71717a] leading-tight">
+                      <span className="text-[10px] text-[#71717a] leading-tight line-clamp-2">
                         {theme.description}
                       </span>
                     </button>

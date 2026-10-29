@@ -1,21 +1,22 @@
 ---
 name: next-slidedeck-engine
-description: Autonomous Minimalist Monochrome 16:9 Presentation Studio Engine built on Next.js. Features strict dark mode monochrome UX, zero emoji clutter, 3-panel studio layout (left slide filmstrip, center fixed 16:9 canvas with zero UI overlay buttons, right inspector for style/text/elements/morph animations/universal export), and multi-format vector PDF, raster 4K PDF, editable PPTX, and pure SVG output.
+description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on Next.js. Features full creative design freedom (Light Mode, Cream Editorial, Bold Accent, Minimalist Monochrome Dark), 26 curated themes from SlideSpeak and Zara Zhang frontend-slides, zero emoji clutter, 3-panel studio layout (left slide filmstrip, center fixed 16:9 canvas with zero UI overlay buttons, right inspector for style/text/elements/morph animations/universal export), and multi-format vector PDF, raster 4K PDF, editable PPTX, and pure SVG output.
 ---
 
-# `next-slidedeck-engine` — Autonomous Minimalist Monochrome Presentation Studio
+# `next-slidedeck-engine` — Autonomous Multi-Aesthetic Presentation Studio
 
-`next-slidedeck-engine` is a custom, high-performance presentation studio engine built from scratch on Next.js (App Router, React 19, Tailwind CSS, Lucide icons, Framer Motion). It replaces legacy dashboard tools with an uncompromising editorial, engineering-grade 16:9 presentation studio.
+`next-slidedeck-engine` is a custom, high-performance presentation studio engine built from scratch on Next.js (App Router, React 19, Tailwind CSS, Lucide icons, Framer Motion). It empowers AI agents and creators with an uncompromising editorial, engineering-grade 16:9 presentation studio across **all design styles — not locked to dark mode**.
 
 ---
 
 ## 1. Core Visual & UX Principles
 
-1. **Strict Dark Mode Monochrome Aesthetic:**
-   - Deep obsidian and zinc surfaces (`#000000`, `#09090b`, `#121214`, `#18181b`, `#27272a`).
-   - High-contrast optical white typography (`#fafafa`, `#ffffff`) with subtle muted secondary tones (`#a1a1aa`, `#71717a`).
-   - **ZERO decorative emojis, cartoon badges, or chaotic multi-colored gradients.** Pure mathematical and engineering elegance.
-   - Razor-sharp 1px hairline borders (`#27272a`) and disciplined typographic hierarchy.
+1. **Full Creative Design Freedom (Never Locked to Dark Mode Only):**
+   - **Light & Cream Editorial Modes:** McKinsey/BCG Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Japanese Kanagi Washi (`#EFEAE2`), Munich Bauhaus Neue Klasse (`#FFFFFF`), OpEx Executive Navy (`#FFFFFF`), and Broadsheet Paper & Ink (`#FAF9F7`).
+   - **Vibrant & Bold Modern Modes:** Venture Pitch Cobalt (`#2563EB`), Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), and Neon Cyber (`#00FFCC`).
+   - **Minimalist Monochrome Dark Modes:** Obsidian Pure (`#000000`), Titanium Precision (`#090A0C`), Swiss Modernist Dark (`#09090B`), Editorial Noir (`#080809`), and Graphite Telemetry (`#070809`).
+   - **One-Click Light/Dark Mode Palette Toggle** in the Topbar with zero SSR hydration mismatch.
+   - **Zero decorative emojis, cartoon badges, or chaotic AI slop.** Pure mathematical, typography-led elegance.
 
 2. **Fixed 16:9 Canvas Ratio (Anti-Responsive Distortion):**
    - Base canvas coordinate space: `1920 × 1080 px` (Full HD presentation standard).
@@ -30,7 +31,7 @@ description: Autonomous Minimalist Monochrome 16:9 Presentation Studio Engine bu
    - **Left Sidebar:** Slide page thumbnails list (filmstrip), add slide menu (8 layout archetypes), reorder up/down, duplicate slide, delete slide.
    - **Center Canvas:** The pristine 16:9 presentation frame with fixed scaling and dark surround.
    - **Right Sidebar:** 5-tab inspector workstation:
-     - `STYLE`: 6 Curated monochrome dark palettes + slide layout template switcher.
+     - `STYLE`: 26 Curated palettes categorized into `All`, `Light`, `Dark`, and `Vibrant` + active slide layout switcher.
      - `TEXT`: Kicker / context tag, headline title, subtitle summary, footnote telemetry.
      - `ELEMENTS`: Dynamic item controls for metric cards, 3-pillar columns, bento grid cards, comparison points, and quotes.
      - `ANIMATION`: Smooth Morph transitions (shared layout interpolation), Crossfade, Directional Slides, Zoom, Clip, Flip 3D, and Stagger Blur with duration and easing controls.
@@ -43,7 +44,7 @@ description: Autonomous Minimalist Monochrome 16:9 Presentation Studio Engine bu
 | Export Target | Engine Mechanism | Output Characteristics |
 |---|---|---|
 | **PDF Vector (SVG Print)** | Native Print Stylesheet (`@page { size: 16in 9in; margin: 0; }`) | Lossless mathematical vectors, selectable text, crisp lines at any zoom |
-| **PDF Raster (4K)** | `html2canvas` (scale 2.0) + `jspdf` | High-density 3840×2160 pixel-perfect rasterized presentation PDF |
+| **PDF Raster (4K)** | `html2canvas` (scale 1.5) + `jspdf` | High-density pixel-perfect rasterized presentation PDF across all slides |
 | **PowerPoint (.pptx)** | `pptxgenjs` Node/Browser Builder | Real native Microsoft PowerPoint shapes, editable text frames, and tabular metrics |
 | **SVG Vector (Single)** | Direct Mathematical XML Generator | Standalone 1920×1080 `.svg` file for the active slide |
 | **SVG Bundle (ZIP)** | Direct XML Generator + `jszip` | Compressed `.zip` containing pure `.svg` files for all slides in the deck |
@@ -85,7 +86,7 @@ npm --prefix "<engine-dir>" run start
 skills/next-slidedeck-engine/
 ├── app/
 │   ├── api/slides/route.ts      # Local disk JSON synchronization
-│   ├── globals.css              # Dark mode styling & 16:9 @page print CSS
+│   ├── globals.css              # Dark/light theme styling & 16:9 @page print CSS
 │   ├── layout.tsx               # Root HTML shell
 │   └── page.tsx                 # Main studio entrypoint
 ├── bin/
@@ -99,13 +100,13 @@ skills/next-slidedeck-engine/
 │       ├── FullscreenPresenter.tsx # Fullscreen F5 keyboard presenter
 │       ├── LeftSidebar.tsx      # Slide filmstrip and page management
 │       ├── RightSidebar.tsx     # Style, Text, Elements, Animation, Export tabs
-│       ├── SlideStudio.tsx      # Orchestrator workstation
-│       └── TopBar.tsx           # Brand header, slide status, present/export buttons
+│       ├── SlideStudio.tsx      # Orchestrator workstation with hydration-safe storage
+│       └── TopBar.tsx           # Brand header, slide status, light/dark toggle, present/export
 ├── export/
 │   └── ExportEngine.ts          # Vector PDF, 4K PDF, PPTX, and SVG export algorithms
 ├── presets/
-│   ├── sampleDecks.ts           # Initial executive slides
-│   └── themes.ts                # 6 Curated monochrome dark mode palettes
+│   ├── sampleDecks.ts           # Initial executive and consulting slides
+│   └── themes.ts                # 26 Curated palettes (SlideSpeak, Zara Zhang, Monochrome)
 ├── types/
 │   └── slide.ts                 # TypeScript domain contracts
 └── package.json                 # Next.js, Framer Motion, pptxgenjs, jspdf dependencies

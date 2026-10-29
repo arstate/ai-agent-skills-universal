@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Play, Download, Layers, Eye } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, Download, Sun, Moon } from 'lucide-react';
 import { SlideDeck } from '../../types/slide';
 
 interface TopBarProps {
@@ -10,6 +10,9 @@ interface TopBarProps {
   onPresent: () => void;
   onOpenExportModal: () => void;
   onTitleChange: (newTitle: string) => void;
+  onToggleTheme?: () => void;
+  isLightMode?: boolean;
+  isMounted?: boolean;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -18,7 +21,18 @@ export const TopBar: React.FC<TopBarProps> = ({
   onPresent,
   onOpenExportModal,
   onTitleChange,
+  onToggleTheme,
+  isLightMode = false,
+  isMounted: propMounted,
 }) => {
+  const [internalMounted, setInternalMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setInternalMounted(true);
+  }, []);
+
+  const mounted = propMounted !== undefined ? propMounted : internalMounted;
+
   return (
     <header className="h-14 border-b border-[#27272a] bg-[#09090b] px-6 flex items-center justify-between select-none z-30">
       {/* LEFT: Engine Logo & Deck Title */}
@@ -57,8 +71,34 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
       </div>
 
-      {/* RIGHT: Actions (Present, Export) */}
+      {/* RIGHT: Actions (Theme Toggle, Present, Export) */}
       <div className="flex items-center gap-3">
+        {/* Toggle Light / Dark Mode Palette */}
+        {onToggleTheme && (
+          <button
+            onClick={onToggleTheme}
+            suppressHydrationWarning
+            className="flex items-center gap-2 border border-[#27272a] bg-[#121214] hover:bg-[#18181b] hover:border-white px-3 py-1.5 text-xs font-mono font-medium text-white transition-all shadow-sm"
+            title="Toggle Light / Dark Mode Palette"
+          >
+            {mounted && isLightMode ? (
+              <>
+                <Sun className="h-3.5 w-3.5 text-amber-400" />
+                <span className="uppercase text-[11px] tracking-wider text-amber-400 font-semibold">
+                  LIGHT MODE
+                </span>
+              </>
+            ) : (
+              <>
+                <Moon className="h-3.5 w-3.5 text-[#a1a1aa]" />
+                <span className="uppercase text-[11px] tracking-wider text-[#a1a1aa]">
+                  DARK MODE
+                </span>
+              </>
+            )}
+          </button>
+        )}
+
         {/* Fullscreen Present Button */}
         <button
           onClick={onPresent}

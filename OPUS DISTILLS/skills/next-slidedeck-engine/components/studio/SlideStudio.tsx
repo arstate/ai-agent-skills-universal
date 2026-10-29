@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { SlideDeck, Slide, LayoutType, TransitionType } from '../../types/slide';
 import { INITIAL_DECK } from '../../presets/sampleDecks';
-import { THEMES } from '../../presets/themes';
+import { THEMES, isColorLight } from '../../presets/themes';
 import { TopBar } from './TopBar';
 import { LeftSidebar } from './LeftSidebar';
 import { CenterCanvas } from './CenterCanvas';
@@ -14,28 +14,40 @@ import { ExportEngine } from '../../export/ExportEngine';
 import { SlideRenderer } from '../slides/SlideRenderer';
 
 export const SlideStudio: React.FC = () => {
-  const [deck, setDeck] = useState<SlideDeck>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('next_slidedeck_data');
-      if (saved) {
-        try {
-          return JSON.parse(saved);
-        } catch (e) {}
-      }
-    }
-    return INITIAL_DECK;
-  });
-
+  const [deck, setDeck] = useState<SlideDeck>(INITIAL_DECK);
+  const [mounted, setMounted] = useState<boolean>(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
   const [isPresenting, setIsPresenting] = useState<boolean>(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
 
-  // Sync to localStorage
+  // Hydration-safe initial state loading from localStorage
   useEffect(() => {
+    setMounted(true);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('next_slidedeck_data', JSON.stringify(deck));
+      try {
+        const saved = localStorage.getItem('next_slidedeck_data');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && Array.isArray(parsed.slides) && parsed.slides.length > 0) {
+            setDeck(parsed);
+          }
+        }
+      } catch (e) {
+        console.error('Error loading saved slide deck:', e);
+      }
     }
-  }, [deck]);
+  }, []);
+
+  // Sync to localStorage after mounting
+  useEffect(() => {
+    if (mounted && typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('next_slidedeck_data', JSON.stringify(deck));
+      } catch (e) {
+        console.error('Error syncing slide deck to storage:', e);
+      }
+    }
+  }, [deck, mounted]);
 
   // Keyboard shortcut listener for F5 Present mode and arrow keys
   useEffect(() => {
@@ -66,6 +78,15 @@ export const SlideStudio: React.FC = () => {
 
   const activeSlide = deck.slides[activeSlideIndex] || deck.slides[0];
   const activeTheme = THEMES[deck.themeId] || THEMES['obsidian-pure'];
+  const isLightMode = Boolean(activeTheme.isLight ?? isColorLight(activeTheme.bg));
+
+  const handleToggleThemeMode = useCallback(() => {
+    if (isLightMode) {
+      setDeck((prev) => ({ ...prev, themeId: 'obsidian-pure' }));
+    } else {
+      setDeck((prev) => ({ ...prev, themeId: 'consulting-cream' }));
+    }
+  }, [isLightMode]);
 
   // Handlers for deck management
   const handleSelectSlide = (index: number) => {
@@ -189,6 +210,9 @@ export const SlideStudio: React.FC = () => {
         onPresent={() => setIsPresenting(true)}
         onOpenExportModal={() => setIsExportModalOpen(true)}
         onTitleChange={(title) => setDeck((prev) => ({ ...prev, title }))}
+        onToggleTheme={handleToggleThemeMode}
+        isLightMode={isLightMode}
+        isMounted={mounted}
       />
 
       {/* Main 3-Panel Studio Workstation */}

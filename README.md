@@ -47,21 +47,29 @@ Enforce the split-channel communication rule: concise chat responses paired with
 
 ## 🚀 Key Highlights & Capabilities
 
-### 1. Presentation Studio Engine: `next-slidedeck-engine` & `slidedeck-gen`
-Autonomous presentation studio engine built on Next.js, featuring strict Minimalist Monochrome Dark Mode:
-- **Next.js Minimalist Monochrome Presentation Studio (`next-slidedeck-engine`)**:
+### 1. Presentation Studio Engine: `next-slidedeck-engine`, `slide-design`, & `slidedeck-gen`
+Autonomous presentation studio engine built on Next.js, featuring full multi-aesthetic creative freedom:
+- **Next.js Multi-Aesthetic Presentation Studio (`next-slidedeck-engine`)**:
   * Built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
-  * **Strict Monochrome Dark Mode:** Deep obsidian black (`#000000`, `#09090b`), surface zinc (`#121214`), hairline borders (`#27272a`), optical white typography (`#fafafa`), **0% emoji/cartoon clutter**.
+  * **Full Creative Design Freedom (Never Locked to Dark Mode):** 26 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
+    - Light & Cream Editorial: Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink.
+    - Vibrant & Bold Accents: Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Cobalt (`#2563EB`), Neon Cyber (`#00FFCC`).
+    - Minimalist Dark: Obsidian Pure (`#000000`), Titanium Precision, Swiss Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal.
+    - **0% emoji/cartoon clutter:** Disciplined typography, mathematical grid alignment, and executive credibility.
+  * **Topbar Instant Light/Dark Toggle:** Seamlessly toggle between Light Mode and Dark Mode palettes with zero SSR hydration mismatch.
   * **3-Panel Studio Layout:**
     - Left Sidebar: Interactive slide filmstrip, add slide (8 layout templates: Cover, Key Metrics, Asymmetric Split 60/40, 3-Pillars, Bento Matrix, Quote Spotlight, Comparison Table, Milestone Timeline), reorder up/down, duplicate, delete.
     - Center Canvas: Pristine 16:9 presentation stage (`1920x1080`) with mathematical fixed-ratio scaling (anti-squish). **ZERO overlay buttons or UI clutter inside the slide canvas itself** — 100% focus on presentation design!
-    - Right Sidebar: Inspector tabs for Style (6 monochrome dark palettes), Text (kicker, title, subtitle, footnote), Elements (metrics, pillars, bento cards, bullets, quote), Animation (Morph Smooth shared-layout transitions, Crossfade, Slide, Zoom, Clip, Flip 3D, Stagger Blur), and Universal Export.
+    - Right Sidebar: Inspector tabs for Style (26 curated palettes categorized by All/Light/Dark/Vibrant), Text (kicker, title, subtitle, footnote), Elements (metrics, pillars, bento cards, bullets, quote), Animation (Morph Smooth shared-layout transitions, Crossfade, Slide, Zoom, Clip, Flip 3D, Stagger Blur), and Universal Export.
   * **Universal Multi-Target Export:**
     1) Vector PDF (lossless SVG print via `@page { size: 16in 9in; margin: 0; }`)
     2) Raster 4K PDF (high-density canvas snapshot)
     3) Editable PowerPoint (`.pptx` via native PPTX builder)
     4) Pure SVG Vector (single slide or all slides in a ZIP bundle)
   * **Fullscreen Presentation Mode (`F5`):** Complete distraction-free presentation with full keyboard controls (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
+- **Master Presentation Design Engine (`slide-design`)**:
+  * Automated style derivation derived from the brief (never picked from rigid templates).
+  * 8 Distinct layout grammars, tokens, and component sets from SlideSpeak (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
 - **Zara Zhang Editorial & Live Preview Engine (`slidedeck-gen`)**:
   * Live Preview Daemon: `slidedeck-gen dev <dir> --daemon` or `slidedeck-gen studio` immediately opens Chrome GUI on CDP port 9223.
   * In-place text editing auto-saved to disk with real-time sync.

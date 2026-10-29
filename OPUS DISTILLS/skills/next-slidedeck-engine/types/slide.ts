@@ -82,6 +82,8 @@ export interface ThemeConfig {
   id: string;
   name: string;
   description: string;
+  category?: 'light' | 'dark' | 'vibrant' | 'editorial';
+  isLight?: boolean;
   bg: string;
   surface: string;
   surfaceRaised: string;

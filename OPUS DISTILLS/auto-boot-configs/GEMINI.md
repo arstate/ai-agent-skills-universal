@@ -220,26 +220,29 @@ Seluruh skill desain (`web-design`, `taste-design`, dan `opus-distills`) telah d
 
 ---
 
-## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK ENGINE (@next-slidedeck-engine & @slidedeck-gen) — ENGINE NEXT.JS MINIMALIST MONOCHROME DARK MODE & AUTO-OPEN STUDIO LIVE!
+## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK ENGINE (@next-slidedeck-engine, @slide-design, & @slidedeck-gen) — ENGINE NEXT.JS MULTI-AESTHETIC & CREATIVE FREEDOM (LIGHT, CREAM EDITORIAL, BOLD ACCENT, & MINIMALIST DARK) + AUTO-OPEN STUDIO LIVE!
 
 Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan presentasi PDF:
 1. **Interactive Briefing & Clarification Gate (Anti-Guessing):**
-   - Jika request user minim detail (belum menentukan tema, jumlah slide, referensi, target audiens, dan format akhir PDF/PPTX/SVG), **AGENT DILARANG KERAS MENEBAK!**
-   - Agen **WAJIB** langsung menyajikan **Menu Briefing Interaktif 5 Poin** (Monochrome Palette, Referensi Desain/Aset Brand, Jumlah Slide & Pacing, Target Audiens & Single Core Takeaway, Format Deliverable Akhir) dan menunggu konfirmasi user.
-2. **MANDAT WAJIB PAKAI ENGINE NEXT.JS SLIDE DECK (`@next-slidedeck-engine` / `@slidedeck-gen`):**
-   - **HARAM** menggunakan template dashboard Dashi kartu seragam lama yang membosankan!
-   - Gunakan engine kustom berbasis Next.js App Router (`skills/next-slidedeck-engine`):
-     * **UI/UX Strict Minimalist Monochrome Dark Mode:** Deep obsidian black (`#000000`, `#09090b`), surface zinc (`#121214`), hairline border (`#27272a`), optical white typography (`#fafafa`), **0% emoji/emoticon kartun**.
-     * **3-Panel Studio Layout:**
-       - **Sidebar Kiri:** Filmstrip daftar thumbnail slide (tambah slide 8 template, reorder up/down, duplikasi, hapus slide).
-       - **Kanvas Tengah:** Pristine 16:9 presentation stage (`1920x1080` coordinates) dengan scaling margin tetap (fixed aspect ratio, TIDAK responsif gepeng/penyok). **DI DALAM KANVAS DECK HARAM ADA TOMBOL/OVERLAY UI APAPUN** agar fokus 100% ke desain slide!
-       - **Sidebar Kanan:** Inspector & Editor 5-tab:
-         1) *Style:* 6 Palet Monochrome Dark (`Obsidian Pure`, `Titanium Precision`, `Swiss Monochrome`, `Editorial Noir`, `Graphite Telemetry`, `Velvet Charcoal`) + switcher layout (Cover, Split, Metrics, Pillars, Bento, Quote, Comparison, Timeline).
-         2) *Text:* Kicker context tag, declarative headline title, subtitle summary, footnote telemetry.
-         3) *Elements:* Dynamic editor cards (metric stats, 3-pillar columns, bento cards, bullet points, quote doctrine).
-         4) *Animation:* Morph Smooth (shared-layout spring motion), Crossfade, Slide X, Slide Y, Scale Zoom, Clip Reveal, Flip 3D, Stagger Blur + slider duration & easing.
-         5) *Export:* Universal export pipeline (Vector PDF, Raster 4K PDF, Editable PPTX, SVG Only).
-     * **Fullscreen Presentation Mode (`F5`):** Tekan `F5` atau tombol Present untuk masuk ke mode presentasi layar penuh tanpa chrome UI, navigasi keyboard lengkap (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
+   - Jika request user minim detail (belum menentukan tema, format visual, target audiens, dan format deliverable), **AGENT DILARANG KERAS MENEBAK!**
+   - Tawarkan opsi arah visual kreatif (Light Consulting Cream ala McKinsey/BCG, Academic Slate, Washi Ivory, Swiss Modernist, Venture Pitch Cobalt, Bold Signal Coral, atau Minimalist Dark Obsidian) dan tunggu konfirmasi user.
+2. **MANDAT WAJIB PAKAI ENGINE NEXT.JS SLIDE DECK (`@next-slidedeck-engine`, `@slide-design`, `@slidedeck-gen`):**
+   - **DILARANG ME-LOCK KE DARK MODE SAJA!** AI Agent wajib memiliki fleksibilitas kreatif penuh menggunakan 26 palet desain berkelas dari SlideSpeak (`slide-design-skill`) dan Zara Zhang (`frontend-slides`):
+     * **Light & Editorial:** Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink.
+     * **Vibrant & Bold:** Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Blue (`#2563EB`), Neon Cyber (`#00FFCC`).
+     * **Minimalist Dark:** Obsidian Pure (`#000000`), Titanium Precision, Swiss Monochrome Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal.
+     * **0% Emoji/Emoticon Kartun:** Desain tipografi berkelas, tata letak proporsional, dan penataan elemen profesional tanpa AI slop.
+   - **3-Panel Studio Layout:**
+     - **Sidebar Kiri:** Filmstrip daftar thumbnail slide (tambah slide 8 template, reorder up/down, duplikasi, hapus slide).
+     - **Kanvas Tengah:** Pristine 16:9 presentation stage (`1920x1080` coordinates) dengan scaling margin tetap (fixed aspect ratio, TIDAK responsif gepeng/penyok). **DI DALAM KANVAS DECK HARAM ADA TOMBOL/OVERLAY UI APAPUN** agar fokus 100% ke desain slide!
+     - **Sidebar Kanan:** Inspector & Editor 5-tab:
+       1) *Style:* 26 Palet Desain Berkelas (All, Light, Dark, Vibrant) + switcher layout (Cover, Split, Metrics, Pillars, Bento, Quote, Comparison, Timeline).
+       2) *Text:* Kicker context tag, declarative headline title, subtitle summary, footnote telemetry.
+       3) *Elements:* Dynamic editor cards (metric stats, 3-pillar columns, bento cards, bullet points, quote doctrine).
+       4) *Animation:* Morph Smooth (shared-layout spring motion), Crossfade, Slide X, Slide Y, Scale Zoom, Clip Reveal, Flip 3D, Stagger Blur + slider duration & easing.
+       5) *Export:* Universal export pipeline (Vector PDF, Raster 4K PDF, Editable PPTX, SVG Only).
+   - **Topbar Quick Toggle:** Tombol beralih Light Mode / Dark Mode instan tanpa error hidrasi Next.js.
+   - **Fullscreen Presentation Mode (`F5`):** Tekan `F5` atau tombol Present untuk mode presentasi layar penuh, navigasi keyboard lengkap (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
 3. **MANDAT WAJIB AUTO-OPEN GOOGLE CHROME GUI DI MONITOR:**
    - Jalankan engine studio Next.js (`next-slidedeck dev 5200` atau `slidedeck-gen dev <dir>`) dan buka Chrome GUI monitor user (port 9223) tanpa flag `--headless` mengarah ke `http://127.0.0.1:5200/`.
 4. **Ekspor Multi-Format Langsung:**

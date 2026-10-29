@@ -240,3 +240,64 @@ export const INITIAL_DECK: SlideDeck = {
     },
   ],
 };
+
+export const LIGHT_CONSULTING_DECK: SlideDeck = {
+  id: 'deck-consulting-strategy-2026',
+  title: 'Strategic Growth & Operational Transformation',
+  themeId: 'consulting-cream',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: new Date().toISOString(),
+  slides: [
+    {
+      id: 'light-slide-1',
+      kicker: 'MANAGEMENT CONSULTING // ADVISORY BRIEF',
+      title: 'Global Market Expansion Strategy',
+      subtitle: 'Comprehensive market sizing, unit economics, and operational roadmap for next-gen enterprises',
+      layout: 'cover',
+      elements: {
+        footnote: 'CONFIDENTIAL // PREPARED FOR EXECUTIVE BOARD',
+      },
+    },
+    {
+      id: 'light-slide-2',
+      kicker: 'EXECUTIVE METRICS // KEY PERFORMANCE INDICATORS',
+      title: 'Q3 Financial & Operational Milestones',
+      subtitle: 'Sustained margin expansion and enterprise client retention benchmarks',
+      layout: 'metrics',
+      elements: {
+        metrics: [
+          { id: 'lm1', value: '$48.2M', label: 'ARR RUN-RATE', subtext: 'Annual recurring revenue', change: '+38% YoY' },
+          { id: 'lm2', value: '84.6%', label: 'GROSS MARGIN', subtext: 'Pure software margins', change: '+4.2 pts' },
+          { id: 'lm3', value: '124%', label: 'NET RETENTION', subtext: 'Expansion within accounts', change: 'Top quartile' },
+          { id: 'lm4', value: '9.4 mo', label: 'CAC PAYBACK', subtext: 'Capital efficient sales', change: '-2.1 mo' },
+        ],
+        footnote: 'AUDITED FINANCIAL DATA // Q3 2026',
+      },
+    },
+    {
+      id: 'light-slide-3',
+      kicker: 'STRATEGIC PILLARS // THREE HORIZONS',
+      title: 'Growth Vector Architecture',
+      subtitle: 'Coordinated execution across customer acquisition, platform expansion, and international markets',
+      layout: 'pillars',
+      elements: {
+        pillars: [
+          { id: 'lp1', title: 'Horizon 1: Core Acceleration', tag: 'IMMEDIATE', description: 'Scale flagship enterprise motion and improve sales velocity across tier-1 accounts.' },
+          { id: 'lp2', title: 'Horizon 2: Product Adjacencies', tag: 'SCALING', description: 'Launch autonomous AI workflows and API developer tier to capture mid-market volume.' },
+          { id: 'lp3', title: 'Horizon 3: Global Footprint', tag: 'EXPANSION', description: 'Enter high-growth APAC and EMEA hubs with localized compliance and distribution.' },
+        ],
+        footnote: 'THREE HORIZONS MODEL // STRATEGY FRAMEWORK',
+      },
+    },
+  ],
+};
+
+export const SAMPLE_DECKS: Record<string, SlideDeck> = {
+  'strategic-dark': INITIAL_DECK,
+  'consulting-light': LIGHT_CONSULTING_DECK,
+};
+
