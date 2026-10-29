@@ -453,11 +453,6 @@ async function handleCompile(args) {
     writeFileSync(targetHtml, html, 'utf8');
     console.log(`[✓] Compiled deck to: ${targetHtml} (${(html.length / 1024).toFixed(1)} KB)`);
   } else {
-    const { compileDeck } = await import('../scripts/compile-markdown.mjs');
-    const html = compileDeck(fullInput, { theme, title });
-    writeFileSync(targetHtml, html, 'utf8');
-    console.log(`[✓] Compiled deck to: ${targetHtml} (${(html.length / 1024).toFixed(1)} KB)`);
-  } else {
     console.error(`Unsupported input format: ${inputFile}. Must be .md or .json`);
     process.exit(1);
   }
