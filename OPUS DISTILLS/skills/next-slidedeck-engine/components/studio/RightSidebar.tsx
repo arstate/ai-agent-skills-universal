@@ -82,6 +82,22 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
 
   const isLight = studioMode === 'light';
 
+  const inputClass = isLight
+    ? 'w-full bg-white border border-[#e4e4e7] focus:border-zinc-900 text-xs font-mono text-zinc-900 p-2.5 outline-none transition-colors'
+    : 'w-full bg-[#141418] border border-[#27272a] focus:border-white text-xs font-mono text-white p-2.5 outline-none transition-colors';
+
+  const textareaClass = isLight
+    ? 'w-full bg-white border border-[#e4e4e7] focus:border-zinc-900 text-xs text-zinc-900 p-2.5 outline-none transition-colors resize-none leading-relaxed'
+    : 'w-full bg-[#141418] border border-[#27272a] focus:border-white text-xs text-[#d4d4d8] p-2.5 outline-none transition-colors resize-none leading-relaxed';
+
+  const labelClass = isLight
+    ? 'text-[10px] font-mono uppercase tracking-widest text-zinc-500 block mb-1.5'
+    : 'text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-1.5';
+
+  const cardClass = isLight
+    ? 'border border-[#e4e4e7] bg-white p-3 flex flex-col gap-2 shadow-sm'
+    : 'border border-[#222227] bg-[#121215] p-3 flex flex-col gap-2';
+
   return (
     <aside
       className={`w-80 border-l flex flex-col justify-between select-none z-20 transition-colors duration-150 ${
@@ -181,10 +197,10 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
             {/* Theme Palettes Selector */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#71717a]">
+                <span className={labelClass}>
                   DESIGN STYLES & PALETTES
                 </span>
-                <span className="text-[10px] font-mono text-[#a1a1aa]">
+                <span className={`text-[10px] font-mono ${isLight ? 'text-zinc-500' : 'text-[#a1a1aa]'}`}>
                   {filteredThemes.length} / {Object.keys(THEMES).length}
                 </span>
               </div>
@@ -197,7 +213,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                     onClick={() => setThemeCategoryFilter(cat)}
                     className={`py-1 text-center text-[10px] font-mono uppercase tracking-wider transition-colors border ${
                       themeCategoryFilter === cat
-                        ? 'border-white bg-[#18181c] text-white font-semibold'
+                        ? isLight
+                          ? 'border-zinc-900 bg-zinc-900 text-white font-semibold'
+                          : 'border-white bg-[#18181c] text-white font-semibold'
+                        : isLight
+                        ? 'border-[#e4e4e7] bg-white text-zinc-600 hover:text-zinc-900'
                         : 'border-[#222227] bg-[#101014] text-[#71717a] hover:text-[#d4d4d8]'
                     }`}
                   >
@@ -215,7 +235,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                       onClick={() => onUpdateDeckTheme(theme.id)}
                       className={`flex flex-col p-2.5 border text-left transition-all ${
                         isSelected
-                          ? 'border-white bg-[#18181c]'
+                          ? isLight
+                            ? 'border-zinc-900 bg-white ring-1 ring-zinc-900 shadow-sm'
+                            : 'border-white bg-[#18181c]'
+                          : isLight
+                          ? 'border-[#e4e4e7] bg-white hover:border-zinc-400'
                           : 'border-[#222227] bg-[#101014] hover:border-[#383842]'
                       }`}
                     >
@@ -239,13 +263,27 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                               title={`Accent: ${theme.accent}`}
                             />
                           </div>
-                          <span className="text-xs font-mono font-medium text-white truncate max-w-[160px]">
+                          <span
+                            className={`text-xs font-mono font-medium truncate max-w-[160px] ${
+                              isLight ? 'text-zinc-900' : 'text-white'
+                            }`}
+                          >
                             {theme.name}
                           </span>
                         </div>
-                        {isSelected && <Check className="h-3.5 w-3.5 text-white shrink-0" />}
+                        {isSelected && (
+                          <Check
+                            className={`h-3.5 w-3.5 shrink-0 ${
+                              isLight ? 'text-zinc-900' : 'text-white'
+                            }`}
+                          />
+                        )}
                       </div>
-                      <span className="text-[10px] text-[#71717a] leading-tight line-clamp-2">
+                      <span
+                        className={`text-[10px] leading-tight line-clamp-2 ${
+                          isLight ? 'text-zinc-500' : 'text-[#71717a]'
+                        }`}
+                      >
                         {theme.description}
                       </span>
                     </button>
@@ -256,7 +294,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
 
             {/* Layout Switcher for Current Slide */}
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-3">
+              <span className={labelClass}>
                 ACTIVE SLIDE LAYOUT
               </span>
               <div className="grid grid-cols-2 gap-2">
@@ -268,7 +306,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                     }
                     className={`p-2.5 border text-left text-xs font-mono transition-all ${
                       activeSlide.layout === layout.type
-                        ? 'border-white bg-white text-black font-semibold'
+                        ? isLight
+                          ? 'border-zinc-900 bg-zinc-900 text-white font-semibold'
+                          : 'border-white bg-white text-black font-semibold'
+                        : isLight
+                        ? 'border-[#e4e4e7] bg-white text-zinc-700 hover:border-zinc-400'
                         : 'border-[#222227] bg-[#121215] text-[#d4d4d8] hover:border-[#383842]'
                     }`}
                   >
@@ -284,7 +326,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
         {activeTab === 'text' && (
           <div className="flex flex-col gap-4">
             <div>
-              <label className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-1.5">
+              <label className={labelClass}>
                 KICKER / CONTEXT TAG
               </label>
               <input
@@ -293,13 +335,13 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                 onChange={(e) =>
                   onUpdateActiveSlide((prev) => ({ ...prev, kicker: e.target.value }))
                 }
-                className="w-full bg-[#141418] border border-[#27272a] focus:border-white text-xs font-mono text-white p-2.5 outline-none transition-colors"
+                className={inputClass}
                 placeholder="e.g. EXECUTIVE BRIEFING // 2026"
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-1.5">
+              <label className={labelClass}>
                 HEADLINE TITLE
               </label>
               <textarea
@@ -308,13 +350,13 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                 onChange={(e) =>
                   onUpdateActiveSlide((prev) => ({ ...prev, title: e.target.value }))
                 }
-                className="w-full bg-[#141418] border border-[#27272a] focus:border-white text-sm font-semibold text-white p-2.5 outline-none transition-colors resize-none"
+                className={`${textareaClass} font-semibold`}
                 placeholder="Declarative slide title"
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-1.5">
+              <label className={labelClass}>
                 SUBTITLE / SUMMARY
               </label>
               <textarea
@@ -323,13 +365,13 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                 onChange={(e) =>
                   onUpdateActiveSlide((prev) => ({ ...prev, subtitle: e.target.value }))
                 }
-                className="w-full bg-[#141418] border border-[#27272a] focus:border-white text-xs text-[#d4d4d8] p-2.5 outline-none transition-colors resize-none leading-relaxed"
+                className={textareaClass}
                 placeholder="Supporting contextual explanation"
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] block mb-1.5">
+              <label className={labelClass}>
                 FOOTNOTE / TELEMETRY
               </label>
               <input
@@ -341,16 +383,96 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                     elements: { ...prev.elements, footnote: e.target.value },
                   }))
                 }
-                className="w-full bg-[#141418] border border-[#27272a] focus:border-white text-xs font-mono text-white p-2.5 outline-none transition-colors"
+                className={inputClass}
                 placeholder="e.g. CONFIDENTIAL // SOURCE LOGS"
               />
             </div>
+
+            {/* Standalone HTML Editor if slide is HTML layout or has rawHtml */}
+            {(activeSlide.layout === 'html' || activeSlide.layout === 'bespoke' || activeSlide.rawHtml || activeSlide.elements?.rawHtml) && (
+              <div className="border-t border-[#e4e4e7] dark:border-[#27272a] pt-4 flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <label className={labelClass}>
+                    STANDALONE HTML (1-SLIDE = 1 HTML)
+                  </label>
+                  <span className="text-[9px] font-mono text-emerald-500 font-bold">UNRESTRICTED</span>
+                </div>
+                <textarea
+                  rows={8}
+                  value={activeSlide.rawHtml || activeSlide.elements.rawHtml || ''}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    onUpdateActiveSlide((prev) => ({
+                      ...prev,
+                      rawHtml: val,
+                      elements: { ...prev.elements, rawHtml: val },
+                    }));
+                  }}
+                  className={`${textareaClass} font-mono text-[11px]`}
+                  placeholder="Paste standalone HTML document or snippet with unrestricted layout/styling..."
+                />
+                <span className={`text-[10px] ${isLight ? 'text-zinc-500' : 'text-[#71717a]'}`}>
+                  Full creative freedom. Renders full-bleed 1920x1080 inside canvas.
+                </span>
+              </div>
+            )}
           </div>
         )}
 
         {/* TAB 3: ELEMENTS */}
         {activeTab === 'elements' && (
           <div className="flex flex-col gap-5">
+            {/* Elements for 'html' / 'bespoke' layout */}
+            {(activeSlide.layout === 'html' || activeSlide.layout === 'bespoke' || activeSlide.rawHtml || activeSlide.elements?.rawHtml) && (
+              <div className={cardClass}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-500 font-bold">
+                    STANDALONE HTML ARTEFACT
+                  </span>
+                  <span className={`text-[9px] font-mono ${isLight ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                    1920x1080 FULL BLEED
+                  </span>
+                </div>
+                <p className={`text-[11px] leading-relaxed ${isLight ? 'text-zinc-600' : 'text-zinc-400'}`}>
+                  Arbitrary HTML slide authored with complete creative freedom. Renders full-bleed without forced templates.
+                </p>
+                <div>
+                  <label className={labelClass}>RAW HTML DOCUMENT / SNIPPET</label>
+                  <textarea
+                    rows={12}
+                    value={activeSlide.rawHtml || activeSlide.elements.rawHtml || ''}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      onUpdateActiveSlide((prev) => ({
+                        ...prev,
+                        rawHtml: val,
+                        elements: { ...prev.elements, rawHtml: val },
+                      }));
+                    }}
+                    className={`${textareaClass} font-mono text-[11px]`}
+                    placeholder="<!doctype html><html>...</html>"
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>CUSTOM CSS (OPTIONAL)</label>
+                  <textarea
+                    rows={4}
+                    value={activeSlide.customCss || activeSlide.elements.customCss || ''}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      onUpdateActiveSlide((prev) => ({
+                        ...prev,
+                        customCss: val,
+                        elements: { ...prev.elements, customCss: val },
+                      }));
+                    }}
+                    className={`${textareaClass} font-mono text-[11px]`}
+                    placeholder=":root { ... }"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Elements for 'metrics' layout */}
             {activeSlide.layout === 'metrics' && (
               <div>

@@ -369,25 +369,40 @@ async function handleDone(args) {
 
   // 1. Broadcast SSE status update to preview server so browser live badge updates
   const candidatePorts = [...new Set([serverPort, 5200, 5201, 5202, 4173])];
-  for (const p of candidatePorts) {
-    try {
-      const postData = JSON.stringify({ status: '✅ Slide Deck Ready — In-Browser Live Editor Active' });
-      const req = http.request({
-        hostname: '127.0.0.1',
-        port: Number(p),
-        path: '/api/deck/status',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(postData)
-        },
-        timeout: 300
-      }, () => {});
-      req.on('error', () => {});
-      req.write(postData);
-      req.end();
-    } catch {}
-  }
+  await Promise.allSettled(
+    candidatePorts.map(async (p) => {
+      const isOpen = await checkPortOpen(Number(p), '127.0.0.1', 50);
+      if (!isOpen) return;
+      return new Promise((resolve) => {
+        try {
+          const postData = JSON.stringify({ status: '✅ Slide Deck Ready — In-Browser Live Editor Active' });
+          const req = http.request(
+            {
+              hostname: '127.0.0.1',
+              port: Number(p),
+              path: '/api/deck/status',
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(postData),
+              },
+              timeout: 150,
+            },
+            () => resolve()
+          );
+          req.on('error', () => resolve());
+          req.on('timeout', () => {
+            req.destroy();
+            resolve();
+          });
+          req.write(postData);
+          req.end();
+        } catch {
+          resolve();
+        }
+      });
+    })
+  );
 
   // 2. Check if Chrome CDP port is actually listening before running cdp_visual_agent.py
   const isCdpActive = await checkPortOpen(Number(port), '127.0.0.1', 350);
@@ -402,14 +417,7 @@ async function handleDone(args) {
       }
 
       await new Promise((resolve) => {
-        const timer = setTimeout(resolve, 3500);
-        const p1 = spawn('python3', [cdpAgentPath, 'status', '✅ Slide Deck Ready — In-Browser Live Editor Active', '--port', port, ...tabArg], { stdio: 'ignore' });
-        p1.on('close', () => { clearTimeout(timer); resolve(); });
-        p1.on('error', () => { clearTimeout(timer); resolve(); });
-      });
-      await new Promise(r => setTimeout(r, 400));
-      await new Promise((resolve) => {
-        const timer = setTimeout(resolve, 3500);
+        const timer = setTimeout(resolve, 1500);
         const p2 = spawn('python3', [cdpAgentPath, 'done', '--port', port, ...tabArg], { stdio: 'ignore' });
         p2.on('close', () => { clearTimeout(timer); resolve(); });
         p2.on('error', () => { clearTimeout(timer); resolve(); });

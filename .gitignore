@@ -15,3 +15,10 @@ __pycache__/
 # Local runtime temp
 .browser-tmp/
 /tmp/
+
+# Build outputs
+.next/
+dist/
+out/
+build/
+*.tsbuildinfo

@@ -577,6 +577,38 @@ export class ExportEngine {
           align: 'center',
           color: theme.textPrimary.replace('#', ''),
         });
+      } else if (slide.layout === 'html' || slide.layout === 'bespoke' || slide.rawHtml || slide.elements?.rawHtml) {
+        const raw = slide.rawHtml || slide.elements?.rawHtml || '';
+        const cleanSnippet = raw.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 500);
+        pptSlide.addText(slide.title || 'HTML Bespoke Slide', {
+          x: 1.0,
+          y: 2.0,
+          w: 11.3,
+          h: 0.8,
+          fontSize: 24,
+          bold: true,
+          color: theme.textPrimary.replace('#', ''),
+        });
+        if (slide.subtitle) {
+          pptSlide.addText(slide.subtitle, {
+            x: 1.0,
+            y: 2.9,
+            w: 11.3,
+            h: 0.6,
+            fontSize: 14,
+            color: theme.textSecondary.replace('#', ''),
+          });
+        }
+        if (cleanSnippet) {
+          pptSlide.addText(cleanSnippet, {
+            x: 1.0,
+            y: 3.7,
+            w: 11.3,
+            h: 2.8,
+            fontSize: 11,
+            color: theme.textSecondary.replace('#', ''),
+          });
+        }
       } else if (slide.elements.bullets) {
         slide.elements.bullets.forEach((bullet, bIdx) => {
           pptSlide.addText(`•  ${bullet}`, {
@@ -623,6 +655,19 @@ export class ExportEngine {
     index: number,
     totalSlides: number
   ): string {
+    const isHtml = slide.layout === 'html' || slide.layout === 'bespoke' || Boolean(slide.rawHtml || slide.elements?.rawHtml);
+    if (isHtml) {
+      const raw = slide.rawHtml || slide.elements?.rawHtml || '';
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <foreignObject x="0" y="0" width="1920" height="1080">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width: 1920px; height: 1080px; margin: 0; padding: 0; overflow: hidden;">
+      ${raw}
+    </div>
+  </foreignObject>
+</svg>`;
+    }
+
     const titleEscaped = this.escapeXml(slide.title);
     const subtitleEscaped = this.escapeXml(slide.subtitle);
     const kickerEscaped = this.escapeXml(slide.kicker);

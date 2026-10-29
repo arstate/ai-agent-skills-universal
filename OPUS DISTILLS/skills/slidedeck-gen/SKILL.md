@@ -86,10 +86,10 @@ Tindakan otomatis yang langsung terjadi:
 
 ## 2. Core Architecture & Visual Standards
 
-### ⛔ HUKUM BESI #1: DILARANG MEMBUAT KARTU DASHBOARD DASHI (`goal.json`) YANG MEMBOSANKAN!
-**Kesalahan Fatal Output Jelek:** Dashi PPT (`goal.json`) menghasilkan tata letak kartu pengembang yang seragam, kaku, berbingkai cyan rounded (`border-radius: 12px`), dark navy, dan progress bar di setiap kartu. Hasilnya terlihat seperti dashboard monitoring server amatir, BUKAN presentasi berkelas!
+### ⛔ HUKUM BESI #1: DILARANG MEMBUAT KARTU DASHBOARD KAKU YANG MEMBOSANKAN!
+**Kesalahan Fatal Output Jelek:** Menghasilkan tata letak kartu seragam, kaku, berbingkai cyan rounded (`border-radius: 12px`), dark navy, dan progress bar di setiap kartu. Hasilnya terlihat seperti dashboard monitoring server amatir, BUKAN presentasi berkelas!
 **ATURAN MUTLAK AGEN:**
-1. **DILARANG** meng-generate `goal.json` dengan komponen kartu seragam Dashi untuk presentasi eksekutif/klien.
+1. **DILARANG** membuat slide dengan kartu-kartu dashboard kaku seragam untuk presentasi eksekutif/klien.
 2. **WAJIB OTOMATIS** memilih salah satu dari **34 Zara Zhang Bold Archetypes (`frontend-slides`)** di `templates/archetypes/<slug>/`:
    - **AI / Deep Tech / Frontier:** `signal` (Obsidian gold, serif 80pt, hairline rules), `cobalt-grid` (Engineering systems), `8-bit-orbit`.
    - **Executive / Strategy / Pitch:** `capsule` (Pill badges, clean slate), `broadside` (Monochrome broadsheet), `blue-professional`.
@@ -180,34 +180,25 @@ Left column explains storage orchestration; right column displays layout diagram
 - Multi-region cross-datacenter replication
 ```
 
-### Mode B: Structured 12-Theme Presentation Engine (`goal.json`)
-For high-density executive presentations, strategic consulting decks, and investor roadshows:
-- Uses Schema v2 JSON specifications.
-- Supports 12 curated visual themes and 1,020 pre-built layout variants across 20 layout roles (cover, table of contents, metrics, trends, comparison, flow, risks, architecture, SWOT, radar, funnel, ending).
-- Provides 3 template variants + 1 bespoke variant per logical slide.
-- Generated via `slidedeck-gen compile <goal.json> --out output/deck/ppt`.
+### Mode B: Pure 1-Slide = 1 Standalone HTML Standard
+For complete artistic and layout freedom authored by AI agents:
+- Supports rendering arbitrary, rich, standalone HTML slides within the 16:9 canvas.
+- Renders full-bleed 1920x1080 with zero forced engine chrome, padding, or theme restrictions.
+- Supports Zara Zhang 34 `beautiful-html-templates` (`soft-editorial`, `editorial-forest`, `signal`, `studio`, `pin-and-paper`, etc.).
 
-### Mode C: Bespoke HTML/CSS Slides
+### Mode C: Bespoke Interactive HTML/CSS Slides
 For custom interactive presentations with GSAP micro-interactions, canvas diagrams, or dynamic data widgets.
 
 ---
 
-## 4. The 12 Built-in Visual Themes
+## 4. Curated Visual Themes Spectrum (39 Themes)
 
-| Theme ID | Style Name | Recommended Scenarios | Visual Characteristics |
-|---|---|---|---|
-| `theme01` | **Soft Neumorphism** | Product intros, corporate briefings, SaaS proposals | Clean modern surfaces, subtle inner shadows, refined grey/blue palette |
-| `theme02` | **Cyber Glow** | AI keynotes, autonomous systems, tech launches | Deep slate background, vivid emerald/cyan glow accents, bold telemetry |
-| `theme03` | **Tech Code** | Engineering architecture, developer conferences, docs | Dark terminal aesthetic, monospace accents, syntax badge containers |
-| `theme04` | **Glassmorphism** | Consumer apps, creative portfolios, modern design | Frosted glass backdrop blur, pastel gradients, vibrant card borders |
-| `theme05` | **Data Spectrum** | Analytics reports, market research, KPI teardowns | High-contrast multi-color chart palettes, structured data cards |
-| `theme06` | **Dark Graph** | Network architecture, systems analysis, deep tech | Dark blue-grey background, connected nodes, structural grid lines |
-| `theme07` | **Crisp Whitepaper** | Consulting whitepapers, academic research, policy | Alabaster background, editorial serif accents, razor-sharp rules |
-| `theme08` | **Noir Luxe** | Executive proposals, luxury brand pitches, keynote | Deep obsidian black, subtle metallic gold accents, generous negative space |
-| `theme09` | **Editorial Magazine** | Founder profiles, brand stories, strategic essays | Classic editorial typography, deep navy background, rich typographic hierarchy |
-| `theme10` | **Financial Index** | Hedge fund reviews, financial earnings, quarterly reports | Monospace numerals, ticker tapes, gold and slate financial badges |
-| `theme11` | **High Growth** | Startup pitch decks, VC fundraising, growth roadmaps | High-energy cobalt/amber palette, bold stat callouts, dynamic cards |
-| `theme12` | **Sonic Neon** | Event keynotes, entertainment, creative media | High-contrast dark canvas, neon pink/purple accents, soundwave motifs |
+| Category | Theme Names & Aesthetic Profile | Best Use Case |
+|---|---|---|
+| **Minimalist Monochrome** | `obsidian-pure`, `titanium-precision`, `monochrome`, `8-bit-orbit` | Engineering briefs, AI architecture, system specifications |
+| **Cream Editorial & Paper** | `consulting-cream`, `soft-editorial`, `pin-and-paper`, `vellum`, `editorial-forest` | Boardroom advisory, McKinsey-style decks, literary essays |
+| **Vibrant Venture & Keynote** | `venture-pitch-cobalt`, `creative-voltage-neon-lime`, `signal`, `creative-mode`, `sakura-chroma` | Seed & Series A pitch decks, keynotes, high-conviction presentations |
+| **Modern Grid & Bento** | `neo-grid-bold`, `cartesian`, `block-frame`, `cobalt-grid`, `munich-bauhaus` | Capability matrix, multi-card technical architecture, data tear-downs |
 
 ---
 

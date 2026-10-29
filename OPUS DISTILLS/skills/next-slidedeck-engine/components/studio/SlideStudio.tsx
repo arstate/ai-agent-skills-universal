@@ -323,6 +323,7 @@ export const SlideStudio: React.FC = () => {
         deck={deck}
         activeSlideIndex={activeSlideIndex}
         isOpen={isExportModalOpen}
+        studioMode={studioMode}
         onClose={() => setIsExportModalOpen(false)}
       />
 
@@ -351,7 +352,7 @@ export const SlideStudio: React.FC = () => {
               breakAfter: 'page',
               overflow: 'hidden',
               position: 'relative',
-              backgroundColor: activeTheme.bg,
+              backgroundColor: (s.layout === 'html' || s.layout === 'bespoke' || s.rawHtml || s.elements?.rawHtml) ? 'transparent' : activeTheme.bg,
             }}
           >
             <SlideRenderer

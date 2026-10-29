@@ -204,6 +204,60 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
 
   const isMorph = transition.type === 'morph' && !isEditMode;
 
+  const isHtmlSlide = slide.layout === 'html' || slide.layout === 'bespoke' || Boolean(slide.rawHtml || slide.elements?.rawHtml);
+
+  // If the slide is an arbitrary / bespoke HTML slide, render it full-bleed (1920x1080)
+  // without forcing engine chrome, borders, paddings, watermarks, or studio theme colors.
+  if (isHtmlSlide) {
+    const raw = slide.rawHtml || slide.elements?.rawHtml || '';
+    const isFullDoc = raw.includes('<html') || raw.includes('<!DOCTYPE') || raw.includes('<body') || raw.includes('<head');
+
+    return (
+      <div
+        id={`slide-canvas-${slide.id}`}
+        onClick={() => {
+          if (isEditMode) onSelectElement?.(null);
+        }}
+        className={`relative select-none overflow-hidden ${isEditMode ? 'ring-1 ring-emerald-500/30' : ''}`}
+        style={{
+          width: 1920,
+          height: 1080,
+          backgroundColor: 'transparent',
+        }}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={slide.id}
+            initial={variants.initial}
+            animate={variants.animate}
+            exit={variants.exit}
+            transition={transitionConfig}
+            className="relative w-[1920px] h-[1080px] overflow-hidden"
+            style={{ width: 1920, height: 1080 }}
+          >
+            {isFullDoc ? (
+              <iframe
+                srcDoc={raw}
+                title={`html-slide-${slide.id}`}
+                className="w-[1920px] h-[1080px] border-0 overflow-hidden block"
+                style={{ width: '1920px', height: '1080px', border: 0 }}
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              />
+            ) : (
+              <div
+                className="w-[1920px] h-[1080px] relative overflow-hidden"
+                style={{ width: 1920, height: 1080 }}
+                dangerouslySetInnerHTML={{
+                  __html: raw || '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-family:sans-serif;font-size:24px;">Empty HTML Slide</div>',
+                }}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
+  }
+
   return (
     <div
       id={`slide-canvas-${slide.id}`}
