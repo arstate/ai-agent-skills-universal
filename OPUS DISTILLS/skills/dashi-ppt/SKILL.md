@@ -5,6 +5,9 @@ description: Production 16:9 Presentation & Slide Deck Engine. Generates interac
 
 # Dashi PPT — Publication-Grade 16:9 Slide Deck & Presentation Engine
 
+> [!NOTE] **Preferred Autonomous Engine:**
+> Ekosistem telah di-upgrade ke **`next-slidedeck-engine`** (`skills/next-slidedeck-engine`) dan **`slidedeck-gen`** — Engine Next.js murni dengan desain Minimalist Monochrome Dark Mode, zero emoji clutter, kanvas 16:9 fixed scale (zero tombol di area deck), Morph Smooth spring transitions, dan ekspor instan ke Vector PDF, Raster 4K PDF, Editable PPTX, dan pure SVG. Gunakan `@next-slidedeck-engine` untuk semua pengerjaan slide deck baru.
+
 Dashi PPT generates publication-grade, interactive 16:9 widescreen presentation decks. It organizes presentation requirements into a structured Schema v2 JSON goal plan, executes multi-variant layout allocation, and outputs a self-hosted `index.html` with an embedded presentation studio and real-time Chrome GUI preview.
 
 ## Key Capabilities & Architecture

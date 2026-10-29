@@ -47,22 +47,25 @@ Enforce the split-channel communication rule: concise chat responses paired with
 
 ## 🚀 Key Highlights & Capabilities
 
-### 1. Presentation Deck Engines: `dashi-ppt` & `slidedeck-gen`
-Dual presentation engine architecture supporting both the official GitHub Dashi engine and Zara Zhang's editorial design system:
-- **Official Dashi PPT Engine (`dashi-ppt` — chuspeeism/dashi-ppt-skill)**:
-  * Full standalone official skill ported directly from `chuspeeism/dashi-ppt-skill`.
-  * Direct execution command: `dashi-ppt <goal-spec.json> <output/ppt/index.html>`.
-  * Multi-variant 3+1 layouts, 12 built-in themes, schema v2 JSON specs, and in-browser preview server.
+### 1. Presentation Studio Engine: `next-slidedeck-engine` & `slidedeck-gen`
+Autonomous presentation studio engine built on Next.js, featuring strict Minimalist Monochrome Dark Mode:
+- **Next.js Minimalist Monochrome Presentation Studio (`next-slidedeck-engine`)**:
+  * Built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
+  * **Strict Monochrome Dark Mode:** Deep obsidian black (`#000000`, `#09090b`), surface zinc (`#121214`), hairline borders (`#27272a`), optical white typography (`#fafafa`), **0% emoji/cartoon clutter**.
+  * **3-Panel Studio Layout:**
+    - Left Sidebar: Interactive slide filmstrip, add slide (8 layout templates: Cover, Key Metrics, Asymmetric Split 60/40, 3-Pillars, Bento Matrix, Quote Spotlight, Comparison Table, Milestone Timeline), reorder up/down, duplicate, delete.
+    - Center Canvas: Pristine 16:9 presentation stage (`1920x1080`) with mathematical fixed-ratio scaling (anti-squish). **ZERO overlay buttons or UI clutter inside the slide canvas itself** — 100% focus on presentation design!
+    - Right Sidebar: Inspector tabs for Style (6 monochrome dark palettes), Text (kicker, title, subtitle, footnote), Elements (metrics, pillars, bento cards, bullets, quote), Animation (Morph Smooth shared-layout transitions, Crossfade, Slide, Zoom, Clip, Flip 3D, Stagger Blur), and Universal Export.
+  * **Universal Multi-Target Export:**
+    1) Vector PDF (lossless SVG print via `@page { size: 16in 9in; margin: 0; }`)
+    2) Raster 4K PDF (high-density canvas snapshot)
+    3) Editable PowerPoint (`.pptx` via native PPTX builder)
+    4) Pure SVG Vector (single slide or all slides in a ZIP bundle)
+  * **Fullscreen Presentation Mode (`F5`):** Complete distraction-free presentation with full keyboard controls (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
 - **Zara Zhang Editorial & Live Preview Engine (`slidedeck-gen`)**:
-  * Live Preview Daemon: `slidedeck-gen dev <dir> --template <archetype> --daemon` immediately opens Chrome GUI on CDP port 9223.
-  * Live Studio HUD: In-place text editing auto-saved to disk via `/api/deck/persist`, live SSE auto-reload (<50ms).
-  * 34 Zara Zhang Bold Production Archetypes (`signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.) with magazine editorial typography (`Source Serif 4`, `Archivo`, `Syne`), hairline rules, and 40% breathing room.
-  * Instant vector PDF export via Chrome CDP (`slidedeck-gen export-pdf`).
-- **Frontend Slides Design System & Archetype Vault**:
-  * **34 Design Archetype Folders**: Full specs in `references/bold-archetypes/` (each with `design.md` token guide and `preview.md` slide layout).
-  * **Master Slide Design Rules**: `references/slide-design-rules.md` (mandatory 40% negative space, single focal point, zero text overflow, and strict 80px safe margins).
-  * 18+ visual themes: *Bold Signal*, *Electric Studio*, *Creative Voltage*, *Editorial Forest*, *Emerald Editorial*, *Neo Grid Bold*, *Cobalt CAD*, *Capsule Modern*, *Soft Editorial*, *Monochrome Minimal*, *Broadside Poster*, *Cyber Glow*, *Tech Code*, *Noir Luxe*, *Modern Clean*.
-  * 8 core layout archetypes: *Cover/Hero*, *Bento Grid Matrix*, *Metric Hero Cards*, *Progression Pipeline Flow*, *Asymmetric Split (60/40)*, *Comparison / Versus*, *Quote Spotlight*, *Structured Table*.
+  * Live Preview Daemon: `slidedeck-gen dev <dir> --daemon` or `slidedeck-gen studio` immediately opens Chrome GUI on CDP port 9223.
+  * In-place text editing auto-saved to disk with real-time sync.
+  * 34 Zara Zhang Bold Production Archetypes (`signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.).
 
 ### 2. Universal Master Agent & Autonomous Router (`opus-distills`)
 - Automatically dispatches user tasks to specialist skills based on intent.

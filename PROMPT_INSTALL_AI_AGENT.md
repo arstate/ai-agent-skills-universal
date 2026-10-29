@@ -44,23 +44,24 @@ And verify global auto-boot rules:
 
 ## Step 3: Verified Capabilities Overview
 
-### 1. Presentation Deck Engines: `dashi-ppt` & `slidedeck-gen`
-- **Official Dashi PPT Engine (`dashi-ppt` — chuspeeism/dashi-ppt-skill):**
-  * Official standalone Dashi PPT skill from `chuspeeism/dashi-ppt-skill` repository.
-  * Direct shell renderer: `dashi-ppt <goal-spec.json> <output/ppt/index.html>`.
-  * Background HTTPS/HTTP preview server with multi-variant 3+1 layouts across 12 themes.
-  * Schema v2 JSON goal planning with `goal:scaffold` and `layout:query`.
+### 1. Presentation Studio Engine: `next-slidedeck-engine` & `slidedeck-gen`
+- **Minimalist Monochrome Next.js Presentation Studio (`next-slidedeck-engine`):**
+  * Custom lightweight studio built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
+  * **Strict Monochrome Dark Mode:** Deep obsidian black (`#000000`, `#09090b`), surface zinc (`#121214`), hairline borders (`#27272a`), optical white typography (`#fafafa`), **0% emoji/cartoon clutter**.
+  * **3-Panel Studio Layout:**
+    - Left Sidebar: Interactive slide filmstrip, add slide (8 layout templates: Cover, Key Metrics, Asymmetric Split 60/40, 3-Pillars, Bento Matrix, Quote Spotlight, Comparison Table, Milestone Timeline), reorder up/down, duplicate, delete.
+    - Center Canvas: Pristine 16:9 presentation stage (`1920x1080`) with mathematical fixed-ratio scaling (anti-squish). **ZERO overlay buttons or UI clutter inside the slide canvas itself** — 100% focus on presentation design!
+    - Right Sidebar: Inspector tabs for Style (6 monochrome dark palettes), Text (kicker, title, subtitle, footnote), Elements (metrics, pillars, bento cards, bullets, quote), Animation (Morph Smooth shared-layout transitions, Crossfade, Slide, Zoom, Clip, Flip 3D, Stagger Blur), and Export.
+  * **Universal Multi-Target Export:**
+    1) Vector PDF (lossless SVG print via `@page { size: 16in 9in; margin: 0; }`)
+    2) Raster 4K PDF (high-density canvas snapshot)
+    3) Editable PowerPoint (`.pptx` via native PPTX builder)
+    4) Pure SVG Vector (single slide or all slides in a ZIP bundle)
+  * **Fullscreen Presentation Mode (`F5`):** Complete distraction-free presentation with full keyboard controls (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
 - **Zara Zhang Editorial & Live Preview Engine (`slidedeck-gen`):**
-  * Live Preview Daemon: `slidedeck-gen dev <dir> --template <archetype> --daemon` immediately opens Chrome GUI on CDP port 9223.
-  * Live Studio HUD: In-place text editing auto-saved to disk via `/api/deck/persist`, live SSE auto-reload (<50ms).
+  * Live Preview Daemon: `slidedeck-gen dev <dir> --daemon` or `slidedeck-gen studio` immediately opens Chrome GUI on CDP port 9223.
+  * In-place text editing auto-saved to disk with real-time sync.
   * 34 Zara Zhang Bold Archetypes (`frontend-slides`): `signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.
-  * Strict 16:9 multi-page print-to-pdf: `slidedeck-gen export-pdf <dir>`.
-- **Frontend Slides Design System & Archetype Vault (`zarazhangrui/frontend-slides`):**
-  * Full 34 design archetype folders stored in `references/bold-archetypes/` (each with `design.md` token specs and `preview.md` slide layouts).
-  * Master Slide Design Rules in `references/slide-design-rules.md` (mandatory 40% negative space, single focal point, zero text overflow, and strict 80px safe margins).
-  * 18+ visual presets: Bold Signal, Electric Studio, Creative Voltage, Editorial Forest, Emerald Editorial, Neo Grid Bold (Swiss Bento), Cobalt CAD, Capsule Modern, Soft Editorial, Monochrome Minimal, Cyber Glow, Tech Code, Noir Luxe.
-  * 8 core layout archetypes: Cover/Hero, Bento Grid Matrix, Metric Hero Cards, Asymmetric Split (60/40), Comparison / Versus, Progression Flow / Timeline, Quote Spotlight, and Structured Table.
-  * Zero AI slop: Abstract geometric shapes, bold typography pairings, and clean physical materiality.
 
 ### 2. Autonomous Master Agent & Router (`opus-distills` + `web-master-agent`)
 - Universal skill router that detects intent and loads specialized sub-skills on demand.

@@ -46,6 +46,9 @@ async function main() {
   }
 
   switch (command) {
+    case 'studio':
+      await handleStudio(argv.slice(1));
+      break;
     case 'init':
       await handleInit(argv.slice(1));
       break;
@@ -96,6 +99,7 @@ Usage:
   slidedeck-gen <command> [options]
 
 Commands:
+  studio [port]            Launch Next.js Minimalist Monochrome Presentation Studio (port 5200)
   dev [deck-path]          Start live dev server + auto-open visible Chrome CDP with Live AI Cursor HUD
   init <deck-name>         Scaffold a new presentation project (supports 34 Zara Zhang bold archetypes)
   templates, list-templates List all 34 available Zara Zhang presentation archetypes
@@ -117,12 +121,40 @@ Options:
   --no-cdp                 Disable auto-launch of visible Chrome CDP in dev mode
 
 Examples:
+  slidedeck-gen studio
   slidedeck-gen list-templates
   slidedeck-gen init my-pitch --template signal --title "Executive Strategic Pitch"
   slidedeck-gen dev my-pitch
   slidedeck-gen done
   slidedeck-gen export-pdf my-pitch
 `);
+}
+
+async function handleStudio(args) {
+  const port = args[0] || '5200';
+  const homeDir = process.env.HOME || '';
+  const candidateDirs = [
+    path.resolve(SKILL_ROOT, '../next-slidedeck-engine'),
+    path.join(homeDir, '.agents/skills/next-slidedeck-engine'),
+    path.join(homeDir, '.gemini/antigravity-cli/skills/next-slidedeck-engine'),
+  ];
+
+  let targetDir = candidateDirs.find((d) => existsSync(d));
+  if (!targetDir) {
+    targetDir = candidateDirs[0];
+  }
+
+  console.log(`\n🚀 Launching Next.js Minimalist Monochrome Presentation Studio...`);
+  console.log(`📍 Studio directory: ${targetDir}`);
+  console.log(`🌐 Live Studio: http://localhost:${port}\n`);
+
+  const child = spawn('npm', ['run', 'dev', '--', '-p', port], {
+    cwd: targetDir,
+    stdio: 'inherit',
+    env: { ...process.env, PORT: port },
+  });
+
+  child.on('exit', (code) => process.exit(code || 0));
 }
 
 async function handleListTemplates(args) {

@@ -1,0 +1,84 @@
+'use client';
+
+import React from 'react';
+import { Play, Download, Layers, Eye } from 'lucide-react';
+import { SlideDeck } from '../../types/slide';
+
+interface TopBarProps {
+  deck: SlideDeck;
+  activeSlideIndex: number;
+  onPresent: () => void;
+  onOpenExportModal: () => void;
+  onTitleChange: (newTitle: string) => void;
+}
+
+export const TopBar: React.FC<TopBarProps> = ({
+  deck,
+  activeSlideIndex,
+  onPresent,
+  onOpenExportModal,
+  onTitleChange,
+}) => {
+  return (
+    <header className="h-14 border-b border-[#27272a] bg-[#09090b] px-6 flex items-center justify-between select-none z-30">
+      {/* LEFT: Engine Logo & Deck Title */}
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <div className="h-5 w-5 border border-white flex items-center justify-center">
+            <div className="h-2 w-2 bg-white" />
+          </div>
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-white">
+            SLIDEDECK // NEXT
+          </span>
+        </div>
+
+        <div className="h-4 w-[1px] bg-[#27272a]" />
+
+        <input
+          type="text"
+          value={deck.title}
+          onChange={(e) => onTitleChange(e.target.value)}
+          className="bg-transparent text-sm font-medium text-[#fafafa] hover:border-b hover:border-[#3f3f46] focus:border-b focus:border-white focus:outline-none transition-colors px-1 py-0.5 max-w-md truncate"
+          title="Click to rename deck"
+        />
+      </div>
+
+      {/* CENTER: Slide Count & Active Transition Mode */}
+      <div className="flex items-center gap-4 text-xs font-mono text-[#a1a1aa]">
+        <div className="flex items-center gap-2 border border-[#27272a] bg-[#121214] px-3 py-1">
+          <span className="text-[#71717a]">SLIDE:</span>
+          <span className="font-semibold text-white">
+            {String(activeSlideIndex + 1).padStart(2, '0')} / {String(deck.slides.length).padStart(2, '0')}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 border border-[#27272a] bg-[#121214] px-3 py-1">
+          <span className="text-[#71717a]">TRANSITION:</span>
+          <span className="font-semibold text-white uppercase">{deck.transition.type}</span>
+        </div>
+      </div>
+
+      {/* RIGHT: Actions (Present, Export) */}
+      <div className="flex items-center gap-3">
+        {/* Fullscreen Present Button */}
+        <button
+          onClick={onPresent}
+          className="flex items-center gap-2 border border-[#27272a] bg-[#121214] hover:bg-[#18181b] hover:border-white px-3.5 py-1.5 text-xs font-mono font-medium text-white transition-all shadow-sm"
+          title="Present Fullscreen (F5 / Space)"
+        >
+          <Play className="h-3.5 w-3.5 fill-current" />
+          <span>PRESENT [F5]</span>
+        </button>
+
+        {/* Universal Export Dropdown */}
+        <button
+          onClick={onOpenExportModal}
+          className="flex items-center gap-2 border border-white bg-white hover:bg-[#e4e4e7] px-3.5 py-1.5 text-xs font-mono font-semibold text-black transition-all shadow-sm"
+          title="Export as Vector PDF, Raster PDF, Editable PPTX, or SVG"
+        >
+          <Download className="h-3.5 w-3.5" />
+          <span>EXPORT</span>
+        </button>
+      </div>
+    </header>
+  );
+};
