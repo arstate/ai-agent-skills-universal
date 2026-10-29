@@ -336,7 +336,40 @@ function renderLayoutContent(
   onSelectElement?: (id: string | null) => void,
   onUpdateSlide?: (updater: (prev: Slide) => Slide) => void
 ) {
+  // Support rendering arbitrary, rich, standalone HTML slides (pure 1-slide = 1 HTML file standard)
+  if (slide.rawHtml || slide.elements?.rawHtml) {
+    const raw = slide.rawHtml || slide.elements?.rawHtml || '';
+    if (raw.includes('<html') || raw.includes('<!DOCTYPE')) {
+      return (
+        <div className="w-full h-full flex flex-col justify-center">
+          <iframe
+            srcDoc={raw}
+            title={`html-slide-${slide.id}`}
+            className="w-full h-full border-0 overflow-hidden"
+            sandbox="allow-scripts allow-same-origin"
+          />
+        </div>
+      );
+    }
+    return (
+      <div
+        className="w-full h-full relative overflow-hidden"
+        dangerouslySetInnerHTML={{ __html: raw }}
+      />
+    );
+  }
+
   switch (slide.layout) {
+    case 'html':
+    case 'bespoke':
+      return (
+        <div className="w-full h-full flex flex-col justify-center">
+          <div
+            className="w-full h-full relative overflow-hidden"
+            dangerouslySetInnerHTML={{ __html: slide.elements?.rawHtml || '<p>Empty HTML slide</p>' }}
+          />
+        </div>
+      );
     case 'cover':
       return (
         <div className="flex flex-col justify-center max-w-5xl">

@@ -631,6 +631,18 @@ export class ExportEngine {
     let bodySvg = '';
 
     switch (slide.layout) {
+      case 'html':
+      case 'bespoke': {
+        const raw = slide.rawHtml || slide.elements.rawHtml || '';
+        bodySvg = `
+  <foreignObject x="96" y="160" width="1728" height="760">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; color: ${theme.textPrimary}; overflow: hidden;">
+      ${raw}
+    </div>
+  </foreignObject>`;
+        break;
+      }
+
       case 'cover': {
         bodySvg = `
   <!-- Cover Metadata Badge -->

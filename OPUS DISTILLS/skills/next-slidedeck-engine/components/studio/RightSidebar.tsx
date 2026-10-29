@@ -27,6 +27,7 @@ interface RightSidebarProps {
   deck: SlideDeck;
   activeSlide: Slide;
   activeSlideIndex: number;
+  studioMode?: 'dark' | 'light';
   onUpdateActiveSlide: (updater: (prev: Slide) => Slide) => void;
   onUpdateDeckTheme: (themeId: string) => void;
   onUpdateTransition: (transitionType: TransitionType, duration: number) => void;
@@ -39,6 +40,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   deck,
   activeSlide,
   activeSlideIndex,
+  studioMode = 'dark',
   onUpdateActiveSlide,
   onUpdateDeckTheme,
   onUpdateTransition,
@@ -75,17 +77,34 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
     { type: 'quote', label: 'Quote Spotlight' },
     { type: 'comparison', label: 'Comparison' },
     { type: 'timeline', label: 'Timeline' },
+    { type: 'html', label: 'Arbitrary HTML' },
   ];
 
+  const isLight = studioMode === 'light';
+
   return (
-    <aside className="w-80 border-l border-[#27272a] bg-[#0c0c0e] flex flex-col justify-between select-none z-20">
+    <aside
+      className={`w-80 border-l flex flex-col justify-between select-none z-20 transition-colors duration-150 ${
+        isLight
+          ? 'border-[#e4e4e7] bg-[#f4f4f5] text-zinc-900'
+          : 'border-[#27272a] bg-[#0c0c0e] text-white'
+      }`}
+    >
       {/* Tab Navigation Header */}
-      <div className="flex border-b border-[#27272a] bg-[#09090b]">
+      <div
+        className={`flex border-b ${
+          isLight ? 'border-[#e4e4e7] bg-[#fafafa]' : 'border-[#27272a] bg-[#09090b]'
+        }`}
+      >
         <button
           onClick={() => setActiveTab('style')}
           className={`flex-1 py-3 text-center border-b-2 text-[11px] font-mono tracking-wider transition-colors uppercase ${
             activeTab === 'style'
-              ? 'border-white text-white bg-[#121215]'
+              ? isLight
+                ? 'border-zinc-900 text-zinc-900 bg-white font-semibold'
+                : 'border-white text-white bg-[#121215]'
+              : isLight
+              ? 'border-transparent text-zinc-500 hover:text-zinc-900'
               : 'border-transparent text-[#71717a] hover:text-[#d4d4d8]'
           }`}
           title="Theme & Layout Style"
@@ -96,7 +115,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
           onClick={() => setActiveTab('text')}
           className={`flex-1 py-3 text-center border-b-2 text-[11px] font-mono tracking-wider transition-colors uppercase ${
             activeTab === 'text'
-              ? 'border-white text-white bg-[#121215]'
+              ? isLight
+                ? 'border-zinc-900 text-zinc-900 bg-white font-semibold'
+                : 'border-white text-white bg-[#121215]'
+              : isLight
+              ? 'border-transparent text-zinc-500 hover:text-zinc-900'
               : 'border-transparent text-[#71717a] hover:text-[#d4d4d8]'
           }`}
           title="Edit Slide Text"
@@ -107,7 +130,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
           onClick={() => setActiveTab('elements')}
           className={`flex-1 py-3 text-center border-b-2 text-[11px] font-mono tracking-wider transition-colors uppercase ${
             activeTab === 'elements'
-              ? 'border-white text-white bg-[#121215]'
+              ? isLight
+                ? 'border-zinc-900 text-zinc-900 bg-white font-semibold'
+                : 'border-white text-white bg-[#121215]'
+              : isLight
+              ? 'border-transparent text-zinc-500 hover:text-zinc-900'
               : 'border-transparent text-[#71717a] hover:text-[#d4d4d8]'
           }`}
           title="Component Elements"
@@ -118,7 +145,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
           onClick={() => setActiveTab('animation')}
           className={`flex-1 py-3 text-center border-b-2 text-[11px] font-mono tracking-wider transition-colors uppercase ${
             activeTab === 'animation'
-              ? 'border-white text-white bg-[#121215]'
+              ? isLight
+                ? 'border-zinc-900 text-zinc-900 bg-white font-semibold'
+                : 'border-white text-white bg-[#121215]'
+              : isLight
+              ? 'border-transparent text-zinc-500 hover:text-zinc-900'
               : 'border-transparent text-[#71717a] hover:text-[#d4d4d8]'
           }`}
           title="Animation & Transitions"
@@ -129,7 +160,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
           onClick={() => setActiveTab('export')}
           className={`flex-1 py-3 text-center border-b-2 text-[11px] font-mono tracking-wider transition-colors uppercase ${
             activeTab === 'export'
-              ? 'border-white text-white bg-[#121215]'
+              ? isLight
+                ? 'border-zinc-900 text-zinc-900 bg-white font-semibold'
+                : 'border-white text-white bg-[#121215]'
+              : isLight
+              ? 'border-transparent text-zinc-500 hover:text-zinc-900'
               : 'border-transparent text-[#71717a] hover:text-[#d4d4d8]'
           }`}
           title="Vector PDF & SVG Export"

@@ -92,17 +92,39 @@ export const SlideStudio: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeSlideIndex, deck.slides.length, isPresenting]);
 
+  const [studioMode, setStudioMode] = useState<'dark' | 'light'>('dark');
+
+  // Load saved studio UI mode from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedMode = localStorage.getItem('next_slidedeck_studio_mode') as 'dark' | 'light' | null;
+        if (savedMode === 'dark' || savedMode === 'light') {
+          setStudioMode(savedMode);
+        }
+      } catch (e) {
+        console.error('Error loading saved studio mode:', e);
+      }
+    }
+  }, []);
+
   const activeSlide = deck.slides[activeSlideIndex] || deck.slides[0];
   const activeTheme = THEMES[deck.themeId] || THEMES['obsidian-pure'];
-  const isLightMode = Boolean(activeTheme.isLight ?? isColorLight(activeTheme.bg));
 
-  const handleToggleThemeMode = useCallback(() => {
-    if (isLightMode) {
-      setDeck((prev) => ({ ...prev, themeId: 'obsidian-pure' }));
-    } else {
-      setDeck((prev) => ({ ...prev, themeId: 'consulting-cream' }));
-    }
-  }, [isLightMode]);
+  // Toggle studio shell UI mode only - NEVER mutate deck.themeId or slide colors
+  const handleToggleStudioMode = useCallback(() => {
+    setStudioMode((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('next_slidedeck_studio_mode', next);
+        } catch (e) {
+          console.error('Error saving studio mode:', e);
+        }
+      }
+      return next;
+    });
+  }, []);
 
   // Handlers for deck management
   const handleSelectSlide = (index: number) => {
@@ -225,7 +247,11 @@ export const SlideStudio: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col overflow-hidden bg-[#09090b] text-white">
+    <div
+      className={`flex h-screen w-screen flex-col overflow-hidden transition-colors duration-150 ${
+        studioMode === 'light' ? 'bg-[#fafafa] text-zinc-900' : 'bg-[#09090b] text-white'
+      }`}
+    >
       {/* Studio Topbar */}
       <TopBar
         deck={deck}
@@ -233,8 +259,9 @@ export const SlideStudio: React.FC = () => {
         onPresent={() => setIsPresenting(true)}
         onOpenExportModal={() => setIsExportModalOpen(true)}
         onTitleChange={(title) => setDeck((prev) => ({ ...prev, title }))}
-        onToggleTheme={handleToggleThemeMode}
-        isLightMode={isLightMode}
+        onToggleTheme={handleToggleStudioMode}
+        isLightMode={studioMode === 'light'}
+        studioMode={studioMode}
         isMounted={mounted}
         isEditMode={isEditMode}
         onToggleEditMode={() => setIsEditMode((prev) => !prev)}
@@ -247,6 +274,7 @@ export const SlideStudio: React.FC = () => {
         <LeftSidebar
           slides={deck.slides}
           activeSlideIndex={activeSlideIndex}
+          studioMode={studioMode}
           onSelectSlide={handleSelectSlide}
           onAddSlide={handleAddSlide}
           onDuplicateSlide={handleDuplicateSlide}
@@ -261,6 +289,7 @@ export const SlideStudio: React.FC = () => {
           transition={deck.transition}
           activeSlideIndex={activeSlideIndex}
           totalSlides={deck.slides.length}
+          studioMode={studioMode}
           isEditMode={isEditMode}
           onUpdateActiveSlide={handleUpdateActiveSlide}
           onUpdateDeckTheme={handleUpdateDeckTheme}
@@ -271,6 +300,7 @@ export const SlideStudio: React.FC = () => {
           deck={deck}
           activeSlide={activeSlide}
           activeSlideIndex={activeSlideIndex}
+          studioMode={studioMode}
           onUpdateActiveSlide={handleUpdateActiveSlide}
           onUpdateDeckTheme={handleUpdateDeckTheme}
           onUpdateTransition={handleUpdateTransition}

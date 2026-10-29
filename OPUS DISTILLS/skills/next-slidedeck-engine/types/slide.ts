@@ -7,7 +7,9 @@ export type LayoutType =
   | 'quote'
   | 'comparison'
   | 'timeline'
-  | 'code';
+  | 'code'
+  | 'html'
+  | 'bespoke';
 
 export type TransitionType =
   | 'morph'
@@ -90,6 +92,8 @@ export interface SlideElements {
   titleColor?: string;
   subtitleColor?: string;
   footnote?: string;
+  rawHtml?: string;
+  customCss?: string;
 }
 
 export interface ThemeConfig {
@@ -124,6 +128,8 @@ export interface Slide {
   subtitle: string;
   layout: LayoutType;
   elements: SlideElements;
+  rawHtml?: string;
+  customCss?: string;
 }
 
 export interface SlideDeck {

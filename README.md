@@ -154,6 +154,6 @@ slidedeck-gen export-pptx dist/my-deck --out dist/my-deck/presentation.pptx
 
 - Licensed under the **MIT License**.
 - Inspired by and building upon:
-  * [chuspeeism/dashi-ppt-skill](https://github.com/chuspeeism/dashi-ppt-skill) (Presentation Studio UI standard)
+  * [zarazhangrui/beautiful-html-templates](https://github.com/zarazhangrui/beautiful-html-templates) (34 production-grade HTML presentation templates)
   * [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides) (Frontend Slides aesthetic design patterns)
   * [Nutlope/hallmark](https://github.com/Nutlope/hallmark) (58 `sloplint` gates and material themes)

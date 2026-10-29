@@ -61,7 +61,8 @@ const studioPath = path.join(engineDir, 'components/studio/SlideStudio.tsx');
 const studioContent = fs.readFileSync(studioPath, 'utf8');
 assert(studioContent.includes('id="deck-export-container"'), 'SlideStudio must mount #deck-export-container');
 assert(studioContent.includes('SlideRenderer'), 'SlideStudio must import and render SlideRenderer');
-console.log('[PASS] Verified SlideStudio mounts multi-page export container.');
+assert(studioContent.includes('studioMode'), 'SlideStudio must decouple studioMode from slide deck theme');
+console.log('[PASS] Verified SlideStudio mounts multi-page export container & decouples studioMode.');
 
 // 5. Verify SlideRenderer.tsx uses AnimatePresence and unified morph layoutIds
 const rendererPath = path.join(engineDir, 'components/slides/SlideRenderer.tsx');
@@ -78,23 +79,12 @@ assert(!slidedeckGenCli.includes('render_goal_deck.sh'), 'slidedeck-gen must not
 assert(!slidedeckGenCli.includes('official Dashi PPT engine'), 'slidedeck-gen must not reference official Dashi PPT engine');
 console.log('[PASS] Verified slidedeck-gen CLI has zero Dashi PPT dependencies.');
 
-// 7. Verify Preservation Vault Completeness across Dashi, SlideSpeak, and Zara Zhang
+// 7. Verify Preservation Vault Completeness across SlideSpeak and Zara Zhang (Zero Dashi)
 const refDir = path.join(engineDir, 'references');
 
-// 7a. Dashi Vault
-const dashiExDir = path.join(refDir, 'dashi/examples');
-const dashiExpected = ['annual-review.json', 'portfolio.json', 'workflow-telemetry.json', 'minimal-executive.json'];
-for (const file of dashiExpected) {
-  assert(fs.existsSync(path.join(dashiExDir, file)), `Dashi vault missing example: ${file}`);
-}
-const dashiCompDir = path.join(refDir, 'dashi/components');
-assert(fs.existsSync(path.join(dashiCompDir, 'bespoke/BespokeSlide.jsx')), 'Dashi vault missing BespokeSlide.jsx');
-for (let i = 1; i <= 12; i++) {
-  const tSlug = `theme${String(i).padStart(2, '0')}`;
-  assert(fs.existsSync(path.join(dashiCompDir, 'themes', tSlug)), `Dashi vault missing theme component: ${tSlug}`);
-}
-assert(fs.existsSync(path.join(refDir, 'dashi/blueprints/layout-manifest.json')), 'Dashi vault missing layout-manifest.json');
-console.log('[PASS] Verified Dashi preservation vault: 4 examples, 12 theme components, bespoke slides, blueprints & manifest.');
+// 7a. Verify Dashi is completely purged
+assert(!fs.existsSync(path.join(refDir, 'dashi')), 'Dashi vault must be completely removed from next-slidedeck-engine/references');
+console.log('[PASS] Verified 100% purge of legacy Dashi references vault.');
 
 // 7b. SlideSpeak Vault
 const ssExDir = path.join(refDir, 'slidespeak/examples');
@@ -115,20 +105,32 @@ const ssArchetypesDir = path.join(refDir, 'slidespeak/archetypes');
 assert(fs.readdirSync(ssArchetypesDir).length === 8, 'SlideSpeak vault must contain all 8 consulting archetypes');
 console.log('[PASS] Verified SlideSpeak preservation vault: 6 HTML example decks, 26 engine files, 8 archetypes, rules & specs.');
 
-// 7c. Zara Zhang Vault
-const zzArchetypesDir = path.join(refDir, 'zara-zhang-frontend-slides/archetypes');
-const zzArchetypes = fs.readdirSync(zzArchetypesDir).filter((f) => fs.statSync(path.join(zzArchetypesDir, f)).isDirectory());
-assert(zzArchetypes.length === 34, `Zara Zhang vault must contain all 34 archetypes, found ${zzArchetypes.length}`);
-const zzTemplatesDir = path.join(refDir, 'zara-zhang-frontend-slides/templates');
-assert(fs.readdirSync(zzTemplatesDir).length === 11, 'Zara Zhang vault must contain 11 markdown templates');
-console.log('[PASS] Verified Zara Zhang preservation vault: 34 archetypes, manifests, patterns & 11 templates.');
+// 7c. Zara Zhang Beautiful HTML Templates Vault (all 34 production templates)
+const bhtDir = path.join(refDir, 'beautiful-html-templates');
+assert(fs.existsSync(bhtDir), 'references/beautiful-html-templates must exist');
+const bhtTemplates = fs.readdirSync(bhtDir).filter((f) => fs.statSync(path.join(bhtDir, f)).isDirectory());
+assert(bhtTemplates.length === 34, `beautiful-html-templates must contain all 34 templates, found ${bhtTemplates.length}`);
+const sampleBhtExpected = ['soft-editorial', 'editorial-forest', 'pin-and-paper', 'sakura-chroma', 'stencil-tablet', 'cobalt-grid', 'vellum', 'emerald-editorial', 'neo-grid-bold', 'editorial-tri-tone', 'creative-mode', 'monochrome', 'biennale-yellow', 'long-table'];
+for (const t of sampleBhtExpected) {
+  assert(fs.existsSync(path.join(bhtDir, t, 'design.md')), `beautiful-html-templates/${t} missing design.md`);
+  assert(fs.existsSync(path.join(bhtDir, t, 'template.html')), `beautiful-html-templates/${t} missing template.html`);
+}
+
+const zzDir = path.join(refDir, 'zara-zhang');
+assert(fs.existsSync(zzDir), 'references/zara-zhang must exist');
+const zzTemplates = fs.readdirSync(zzDir).filter((f) => fs.statSync(path.join(zzDir, f)).isDirectory());
+assert(zzTemplates.length === 34, `references/zara-zhang must contain all 34 templates, found ${zzTemplates.length}`);
+console.log('[PASS] Verified Zara Zhang preservation vault: 34 beautiful-html-templates and 34 references/zara-zhang templates.');
 
 // 8. Verify Presets and TopBar integration
 const themesTsPath = path.join(engineDir, 'presets/themes.ts');
 const themesContent = fs.readFileSync(themesTsPath, 'utf8');
-const themeMatches = [...themesContent.matchAll(/^[ ]{2}'([a-z0-9-]+)':/gm)];
+const themeMatches = [...themesContent.matchAll(/^[ ]{2}['"]([a-z0-9-]+)['"]:/gm)];
 assert(themeMatches.length >= 38, `THEMES must contain >= 38 themes, found: ${themeMatches.length}`);
 assert(themesContent.includes("'slidespeak-hypergradient'"), 'THEMES must include slidespeak-hypergradient');
+assert(themesContent.includes('zara-zhang-soft-editorial'), 'THEMES must include zara-zhang-soft-editorial');
+assert(themesContent.includes('zara-zhang-editorial-forest'), 'THEMES must include zara-zhang-editorial-forest');
+assert(!themesContent.includes('dashi-soft-neumorphism'), 'THEMES must not include Dashi themes');
 
 const sampleDecksPath = path.join(engineDir, 'presets/sampleDecks.ts');
 const sampleDecksContent = fs.readFileSync(sampleDecksPath, 'utf8');
@@ -137,18 +139,22 @@ const requiredSampleDecks = [
   'consulting-light',
   'slidespeak-ai-trust',
   'gemini-4-argon',
-  'dashi-financial-index',
-  'dashi-tech-telemetry',
+  'zara-zhang-soft-editorial',
+  'zara-zhang-editorial-forest',
   'zara-zhang-bento',
   'zara-zhang-bold-signal',
 ];
 for (const deckKey of requiredSampleDecks) {
   assert(sampleDecksContent.includes(`'${deckKey}'`), `SAMPLE_DECKS must contain key: ${deckKey}`);
 }
+assert(!sampleDecksContent.includes('dashi-financial-index'), 'SAMPLE_DECKS must not contain Dashi decks');
 
 const topBarPath = path.join(engineDir, 'components/studio/TopBar.tsx');
 const topBarContent = fs.readFileSync(topBarPath, 'utf8');
 assert(topBarContent.includes('value="slidespeak-ai-trust"'), 'TopBar must include slidespeak-ai-trust option');
+assert(topBarContent.includes('value="zara-zhang-soft-editorial"'), 'TopBar must include zara-zhang-soft-editorial option');
+assert(topBarContent.includes('value="zara-zhang-editorial-forest"'), 'TopBar must include zara-zhang-editorial-forest option');
+assert(!topBarContent.includes('value="dashi-financial-index"'), 'TopBar must not include Dashi options');
 console.log('[PASS] Verified presets: 39 themes, 8 sample decks, and TopBar dropdown switcher.');
 
 console.log('\n[SUCCESS] ALL AUDIT CHECKS PASSED WITH 100% COMPLIANCE!');

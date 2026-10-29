@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # install-engine.sh — Autonomous Installer & Diagnostic Suite for Slide Deck PDF & PPTX Engines
-# Inspired by chuspeeism/dashi-ppt-skill & zarazhangrui/frontend-slides
+# Inspired by zarazhangrui/frontend-slides & zarazhangrui/beautiful-html-templates
 set -euo pipefail
 
 CYAN='\033[0;36m'

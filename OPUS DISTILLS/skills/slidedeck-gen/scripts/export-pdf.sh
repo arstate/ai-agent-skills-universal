@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # export-pdf.sh — Autonomous Zero-Margin 16:9 PDF Exporter for Slide Deck Presentations
-# Inspired by zarazhangrui/frontend-slides & chuspeeism/dashi-ppt-skill
+# Inspired by zarazhangrui/frontend-slides & zarazhangrui/beautiful-html-templates
 set -euo pipefail
 
 CYAN='\033[0;36m'

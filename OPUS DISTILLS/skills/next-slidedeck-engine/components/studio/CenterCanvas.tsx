@@ -12,6 +12,7 @@ interface CenterCanvasProps {
   transition: TransitionConfig;
   activeSlideIndex: number;
   totalSlides: number;
+  studioMode?: 'dark' | 'light';
   isEditMode?: boolean;
   onUpdateActiveSlide?: (updater: (prev: Slide) => Slide) => void;
   onUpdateDeckTheme?: (themeId: string) => void;
@@ -23,6 +24,7 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
   transition,
   activeSlideIndex,
   totalSlides,
+  studioMode = 'dark',
   isEditMode = false,
   onUpdateActiveSlide,
   onUpdateDeckTheme,
@@ -378,7 +380,9 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
   return (
     <main
       ref={containerRef}
-      className="relative flex-1 bg-[#060608] flex flex-col items-center justify-center overflow-hidden p-6 select-none"
+      className={`relative flex-1 flex flex-col items-center justify-center overflow-hidden p-6 select-none transition-colors duration-150 ${
+        studioMode === 'light' ? 'bg-[#e4e4e7]' : 'bg-[#000000]'
+      }`}
     >
       {/* POWERPOINT EDIT MODE QUICK TOOLBAR (Top Floating Ribbon) */}
       {isEditMode && (

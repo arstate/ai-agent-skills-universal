@@ -4,7 +4,7 @@ const nextConfig = {
   poweredByHeader: false,
   agentRules: false,
   turbopack: {
-    root: process.env.HOME || '/',
+    root: '/',
   },
 };
 
