@@ -2,5 +2,5 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-console.log('📦 Next Slide Deck Engine — Headless Export CLI');
-console.log('For in-browser high-fidelity export, visit http://localhost:5200 and click [EXPORT]');
+console.log('[NEXT-SLIDEDECK] Headless Export CLI');
+console.log('For in-browser vector export, start studio via next-slidedeck dev and click [EXPORT]');

@@ -11,6 +11,7 @@ import { RightSidebar } from './RightSidebar';
 import { FullscreenPresenter } from './FullscreenPresenter';
 import { ExportModal } from './ExportModal';
 import { ExportEngine } from '../../export/ExportEngine';
+import { SlideRenderer } from '../slides/SlideRenderer';
 
 export const SlideStudio: React.FC = () => {
   const [deck, setDeck] = useState<SlideDeck>(() => {
@@ -241,6 +242,46 @@ export const SlideStudio: React.FC = () => {
         isOpen={isExportModalOpen}
         onClose={() => setIsExportModalOpen(false)}
       />
+
+      {/* Offscreen & Print Container for Multi-Page PDF & 4K Snapshots */}
+      <div
+        id="deck-export-container"
+        className="print:block"
+        style={{
+          position: 'fixed',
+          left: '-99999px',
+          top: 0,
+          width: '1920px',
+          zIndex: -9999,
+          pointerEvents: 'none',
+        }}
+      >
+        {deck.slides.map((s, idx) => (
+          <div
+            key={`export-page-${s.id || idx}`}
+            id={`export-slide-${idx}`}
+            className="print-page-slide"
+            style={{
+              width: '1920px',
+              height: '1080px',
+              pageBreakAfter: 'always',
+              breakAfter: 'page',
+              overflow: 'hidden',
+              position: 'relative',
+              backgroundColor: activeTheme.bg,
+            }}
+          >
+            <SlideRenderer
+              slide={s}
+              theme={activeTheme}
+              transition={{ type: 'crossfade', duration: 0 }}
+              index={idx}
+              totalSlides={deck.slides.length}
+              isThumbnail={false}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

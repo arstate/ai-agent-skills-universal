@@ -122,28 +122,29 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
         style={{ borderColor: theme.border }}
       />
 
-      <motion.div
-        key={slide.id}
-        initial={variants.initial}
-        animate={variants.animate}
-        exit={variants.exit}
-        transition={transitionConfig}
-        className="relative flex h-full w-full flex-col justify-between p-24"
-      >
-        {/* TOP METADATA BAR (Inside slide) */}
-        <div className="flex items-center justify-between border-b pb-6" style={{ borderColor: theme.border }}>
-          <motion.div
-            layoutId={transition.type === 'morph' ? `slide-kicker-${slide.id}` : undefined}
-            className="flex items-center gap-3"
-          >
-            <span
-              className="inline-block h-2 w-2 rounded-none"
-              style={{ backgroundColor: theme.accent }}
-            />
-            <span
-              className="text-xs font-mono font-medium tracking-[0.25em] uppercase"
-              style={{ color: theme.textMuted }}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={slide.id}
+          initial={variants.initial}
+          animate={variants.animate}
+          exit={variants.exit}
+          transition={transitionConfig}
+          className="relative flex h-full w-full flex-col justify-between p-24"
+        >
+          {/* TOP METADATA BAR (Inside slide) */}
+          <div className="flex items-center justify-between border-b pb-6" style={{ borderColor: theme.border }}>
+            <motion.div
+              layoutId={transition.type === 'morph' ? 'slide-kicker' : undefined}
+              className="flex items-center gap-3"
             >
+              <span
+                className="inline-block h-2 w-2 rounded-none"
+                style={{ backgroundColor: theme.accent }}
+              />
+              <span
+                className="text-xs font-mono font-medium tracking-[0.25em] uppercase"
+                style={{ color: theme.textMuted }}
+              >
               {slide.kicker || 'EXECUTIVE BRIEFING'}
             </span>
           </motion.div>
@@ -173,12 +174,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           className="flex items-center justify-between border-t pt-6"
           style={{ borderColor: theme.border }}
         >
-          <span
+          <motion.span
+            layoutId={transition.type === 'morph' ? 'slide-footnote' : undefined}
             className="text-xs font-mono tracking-wider uppercase"
             style={{ color: theme.textMuted }}
           >
             {slide.elements.footnote || 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM'}
-          </span>
+          </motion.span>
           <span
             className="text-xs font-mono tracking-wider"
             style={{ color: theme.textMuted }}
@@ -187,6 +189,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           </span>
         </div>
       </motion.div>
+    </AnimatePresence>
     </div>
   );
 };
@@ -204,7 +207,7 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
             SYSTEM SPECIFICATION & STRATEGY
           </div>
           <motion.h1
-            layoutId={isMorph ? 'hero-title' : undefined}
+            layoutId={isMorph ? 'slide-title' : undefined}
             className="text-7xl font-bold tracking-tight leading-[1.08] mb-8"
             style={{ color: theme.textPrimary }}
           >
@@ -254,9 +257,13 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-12 max-w-4xl">
-            <h2 className="text-5xl font-bold tracking-tight mb-4" style={{ color: theme.textPrimary }}>
+            <motion.h2
+              layoutId={isMorph ? 'slide-title' : undefined}
+              className="text-5xl font-bold tracking-tight mb-4"
+              style={{ color: theme.textPrimary }}
+            >
               {slide.title}
-            </h2>
+            </motion.h2>
             <p className="text-xl" style={{ color: theme.textSecondary }}>
               {slide.subtitle}
             </p>
@@ -317,9 +324,13 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
           <div className="grid grid-cols-12 gap-12 items-center">
             {/* Left Column (5 Cols) */}
             <div className="col-span-5 flex flex-col justify-center">
-              <h2 className="text-5xl font-bold tracking-tight mb-6 leading-tight" style={{ color: theme.textPrimary }}>
+              <motion.h2
+                layoutId={isMorph ? 'slide-title' : undefined}
+                className="text-5xl font-bold tracking-tight mb-6 leading-tight"
+                style={{ color: theme.textPrimary }}
+              >
                 {slide.title}
-              </h2>
+              </motion.h2>
               <p className="text-xl leading-relaxed mb-8" style={{ color: theme.textSecondary }}>
                 {slide.subtitle}
               </p>
@@ -369,9 +380,13 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-12 max-w-4xl">
-            <h2 className="text-5xl font-bold tracking-tight mb-4" style={{ color: theme.textPrimary }}>
+            <motion.h2
+              layoutId={isMorph ? 'slide-title' : undefined}
+              className="text-5xl font-bold tracking-tight mb-4"
+              style={{ color: theme.textPrimary }}
+            >
               {slide.title}
-            </h2>
+            </motion.h2>
             <p className="text-xl" style={{ color: theme.textSecondary }}>
               {slide.subtitle}
             </p>
@@ -418,9 +433,13 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-8 max-w-4xl">
-            <h2 className="text-5xl font-bold tracking-tight mb-3" style={{ color: theme.textPrimary }}>
+            <motion.h2
+              layoutId={isMorph ? 'slide-title' : undefined}
+              className="text-5xl font-bold tracking-tight mb-3"
+              style={{ color: theme.textPrimary }}
+            >
               {slide.title}
-            </h2>
+            </motion.h2>
             <p className="text-xl" style={{ color: theme.textSecondary }}>
               {slide.subtitle}
             </p>
@@ -517,9 +536,13 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-10 max-w-4xl">
-            <h2 className="text-5xl font-bold tracking-tight mb-4" style={{ color: theme.textPrimary }}>
+            <motion.h2
+              layoutId={isMorph ? 'slide-title' : undefined}
+              className="text-5xl font-bold tracking-tight mb-4"
+              style={{ color: theme.textPrimary }}
+            >
               {slide.title}
-            </h2>
+            </motion.h2>
             <p className="text-xl" style={{ color: theme.textSecondary }}>
               {slide.subtitle}
             </p>
@@ -591,9 +614,13 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
     default:
       return (
         <div className="flex flex-col justify-center max-w-4xl">
-          <h2 className="text-5xl font-bold tracking-tight mb-4" style={{ color: theme.textPrimary }}>
+          <motion.h2
+            layoutId={isMorph ? 'slide-title' : undefined}
+            className="text-5xl font-bold tracking-tight mb-4"
+            style={{ color: theme.textPrimary }}
+          >
             {slide.title}
-          </h2>
+          </motion.h2>
           <p className="text-xl leading-relaxed" style={{ color: theme.textSecondary }}>
             {slide.subtitle}
           </p>

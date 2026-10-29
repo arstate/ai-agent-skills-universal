@@ -13,9 +13,9 @@ const command = args[0] || 'dev';
 switch (command) {
   case 'dev': {
     const port = args[1] || '5200';
-    console.log(`\n🚀 Starting Next.js Minimalist Slide Studio on port ${port}...`);
-    console.log(`📍 Engine directory: ${ENGINE_ROOT}`);
-    console.log(`🌐 Live Studio URL: http://localhost:${port}\n`);
+    console.log(`\n[NEXT-SLIDEDECK] Starting Minimalist Monochrome Slide Studio on port ${port}...`);
+    console.log(`[DIR] Engine directory: ${ENGINE_ROOT}`);
+    console.log(`[URL] Live Studio: http://localhost:${port}\n`);
 
     const child = spawn('npm', ['run', 'dev', '--', '-p', port], {
       cwd: ENGINE_ROOT,
@@ -30,7 +30,7 @@ switch (command) {
   }
 
   case 'build': {
-    console.log(`\n📦 Building Next.js Slide Studio for production...`);
+    console.log(`\n[BUILD] Compiling Next.js Slide Studio production bundle...`);
     const child = spawn('npm', ['run', 'build'], {
       cwd: ENGINE_ROOT,
       stdio: 'inherit',

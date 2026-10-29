@@ -9,7 +9,7 @@ You are tasked with installing and configuring the Universal AI Agent Skills Eco
 Execute the following instructions step-by-step:
 
 ## Step 1: Detect Host Environment & Run Auto-Installer
-Run this one-liner in your terminal to download/pull, install, and configure all universal skills, Dashi PPT dependencies, browser control tools, and global rules:
+Run this one-liner in your terminal to download/pull, install, and configure all universal skills, Next.js Slide Deck Engine dependencies, browser control tools, and global rules:
 
 ```bash
 if [ -d "$HOME/ai-agent-skills-universal" ]; then

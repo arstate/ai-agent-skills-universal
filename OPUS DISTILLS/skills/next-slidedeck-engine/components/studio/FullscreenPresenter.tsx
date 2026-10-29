@@ -99,7 +99,9 @@ export const FullscreenPresenter: React.FC<FullscreenPresenterProps> = ({
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 z-50 bg-[#000000] flex items-center justify-center overflow-hidden cursor-none select-none"
+      className={`fixed inset-0 z-50 bg-[#000000] flex items-center justify-center overflow-hidden select-none ${
+        showControls ? 'cursor-default' : 'cursor-none'
+      }`}
     >
       <div
         className="relative shadow-2xl transition-transform duration-75"

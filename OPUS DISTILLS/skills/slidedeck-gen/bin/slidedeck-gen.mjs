@@ -144,9 +144,9 @@ async function handleStudio(args) {
     targetDir = candidateDirs[0];
   }
 
-  console.log(`\n🚀 Launching Next.js Minimalist Monochrome Presentation Studio...`);
-  console.log(`📍 Studio directory: ${targetDir}`);
-  console.log(`🌐 Live Studio: http://localhost:${port}\n`);
+  console.log(`\n[STUDIO] Launching Next.js Minimalist Monochrome Presentation Studio...`);
+  console.log(`[DIR] Studio directory: ${targetDir}`);
+  console.log(`[URL] Live Studio: http://localhost:${port}\n`);
 
   const child = spawn('npm', ['run', 'dev', '--', '-p', port], {
     cwd: targetDir,
@@ -447,41 +447,12 @@ async function handleCompile(args) {
   mkdirSync(path.resolve(process.cwd(), outDir), { recursive: true });
   const targetHtml = path.join(path.resolve(process.cwd(), outDir), 'index.html');
 
-  if (inputFile.endsWith('.json')) {
-    // Official Dashi PPT Engine priority compilation
-    const homeDir = process.env.HOME || '';
-    const dashiScript = path.join(homeDir, '.agents/skills/dashi-ppt/scripts/render_goal_deck.sh');
-    if (existsSync(dashiScript)) {
-      try {
-        console.log(`[*] Compiling presentation using official Dashi PPT engine (React/Swiss)...`);
-        execFileSync(dashiScript, [fullInput, targetHtml], {
-          stdio: 'inherit'
-        });
-        console.log(`[✓] Compiled deck to: ${targetHtml}`);
-        return;
-      } catch (err) {
-        console.warn(`[!] Dashi PPT script execution error: ${err.message}`);
-      }
-    }
-    const runtimeDir = path.join(SKILL_ROOT, 'runtime');
-    if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules'))) {
-      try {
-        console.log(`[*] Compiling presentation using GitHub Dashi runtime engine (React/TSX)...`);
-        execFileSync('npx', ['tsx', 'scripts/render-goal-deck.jsx', fullInput, targetHtml], {
-          cwd: runtimeDir,
-          stdio: 'inherit'
-        });
-        console.log(`[✓] Compiled deck to: ${targetHtml}`);
-        return;
-      } catch (err) {
-        console.warn(`[!] Dashi runtime failed, falling back to built-in compiler: ${err.message}`);
-      }
-    }
+  if (inputFile.endsWith('.json') || inputFile.endsWith('.md')) {
     const { compileDeck } = await import('../scripts/compile-markdown.mjs');
     const html = compileDeck(fullInput, { theme, title });
     writeFileSync(targetHtml, html, 'utf8');
     console.log(`[✓] Compiled deck to: ${targetHtml} (${(html.length / 1024).toFixed(1)} KB)`);
-  } else if (inputFile.endsWith('.md')) {
+  } else {
     const { compileDeck } = await import('../scripts/compile-markdown.mjs');
     const html = compileDeck(fullInput, { theme, title });
     writeFileSync(targetHtml, html, 'utf8');
@@ -524,21 +495,6 @@ async function handleExportPdf(args) {
   const outIdx = args.indexOf('--out');
   const outFile = outIdx !== -1 ? args[outIdx + 1] : path.join(targetBaseDir, 'presentation.pdf');
 
-  const runtimeDir = path.join(SKILL_ROOT, 'runtime');
-  if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules')) && existsSync(path.join(targetBaseDir, 'goal.json'))) {
-    try {
-      console.log(`[*] Exporting 16:9 PDF via GitHub Dashi runtime engine...`);
-      execFileSync('node', ['scripts/export-pptx.mjs', targetBaseDir, outFile, '--pdf'], {
-        cwd: runtimeDir,
-        stdio: 'inherit'
-      });
-      console.log(`[✓] Successfully exported 16:9 PDF: ${outFile}`);
-      return;
-    } catch (err) {
-      console.warn(`[!] Dashi PDF export warning, falling back to Chrome CDP exporter: ${err.message}`);
-    }
-  }
-
   const { exportDeckToPdf } = await import('../scripts/export-cdp.mjs');
   console.log(`[*] Exporting 16:9 PDF via Chrome CDP...`);
   try {
@@ -561,21 +517,6 @@ async function handleExportPptx(args) {
   const targetBaseDir = isFile ? path.dirname(target) : target;
   const outIdx = args.indexOf('--out');
   const outFile = outIdx !== -1 ? args[outIdx + 1] : path.join(targetBaseDir, 'presentation.pptx');
-
-  const runtimeDir = path.join(SKILL_ROOT, 'runtime');
-  if (existsSync(runtimeDir) && existsSync(path.join(runtimeDir, 'node_modules')) && existsSync(path.join(targetBaseDir, 'goal.json'))) {
-    try {
-      console.log(`[*] Exporting editable PowerPoint PPTX via GitHub Dashi runtime engine...`);
-      execFileSync('node', ['scripts/export-pptx.mjs', targetBaseDir, outFile], {
-        cwd: runtimeDir,
-        stdio: 'inherit'
-      });
-      console.log(`[✓] Successfully exported editable PPTX: ${outFile}`);
-      return;
-    } catch (err) {
-      console.warn(`[!] Dashi PPTX export warning, falling back to Python PPTX engine: ${err.message}`);
-    }
-  }
 
   // Auto-compile if target is markdown/json or if directory has no index.html
   let targetHtml = target;
