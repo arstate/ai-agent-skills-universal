@@ -295,11 +295,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           animate={variants.animate}
           exit={variants.exit}
           transition={transitionConfig}
-          className="relative flex h-full w-full flex-col justify-between p-24"
+          className="relative flex h-full w-full flex-col justify-between px-20 py-10"
         >
           {/* TOP METADATA BAR (Inside slide) */}
           <div
-            className="flex items-center justify-between border-b pb-6"
+            className="flex items-center justify-between border-b pb-5"
             style={{ borderColor: theme.border }}
           >
             <motion.div
@@ -338,13 +338,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           </div>
 
           {/* MAIN BODY AREA DEPENDING ON LAYOUT */}
-          <div className="my-auto flex flex-1 flex-col justify-center py-8">
+          <div className="my-auto flex flex-1 flex-col justify-center py-2 min-h-0">
             {renderLayoutContent(slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide)}
           </div>
 
           {/* BOTTOM FOOTER / TELEMETRY */}
           <div
-            className="flex items-center justify-between border-t pt-6"
+            className="flex items-center justify-between border-t pt-5"
             style={{ borderColor: theme.border }}
           >
             <motion.div
@@ -428,7 +428,7 @@ function renderLayoutContent(
       return (
         <div className="flex flex-col justify-center max-w-5xl">
           <div
-            className="mb-8 inline-flex w-fit items-center gap-3 border px-5 py-2 text-sm font-mono font-bold tracking-widest uppercase"
+            className="mb-6 inline-flex w-fit items-center gap-3 border px-5 py-2 text-sm font-mono font-bold tracking-widest uppercase"
             style={{
               borderColor: theme.border,
               backgroundColor: theme.surface,
@@ -441,7 +441,7 @@ function renderLayoutContent(
 
           <motion.div
             layoutId={isMorph ? 'slide-title' : undefined}
-            className="text-8xl font-black tracking-tight leading-[1.05] mb-8"
+            className="text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] mb-6"
             style={{ color: slide.elements.titleColor || theme.textPrimary }}
           >
             <EditableText
@@ -471,7 +471,7 @@ function renderLayoutContent(
           </div>
 
           <div
-            className="mt-14 flex items-center gap-10 border-t pt-8"
+            className="mt-8 flex items-center gap-10 border-t pt-5"
             style={{ borderColor: theme.border }}
           >
             <div className="flex flex-col gap-1.5">
@@ -519,7 +519,7 @@ function renderLayoutContent(
     case 'metrics':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl flex flex-col gap-4">
+          <div className="mb-6 max-w-4xl flex flex-col gap-2">
             <motion.div
               className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
@@ -546,7 +546,7 @@ function renderLayoutContent(
               />
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-4 gap-6">
             {slide.elements.metrics?.map((metric, i) => {
               const cardId = `metric-${i}`;
               const isCardSelected = selectedId === cardId;
@@ -561,7 +561,7 @@ function renderLayoutContent(
                       onSelectElement?.(cardId);
                     }
                   }}
-                  className={`relative flex flex-col justify-between border p-8 transition-all ${
+                  className={`relative flex flex-col justify-between border px-6 py-6 transition-all ${
                     isCardSelected
                       ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg'
                       : isEditMode
@@ -578,7 +578,7 @@ function renderLayoutContent(
                   )}
                   <TelemetryCrosshair color={metric.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
                   <div>
-                    <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2.5">
                         <SvgIcon
                           name={metric.iconName || 'activity'}
@@ -626,7 +626,7 @@ function renderLayoutContent(
                       )}
                     </div>
                     <div
-                      className="text-7xl lg:text-8xl font-black tracking-tight mb-4 tabular-nums"
+                      className="text-6xl lg:text-7xl font-black tracking-tight mb-3 tabular-nums"
                       style={{ color: metric.color || theme.textPrimary }}
                     >
                       <EditableText
@@ -647,7 +647,7 @@ function renderLayoutContent(
                     </div>
                   </div>
                   {metric.subtext && (
-                    <div className="text-lg font-medium leading-relaxed" style={{ color: theme.textSecondary }}>
+                    <div className="text-base font-medium leading-relaxed" style={{ color: theme.textSecondary }}>
                       <EditableText
                         value={metric.subtext}
                         isEditMode={isEditMode}
@@ -692,7 +692,7 @@ function renderLayoutContent(
                 />
               </motion.div>
               <div
-                className="text-2xl font-normal leading-relaxed mb-10"
+                className="text-2xl font-normal leading-relaxed mb-6"
                 style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
               >
                 <EditableText
@@ -724,7 +724,7 @@ function renderLayoutContent(
                         onSelectElement?.('callout');
                       }
                     }}
-                    className={`relative border p-7 transition-all ${
+                    className={`relative border px-6 py-5 transition-all ${
                       isCalloutSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                     }`}
                     style={{
@@ -736,7 +736,7 @@ function renderLayoutContent(
                       <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: callout.color }} />
                     )}
                     <TelemetryCrosshair color={callout.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
-                    <div className="flex items-center gap-2.5 mb-3">
+                    <div className="flex items-center gap-2.5 mb-2.5">
                       <SvgIcon name={callout.iconName || 'cpu'} size={16} color={calloutColor} />
                       <EditableText
                         value={callout.kicker || 'CORE THESIS'}
@@ -757,7 +757,7 @@ function renderLayoutContent(
                         as="span"
                       />
                     </div>
-                    <div className="text-lg font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
+                    <div className="text-base font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
                       <EditableText
                         value={callout.text}
                         isEditMode={isEditMode}
@@ -781,7 +781,7 @@ function renderLayoutContent(
             </div>
 
             {/* Right Column (7 Cols) */}
-            <div className="col-span-7 min-w-0 flex flex-col gap-5">
+            <div className="col-span-7 min-w-0 flex flex-col gap-3.5">
               {slide.elements.bullets?.map((bullet, i) => {
                 const bulletIcons = ['network', 'layers', 'terminal', 'shield', 'zap'];
                 const iconName = bulletIcons[i % bulletIcons.length];
@@ -796,7 +796,7 @@ function renderLayoutContent(
                         onSelectElement?.(bulletId);
                       }
                     }}
-                    className={`relative flex items-start gap-5 border p-7 transition-all ${
+                    className={`relative flex items-start gap-4 border px-6 py-5 transition-all ${
                       isBulletSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-md' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                     }`}
                     style={{
@@ -805,13 +805,13 @@ function renderLayoutContent(
                     }}
                   >
                     <div
-                      className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center border"
+                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center border"
                       style={{ borderColor: theme.border, backgroundColor: theme.surface }}
                     >
-                      <SvgIcon name={iconName} size={18} color={theme.accent} />
+                      <SvgIcon name={iconName} size={16} color={theme.accent} />
                     </div>
                     <div
-                      className="text-xl font-medium leading-relaxed flex-1"
+                      className="text-lg font-medium leading-relaxed flex-1"
                       style={{ color: theme.textPrimary }}
                     >
                       <EditableText
@@ -841,7 +841,7 @@ function renderLayoutContent(
     case 'timeline':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl flex flex-col gap-4">
+          <div className="mb-6 max-w-4xl flex flex-col gap-2">
             <motion.div
               className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
@@ -868,7 +868,7 @@ function renderLayoutContent(
               />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-6">
             {slide.elements.pillars?.map((pillar, i) => {
               const cardId = `pillar-${i}`;
               const isCardSelected = selectedId === cardId;
@@ -883,7 +883,7 @@ function renderLayoutContent(
                       onSelectElement?.(cardId);
                     }
                   }}
-                  className={`relative flex flex-col justify-between border p-8 transition-all ${
+                  className={`relative flex flex-col justify-between border px-6 py-6 transition-all ${
                     isCardSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                   }`}
                   style={{
@@ -897,7 +897,7 @@ function renderLayoutContent(
                   <TelemetryCrosshair color={pillar.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
                   <div>
                     <div
-                      className="flex items-center justify-between mb-6 border-b pb-4"
+                      className="flex items-center justify-between mb-4 border-b pb-3"
                       style={{ borderColor: theme.border }}
                     >
                       <div className="flex items-center gap-2.5">
@@ -928,7 +928,7 @@ function renderLayoutContent(
                       </span>
                     </div>
                     <div
-                      className="text-3xl font-extrabold tracking-tight mb-4"
+                      className="text-2xl font-bold tracking-tight mb-2.5"
                       style={{ color: theme.textPrimary }}
                     >
                       <EditableText
@@ -947,7 +947,7 @@ function renderLayoutContent(
                       />
                     </div>
                     <div
-                      className="text-xl font-normal leading-relaxed"
+                      className="text-lg font-normal leading-relaxed"
                       style={{ color: theme.textSecondary }}
                     >
                       <EditableText
@@ -967,7 +967,7 @@ function renderLayoutContent(
                     </div>
                   </div>
                   <div
-                    className="mt-8 pt-4 border-t flex items-center justify-between"
+                    className="mt-5 pt-3 border-t flex items-center justify-between"
                     style={{ borderColor: theme.border }}
                   >
                     <span
@@ -988,9 +988,9 @@ function renderLayoutContent(
     case 'bento':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-8 max-w-4xl flex flex-col gap-3">
+          <div className="mb-5 max-w-4xl flex flex-col gap-1.5">
             <motion.div
-              className="text-6xl font-black tracking-tight leading-tight"
+              className="text-5xl lg:text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
@@ -1003,7 +1003,7 @@ function renderLayoutContent(
                 as="h2"
               />
             </motion.div>
-            <div className="text-2xl font-normal leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
+            <div className="text-xl font-normal leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
@@ -1015,7 +1015,7 @@ function renderLayoutContent(
               />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-3 gap-5">
             {slide.elements.bentoCards?.map((card, i) => {
               const cardId = `bento-${i}`;
               const isCardSelected = selectedId === cardId;
@@ -1031,7 +1031,7 @@ function renderLayoutContent(
                       onSelectElement?.(cardId);
                     }
                   }}
-                  className={`relative flex flex-col justify-between border p-8 transition-all ${
+                  className={`relative flex flex-col justify-between border px-6 py-5 transition-all ${
                     isWide ? 'col-span-2' : 'col-span-1'
                   } ${
                     isCardSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
@@ -1046,11 +1046,11 @@ function renderLayoutContent(
                   )}
                   <TelemetryCrosshair color={card.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2.5">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <div className="flex items-center gap-2">
                         <SvgIcon
                           name={card.iconName || 'box'}
-                          size={18}
+                          size={16}
                           color={accentColor}
                         />
                         <EditableText
@@ -1068,7 +1068,7 @@ function renderLayoutContent(
                               };
                             })
                           }
-                          className="text-base font-mono uppercase tracking-widest font-bold"
+                          className="text-sm font-mono uppercase tracking-widest font-bold"
                           style={{ color: card.color || theme.textMuted }}
                           as="span"
                         />
@@ -1089,7 +1089,7 @@ function renderLayoutContent(
                               };
                             })
                           }
-                          className="border px-3 py-1 text-sm font-mono uppercase tracking-wider font-semibold"
+                          className="border px-2.5 py-0.5 text-xs font-mono uppercase tracking-wider font-semibold"
                           style={{
                             borderColor: card.color ? card.color + '66' : theme.border,
                             backgroundColor: theme.surfaceRaised,
@@ -1100,7 +1100,7 @@ function renderLayoutContent(
                       )}
                     </div>
                     <div
-                      className="text-3xl font-extrabold tracking-tight mb-3"
+                      className="text-2xl font-bold tracking-tight mb-2"
                       style={{ color: theme.textPrimary }}
                     >
                       <EditableText
@@ -1122,7 +1122,7 @@ function renderLayoutContent(
                       />
                     </div>
                     <div
-                      className="text-xl font-normal leading-relaxed"
+                      className="text-base lg:text-lg font-normal leading-relaxed"
                       style={{ color: theme.textSecondary }}
                     >
                       <EditableText
@@ -1146,7 +1146,7 @@ function renderLayoutContent(
                   </div>
                   {card.stat && (
                     <div
-                      className="mt-6 border-t pt-4 flex items-baseline justify-between"
+                      className="mt-3.5 border-t pt-2.5 flex items-baseline justify-between"
                       style={{ borderColor: theme.border }}
                     >
                       <span
@@ -1170,7 +1170,7 @@ function renderLayoutContent(
                             };
                           })
                         }
-                        className="text-3xl font-black font-mono"
+                        className="text-2xl font-bold font-mono"
                         style={{ color: card.color || theme.textPrimary }}
                         as="span"
                       />
@@ -1272,7 +1272,7 @@ function renderLayoutContent(
       const comp = slide.elements.comparison;
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl flex flex-col gap-4">
+          <div className="mb-6 max-w-4xl flex flex-col gap-2">
             <motion.div
               className="text-6xl font-black tracking-tight leading-tight"
               style={{ color: slide.elements.titleColor || theme.textPrimary }}
@@ -1293,10 +1293,10 @@ function renderLayoutContent(
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-10">
+          <div className="grid grid-cols-2 gap-8">
             {/* Left Box */}
             <div
-              className="relative border p-9 flex flex-col justify-between"
+              className="relative border px-7 py-6 flex flex-col justify-between"
               style={{
                 backgroundColor: theme.surface,
                 borderColor: theme.border,
@@ -1323,15 +1323,15 @@ function renderLayoutContent(
                       },
                     }))
                   }
-                  className="text-base font-mono uppercase tracking-widest block mb-6 border-b pb-4 font-bold"
+                  className="text-base font-mono uppercase tracking-widest block mb-4 border-b pb-3 font-bold"
                   style={{ color: theme.textMuted, borderColor: theme.border }}
                   as="h3"
                 />
-                <ul className="flex flex-col gap-5">
+                <ul className="flex flex-col gap-3.5">
                   {comp?.leftItems?.map((item, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-4 text-xl leading-relaxed font-normal"
+                      className="flex items-start gap-3.5 text-lg leading-relaxed font-normal"
                       style={{ color: theme.textSecondary }}
                     >
                       <span className="text-sm font-mono text-zinc-500 mt-1">✕</span>
@@ -1368,7 +1368,7 @@ function renderLayoutContent(
 
             {/* Right Box (Target Architecture) */}
             <div
-              className="relative border p-9 flex flex-col justify-between"
+              className="relative border px-7 py-6 flex flex-col justify-between"
               style={{
                 backgroundColor: theme.surfaceRaised,
                 borderColor: theme.accent,
@@ -1377,7 +1377,7 @@ function renderLayoutContent(
               <TelemetryCrosshair color={theme.accent} className="absolute top-2.5 right-2.5" />
               <div>
                 <div
-                  className="flex items-center justify-between mb-6 border-b pb-4"
+                  className="flex items-center justify-between mb-4 border-b pb-3"
                   style={{ borderColor: theme.border }}
                 >
                   <EditableText
@@ -1405,11 +1405,11 @@ function renderLayoutContent(
                   />
                   <StatusPill label="SUPERIOR SOTA" color={theme.accent} />
                 </div>
-                <ul className="flex flex-col gap-5">
+                <ul className="flex flex-col gap-3.5">
                   {comp?.rightItems?.map((item, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-4 text-xl leading-relaxed font-medium"
+                      className="flex items-start gap-3.5 text-lg leading-relaxed font-medium"
                       style={{ color: theme.textPrimary }}
                     >
                       <SvgIcon name="check-circle" size={18} color={theme.accent} className="mt-1" />
