@@ -63,7 +63,7 @@ set "USER_DATA_DIR=%TEMP%\chrome-cdp-%PORT%"
 if not exist "%USER_DATA_DIR%" mkdir "%USER_DATA_DIR%"
 
 echo [START] Launching Visible GUI Chrome on Windows (Port: %PORT%)...
-start "" "%CHROME_BIN%" --remote-debugging-port=%PORT% --remote-debugging-address=127.0.0.1 --user-data-dir="%USER_DATA_DIR%" --window-size=1366,840 --window-position=60,40 --disable-blink-features=AutomationControlled --no-first-run --no-default-browser-check --password-store=basic "%URL%"
+start "" "%CHROME_BIN%" --remote-debugging-port=%PORT% --remote-debugging-address=127.0.0.1 --user-data-dir="%USER_DATA_DIR%" --window-size=1366,840 --window-position=60,40 --disable-blink-features=AutomationControlled --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --no-first-run --no-default-browser-check --password-store=basic "%URL%"
 
 rem 4. Wait up to 5s for CDP endpoint to respond (5 iterations x 1s)
 for /L %%i in (1,1,5) do (

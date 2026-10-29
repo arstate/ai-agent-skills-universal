@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Slide, ThemeConfig, TransitionConfig } from '../../types/slide';
+import { SvgIcon, TelemetryCrosshair, StatusPill } from './SvgIcon';
 
 interface SlideRendererProps {
   slide: Slide;
@@ -11,7 +12,79 @@ interface SlideRendererProps {
   index: number;
   totalSlides: number;
   isThumbnail?: boolean;
+  isEditMode?: boolean;
+  onUpdateSlide?: (updater: (prev: Slide) => Slide) => void;
 }
+
+interface EditableTextProps {
+  value: string;
+  onSave?: (newVal: string) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  isEditMode?: boolean;
+  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
+  placeholder?: string;
+  layoutId?: string;
+}
+
+/**
+ * High-performance on-canvas PowerPoint-like editable text block.
+ * When isEditMode is true: enables direct inline contentEditable editing with visual focus highlight.
+ * When isEditMode is false: renders pristine presentation typography without overhead.
+ */
+const EditableText: React.FC<EditableTextProps> = ({
+  value,
+  onSave,
+  className = '',
+  style,
+  isEditMode = false,
+  as = 'div',
+  placeholder = 'Click to edit...',
+  layoutId,
+}) => {
+  const handleBlur = (e: React.FocusEvent<HTMLElement>) => {
+    if (!isEditMode || !onSave) return;
+    const text = e.currentTarget.innerText || '';
+    if (text !== value) {
+      onSave(text.trim());
+    }
+  };
+
+  const editClasses = isEditMode
+    ? 'cursor-text hover:outline hover:outline-1 hover:outline-dashed hover:outline-[#52525b] focus:outline focus:outline-2 focus:outline-emerald-400 focus:bg-white/5 transition-all rounded px-1 -mx-1'
+    : '';
+
+  const Tag = as as any;
+
+  if (layoutId) {
+    return (
+      <motion.div
+        layoutId={layoutId}
+        contentEditable={isEditMode}
+        suppressContentEditableWarning
+        onBlur={handleBlur}
+        className={`${className} ${editClasses}`}
+        style={style}
+        data-placeholder={placeholder}
+      >
+        {value}
+      </motion.div>
+    );
+  }
+
+  return (
+    <Tag
+      contentEditable={isEditMode}
+      suppressContentEditableWarning
+      onBlur={handleBlur}
+      className={`${className} ${editClasses}`}
+      style={style}
+      data-placeholder={placeholder}
+    >
+      {value}
+    </Tag>
+  );
+};
 
 export const SlideRenderer: React.FC<SlideRendererProps> = ({
   slide,
@@ -20,6 +93,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
   index,
   totalSlides,
   isThumbnail = false,
+  isEditMode = false,
+  onUpdateSlide,
 }) => {
   // Determine motion transition variants based on configured transition type
   const getVariants = () => {
@@ -34,9 +109,9 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
     switch (transition.type) {
       case 'morph':
         return {
-          initial: { opacity: 0, y: 15, filter: 'blur(4px)' },
-          animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-          exit: { opacity: 0, y: -15, filter: 'blur(4px)' },
+          initial: { opacity: 0, y: 12 },
+          animate: { opacity: 1, y: 0 },
+          exit: { opacity: 0, y: -12 },
         };
       case 'crossfade':
         return {
@@ -91,14 +166,16 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
 
   const variants = getVariants();
   const transitionConfig = {
-    duration: isThumbnail ? 0 : transition.duration || 0.5,
+    duration: isThumbnail ? 0 : isEditMode ? 0.1 : Math.min(transition.duration || 0.3, 0.35),
     ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
   };
+
+  const isMorph = transition.type === 'morph' && !isEditMode;
 
   return (
     <div
       id={`slide-canvas-${slide.id}`}
-      className="relative select-none overflow-hidden"
+      className={`relative select-none overflow-hidden ${isEditMode ? 'ring-1 ring-emerald-500/30' : ''}`}
       style={{
         width: 1920,
         height: 1080,
@@ -132,99 +209,144 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           className="relative flex h-full w-full flex-col justify-between p-24"
         >
           {/* TOP METADATA BAR (Inside slide) */}
-          <div className="flex items-center justify-between border-b pb-6" style={{ borderColor: theme.border }}>
+          <div
+            className="flex items-center justify-between border-b pb-6"
+            style={{ borderColor: theme.border }}
+          >
             <motion.div
               layoutId={transition.type === 'morph' ? 'slide-kicker' : undefined}
               className="flex items-center gap-3"
             >
               <span
-                className="inline-block h-2 w-2 rounded-none"
+                className="inline-block h-2.5 w-2.5 rounded-none"
                 style={{ backgroundColor: theme.accent }}
               />
-              <span
+              <EditableText
+                value={slide.kicker || 'EXECUTIVE BRIEFING'}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
                 className="text-xs font-mono font-medium tracking-[0.25em] uppercase"
                 style={{ color: theme.textMuted }}
+                as="span"
+              />
+            </motion.div>
+            <div className="flex items-center gap-6">
+              <span
+                className="text-xs font-mono tracking-widest uppercase"
+                style={{ color: theme.textMuted }}
               >
-              {slide.kicker || 'EXECUTIVE BRIEFING'}
-            </span>
-          </motion.div>
-          <div className="flex items-center gap-6">
+                16:9 FIXED CANVAS
+              </span>
+              <span
+                className="text-xs font-mono font-semibold"
+                style={{ color: theme.textSecondary }}
+              >
+                {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+              </span>
+            </div>
+          </div>
+
+          {/* MAIN BODY AREA DEPENDING ON LAYOUT */}
+          <div className="my-auto flex flex-1 flex-col justify-center py-8">
+            {renderLayoutContent(slide, theme, isMorph, isEditMode, onUpdateSlide)}
+          </div>
+
+          {/* BOTTOM FOOTER / TELEMETRY */}
+          <div
+            className="flex items-center justify-between border-t pt-6"
+            style={{ borderColor: theme.border }}
+          >
+            <motion.div
+              layoutId={transition.type === 'morph' ? 'slide-footnote' : undefined}
+              className="flex items-center gap-2"
+            >
+              <EditableText
+                value={slide.elements.footnote || 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM'}
+                isEditMode={isEditMode}
+                onSave={(val) =>
+                  onUpdateSlide?.((prev) => ({
+                    ...prev,
+                    elements: { ...prev.elements, footnote: val },
+                  }))
+                }
+                className="text-xs font-mono tracking-wider uppercase"
+                style={{ color: theme.textMuted }}
+                as="span"
+              />
+            </motion.div>
             <span
-              className="text-xs font-mono tracking-widest uppercase"
+              className="text-xs font-mono tracking-wider"
               style={{ color: theme.textMuted }}
             >
-              16:9 FIXED CANVAS
-            </span>
-            <span
-              className="text-xs font-mono font-semibold"
-              style={{ color: theme.textSecondary }}
-            >
-              {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+              NEXT-SLIDEDECK-ENGINE // v1.2
             </span>
           </div>
-        </div>
-
-        {/* MAIN BODY AREA DEPENDING ON LAYOUT */}
-        <div className="my-auto flex flex-1 flex-col justify-center py-8">
-          {renderLayoutContent(slide, theme, transition.type === 'morph')}
-        </div>
-
-        {/* BOTTOM FOOTER / TELEMETRY */}
-        <div
-          className="flex items-center justify-between border-t pt-6"
-          style={{ borderColor: theme.border }}
-        >
-          <motion.span
-            layoutId={transition.type === 'morph' ? 'slide-footnote' : undefined}
-            className="text-xs font-mono tracking-wider uppercase"
-            style={{ color: theme.textMuted }}
-          >
-            {slide.elements.footnote || 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM'}
-          </motion.span>
-          <span
-            className="text-xs font-mono tracking-wider"
-            style={{ color: theme.textMuted }}
-          >
-            NEXT-SLIDEDECK-ENGINE // v1.0
-          </span>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
 
 // Render layout-specific content
-function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean) {
+function renderLayoutContent(
+  slide: Slide,
+  theme: ThemeConfig,
+  isMorph: boolean,
+  isEditMode: boolean = false,
+  onUpdateSlide?: (updater: (prev: Slide) => Slide) => void
+) {
   switch (slide.layout) {
     case 'cover':
       return (
         <div className="flex flex-col justify-center max-w-5xl">
           <div
-            className="mb-6 inline-flex w-fit items-center gap-2 border px-4 py-1 text-xs font-mono tracking-widest uppercase"
-            style={{ borderColor: theme.border, backgroundColor: theme.surface, color: theme.textSecondary }}
+            className="mb-6 inline-flex w-fit items-center gap-2.5 border px-4 py-1.5 text-xs font-mono tracking-widest uppercase"
+            style={{
+              borderColor: theme.border,
+              backgroundColor: theme.surface,
+              color: theme.textSecondary,
+            }}
           >
-            SYSTEM SPECIFICATION & STRATEGY
+            <SvgIcon name="sparkles" size={13} color={theme.accent} />
+            <span>SYSTEM SPECIFICATION & ARCHITECTURE</span>
           </div>
-          <motion.h1
+
+          <motion.div
             layoutId={isMorph ? 'slide-title' : undefined}
+            layout="position"
             className="text-7xl font-bold tracking-tight leading-[1.08] mb-8"
             style={{ color: theme.textPrimary }}
           >
-            {slide.title}
-          </motion.h1>
-          <p
-            className="text-2xl font-normal leading-relaxed max-w-3xl"
+            <EditableText
+              value={slide.title}
+              isEditMode={isEditMode}
+              onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+              as="h1"
+            />
+          </motion.div>
+
+          <div
+            className="text-2xl font-normal leading-relaxed max-w-3xl mb-4"
             style={{ color: theme.textSecondary }}
           >
-            {slide.subtitle}
-          </p>
+            <EditableText
+              value={slide.subtitle}
+              isEditMode={isEditMode}
+              onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+              as="p"
+            />
+          </div>
+
           <div
             className="mt-14 flex items-center gap-8 border-t pt-8"
             style={{ borderColor: theme.border }}
           >
             <div className="flex flex-col gap-1">
-              <span className="text-[11px] font-mono uppercase tracking-widest" style={{ color: theme.textMuted }}>
+              <span
+                className="text-[11px] font-mono uppercase tracking-widest flex items-center gap-1.5"
+                style={{ color: theme.textMuted }}
+              >
+                <SvgIcon name="cpu" size={11} color={theme.textMuted} />
                 ENGINE ARCHITECTURE
               </span>
               <span className="text-sm font-medium" style={{ color: theme.textPrimary }}>
@@ -233,7 +355,11 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
             </div>
             <div className="h-8 w-[1px]" style={{ backgroundColor: theme.border }} />
             <div className="flex flex-col gap-1">
-              <span className="text-[11px] font-mono uppercase tracking-widest" style={{ color: theme.textMuted }}>
+              <span
+                className="text-[11px] font-mono uppercase tracking-widest flex items-center gap-1.5"
+                style={{ color: theme.textMuted }}
+              >
+                <SvgIcon name="target" size={11} color={theme.textMuted} />
                 RATIO SPECIFICATION
               </span>
               <span className="text-sm font-medium" style={{ color: theme.textPrimary }}>
@@ -242,7 +368,11 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
             </div>
             <div className="h-8 w-[1px]" style={{ backgroundColor: theme.border }} />
             <div className="flex flex-col gap-1">
-              <span className="text-[11px] font-mono uppercase tracking-widest" style={{ color: theme.textMuted }}>
+              <span
+                className="text-[11px] font-mono uppercase tracking-widest flex items-center gap-1.5"
+                style={{ color: theme.textMuted }}
+              >
+                <SvgIcon name="shield" size={11} color={theme.textMuted} />
                 SECURITY CLASSIFICATION
               </span>
               <span className="text-sm font-medium" style={{ color: theme.textPrimary }}>
@@ -257,60 +387,117 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-12 max-w-4xl">
-            <motion.h2
+            <motion.div
               layoutId={isMorph ? 'slide-title' : undefined}
+            layout="position"
               className="text-5xl font-bold tracking-tight mb-4"
               style={{ color: theme.textPrimary }}
             >
-              {slide.title}
-            </motion.h2>
-            <p className="text-xl" style={{ color: theme.textSecondary }}>
-              {slide.subtitle}
-            </p>
+              <EditableText
+                value={slide.title}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                as="h2"
+              />
+            </motion.div>
+            <div className="text-xl" style={{ color: theme.textSecondary }}>
+              <EditableText
+                value={slide.subtitle}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                as="p"
+              />
+            </div>
           </div>
           <div className="grid grid-cols-4 gap-8">
             {slide.elements.metrics?.map((metric, i) => (
               <motion.div
                 key={metric.id || i}
                 layoutId={isMorph ? `metric-card-${i}` : undefined}
-                className="flex flex-col justify-between border p-8"
+                className="relative flex flex-col justify-between border p-8"
                 style={{
                   backgroundColor: theme.surface,
                   borderColor: theme.border,
                 }}
               >
+                <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span
-                      className="text-xs font-mono font-medium tracking-widest uppercase"
-                      style={{ color: theme.textMuted }}
-                    >
-                      {metric.label}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <SvgIcon
+                        name={metric.iconName || 'activity'}
+                        size={14}
+                        color={theme.accent}
+                      />
+                      <EditableText
+                        value={metric.label}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.metrics || [])];
+                            updated[i] = { ...updated[i], label: val };
+                            return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                          })
+                        }
+                        className="text-xs font-mono font-medium tracking-widest uppercase"
+                        style={{ color: theme.textMuted }}
+                        as="span"
+                      />
+                    </div>
                     {metric.change && (
-                      <span
+                      <EditableText
+                        value={metric.change}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.metrics || [])];
+                            updated[i] = { ...updated[i], change: val };
+                            return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                          })
+                        }
                         className="text-xs font-mono border px-2 py-0.5"
                         style={{
                           borderColor: theme.border,
                           backgroundColor: theme.surfaceRaised,
                           color: theme.textPrimary,
                         }}
-                      >
-                        {metric.change}
-                      </span>
+                        as="span"
+                      />
                     )}
                   </div>
                   <div
                     className="text-6xl font-bold tracking-tight mb-4 tabular-nums"
                     style={{ color: theme.textPrimary }}
                   >
-                    {metric.value}
+                    <EditableText
+                      value={metric.value}
+                      isEditMode={isEditMode}
+                      onSave={(val) =>
+                        onUpdateSlide?.((prev) => {
+                          const updated = [...(prev.elements.metrics || [])];
+                          updated[i] = { ...updated[i], value: val };
+                          return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                        })
+                      }
+                      as="div"
+                    />
                   </div>
                 </div>
                 {metric.subtext && (
-                  <p className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
-                    {metric.subtext}
-                  </p>
+                  <div className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
+                    <EditableText
+                      value={metric.subtext}
+                      isEditMode={isEditMode}
+                      onSave={(val) =>
+                        onUpdateSlide?.((prev) => {
+                          const updated = [...(prev.elements.metrics || [])];
+                          updated[i] = { ...updated[i], subtext: val };
+                          return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                        })
+                      }
+                      as="p"
+                    />
+                  </div>
                 )}
               </motion.div>
             ))}
@@ -324,52 +511,95 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
           <div className="grid grid-cols-12 gap-12 items-center">
             {/* Left Column (5 Cols) */}
             <div className="col-span-5 flex flex-col justify-center">
-              <motion.h2
+              <motion.div
                 layoutId={isMorph ? 'slide-title' : undefined}
+            layout="position"
                 className="text-5xl font-bold tracking-tight mb-6 leading-tight"
                 style={{ color: theme.textPrimary }}
               >
-                {slide.title}
-              </motion.h2>
-              <p className="text-xl leading-relaxed mb-8" style={{ color: theme.textSecondary }}>
-                {slide.subtitle}
-              </p>
+                <EditableText
+                  value={slide.title}
+                  isEditMode={isEditMode}
+                  onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                  as="h2"
+                />
+              </motion.div>
               <div
-                className="border p-6"
+                className="text-xl leading-relaxed mb-8"
+                style={{ color: theme.textSecondary }}
+              >
+                <EditableText
+                  value={slide.subtitle}
+                  isEditMode={isEditMode}
+                  onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                  as="p"
+                />
+              </div>
+              <div
+                className="relative border p-6"
                 style={{
                   backgroundColor: theme.surface,
                   borderColor: theme.border,
                 }}
               >
-                <span className="text-xs font-mono uppercase tracking-widest block mb-2" style={{ color: theme.textMuted }}>
+                <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
+                <span
+                  className="text-xs font-mono uppercase tracking-widest flex items-center gap-2 mb-2"
+                  style={{ color: theme.textMuted }}
+                >
+                  <SvgIcon name="cpu" size={13} color={theme.accent} />
                   CORE THESIS
                 </span>
-                <p className="text-sm font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
-                  Structured mathematical layout boundaries preserve typographic rhythm and visual equilibrium without responsive slippage.
+                <p
+                  className="text-sm font-medium leading-relaxed"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Structured mathematical layout boundaries preserve typographic rhythm and visual
+                  equilibrium without responsive slippage.
                 </p>
               </div>
             </div>
 
             {/* Right Column (7 Cols) */}
             <div className="col-span-7 flex flex-col gap-4">
-              {slide.elements.bullets?.map((bullet, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-4 border p-6"
-                  style={{
-                    backgroundColor: theme.surfaceRaised,
-                    borderColor: theme.border,
-                  }}
-                >
+              {slide.elements.bullets?.map((bullet, i) => {
+                const bulletIcons = ['network', 'layers', 'terminal', 'shield', 'zap'];
+                const iconName = bulletIcons[i % bulletIcons.length];
+                return (
                   <div
-                    className="mt-1 h-3 w-3 shrink-0 border"
-                    style={{ borderColor: theme.accent, backgroundColor: theme.surface }}
-                  />
-                  <p className="text-base leading-relaxed" style={{ color: theme.textPrimary }}>
-                    {bullet}
-                  </p>
-                </div>
-              ))}
+                    key={i}
+                    className="relative flex items-start gap-4 border p-6"
+                    style={{
+                      backgroundColor: theme.surfaceRaised,
+                      borderColor: theme.border,
+                    }}
+                  >
+                    <div
+                      className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center border"
+                      style={{ borderColor: theme.border, backgroundColor: theme.surface }}
+                    >
+                      <SvgIcon name={iconName} size={14} color={theme.accent} />
+                    </div>
+                    <div
+                      className="text-base leading-relaxed flex-1"
+                      style={{ color: theme.textPrimary }}
+                    >
+                      <EditableText
+                        value={bullet}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.bullets || [])];
+                            updated[i] = val;
+                            return { ...prev, elements: { ...prev.elements, bullets: updated } };
+                          })
+                        }
+                        as="p"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -380,48 +610,116 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-12 max-w-4xl">
-            <motion.h2
+            <motion.div
               layoutId={isMorph ? 'slide-title' : undefined}
+            layout="position"
               className="text-5xl font-bold tracking-tight mb-4"
               style={{ color: theme.textPrimary }}
             >
-              {slide.title}
-            </motion.h2>
-            <p className="text-xl" style={{ color: theme.textSecondary }}>
-              {slide.subtitle}
-            </p>
+              <EditableText
+                value={slide.title}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                as="h2"
+              />
+            </motion.div>
+            <div className="text-xl" style={{ color: theme.textSecondary }}>
+              <EditableText
+                value={slide.subtitle}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                as="p"
+              />
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-8">
             {slide.elements.pillars?.map((pillar, i) => (
               <motion.div
                 key={pillar.id || i}
                 layoutId={isMorph ? `pillar-${i}` : undefined}
-                className="flex flex-col justify-between border p-8"
+                className="relative flex flex-col justify-between border p-8"
                 style={{
                   backgroundColor: theme.surface,
                   borderColor: theme.border,
                 }}
               >
+                <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
                 <div>
-                  <div className="flex items-center justify-between mb-6 border-b pb-4" style={{ borderColor: theme.border }}>
-                    <span className="text-xs font-mono uppercase tracking-widest" style={{ color: theme.textMuted }}>
-                      {pillar.tag || `PILLAR 0${i + 1}`}
-                    </span>
+                  <div
+                    className="flex items-center justify-between mb-6 border-b pb-4"
+                    style={{ borderColor: theme.border }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <SvgIcon
+                        name={pillar.iconName || 'layers'}
+                        size={14}
+                        color={theme.accent}
+                      />
+                      <EditableText
+                        value={pillar.tag || `PILLAR 0${i + 1}`}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.pillars || [])];
+                            updated[i] = { ...updated[i], tag: val };
+                            return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                          })
+                        }
+                        className="text-xs font-mono uppercase tracking-widest font-semibold"
+                        style={{ color: theme.textMuted }}
+                        as="span"
+                      />
+                    </div>
                     <span className="text-xs font-mono" style={{ color: theme.textSecondary }}>
                       0{i + 1}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold tracking-tight mb-4" style={{ color: theme.textPrimary }}>
-                    {pillar.title}
-                  </h3>
-                  <p className="text-base leading-relaxed" style={{ color: theme.textSecondary }}>
-                    {pillar.description}
-                  </p>
+                  <div
+                    className="text-2xl font-bold tracking-tight mb-4"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    <EditableText
+                      value={pillar.title}
+                      isEditMode={isEditMode}
+                      onSave={(val) =>
+                        onUpdateSlide?.((prev) => {
+                          const updated = [...(prev.elements.pillars || [])];
+                          updated[i] = { ...updated[i], title: val };
+                          return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                        })
+                      }
+                      as="h3"
+                    />
+                  </div>
+                  <div
+                    className="text-base leading-relaxed"
+                    style={{ color: theme.textSecondary }}
+                  >
+                    <EditableText
+                      value={pillar.description}
+                      isEditMode={isEditMode}
+                      onSave={(val) =>
+                        onUpdateSlide?.((prev) => {
+                          const updated = [...(prev.elements.pillars || [])];
+                          updated[i] = { ...updated[i], description: val };
+                          return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                        })
+                      }
+                      as="p"
+                    />
+                  </div>
                 </div>
-                <div className="mt-8 pt-4 border-t" style={{ borderColor: theme.border }}>
-                  <span className="text-xs font-mono uppercase tracking-wider" style={{ color: theme.textMuted }}>
+                <div
+                  className="mt-8 pt-4 border-t flex items-center justify-between"
+                  style={{ borderColor: theme.border }}
+                >
+                  <span
+                    className="text-[11px] font-mono uppercase tracking-wider"
+                    style={{ color: theme.textMuted }}
+                  >
                     SYSTEM STANDARD APPROVED
                   </span>
+                  <SvgIcon name="check-circle" size={13} color={theme.textMuted} />
                 </div>
               </motion.div>
             ))}
@@ -433,16 +731,27 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-8 max-w-4xl">
-            <motion.h2
+            <motion.div
               layoutId={isMorph ? 'slide-title' : undefined}
+            layout="position"
               className="text-5xl font-bold tracking-tight mb-3"
               style={{ color: theme.textPrimary }}
             >
-              {slide.title}
-            </motion.h2>
-            <p className="text-xl" style={{ color: theme.textSecondary }}>
-              {slide.subtitle}
-            </p>
+              <EditableText
+                value={slide.title}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                as="h2"
+              />
+            </motion.div>
+            <div className="text-xl" style={{ color: theme.textSecondary }}>
+              <EditableText
+                value={slide.subtitle}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                as="p"
+              />
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-6">
             {slide.elements.bentoCards?.map((card, i) => {
@@ -451,7 +760,7 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
                 <motion.div
                   key={card.id || i}
                   layoutId={isMorph ? `bento-${i}` : undefined}
-                  className={`flex flex-col justify-between border p-8 ${
+                  className={`relative flex flex-col justify-between border p-8 ${
                     isWide ? 'col-span-2' : 'col-span-1'
                   }`}
                   style={{
@@ -459,39 +768,126 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
                     borderColor: theme.border,
                   }}
                 >
+                  <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-mono uppercase tracking-widest" style={{ color: theme.textMuted }}>
-                        {card.subtitle || 'MODULE'}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <SvgIcon
+                          name={card.iconName || 'box'}
+                          size={14}
+                          color={theme.accent}
+                        />
+                        <EditableText
+                          value={card.subtitle || 'MODULE'}
+                          isEditMode={isEditMode}
+                          onSave={(val) =>
+                            onUpdateSlide?.((prev) => {
+                              const updated = [...(prev.elements.bentoCards || [])];
+                              updated[i] = { ...updated[i], subtitle: val };
+                              return {
+                                ...prev,
+                                elements: { ...prev.elements, bentoCards: updated },
+                              };
+                            })
+                          }
+                          className="text-xs font-mono uppercase tracking-widest font-semibold"
+                          style={{ color: theme.textMuted }}
+                          as="span"
+                        />
+                      </div>
                       {card.badge && (
-                        <span
-                          className="border px-2 py-0.5 text-xs font-mono uppercase tracking-wider"
+                        <EditableText
+                          value={card.badge}
+                          isEditMode={isEditMode}
+                          onSave={(val) =>
+                            onUpdateSlide?.((prev) => {
+                              const updated = [...(prev.elements.bentoCards || [])];
+                              updated[i] = { ...updated[i], badge: val };
+                              return {
+                                ...prev,
+                                elements: { ...prev.elements, bentoCards: updated },
+                              };
+                            })
+                          }
+                          className="border px-2 py-0.5 text-xs font-mono uppercase tracking-wider font-semibold"
                           style={{
                             borderColor: theme.border,
                             backgroundColor: theme.surfaceRaised,
                             color: theme.textPrimary,
                           }}
-                        >
-                          {card.badge}
-                        </span>
+                          as="span"
+                        />
                       )}
                     </div>
-                    <h3 className="text-2xl font-bold tracking-tight mb-3" style={{ color: theme.textPrimary }}>
-                      {card.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
-                      {card.description}
-                    </p>
+                    <div
+                      className="text-2xl font-bold tracking-tight mb-3"
+                      style={{ color: theme.textPrimary }}
+                    >
+                      <EditableText
+                        value={card.title}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.bentoCards || [])];
+                            updated[i] = { ...updated[i], title: val };
+                            return {
+                              ...prev,
+                              elements: { ...prev.elements, bentoCards: updated },
+                            };
+                          })
+                        }
+                        as="h3"
+                      />
+                    </div>
+                    <div
+                      className="text-sm leading-relaxed"
+                      style={{ color: theme.textSecondary }}
+                    >
+                      <EditableText
+                        value={card.description}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.bentoCards || [])];
+                            updated[i] = { ...updated[i], description: val };
+                            return {
+                              ...prev,
+                              elements: { ...prev.elements, bentoCards: updated },
+                            };
+                          })
+                        }
+                        as="p"
+                      />
+                    </div>
                   </div>
                   {card.stat && (
-                    <div className="mt-6 border-t pt-4 flex items-baseline justify-between" style={{ borderColor: theme.border }}>
-                      <span className="text-xs font-mono uppercase tracking-wider" style={{ color: theme.textMuted }}>
+                    <div
+                      className="mt-6 border-t pt-4 flex items-baseline justify-between"
+                      style={{ borderColor: theme.border }}
+                    >
+                      <span
+                        className="text-xs font-mono uppercase tracking-wider"
+                        style={{ color: theme.textMuted }}
+                      >
                         TELEMETRY RATING
                       </span>
-                      <span className="text-2xl font-bold font-mono" style={{ color: theme.textPrimary }}>
-                        {card.stat}
-                      </span>
+                      <EditableText
+                        value={card.stat}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.bentoCards || [])];
+                            updated[i] = { ...updated[i], stat: val };
+                            return {
+                              ...prev,
+                              elements: { ...prev.elements, bentoCards: updated },
+                            };
+                          })
+                        }
+                        className="text-2xl font-bold font-mono"
+                        style={{ color: theme.textPrimary }}
+                        as="span"
+                      />
                     </div>
                   )}
                 </motion.div>
@@ -506,9 +902,14 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
         <div className="flex flex-col justify-center max-w-5xl mx-auto text-center py-6">
           <div className="mb-8 flex justify-center">
             <span
-              className="border px-4 py-1 text-xs font-mono tracking-widest uppercase"
-              style={{ borderColor: theme.border, backgroundColor: theme.surface, color: theme.textMuted }}
+              className="border px-4 py-1.5 text-xs font-mono tracking-widest uppercase flex items-center gap-2"
+              style={{
+                borderColor: theme.border,
+                backgroundColor: theme.surface,
+                color: theme.textMuted,
+              }}
             >
+              <SvgIcon name="sparkles" size={12} color={theme.accent} />
               EXECUTIVE DOCTRINE
             </span>
           </div>
@@ -517,15 +918,65 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
               className="text-4xl md:text-5xl font-serif font-normal leading-[1.35] tracking-tight mb-10"
               style={{ color: theme.textPrimary }}
             >
-              &ldquo;{slide.elements.quote?.text || slide.subtitle}&rdquo;
+              &ldquo;
+              <EditableText
+                value={slide.elements.quote?.text || slide.subtitle}
+                isEditMode={isEditMode}
+                onSave={(val) =>
+                  onUpdateSlide?.((prev) => ({
+                    ...prev,
+                    elements: {
+                      ...prev.elements,
+                      quote: {
+                        ...(prev.elements.quote || { author: 'EXECUTIVE', role: 'LEAD' }),
+                        text: val,
+                      },
+                    },
+                  }))
+                }
+                as="span"
+              />
+              &rdquo;
             </div>
             <div className="flex flex-col items-center justify-center gap-1">
-              <span className="text-lg font-bold tracking-wider uppercase" style={{ color: theme.textPrimary }}>
-                {slide.elements.quote?.author || 'PRINCIPAL ARCHITECT'}
-              </span>
-              <span className="text-sm font-mono tracking-widest uppercase" style={{ color: theme.textMuted }}>
-                {slide.elements.quote?.role || 'SYSTEMS DESIGN & ENGINEERING'}
-              </span>
+              <EditableText
+                value={slide.elements.quote?.author || 'PRINCIPAL ARCHITECT'}
+                isEditMode={isEditMode}
+                onSave={(val) =>
+                  onUpdateSlide?.((prev) => ({
+                    ...prev,
+                    elements: {
+                      ...prev.elements,
+                      quote: {
+                        ...(prev.elements.quote || { text: prev.subtitle, role: 'LEAD' }),
+                        author: val,
+                      },
+                    },
+                  }))
+                }
+                className="text-lg font-bold tracking-wider uppercase"
+                style={{ color: theme.textPrimary }}
+                as="span"
+              />
+              <EditableText
+                value={slide.elements.quote?.role || 'SYSTEMS DESIGN & ENGINEERING'}
+                isEditMode={isEditMode}
+                onSave={(val) =>
+                  onUpdateSlide?.((prev) => ({
+                    ...prev,
+                    elements: {
+                      ...prev.elements,
+                      quote: {
+                        ...(prev.elements.quote || { text: prev.subtitle, author: 'EXECUTIVE' }),
+                        role: val,
+                      },
+                    },
+                  }))
+                }
+                className="text-sm font-mono tracking-widest uppercase"
+                style={{ color: theme.textMuted }}
+                as="span"
+              />
             </div>
           </blockquote>
         </div>
@@ -536,95 +987,183 @@ function renderLayoutContent(slide: Slide, theme: ThemeConfig, isMorph: boolean)
       return (
         <div className="flex flex-col justify-center">
           <div className="mb-10 max-w-4xl">
-            <motion.h2
+            <motion.div
               layoutId={isMorph ? 'slide-title' : undefined}
+            layout="position"
               className="text-5xl font-bold tracking-tight mb-4"
               style={{ color: theme.textPrimary }}
             >
-              {slide.title}
-            </motion.h2>
-            <p className="text-xl" style={{ color: theme.textSecondary }}>
-              {slide.subtitle}
-            </p>
+              <EditableText
+                value={slide.title}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                as="h2"
+              />
+            </motion.div>
+            <div className="text-xl" style={{ color: theme.textSecondary }}>
+              <EditableText
+                value={slide.subtitle}
+                isEditMode={isEditMode}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                as="p"
+              />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-8">
-            {/* Left comparison column */}
+            {/* Left Box */}
             <div
-              className="border p-8"
+              className="relative border p-8 flex flex-col justify-between"
               style={{
                 backgroundColor: theme.surface,
                 borderColor: theme.border,
               }}
             >
-              <div className="flex items-center justify-between border-b pb-4 mb-6" style={{ borderColor: theme.border }}>
-                <span className="text-sm font-mono font-bold tracking-widest uppercase" style={{ color: theme.textMuted }}>
-                  {comp?.leftTitle || 'LEGACY SYSTEMS'}
-                </span>
-                <span className="text-xs font-mono px-2 py-0.5 border" style={{ borderColor: theme.border, color: theme.textMuted }}>
-                  DEPRECATED
-                </span>
+              <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
+              <div>
+                <EditableText
+                  value={comp?.leftTitle || 'BASELINE SYSTEM'}
+                  isEditMode={isEditMode}
+                  onSave={(val) =>
+                    onUpdateSlide?.((prev) => ({
+                      ...prev,
+                      elements: {
+                        ...prev.elements,
+                        comparison: {
+                          ...(prev.elements.comparison || {
+                            leftItems: [],
+                            rightTitle: '',
+                            rightItems: [],
+                          }),
+                          leftTitle: val,
+                        },
+                      },
+                    }))
+                  }
+                  className="text-xs font-mono uppercase tracking-widest block mb-6 border-b pb-3 font-semibold"
+                  style={{ color: theme.textMuted, borderColor: theme.border }}
+                  as="h3"
+                />
+                <ul className="flex flex-col gap-4">
+                  {comp?.leftItems?.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 text-sm leading-relaxed"
+                      style={{ color: theme.textSecondary }}
+                    >
+                      <span className="text-xs font-mono text-zinc-500 mt-0.5">✕</span>
+                      <EditableText
+                        value={item}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.comparison?.leftItems || [])];
+                            updated[i] = val;
+                            return {
+                              ...prev,
+                              elements: {
+                                ...prev.elements,
+                                comparison: {
+                                  ...(prev.elements.comparison || {
+                                    leftTitle: '',
+                                    rightTitle: '',
+                                    rightItems: [],
+                                  }),
+                                  leftItems: updated,
+                                },
+                              },
+                            };
+                          })
+                        }
+                        as="span"
+                      />
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="flex flex-col gap-4">
-                {comp?.leftItems?.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <span className="text-sm font-mono mt-0.5" style={{ color: theme.textMuted }}>
-                      —
-                    </span>
-                    <span className="text-base" style={{ color: theme.textSecondary }}>
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </div>
 
-            {/* Right comparison column */}
+            {/* Right Box (Target Architecture) */}
             <div
-              className="border p-8"
+              className="relative border p-8 flex flex-col justify-between"
               style={{
                 backgroundColor: theme.surfaceRaised,
-                borderColor: theme.border,
+                borderColor: theme.accent,
               }}
             >
-              <div className="flex items-center justify-between border-b pb-4 mb-6" style={{ borderColor: theme.border }}>
-                <span className="text-sm font-mono font-bold tracking-widest uppercase" style={{ color: theme.textPrimary }}>
-                  {comp?.rightTitle || 'AUTONOMOUS ARCHITECTURE'}
-                </span>
-                <span className="text-xs font-mono px-2 py-0.5 border" style={{ borderColor: theme.accent, backgroundColor: theme.surface, color: theme.textPrimary }}>
-                  RECOMMENDED
-                </span>
+              <TelemetryCrosshair color={theme.accent} className="absolute top-2 right-2" />
+              <div>
+                <div
+                  className="flex items-center justify-between mb-6 border-b pb-3"
+                  style={{ borderColor: theme.border }}
+                >
+                  <EditableText
+                    value={comp?.rightTitle || 'ARGON PLATFORM'}
+                    isEditMode={isEditMode}
+                    onSave={(val) =>
+                      onUpdateSlide?.((prev) => ({
+                        ...prev,
+                        elements: {
+                          ...prev.elements,
+                          comparison: {
+                            ...(prev.elements.comparison || {
+                              leftTitle: '',
+                              leftItems: [],
+                              rightItems: [],
+                            }),
+                            rightTitle: val,
+                          },
+                        },
+                      }))
+                    }
+                    className="text-xs font-mono uppercase tracking-widest font-bold"
+                    style={{ color: theme.textPrimary }}
+                    as="h3"
+                  />
+                  <StatusPill label="SUPERIOR SOTA" color={theme.accent} />
+                </div>
+                <ul className="flex flex-col gap-4">
+                  {comp?.rightItems?.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 text-sm leading-relaxed font-medium"
+                      style={{ color: theme.textPrimary }}
+                    >
+                      <SvgIcon name="check-circle" size={14} color={theme.accent} className="mt-0.5" />
+                      <EditableText
+                        value={item}
+                        isEditMode={isEditMode}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.comparison?.rightItems || [])];
+                            updated[i] = val;
+                            return {
+                              ...prev,
+                              elements: {
+                                ...prev.elements,
+                                comparison: {
+                                  ...(prev.elements.comparison || {
+                                    leftTitle: '',
+                                    leftItems: [],
+                                    rightTitle: '',
+                                  }),
+                                  rightItems: updated,
+                                },
+                              },
+                            };
+                          })
+                        }
+                        as="span"
+                      />
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="flex flex-col gap-4">
-                {comp?.rightItems?.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <span className="text-sm font-mono mt-0.5" style={{ color: theme.accent }}>
-                      +
-                    </span>
-                    <span className="text-base font-medium" style={{ color: theme.textPrimary }}>
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>
       );
 
     default:
-      return (
-        <div className="flex flex-col justify-center max-w-4xl">
-          <motion.h2
-            layoutId={isMorph ? 'slide-title' : undefined}
-            className="text-5xl font-bold tracking-tight mb-4"
-            style={{ color: theme.textPrimary }}
-          >
-            {slide.title}
-          </motion.h2>
-          <p className="text-xl leading-relaxed" style={{ color: theme.textSecondary }}>
-            {slide.subtitle}
-          </p>
-        </div>
-      );
+      return null;
   }
 }

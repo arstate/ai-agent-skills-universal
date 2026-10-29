@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { SlideDeck, Slide, LayoutType, TransitionType } from '../../types/slide';
-import { INITIAL_DECK } from '../../presets/sampleDecks';
+import { INITIAL_DECK, GEMINI_ARGON_DECK, SAMPLE_DECKS } from '../../presets/sampleDecks';
 import { THEMES, isColorLight } from '../../presets/themes';
 import { TopBar } from './TopBar';
 import { LeftSidebar } from './LeftSidebar';
@@ -14,23 +14,33 @@ import { ExportEngine } from '../../export/ExportEngine';
 import { SlideRenderer } from '../slides/SlideRenderer';
 
 export const SlideStudio: React.FC = () => {
-  const [deck, setDeck] = useState<SlideDeck>(INITIAL_DECK);
+  const [deck, setDeck] = useState<SlideDeck>(GEMINI_ARGON_DECK);
   const [mounted, setMounted] = useState<boolean>(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
   const [isPresenting, setIsPresenting] = useState<boolean>(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-  // Hydration-safe initial state loading from localStorage
+  // Hydration-safe initial state loading from localStorage or URL query
   useEffect(() => {
     setMounted(true);
     if (typeof window !== 'undefined') {
       try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const deckParam = urlParams.get('deck');
+        if (deckParam && SAMPLE_DECKS[deckParam]) {
+          setDeck(SAMPLE_DECKS[deckParam]);
+          return;
+        }
+
         const saved = localStorage.getItem('next_slidedeck_data');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && Array.isArray(parsed.slides) && parsed.slides.length > 0) {
             setDeck(parsed);
           }
+        } else {
+          setDeck(GEMINI_ARGON_DECK);
         }
       } catch (e) {
         console.error('Error loading saved slide deck:', e);
@@ -49,18 +59,24 @@ export const SlideStudio: React.FC = () => {
     }
   }, [deck, mounted]);
 
-  // Keyboard shortcut listener for F5 Present mode and arrow keys
+  // Keyboard shortcut listener for F5 Present mode, E for Edit mode, and arrow keys
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if user is actively typing in an input or textarea
+      // Don't trigger if user is actively typing in an input, textarea, or contentEditable
       const target = e.target as HTMLElement;
-      const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA';
+      const isInput =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable;
 
       if (e.key === 'F5') {
         e.preventDefault();
         setIsPresenting((prev) => !prev);
       } else if (!isInput && !isPresenting) {
-        if (e.key === 'ArrowRight' || e.key === 'j') {
+        if (e.key === 'e' || e.key === 'E') {
+          e.preventDefault();
+          setIsEditMode((prev) => !prev);
+        } else if (e.key === 'ArrowRight' || e.key === 'j') {
           if (activeSlideIndex < deck.slides.length - 1) {
             setActiveSlideIndex((prev) => prev + 1);
           }
@@ -213,6 +229,8 @@ export const SlideStudio: React.FC = () => {
         onToggleTheme={handleToggleThemeMode}
         isLightMode={isLightMode}
         isMounted={mounted}
+        isEditMode={isEditMode}
+        onToggleEditMode={() => setIsEditMode((prev) => !prev)}
       />
 
       {/* Main 3-Panel Studio Workstation */}
@@ -228,13 +246,16 @@ export const SlideStudio: React.FC = () => {
           onMoveSlide={handleMoveSlide}
         />
 
-        {/* Panel 2: Center Fixed 16:9 Presentation Stage (Strict Zero Buttons inside) */}
+        {/* Panel 2: Center Fixed 16:9 Presentation Stage */}
         <CenterCanvas
           slide={activeSlide}
           theme={activeTheme}
           transition={deck.transition}
           activeSlideIndex={activeSlideIndex}
           totalSlides={deck.slides.length}
+          isEditMode={isEditMode}
+          onUpdateActiveSlide={handleUpdateActiveSlide}
+          onUpdateDeckTheme={handleUpdateDeckTheme}
         />
 
         {/* Panel 3: Right Inspector & Settings Sidebar */}

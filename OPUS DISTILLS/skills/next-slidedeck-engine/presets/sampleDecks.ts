@@ -296,8 +296,190 @@ export const LIGHT_CONSULTING_DECK: SlideDeck = {
   ],
 };
 
+export const GEMINI_ARGON_DECK: SlideDeck = {
+  id: 'deck-gemini-4-argon',
+  title: 'Gemini 4 Argon: Frontier Multimodal Intelligence',
+  themeId: 'obsidian-pure',
+  transition: {
+    type: 'morph',
+    duration: 0.5,
+    springBounce: 0.15,
+  },
+  updatedAt: '2026-10-29T00:00:00.000Z',
+  slides: [
+    {
+      id: 'argon-slide-1',
+      kicker: 'GOOGLE DEEPMIND // FRONTIER RESEARCH',
+      title: 'Gemini 4 Argon: Autonomous Multimodal Intelligence',
+      subtitle: 'Next-generation neuromorphic transformer architecture featuring infinite sparse context, sub-8ms time-to-first-token, and verifiable deterministic agentic execution.',
+      layout: 'cover',
+      elements: {
+        footnote: 'GOOGLE DEEPMIND TECHNICAL REPORT // CONFIDENTIAL SPECIFICATION 2026',
+      },
+    },
+    {
+      id: 'argon-slide-2',
+      kicker: 'EMPIRICAL BENCHMARK TELEMETRY',
+      title: 'Quantitative Supremacy Across Compute Frontiers',
+      subtitle: 'Rigorous benchmark validation against standardized mathematical, coding, and multimodal evaluation suites.',
+      layout: 'metrics',
+      elements: {
+        metrics: [
+          {
+            id: 'am1',
+            value: '10M+',
+            label: 'CONTEXT WINDOW',
+            subtext: 'Lossless needle-in-haystack retrieval with O(log N) compute overhead',
+            change: '+500%',
+            iconName: 'database',
+          },
+          {
+            id: 'am2',
+            value: '<8ms',
+            label: 'TTFT LATENCY',
+            subtext: 'Ultra-low latency streaming inference for agentic micro-loops',
+            change: '-72%',
+            iconName: 'zap',
+          },
+          {
+            id: 'am3',
+            value: '98.4%',
+            label: 'MATH-500 SOTA',
+            subtext: 'Formal self-verifying chain-of-thought proofs with zero hallucinations',
+            change: 'VERIFIED',
+            iconName: 'check-circle',
+          },
+          {
+            id: 'am4',
+            value: '4.2x',
+            label: 'FLOPS EFFICIENCY',
+            subtext: 'Speculative multi-token decoding throughput on TPU v6e clusters',
+            change: 'TPU v6e',
+            iconName: 'cpu',
+          },
+        ],
+        footnote: 'SOURCE: DEEPMIND BENCHMARK SUITE // OCTOBER 2026 AUDIT',
+      },
+    },
+    {
+      id: 'argon-slide-3',
+      kicker: 'SYSTEM TOPOLOGY // DEEP ARCHITECTURE',
+      title: 'Neuromorphic Core & Hybrid Attention Engine',
+      subtitle: 'Dual-engine orchestration fusing dynamic memory compression with deterministic agentic planning primitives.',
+      layout: 'split',
+      elements: {
+        bullets: [
+          'Hybrid Dynamic Attention: Dynamically routes compute between dense local attention heads and sparse global latent memories.',
+          'Native Multimodal Sensory Fusion: Zero-adapter raw tokenization across 4K video streams, spatial audio, and LiDAR telemetry.',
+          'Sub-Millisecond Speculative Decoding: Multi-token tree speculation achieves 4.2x speedup on TPU v6e accelerators.',
+          'Formal Verification Gate: Built-in mathematical sandbox prevents catastrophic drift during multi-turn agentic workflows.',
+        ],
+        footnote: 'TOPOLOGY SPECIFICATION v4.2 // NEUROMORPHIC RUNTIME',
+      },
+    },
+    {
+      id: 'argon-slide-4',
+      kicker: 'FOUNDATIONAL PILLARS // THREE-LAYER STACK',
+      title: 'The Three Pillars of Argon Intelligence',
+      subtitle: 'Architectural foundations driving autonomous problem-solving and multimodal real-world operations.',
+      layout: 'pillars',
+      elements: {
+        pillars: [
+          {
+            id: 'ap1',
+            title: 'I. Spatial & Sensory Grounding',
+            tag: 'PERCEPTION',
+            iconName: 'target',
+            description:
+              'Native continuous coordinate grounding across high-resolution video streams and 3D point clouds without auxiliary visual encoders.',
+          },
+          {
+            id: 'ap2',
+            title: 'II. Deterministic Agentic Loops',
+            tag: 'ORCHESTRATION',
+            iconName: 'git-branch',
+            description:
+              'Self-correcting multi-step planning framework with sub-second feedback loops and automatic state checkpoint rollbacks.',
+          },
+          {
+            id: 'ap3',
+            title: 'III. Verifiable Code Synthesis',
+            tag: 'SYNTHESIS',
+            iconName: 'terminal',
+            description:
+              'Direct compilation of multi-language software systems with automated unit test generation and zero security regressions.',
+          },
+        ],
+        footnote: 'CORE PILLARS // HARMONIC FOUNDATION SPECIFICATION',
+      },
+    },
+    {
+      id: 'argon-slide-5',
+      kicker: 'ENTERPRISE INFRASTRUCTURE & SPECIFICATION',
+      title: 'Argon Enterprise Platform Telemetry',
+      subtitle: 'Scalable enterprise deployment parameters, isolation security, and real-time observability telemetry.',
+      layout: 'bento',
+      elements: {
+        bentoCards: [
+          {
+            id: 'ab1',
+            title: 'Argon Isolated Multi-Tenant Sandbox',
+            subtitle: 'ENTERPRISE SECURITY',
+            description:
+              'Hardware-isolated confidential compute enclaves guaranteeing zero training-data leakage and zero prompt leakage across enterprise boundaries.',
+            spanCol: 2,
+            spanRow: 1,
+            badge: 'MIL-SPEC',
+            stat: 'ZERO-LEAK',
+            iconName: 'lock',
+          },
+          {
+            id: 'ab2',
+            title: 'Edge Quantization Engine',
+            subtitle: 'EDGE RUNTIME',
+            description:
+              'Sub-8B parameter distillation runs natively on mobile devices and edge robots at 45 tokens/sec.',
+            spanCol: 1,
+            spanRow: 1,
+            badge: 'FP4 / INT8',
+            stat: '45 tok/s',
+            iconName: 'box',
+          },
+          {
+            id: 'ab3',
+            title: 'Autonomous Tool Orchestration',
+            subtitle: 'AGENT PROTOCOLS',
+            description:
+              'Native sub-millisecond execution over Model Context Protocol and Chrome DevTools Protocol.',
+            spanCol: 1,
+            spanRow: 1,
+            badge: 'CDP / MCP / REST',
+            stat: '0.00% Err',
+            iconName: 'server',
+          },
+          {
+            id: 'ab4',
+            title: 'Continuous Telemetry & Audit Trail',
+            subtitle: 'OBSERVABILITY',
+            description:
+              'Cryptographically signed execution traces and automated compliance logging for regulated financial and medical domains.',
+            spanCol: 2,
+            spanRow: 1,
+            badge: 'VERIFIED',
+            stat: '100% Trace',
+            iconName: 'activity',
+          },
+        ],
+        footnote: 'ARGON TELEMETRY SPECIFICATION // PRODUCTION GRADE PLATFORM',
+      },
+    },
+  ],
+};
+
 export const SAMPLE_DECKS: Record<string, SlideDeck> = {
+  'gemini-4-argon': GEMINI_ARGON_DECK,
   'strategic-dark': INITIAL_DECK,
   'consulting-light': LIGHT_CONSULTING_DECK,
 };
+
 

@@ -23,9 +23,15 @@ description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on
    - Canvas is scaled mathematically using `transform: scale(min(stageWidth/1920, stageHeight/1080))` inside a centered stage container.
    - **Strictly NOT fluidly squished or reflowed:** The layout maintains exact coordinates, margins, and typography sizes across all viewport dimensions and print boundaries.
 
-3. **Pristine Deck Stage (Zero Overlay Buttons):**
-   - **ZERO buttons, floating controls, or UI widgets overlaid inside the presentation deck itself.**
-   - All management controls stay strictly in the Topbar, Left Sidebar, or Right Sidebar, keeping the slide canvas 100% focused on presentation design.
+3. **Pristine Deck Stage & On-Canvas PowerPoint Edit Mode:**
+   - **Preview/Presenter Mode:** Zero buttons, floating controls, or UI widgets overlaid inside the presentation deck itself.
+   - **On-Canvas PowerPoint Edit Mode (`[E]` toggle):**
+     - Single click on Topbar `EDIT MODE` or press `E` to enter live PowerPoint-style WYSIWYG editing.
+     - Direct on-canvas inline text editing (`contentEditable`) across all elements (headlines, subtitles, kickers, metric values, pillar descriptions, bento cards, badges, quotes) with real-time state and `localStorage` synchronization.
+     - Floating quick-format toolbar with instant palette tuning (Obsidian, Titanium, Cream, Bauhaus, Cobalt, Neon Lime), `+ ITEM` inserter, and SVG Icon Picker.
+   - **Vector SVG Icons & Graphic Design Elements (Strict 0% Emojis):**
+     - Mathematical vector icons (`cpu`, `sparkles`, `activity`, `zap`, `shield`, `layers`, `database`, `server`, `terminal`, `bar-chart`, `target`, `network`, `box`, `git-branch`, `check-circle`, `lock`, `globe`).
+     - Technical graphic design accents: CAD corner telemetry crosshairs (`+`), engineering status pills, and hairline telemetry dividers.
 
 4. **3-Panel Studio Layout:**
    - **Left Sidebar:** Slide page thumbnails list (filmstrip), add slide menu (8 layout archetypes), reorder up/down, duplicate slide, delete slide.
@@ -53,6 +59,7 @@ description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on
 
 ## 3. Keyboard Shortcuts & Presenter Mode
 
+- `E`: Toggle On-Canvas PowerPoint Edit Mode (live inline editing, quick color swatches, SVG icons).
 - `F5` / `F`: Toggle Fullscreen Presentation Mode (hides all studio chrome, centers 16:9 deck with pure black backdrop).
 - `ArrowRight` / `Space` / `PageDown` / `Enter` / `J`: Next slide.
 - `ArrowLeft` / `Backspace` / `PageUp` / `K`: Previous slide.

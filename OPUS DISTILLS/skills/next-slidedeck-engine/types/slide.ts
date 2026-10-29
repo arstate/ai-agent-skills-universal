@@ -25,6 +25,8 @@ export interface MetricItem {
   label: string;
   subtext?: string;
   change?: string;
+  iconName?: string;
+  color?: string;
 }
 
 export interface PillarItem {
@@ -33,6 +35,7 @@ export interface PillarItem {
   description: string;
   tag?: string;
   iconName?: string;
+  color?: string;
 }
 
 export interface BentoCard {
@@ -44,6 +47,8 @@ export interface BentoCard {
   spanRow?: 1 | 2;
   stat?: string;
   badge?: string;
+  iconName?: string;
+  color?: string;
 }
 
 export interface TimelineItem {

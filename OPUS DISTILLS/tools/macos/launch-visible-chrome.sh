@@ -69,6 +69,9 @@ nohup "$CHROME_BIN" \
   --window-size=1366,840 \
   --window-position=60,40 \
   --disable-blink-features=AutomationControlled \
+  --disable-background-timer-throttling \
+  --disable-backgrounding-occluded-windows \
+  --disable-renderer-backgrounding \
   --no-first-run \
   --no-default-browser-check \
   --password-store=basic \

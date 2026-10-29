@@ -2395,10 +2395,10 @@ def parse_hybrid_args(raw_args):
     return clean_positionals, tab, auto_switch, port, press_enter, fmt, auto_scroll, max_rows, output_path, timeout_ms, close_duplicates
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or sys.argv[1].lower() in ("--help", "-h", "help"):
         print("Usage: python3 cdp_visual_agent.py <command> [args...] [--tab <idx/name>] [--switch|--no-switch] [--port <port>] [--json]")
         print("Commands: tabs, switch, new, close, done, open, snapshot, buttons, table, extract, research, links, eval, click, type, form, wait, organize, scroll, status, screenshot")
-        sys.exit(1)
+        sys.exit(0 if len(sys.argv) >= 2 and sys.argv[1].lower() in ("--help", "-h", "help") else 1)
 
     cmd = sys.argv[1].lower()
     pos_args, tab, auto_switch, port, press_enter, fmt, auto_scroll, max_rows, output_path, timeout_ms, close_duplicates = parse_hybrid_args(sys.argv[2:])

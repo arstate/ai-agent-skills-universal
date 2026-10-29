@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Play, Download, Sun, Moon } from 'lucide-react';
+import { Play, Download, Sun, Moon, Edit3, MousePointerClick } from 'lucide-react';
 import { SlideDeck } from '../../types/slide';
 
 interface TopBarProps {
@@ -13,6 +13,8 @@ interface TopBarProps {
   onToggleTheme?: () => void;
   isLightMode?: boolean;
   isMounted?: boolean;
+  isEditMode?: boolean;
+  onToggleEditMode?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -24,6 +26,8 @@ export const TopBar: React.FC<TopBarProps> = ({
   onToggleTheme,
   isLightMode = false,
   isMounted: propMounted,
+  isEditMode = false,
+  onToggleEditMode,
 }) => {
   const [internalMounted, setInternalMounted] = useState<boolean>(false);
 
@@ -71,8 +75,37 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
       </div>
 
-      {/* RIGHT: Actions (Theme Toggle, Present, Export) */}
+      {/* RIGHT: Actions (Edit Mode, Theme Toggle, Present, Export) */}
       <div className="flex items-center gap-3">
+        {/* PowerPoint-like On-Canvas Edit Mode Toggle */}
+        {onToggleEditMode && (
+          <button
+            onClick={onToggleEditMode}
+            className={`flex items-center gap-2 border px-3 py-1.5 text-xs font-mono font-semibold transition-all shadow-sm ${
+              isEditMode
+                ? 'border-emerald-400 bg-emerald-950/40 text-emerald-300 ring-1 ring-emerald-400'
+                : 'border-[#27272a] bg-[#121214] hover:bg-[#18181b] hover:border-white text-zinc-300'
+            }`}
+            title="Toggle On-Canvas PowerPoint Edit Mode (Shortcut: E)"
+          >
+            {isEditMode ? (
+              <>
+                <MousePointerClick className="h-3.5 w-3.5 text-emerald-400" />
+                <span className="uppercase text-[11px] tracking-wider text-emerald-400">
+                  EDIT MODE [ON]
+                </span>
+              </>
+            ) : (
+              <>
+                <Edit3 className="h-3.5 w-3.5 text-zinc-400" />
+                <span className="uppercase text-[11px] tracking-wider">
+                  EDIT MODE
+                </span>
+              </>
+            )}
+          </button>
+        )}
+
         {/* Toggle Light / Dark Mode Palette */}
         {onToggleTheme && (
           <button
