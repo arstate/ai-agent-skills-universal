@@ -407,6 +407,45 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                         className="bg-[#18181d] border border-[#2a2a30] p-1.5 text-xs text-[#a1a1aa] outline-none"
                         placeholder="Subtext"
                       />
+                      {/* Icon & Color Row */}
+                      <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#1c1c22]">
+                        <div className="flex items-center gap-1.5 flex-1">
+                          <span className="text-[9px] font-mono text-[#71717a]">ICON:</span>
+                          <select
+                            value={metric.iconName || 'activity'}
+                            onChange={(e) => {
+                              const icon = e.target.value;
+                              onUpdateActiveSlide((prev) => {
+                                const updated = [...(prev.elements.metrics || [])];
+                                updated[i] = { ...updated[i], iconName: icon };
+                                return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                              });
+                            }}
+                            className="bg-[#18181d] border border-[#2a2a30] text-[10px] font-mono text-white p-1 outline-none flex-1"
+                          >
+                            {['cpu', 'sparkles', 'activity', 'zap', 'shield', 'layers', 'database', 'server', 'terminal', 'bar-chart', 'target', 'network', 'box', 'check-circle', 'lock'].map((ic) => (
+                              <option key={ic} value={ic}>{ic}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {['#10B981', '#06B6D4', '#38BDF8', '#8B5CF6', '#F59E0B'].map((col) => (
+                            <button
+                              key={col}
+                              onClick={() => {
+                                onUpdateActiveSlide((prev) => {
+                                  const updated = [...(prev.elements.metrics || [])];
+                                  updated[i] = { ...updated[i], color: col };
+                                  return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                                });
+                              }}
+                              className={`h-3 w-3 border ${metric.color === col ? 'ring-1 ring-white' : 'border-zinc-700'}`}
+                              style={{ backgroundColor: col }}
+                              title={`Set color ${col}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -451,6 +490,45 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                         className="bg-[#18181d] border border-[#2a2a30] p-1.5 text-xs text-[#a1a1aa] outline-none resize-none"
                         placeholder="Description"
                       />
+                      {/* Icon & Color Row */}
+                      <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#1c1c22]">
+                        <div className="flex items-center gap-1.5 flex-1">
+                          <span className="text-[9px] font-mono text-[#71717a]">ICON:</span>
+                          <select
+                            value={pillar.iconName || 'layers'}
+                            onChange={(e) => {
+                              const icon = e.target.value;
+                              onUpdateActiveSlide((prev) => {
+                                const updated = [...(prev.elements.pillars || [])];
+                                updated[i] = { ...updated[i], iconName: icon };
+                                return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                              });
+                            }}
+                            className="bg-[#18181d] border border-[#2a2a30] text-[10px] font-mono text-white p-1 outline-none flex-1"
+                          >
+                            {['layers', 'target', 'git-branch', 'terminal', 'shield', 'activity', 'cpu', 'box'].map((ic) => (
+                              <option key={ic} value={ic}>{ic}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {['#10B981', '#06B6D4', '#38BDF8', '#8B5CF6', '#F59E0B'].map((col) => (
+                            <button
+                              key={col}
+                              onClick={() => {
+                                onUpdateActiveSlide((prev) => {
+                                  const updated = [...(prev.elements.pillars || [])];
+                                  updated[i] = { ...updated[i], color: col };
+                                  return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                                });
+                              }}
+                              className={`h-3 w-3 border ${pillar.color === col ? 'ring-1 ring-white' : 'border-zinc-700'}`}
+                              style={{ backgroundColor: col }}
+                              title={`Set color ${col}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -500,6 +578,45 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                         className="bg-[#18181d] border border-[#2a2a30] p-1.5 text-xs text-[#a1a1aa] outline-none resize-none"
                         placeholder="Description"
                       />
+                      {/* Icon & Color Row */}
+                      <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#1c1c22]">
+                        <div className="flex items-center gap-1.5 flex-1">
+                          <span className="text-[9px] font-mono text-[#71717a]">ICON:</span>
+                          <select
+                            value={card.iconName || 'box'}
+                            onChange={(e) => {
+                              const icon = e.target.value;
+                              onUpdateActiveSlide((prev) => {
+                                const updated = [...(prev.elements.bentoCards || [])];
+                                updated[i] = { ...updated[i], iconName: icon };
+                                return { ...prev, elements: { ...prev.elements, bentoCards: updated } };
+                              });
+                            }}
+                            className="bg-[#18181d] border border-[#2a2a30] text-[10px] font-mono text-white p-1 outline-none flex-1"
+                          >
+                            {['box', 'lock', 'server', 'activity', 'cpu', 'shield', 'network', 'zap'].map((ic) => (
+                              <option key={ic} value={ic}>{ic}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {['#10B981', '#06B6D4', '#38BDF8', '#8B5CF6', '#F59E0B'].map((col) => (
+                            <button
+                              key={col}
+                              onClick={() => {
+                                onUpdateActiveSlide((prev) => {
+                                  const updated = [...(prev.elements.bentoCards || [])];
+                                  updated[i] = { ...updated[i], color: col };
+                                  return { ...prev, elements: { ...prev.elements, bentoCards: updated } };
+                                });
+                              }}
+                              className={`h-3 w-3 border ${card.color === col ? 'ring-1 ring-white' : 'border-zinc-700'}`}
+                              style={{ backgroundColor: col }}
+                              title={`Set color ${col}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -80,6 +80,15 @@ export interface SlideElements {
     language: string;
     filename?: string;
   };
+  callout?: {
+    kicker?: string;
+    title?: string;
+    text: string;
+    iconName?: string;
+    color?: string;
+  };
+  titleColor?: string;
+  subtitleColor?: string;
   footnote?: string;
 }
 

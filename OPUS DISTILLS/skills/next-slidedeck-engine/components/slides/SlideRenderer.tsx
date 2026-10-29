@@ -13,6 +13,8 @@ interface SlideRendererProps {
   totalSlides: number;
   isThumbnail?: boolean;
   isEditMode?: boolean;
+  selectedId?: string | null;
+  onSelectElement?: (id: string | null) => void;
   onUpdateSlide?: (updater: (prev: Slide) => Slide) => void;
 }
 
@@ -22,6 +24,8 @@ interface EditableTextProps {
   className?: string;
   style?: React.CSSProperties;
   isEditMode?: boolean;
+  isSelected?: boolean;
+  onSelect?: () => void;
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
   placeholder?: string;
   layoutId?: string;
@@ -29,7 +33,7 @@ interface EditableTextProps {
 
 /**
  * High-performance on-canvas PowerPoint-like editable text block.
- * When isEditMode is true: enables direct inline contentEditable editing with visual focus highlight.
+ * When isEditMode is true: enables direct inline contentEditable editing with visual selection handles.
  * When isEditMode is false: renders pristine presentation typography without overhead.
  */
 const EditableText: React.FC<EditableTextProps> = ({
@@ -38,6 +42,8 @@ const EditableText: React.FC<EditableTextProps> = ({
   className = '',
   style,
   isEditMode = false,
+  isSelected = false,
+  onSelect,
   as = 'div',
   placeholder = 'Click to edit...',
   layoutId,
@@ -50,11 +56,31 @@ const EditableText: React.FC<EditableTextProps> = ({
     }
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (isEditMode) {
+      e.stopPropagation();
+      onSelect?.();
+    }
+  };
+
   const editClasses = isEditMode
-    ? 'cursor-text hover:outline hover:outline-1 hover:outline-dashed hover:outline-[#52525b] focus:outline focus:outline-2 focus:outline-emerald-400 focus:bg-white/5 transition-all rounded px-1 -mx-1'
+    ? `cursor-text transition-all rounded px-1 -mx-1 relative ${
+        isSelected
+          ? 'outline outline-2 outline-emerald-400 bg-emerald-500/10 ring-1 ring-emerald-400/50'
+          : 'hover:outline hover:outline-1 hover:outline-dashed hover:outline-[#52525b] focus:outline focus:outline-2 focus:outline-emerald-400 focus:bg-white/5'
+      }`
     : '';
 
   const Tag = as as any;
+
+  const selectionHandles = isEditMode && isSelected ? (
+    <>
+      <span className="absolute -top-1 -left-1 h-2 w-2 bg-emerald-400 border border-black pointer-events-none z-20" />
+      <span className="absolute -top-1 -right-1 h-2 w-2 bg-emerald-400 border border-black pointer-events-none z-20" />
+      <span className="absolute -bottom-1 -left-1 h-2 w-2 bg-emerald-400 border border-black pointer-events-none z-20" />
+      <span className="absolute -bottom-1 -right-1 h-2 w-2 bg-emerald-400 border border-black pointer-events-none z-20" />
+    </>
+  ) : null;
 
   if (layoutId) {
     return (
@@ -63,11 +89,13 @@ const EditableText: React.FC<EditableTextProps> = ({
         contentEditable={isEditMode}
         suppressContentEditableWarning
         onBlur={handleBlur}
+        onClick={handleClick}
         className={`${className} ${editClasses}`}
         style={style}
         data-placeholder={placeholder}
       >
         {value}
+        {selectionHandles}
       </motion.div>
     );
   }
@@ -77,11 +105,13 @@ const EditableText: React.FC<EditableTextProps> = ({
       contentEditable={isEditMode}
       suppressContentEditableWarning
       onBlur={handleBlur}
+      onClick={handleClick}
       className={`${className} ${editClasses}`}
       style={style}
       data-placeholder={placeholder}
     >
       {value}
+      {selectionHandles}
     </Tag>
   );
 };
@@ -94,6 +124,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
   totalSlides,
   isThumbnail = false,
   isEditMode = false,
+  selectedId = null,
+  onSelectElement,
   onUpdateSlide,
 }) => {
   // Determine motion transition variants based on configured transition type
@@ -175,6 +207,9 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
   return (
     <div
       id={`slide-canvas-${slide.id}`}
+      onClick={() => {
+        if (isEditMode) onSelectElement?.(null);
+      }}
       className={`relative select-none overflow-hidden ${isEditMode ? 'ring-1 ring-emerald-500/30' : ''}`}
       style={{
         width: 1920,
@@ -224,6 +259,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
               <EditableText
                 value={slide.kicker || 'EXECUTIVE BRIEFING'}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'kicker'}
+                onSelect={() => onSelectElement?.('kicker')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
                 className="text-xs font-mono font-medium tracking-[0.25em] uppercase"
                 style={{ color: theme.textMuted }}
@@ -248,7 +285,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
 
           {/* MAIN BODY AREA DEPENDING ON LAYOUT */}
           <div className="my-auto flex flex-1 flex-col justify-center py-8">
-            {renderLayoutContent(slide, theme, isMorph, isEditMode, onUpdateSlide)}
+            {renderLayoutContent(slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide)}
           </div>
 
           {/* BOTTOM FOOTER / TELEMETRY */}
@@ -263,6 +300,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
               <EditableText
                 value={slide.elements.footnote || 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM'}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'footnote'}
+                onSelect={() => onSelectElement?.('footnote')}
                 onSave={(val) =>
                   onUpdateSlide?.((prev) => ({
                     ...prev,
@@ -293,6 +332,8 @@ function renderLayoutContent(
   theme: ThemeConfig,
   isMorph: boolean,
   isEditMode: boolean = false,
+  selectedId?: string | null,
+  onSelectElement?: (id: string | null) => void,
   onUpdateSlide?: (updater: (prev: Slide) => Slide) => void
 ) {
   switch (slide.layout) {
@@ -312,27 +353,31 @@ function renderLayoutContent(
           </div>
 
           <motion.div
-            layoutId={isMorph ? 'slide-title' : undefined}
-            layout="position"
             className="text-7xl font-bold tracking-tight leading-[1.08] mb-8"
-            style={{ color: theme.textPrimary }}
+            style={{ color: slide.elements.titleColor || theme.textPrimary }}
           >
             <EditableText
               value={slide.title}
               isEditMode={isEditMode}
+              isSelected={selectedId === 'title'}
+              onSelect={() => onSelectElement?.('title')}
               onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
               as="h1"
             />
           </motion.div>
 
           <div
             className="text-2xl font-normal leading-relaxed max-w-3xl mb-4"
-            style={{ color: theme.textSecondary }}
+            style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
           >
             <EditableText
               value={slide.subtitle}
               isEditMode={isEditMode}
+              isSelected={selectedId === 'subtitle'}
+              onSelect={() => onSelectElement?.('subtitle')}
               onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+              style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
               as="p"
             />
           </div>
@@ -386,121 +431,154 @@ function renderLayoutContent(
     case 'metrics':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-12 max-w-4xl">
+          <div className="mb-10 max-w-4xl flex flex-col gap-3">
             <motion.div
-              layoutId={isMorph ? 'slide-title' : undefined}
-            layout="position"
-              className="text-5xl font-bold tracking-tight mb-4"
-              style={{ color: theme.textPrimary }}
+              className="text-5xl font-bold tracking-tight leading-tight"
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
                 value={slide.title}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'title'}
+                onSelect={() => onSelectElement?.('title')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl" style={{ color: theme.textSecondary }}>
+            <div className="text-xl leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'subtitle'}
+                onSelect={() => onSelectElement?.('subtitle')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
                 as="p"
               />
             </div>
           </div>
           <div className="grid grid-cols-4 gap-8">
-            {slide.elements.metrics?.map((metric, i) => (
-              <motion.div
-                key={metric.id || i}
-                layoutId={isMorph ? `metric-card-${i}` : undefined}
-                className="relative flex flex-col justify-between border p-8"
-                style={{
-                  backgroundColor: theme.surface,
-                  borderColor: theme.border,
-                }}
-              >
-                <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <SvgIcon
-                        name={metric.iconName || 'activity'}
-                        size={14}
-                        color={theme.accent}
-                      />
+            {slide.elements.metrics?.map((metric, i) => {
+              const cardId = `metric-${i}`;
+              const isCardSelected = selectedId === cardId;
+              const accentColor = metric.color || theme.accent;
+              return (
+                <motion.div
+                  key={metric.id || i}
+                  layoutId={isMorph ? `metric-card-${i}` : undefined}
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.stopPropagation();
+                      onSelectElement?.(cardId);
+                    }
+                  }}
+                  className={`relative flex flex-col justify-between border p-8 transition-all ${
+                    isCardSelected
+                      ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg'
+                      : isEditMode
+                      ? 'hover:border-zinc-500 cursor-pointer'
+                      : ''
+                  }`}
+                  style={{
+                    backgroundColor: theme.surface,
+                    borderColor: isCardSelected ? '#10B981' : metric.color ? metric.color + '55' : theme.border,
+                  }}
+                >
+                  {metric.color && (
+                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: metric.color }} />
+                  )}
+                  <TelemetryCrosshair color={metric.color || theme.textMuted} className="absolute top-2 right-2" />
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <SvgIcon
+                          name={metric.iconName || 'activity'}
+                          size={14}
+                          color={accentColor}
+                        />
+                        <EditableText
+                          value={metric.label}
+                          isEditMode={isEditMode}
+                          isSelected={selectedId === `${cardId}-label`}
+                          onSelect={() => onSelectElement?.(cardId)}
+                          onSave={(val) =>
+                            onUpdateSlide?.((prev) => {
+                              const updated = [...(prev.elements.metrics || [])];
+                              updated[i] = { ...updated[i], label: val };
+                              return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                            })
+                          }
+                          className="text-xs font-mono font-medium tracking-widest uppercase"
+                          style={{ color: theme.textMuted }}
+                          as="span"
+                        />
+                      </div>
+                      {metric.change && (
+                        <EditableText
+                          value={metric.change}
+                          isEditMode={isEditMode}
+                          isSelected={selectedId === `${cardId}-change`}
+                          onSelect={() => onSelectElement?.(cardId)}
+                          onSave={(val) =>
+                            onUpdateSlide?.((prev) => {
+                              const updated = [...(prev.elements.metrics || [])];
+                              updated[i] = { ...updated[i], change: val };
+                              return { ...prev, elements: { ...prev.elements, metrics: updated } };
+                            })
+                          }
+                          className="text-xs font-mono border px-2 py-0.5"
+                          style={{
+                            borderColor: metric.color ? metric.color + '66' : theme.border,
+                            backgroundColor: theme.surfaceRaised,
+                            color: metric.color || theme.textPrimary,
+                          }}
+                          as="span"
+                        />
+                      )}
+                    </div>
+                    <div
+                      className="text-6xl font-bold tracking-tight mb-4 tabular-nums"
+                      style={{ color: metric.color || theme.textPrimary }}
+                    >
                       <EditableText
-                        value={metric.label}
+                        value={metric.value}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-val`}
+                        onSelect={() => onSelectElement?.(cardId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.metrics || [])];
-                            updated[i] = { ...updated[i], label: val };
+                            updated[i] = { ...updated[i], value: val };
                             return { ...prev, elements: { ...prev.elements, metrics: updated } };
                           })
                         }
-                        className="text-xs font-mono font-medium tracking-widest uppercase"
-                        style={{ color: theme.textMuted }}
-                        as="span"
+                        style={{ color: metric.color || theme.textPrimary }}
+                        as="div"
                       />
                     </div>
-                    {metric.change && (
+                  </div>
+                  {metric.subtext && (
+                    <div className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
                       <EditableText
-                        value={metric.change}
+                        value={metric.subtext}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-sub`}
+                        onSelect={() => onSelectElement?.(cardId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.metrics || [])];
-                            updated[i] = { ...updated[i], change: val };
+                            updated[i] = { ...updated[i], subtext: val };
                             return { ...prev, elements: { ...prev.elements, metrics: updated } };
                           })
                         }
-                        className="text-xs font-mono border px-2 py-0.5"
-                        style={{
-                          borderColor: theme.border,
-                          backgroundColor: theme.surfaceRaised,
-                          color: theme.textPrimary,
-                        }}
-                        as="span"
+                        as="p"
                       />
-                    )}
-                  </div>
-                  <div
-                    className="text-6xl font-bold tracking-tight mb-4 tabular-nums"
-                    style={{ color: theme.textPrimary }}
-                  >
-                    <EditableText
-                      value={metric.value}
-                      isEditMode={isEditMode}
-                      onSave={(val) =>
-                        onUpdateSlide?.((prev) => {
-                          const updated = [...(prev.elements.metrics || [])];
-                          updated[i] = { ...updated[i], value: val };
-                          return { ...prev, elements: { ...prev.elements, metrics: updated } };
-                        })
-                      }
-                      as="div"
-                    />
-                  </div>
-                </div>
-                {metric.subtext && (
-                  <div className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
-                    <EditableText
-                      value={metric.subtext}
-                      isEditMode={isEditMode}
-                      onSave={(val) =>
-                        onUpdateSlide?.((prev) => {
-                          const updated = [...(prev.elements.metrics || [])];
-                          updated[i] = { ...updated[i], subtext: val };
-                          return { ...prev, elements: { ...prev.elements, metrics: updated } };
-                        })
-                      }
-                      as="p"
-                    />
-                  </div>
-                )}
-              </motion.div>
-            ))}
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       );
@@ -508,70 +586,134 @@ function renderLayoutContent(
     case 'split':
       return (
         <div className="flex flex-col justify-center">
-          <div className="grid grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-12 gap-12 items-start">
             {/* Left Column (5 Cols) */}
-            <div className="col-span-5 flex flex-col justify-center">
+            <div className="col-span-5 min-w-0 flex flex-col justify-center">
               <motion.div
-                layoutId={isMorph ? 'slide-title' : undefined}
-            layout="position"
-                className="text-5xl font-bold tracking-tight mb-6 leading-tight"
-                style={{ color: theme.textPrimary }}
+                className="text-4xl font-bold tracking-tight mb-4 leading-tight"
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
               >
                 <EditableText
                   value={slide.title}
                   isEditMode={isEditMode}
+                  isSelected={selectedId === 'title'}
+                  onSelect={() => onSelectElement?.('title')}
                   onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                  style={{ color: slide.elements.titleColor || theme.textPrimary }}
                   as="h2"
                 />
               </motion.div>
               <div
                 className="text-xl leading-relaxed mb-8"
-                style={{ color: theme.textSecondary }}
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
               >
                 <EditableText
                   value={slide.subtitle}
                   isEditMode={isEditMode}
+                  isSelected={selectedId === 'subtitle'}
+                  onSelect={() => onSelectElement?.('subtitle')}
                   onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                  style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
                   as="p"
                 />
               </div>
-              <div
-                className="relative border p-6"
-                style={{
-                  backgroundColor: theme.surface,
-                  borderColor: theme.border,
-                }}
-              >
-                <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
-                <span
-                  className="text-xs font-mono uppercase tracking-widest flex items-center gap-2 mb-2"
-                  style={{ color: theme.textMuted }}
-                >
-                  <SvgIcon name="cpu" size={13} color={theme.accent} />
-                  CORE THESIS
-                </span>
-                <p
-                  className="text-sm font-medium leading-relaxed"
-                  style={{ color: theme.textPrimary }}
-                >
-                  Structured mathematical layout boundaries preserve typographic rhythm and visual
-                  equilibrium without responsive slippage.
-                </p>
-              </div>
+
+              {/* Dynamic Callout Box */}
+              {(() => {
+                const callout = slide.elements.callout || {
+                  kicker: 'CORE ARCHITECTURE',
+                  text: 'Structured mathematical boundaries preserve typographic rhythm and visual equilibrium without responsive slippage.',
+                  iconName: 'cpu',
+                  color: theme.accent,
+                };
+                const isCalloutSelected = selectedId === 'callout';
+                const calloutColor = callout.color || theme.accent;
+                return (
+                  <div
+                    onClick={(e) => {
+                      if (isEditMode) {
+                        e.stopPropagation();
+                        onSelectElement?.('callout');
+                      }
+                    }}
+                    className={`relative border p-6 transition-all ${
+                      isCalloutSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
+                    }`}
+                    style={{
+                      backgroundColor: theme.surface,
+                      borderColor: isCalloutSelected ? '#10B981' : callout.color ? callout.color + '66' : theme.border,
+                    }}
+                  >
+                    {callout.color && (
+                      <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: callout.color }} />
+                    )}
+                    <TelemetryCrosshair color={callout.color || theme.textMuted} className="absolute top-2 right-2" />
+                    <div className="flex items-center gap-2 mb-2">
+                      <SvgIcon name={callout.iconName || 'cpu'} size={13} color={calloutColor} />
+                      <EditableText
+                        value={callout.kicker || 'CORE THESIS'}
+                        isEditMode={isEditMode}
+                        isSelected={selectedId === 'callout-kicker'}
+                        onSelect={() => onSelectElement?.('callout')}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => ({
+                            ...prev,
+                            elements: {
+                              ...prev.elements,
+                              callout: { ...(prev.elements.callout || callout), kicker: val },
+                            },
+                          }))
+                        }
+                        className="text-xs font-mono uppercase tracking-widest font-semibold"
+                        style={{ color: calloutColor }}
+                        as="span"
+                      />
+                    </div>
+                    <div className="text-sm font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
+                      <EditableText
+                        value={callout.text}
+                        isEditMode={isEditMode}
+                        isSelected={selectedId === 'callout-text'}
+                        onSelect={() => onSelectElement?.('callout')}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => ({
+                            ...prev,
+                            elements: {
+                              ...prev.elements,
+                              callout: { ...(prev.elements.callout || callout), text: val },
+                            },
+                          }))
+                        }
+                        as="p"
+                      />
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Right Column (7 Cols) */}
-            <div className="col-span-7 flex flex-col gap-4">
+            <div className="col-span-7 min-w-0 flex flex-col gap-4">
               {slide.elements.bullets?.map((bullet, i) => {
                 const bulletIcons = ['network', 'layers', 'terminal', 'shield', 'zap'];
                 const iconName = bulletIcons[i % bulletIcons.length];
+                const bulletId = `bullet-${i}`;
+                const isBulletSelected = selectedId === bulletId;
                 return (
                   <div
                     key={i}
-                    className="relative flex items-start gap-4 border p-6"
+                    onClick={(e) => {
+                      if (isEditMode) {
+                        e.stopPropagation();
+                        onSelectElement?.(bulletId);
+                      }
+                    }}
+                    className={`relative flex items-start gap-4 border p-6 transition-all ${
+                      isBulletSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-md' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
+                    }`}
                     style={{
                       backgroundColor: theme.surfaceRaised,
-                      borderColor: theme.border,
+                      borderColor: isBulletSelected ? '#10B981' : theme.border,
                     }}
                   >
                     <div
@@ -587,6 +729,8 @@ function renderLayoutContent(
                       <EditableText
                         value={bullet}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === bulletId}
+                        onSelect={() => onSelectElement?.(bulletId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.bullets || [])];
@@ -609,120 +753,146 @@ function renderLayoutContent(
     case 'timeline':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-12 max-w-4xl">
+          <div className="mb-10 max-w-4xl flex flex-col gap-3">
             <motion.div
-              layoutId={isMorph ? 'slide-title' : undefined}
-            layout="position"
-              className="text-5xl font-bold tracking-tight mb-4"
-              style={{ color: theme.textPrimary }}
+              className="text-5xl font-bold tracking-tight leading-tight"
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
                 value={slide.title}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'title'}
+                onSelect={() => onSelectElement?.('title')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl" style={{ color: theme.textSecondary }}>
+            <div className="text-xl leading-relaxed" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'subtitle'}
+                onSelect={() => onSelectElement?.('subtitle')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
                 as="p"
               />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-8">
-            {slide.elements.pillars?.map((pillar, i) => (
-              <motion.div
-                key={pillar.id || i}
-                layoutId={isMorph ? `pillar-${i}` : undefined}
-                className="relative flex flex-col justify-between border p-8"
-                style={{
-                  backgroundColor: theme.surface,
-                  borderColor: theme.border,
-                }}
-              >
-                <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
-                <div>
-                  <div
-                    className="flex items-center justify-between mb-6 border-b pb-4"
-                    style={{ borderColor: theme.border }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <SvgIcon
-                        name={pillar.iconName || 'layers'}
-                        size={14}
-                        color={theme.accent}
-                      />
+            {slide.elements.pillars?.map((pillar, i) => {
+              const cardId = `pillar-${i}`;
+              const isCardSelected = selectedId === cardId;
+              const accentColor = pillar.color || theme.accent;
+              return (
+                <motion.div
+                  key={pillar.id || i}
+                  layoutId={isMorph ? `pillar-${i}` : undefined}
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.stopPropagation();
+                      onSelectElement?.(cardId);
+                    }
+                  }}
+                  className={`relative flex flex-col justify-between border p-8 transition-all ${
+                    isCardSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
+                  }`}
+                  style={{
+                    backgroundColor: theme.surface,
+                    borderColor: isCardSelected ? '#10B981' : pillar.color ? pillar.color + '55' : theme.border,
+                  }}
+                >
+                  {pillar.color && (
+                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: pillar.color }} />
+                  )}
+                  <TelemetryCrosshair color={pillar.color || theme.textMuted} className="absolute top-2 right-2" />
+                  <div>
+                    <div
+                      className="flex items-center justify-between mb-6 border-b pb-4"
+                      style={{ borderColor: theme.border }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <SvgIcon
+                          name={pillar.iconName || 'layers'}
+                          size={14}
+                          color={accentColor}
+                        />
+                        <EditableText
+                          value={pillar.tag || `PILLAR 0${i + 1}`}
+                          isEditMode={isEditMode}
+                          isSelected={selectedId === `${cardId}-tag`}
+                          onSelect={() => onSelectElement?.(cardId)}
+                          onSave={(val) =>
+                            onUpdateSlide?.((prev) => {
+                              const updated = [...(prev.elements.pillars || [])];
+                              updated[i] = { ...updated[i], tag: val };
+                              return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                            })
+                          }
+                          className="text-xs font-mono uppercase tracking-widest font-semibold"
+                          style={{ color: pillar.color || theme.textMuted }}
+                          as="span"
+                        />
+                      </div>
+                      <span className="text-xs font-mono" style={{ color: pillar.color || theme.textSecondary }}>
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <div
+                      className="text-2xl font-bold tracking-tight mb-4"
+                      style={{ color: theme.textPrimary }}
+                    >
                       <EditableText
-                        value={pillar.tag || `PILLAR 0${i + 1}`}
+                        value={pillar.title}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-title`}
+                        onSelect={() => onSelectElement?.(cardId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.pillars || [])];
-                            updated[i] = { ...updated[i], tag: val };
+                            updated[i] = { ...updated[i], title: val };
                             return { ...prev, elements: { ...prev.elements, pillars: updated } };
                           })
                         }
-                        className="text-xs font-mono uppercase tracking-widest font-semibold"
-                        style={{ color: theme.textMuted }}
-                        as="span"
+                        as="h3"
                       />
                     </div>
-                    <span className="text-xs font-mono" style={{ color: theme.textSecondary }}>
-                      0{i + 1}
+                    <div
+                      className="text-base leading-relaxed"
+                      style={{ color: theme.textSecondary }}
+                    >
+                      <EditableText
+                        value={pillar.description}
+                        isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-desc`}
+                        onSelect={() => onSelectElement?.(cardId)}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const updated = [...(prev.elements.pillars || [])];
+                            updated[i] = { ...updated[i], description: val };
+                            return { ...prev, elements: { ...prev.elements, pillars: updated } };
+                          })
+                        }
+                        as="p"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="mt-8 pt-4 border-t flex items-center justify-between"
+                    style={{ borderColor: theme.border }}
+                  >
+                    <span
+                      className="text-[11px] font-mono uppercase tracking-wider"
+                      style={{ color: theme.textMuted }}
+                    >
+                      SYSTEM STANDARD APPROVED
                     </span>
+                    <SvgIcon name="check-circle" size={13} color={pillar.color || theme.textMuted} />
                   </div>
-                  <div
-                    className="text-2xl font-bold tracking-tight mb-4"
-                    style={{ color: theme.textPrimary }}
-                  >
-                    <EditableText
-                      value={pillar.title}
-                      isEditMode={isEditMode}
-                      onSave={(val) =>
-                        onUpdateSlide?.((prev) => {
-                          const updated = [...(prev.elements.pillars || [])];
-                          updated[i] = { ...updated[i], title: val };
-                          return { ...prev, elements: { ...prev.elements, pillars: updated } };
-                        })
-                      }
-                      as="h3"
-                    />
-                  </div>
-                  <div
-                    className="text-base leading-relaxed"
-                    style={{ color: theme.textSecondary }}
-                  >
-                    <EditableText
-                      value={pillar.description}
-                      isEditMode={isEditMode}
-                      onSave={(val) =>
-                        onUpdateSlide?.((prev) => {
-                          const updated = [...(prev.elements.pillars || [])];
-                          updated[i] = { ...updated[i], description: val };
-                          return { ...prev, elements: { ...prev.elements, pillars: updated } };
-                        })
-                      }
-                      as="p"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="mt-8 pt-4 border-t flex items-center justify-between"
-                  style={{ borderColor: theme.border }}
-                >
-                  <span
-                    className="text-[11px] font-mono uppercase tracking-wider"
-                    style={{ color: theme.textMuted }}
-                  >
-                    SYSTEM STANDARD APPROVED
-                  </span>
-                  <SvgIcon name="check-circle" size={13} color={theme.textMuted} />
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       );
@@ -730,56 +900,76 @@ function renderLayoutContent(
     case 'bento':
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-8 max-w-4xl">
+          <div className="mb-8 max-w-4xl flex flex-col gap-2">
             <motion.div
-              layoutId={isMorph ? 'slide-title' : undefined}
-            layout="position"
-              className="text-5xl font-bold tracking-tight mb-3"
-              style={{ color: theme.textPrimary }}
+              className="text-5xl font-bold tracking-tight leading-tight"
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
                 value={slide.title}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'title'}
+                onSelect={() => onSelectElement?.('title')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
                 as="h2"
               />
             </motion.div>
-            <div className="text-xl" style={{ color: theme.textSecondary }}>
+            <div className="text-xl" style={{ color: slide.elements.subtitleColor || theme.textSecondary }}>
               <EditableText
                 value={slide.subtitle}
                 isEditMode={isEditMode}
+                isSelected={selectedId === 'subtitle'}
+                onSelect={() => onSelectElement?.('subtitle')}
                 onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
                 as="p"
               />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-6">
             {slide.elements.bentoCards?.map((card, i) => {
+              const cardId = `bento-${i}`;
+              const isCardSelected = selectedId === cardId;
               const isWide = card.spanCol === 2;
+              const accentColor = card.color || theme.accent;
               return (
                 <motion.div
                   key={card.id || i}
                   layoutId={isMorph ? `bento-${i}` : undefined}
-                  className={`relative flex flex-col justify-between border p-8 ${
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.stopPropagation();
+                      onSelectElement?.(cardId);
+                    }
+                  }}
+                  className={`relative flex flex-col justify-between border p-8 transition-all ${
                     isWide ? 'col-span-2' : 'col-span-1'
+                  } ${
+                    isCardSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                   }`}
                   style={{
                     backgroundColor: theme.surface,
-                    borderColor: theme.border,
+                    borderColor: isCardSelected ? '#10B981' : card.color ? card.color + '55' : theme.border,
                   }}
                 >
-                  <TelemetryCrosshair color={theme.textMuted} className="absolute top-2 right-2" />
+                  {card.color && (
+                    <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: card.color }} />
+                  )}
+                  <TelemetryCrosshair color={card.color || theme.textMuted} className="absolute top-2 right-2" />
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <SvgIcon
                           name={card.iconName || 'box'}
                           size={14}
-                          color={theme.accent}
+                          color={accentColor}
                         />
                         <EditableText
                           value={card.subtitle || 'MODULE'}
                           isEditMode={isEditMode}
+                          isSelected={selectedId === `${cardId}-sub`}
+                          onSelect={() => onSelectElement?.(cardId)}
                           onSave={(val) =>
                             onUpdateSlide?.((prev) => {
                               const updated = [...(prev.elements.bentoCards || [])];
@@ -791,7 +981,7 @@ function renderLayoutContent(
                             })
                           }
                           className="text-xs font-mono uppercase tracking-widest font-semibold"
-                          style={{ color: theme.textMuted }}
+                          style={{ color: card.color || theme.textMuted }}
                           as="span"
                         />
                       </div>
@@ -799,6 +989,8 @@ function renderLayoutContent(
                         <EditableText
                           value={card.badge}
                           isEditMode={isEditMode}
+                          isSelected={selectedId === `${cardId}-badge`}
+                          onSelect={() => onSelectElement?.(cardId)}
                           onSave={(val) =>
                             onUpdateSlide?.((prev) => {
                               const updated = [...(prev.elements.bentoCards || [])];
@@ -811,9 +1003,9 @@ function renderLayoutContent(
                           }
                           className="border px-2 py-0.5 text-xs font-mono uppercase tracking-wider font-semibold"
                           style={{
-                            borderColor: theme.border,
+                            borderColor: card.color ? card.color + '66' : theme.border,
                             backgroundColor: theme.surfaceRaised,
-                            color: theme.textPrimary,
+                            color: card.color || theme.textPrimary,
                           }}
                           as="span"
                         />
@@ -826,6 +1018,8 @@ function renderLayoutContent(
                       <EditableText
                         value={card.title}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-title`}
+                        onSelect={() => onSelectElement?.(cardId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.bentoCards || [])];
@@ -846,6 +1040,8 @@ function renderLayoutContent(
                       <EditableText
                         value={card.description}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-desc`}
+                        onSelect={() => onSelectElement?.(cardId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.bentoCards || [])];
@@ -874,6 +1070,8 @@ function renderLayoutContent(
                       <EditableText
                         value={card.stat}
                         isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-stat`}
+                        onSelect={() => onSelectElement?.(cardId)}
                         onSave={(val) =>
                           onUpdateSlide?.((prev) => {
                             const updated = [...(prev.elements.bentoCards || [])];
@@ -885,7 +1083,7 @@ function renderLayoutContent(
                           })
                         }
                         className="text-2xl font-bold font-mono"
-                        style={{ color: theme.textPrimary }}
+                        style={{ color: card.color || theme.textPrimary }}
                         as="span"
                       />
                     </div>
@@ -986,12 +1184,10 @@ function renderLayoutContent(
       const comp = slide.elements.comparison;
       return (
         <div className="flex flex-col justify-center">
-          <div className="mb-10 max-w-4xl">
+          <div className="mb-10 max-w-4xl flex flex-col gap-3">
             <motion.div
-              layoutId={isMorph ? 'slide-title' : undefined}
-            layout="position"
-              className="text-5xl font-bold tracking-tight mb-4"
-              style={{ color: theme.textPrimary }}
+              className="text-5xl font-bold tracking-tight leading-tight"
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
             >
               <EditableText
                 value={slide.title}

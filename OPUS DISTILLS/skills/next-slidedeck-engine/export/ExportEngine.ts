@@ -170,34 +170,37 @@ export class ExportEngine {
       });
 
       // Main Headline Title
-      pptSlide.addText(slide.title, {
-        x: 0.8,
-        y: 1.15,
-        w: 11.73,
-        h: slide.layout === 'cover' ? 1.4 : 0.9,
-        fontSize: slide.layout === 'cover' ? 40 : 28,
-        fontFace: 'Arial',
-        color: theme.textPrimary.replace('#', ''),
-        bold: true,
-      });
-
-      // Subtitle
-      if (slide.subtitle) {
-        pptSlide.addText(slide.subtitle, {
+      if (slide.layout !== 'split') {
+        pptSlide.addText(slide.title, {
           x: 0.8,
-          y: slide.layout === 'cover' ? 2.65 : 2.1,
-          w: 11.0,
-          h: 0.7,
-          fontSize: 14,
+          y: 1.15,
+          w: 11.73,
+          h: slide.layout === 'cover' ? 1.4 : 0.9,
+          fontSize: slide.layout === 'cover' ? 40 : 28,
           fontFace: 'Arial',
-          color: theme.textSecondary.replace('#', ''),
+          color: (slide.elements.titleColor || theme.textPrimary).replace('#', ''),
+          bold: true,
         });
+
+        // Subtitle
+        if (slide.subtitle) {
+          pptSlide.addText(slide.subtitle, {
+            x: 0.8,
+            y: slide.layout === 'cover' ? 2.65 : 2.1,
+            w: 11.0,
+            h: 0.7,
+            fontSize: 14,
+            fontFace: 'Arial',
+            color: (slide.elements.subtitleColor || theme.textSecondary).replace('#', ''),
+          });
+        }
       }
 
       // Layout Specific Elements
       if (slide.layout === 'metrics' && slide.elements.metrics) {
         slide.elements.metrics.forEach((metric, mIdx) => {
           const cardX = 0.8 + mIdx * 2.95;
+          const metricColor = metric.color ? metric.color.replace('#', '') : null;
           // Metric card background
           pptSlide.addShape(pres.ShapeType.rect, {
             x: cardX,
@@ -205,8 +208,18 @@ export class ExportEngine {
             w: 2.75,
             h: 3.2,
             fill: { color: theme.surface.replace('#', '') },
-            line: { color: theme.border.replace('#', ''), width: 1 },
+            line: { color: metricColor || theme.border.replace('#', ''), width: 1 },
           });
+
+          if (metricColor) {
+            pptSlide.addShape(pres.ShapeType.rect, {
+              x: cardX,
+              y: 3.1,
+              w: 2.75,
+              h: 0.05,
+              fill: { color: metricColor },
+            });
+          }
 
           // Metric Label
           pptSlide.addText(metric.label, {
@@ -215,7 +228,7 @@ export class ExportEngine {
             w: 2.35,
             h: 0.3,
             fontSize: 9,
-            color: theme.textMuted.replace('#', ''),
+            color: metricColor || theme.textMuted.replace('#', ''),
             bold: true,
           });
 
@@ -227,7 +240,7 @@ export class ExportEngine {
             h: 1.0,
             fontSize: 34,
             bold: true,
-            color: theme.textPrimary.replace('#', ''),
+            color: metricColor || theme.textPrimary.replace('#', ''),
           });
 
           // Metric Subtext
@@ -242,17 +255,132 @@ export class ExportEngine {
             });
           }
         });
+      } else if (slide.layout === 'split') {
+        // Split layout: Left column (Title + Subtitle + Callout), Right column (Bullets)
+        // Left Column Title & Subtitle
+        pptSlide.addText(slide.title, {
+          x: 0.8,
+          y: 1.3,
+          w: 4.8,
+          h: 1.1,
+          fontSize: 26,
+          fontFace: 'Arial',
+          bold: true,
+          color: (slide.elements.titleColor || theme.textPrimary).replace('#', ''),
+        });
+
+        if (slide.subtitle) {
+          pptSlide.addText(slide.subtitle, {
+            x: 0.8,
+            y: 2.45,
+            w: 4.8,
+            h: 0.65,
+            fontSize: 12,
+            fontFace: 'Arial',
+            color: (slide.elements.subtitleColor || theme.textSecondary).replace('#', ''),
+          });
+        }
+
+        // Left Column Callout Box
+        const callout = slide.elements.callout || {
+          kicker: 'CORE THESIS',
+          title: 'Autonomous System Coherence',
+          text: 'Structured layout boundaries preserve typographic rhythm and visual equilibrium without responsive slippage.',
+          color: theme.accent,
+        };
+        const calloutColor = (callout.color || theme.accent).replace('#', '');
+
+        pptSlide.addShape(pres.ShapeType.rect, {
+          x: 0.8,
+          y: 3.3,
+          w: 4.8,
+          h: 3.0,
+          fill: { color: theme.surface.replace('#', '') },
+          line: { color: calloutColor || theme.border.replace('#', ''), width: 1 },
+        });
+
+        pptSlide.addShape(pres.ShapeType.rect, {
+          x: 0.8,
+          y: 3.3,
+          w: 4.8,
+          h: 0.05,
+          fill: { color: calloutColor },
+        });
+
+        pptSlide.addText(callout.kicker || 'CORE THESIS', {
+          x: 1.0,
+          y: 3.5,
+          w: 4.4,
+          h: 0.25,
+          fontSize: 9,
+          bold: true,
+          color: calloutColor,
+        });
+
+        if (callout.title) {
+          pptSlide.addText(callout.title, {
+            x: 1.0,
+            y: 3.85,
+            w: 4.4,
+            h: 0.4,
+            fontSize: 13,
+            bold: true,
+            color: theme.textPrimary.replace('#', ''),
+          });
+        }
+
+        pptSlide.addText(callout.text, {
+          x: 1.0,
+          y: callout.title ? 4.35 : 3.85,
+          w: 4.4,
+          h: 1.7,
+          fontSize: 10.5,
+          color: theme.textSecondary.replace('#', ''),
+        });
+
+        // Right Column Bullets
+        slide.elements.bullets?.forEach((bullet, bIdx) => {
+          const cardY = 1.3 + bIdx * 1.25;
+          pptSlide.addShape(pres.ShapeType.rect, {
+            x: 5.9,
+            y: cardY,
+            w: 6.6,
+            h: 1.05,
+            fill: { color: theme.surfaceRaised.replace('#', '') },
+            line: { color: theme.border.replace('#', ''), width: 1 },
+          });
+
+          pptSlide.addText(`—  ${bullet}`, {
+            x: 6.1,
+            y: cardY + 0.12,
+            w: 6.2,
+            h: 0.8,
+            fontSize: 10.5,
+            color: theme.textPrimary.replace('#', ''),
+          });
+        });
       } else if ((slide.layout === 'pillars' || slide.layout === 'timeline') && slide.elements.pillars) {
         slide.elements.pillars.forEach((pillar, pIdx) => {
           const cardX = 0.8 + pIdx * 4.0;
+          const pillarColor = pillar.color ? pillar.color.replace('#', '') : null;
           pptSlide.addShape(pres.ShapeType.rect, {
             x: cardX,
             y: 3.1,
             w: 3.7,
             h: 3.2,
             fill: { color: theme.surface.replace('#', '') },
-            line: { color: theme.border.replace('#', ''), width: 1 },
+            line: { color: pillarColor || theme.border.replace('#', ''), width: 1 },
           });
+
+          if (pillarColor) {
+            pptSlide.addShape(pres.ShapeType.rect, {
+              x: cardX,
+              y: 3.1,
+              w: 3.7,
+              h: 0.05,
+              fill: { color: pillarColor },
+            });
+          }
 
           pptSlide.addText(pillar.tag || `PILLAR 0${pIdx + 1}`, {
             x: cardX + 0.2,
@@ -260,7 +388,7 @@ export class ExportEngine {
             w: 3.3,
             h: 0.3,
             fontSize: 9,
-            color: theme.textMuted.replace('#', ''),
+            color: pillarColor || theme.textMuted.replace('#', ''),
             bold: true,
           });
 
@@ -284,58 +412,88 @@ export class ExportEngine {
           });
         });
       } else if (slide.layout === 'bento' && slide.elements.bentoCards) {
-        slide.elements.bentoCards.forEach((card, bIdx) => {
-          const isWide = card.spanCol === 2;
-          const colX = bIdx === 0 ? 0.8 : bIdx === 1 ? 4.8 : 8.8;
-          const cardW = isWide ? 7.6 : 3.6;
+        const cards = slide.elements.bentoCards;
+        const layoutItems: { card: typeof cards[0]; col: number; row: number; span: number }[] = [];
+        let curCol = 0;
+        let curRow = 0;
+        for (const card of cards) {
+          const span = card.spanCol === 2 ? 2 : 1;
+          if (curCol + span > 3) {
+            curRow++;
+            curCol = 0;
+          }
+          layoutItems.push({ card, col: curCol, row: curRow, span });
+          curCol += span;
+        }
+        const maxRow = layoutItems.length > 0 ? Math.max(...layoutItems.map((item) => item.row)) : 0;
+        const isMultiRow = maxRow >= 1;
+
+        layoutItems.forEach(({ card, col, row, span }) => {
+          const colW = 3.64;
+          const colGap = 0.4;
+          const colX = 0.8 + col * (colW + colGap);
+          const cardW = span === 2 ? (2 * colW + colGap) : colW;
+          const cardH = isMultiRow ? 1.65 : 3.2;
+          const cardY = isMultiRow ? (3.1 + row * 1.85) : 3.1;
+          const cardColor = card.color ? card.color.replace('#', '') : null;
 
           pptSlide.addShape(pres.ShapeType.rect, {
             x: colX,
-            y: 3.1,
+            y: cardY,
             w: cardW,
-            h: 3.2,
+            h: cardH,
             fill: { color: theme.surface.replace('#', '') },
-            line: { color: theme.border.replace('#', ''), width: 1 },
+            line: { color: cardColor || theme.border.replace('#', ''), width: 1 },
           });
+
+          if (cardColor) {
+            pptSlide.addShape(pres.ShapeType.rect, {
+              x: colX,
+              y: cardY,
+              w: cardW,
+              h: 0.05,
+              fill: { color: cardColor },
+            });
+          }
 
           pptSlide.addText(card.subtitle || 'MODULE', {
             x: colX + 0.2,
-            y: 3.3,
+            y: cardY + 0.15,
             w: cardW - 0.4,
-            h: 0.3,
-            fontSize: 9,
-            color: theme.textMuted.replace('#', ''),
+            h: 0.25,
+            fontSize: 8.5,
+            color: cardColor || theme.textMuted.replace('#', ''),
             bold: true,
           });
 
           pptSlide.addText(card.title, {
             x: colX + 0.2,
-            y: 3.8,
+            y: cardY + (isMultiRow ? 0.42 : 0.6),
             w: cardW - 0.4,
-            h: 0.5,
-            fontSize: 14,
+            h: isMultiRow ? 0.35 : 0.5,
+            fontSize: isMultiRow ? 12 : 14,
             bold: true,
             color: theme.textPrimary.replace('#', ''),
           });
 
           pptSlide.addText(card.description, {
             x: colX + 0.2,
-            y: 4.4,
+            y: cardY + (isMultiRow ? 0.8 : 1.2),
             w: cardW - 0.4,
-            h: 1.2,
-            fontSize: 11,
+            h: isMultiRow ? 0.45 : 1.2,
+            fontSize: isMultiRow ? 9.5 : 11,
             color: theme.textSecondary.replace('#', ''),
           });
 
           if (card.stat) {
             pptSlide.addText(`TELEMETRY: ${card.stat}`, {
               x: colX + 0.2,
-              y: 5.7,
+              y: cardY + (isMultiRow ? 1.3 : 2.5),
               w: cardW - 0.4,
-              h: 0.4,
-              fontSize: 12,
+              h: 0.3,
+              fontSize: isMultiRow ? 10 : 12,
               bold: true,
-              color: theme.textPrimary.replace('#', ''),
+              color: cardColor || theme.textPrimary.replace('#', ''),
             });
           }
         });
@@ -511,18 +669,19 @@ export class ExportEngine {
           const x = startX + i * (cardWidth + gap);
           cardsSvg += `
   <g transform="translate(${x}, ${startY})">
-    <rect width="${cardWidth}" height="${cardHeight}" fill="${theme.surface}" stroke="${theme.border}" stroke-width="1" />
-    <text x="32" y="52" font-family="monospace" font-size="14" font-weight="600" letter-spacing="2" fill="${theme.textMuted}">${this.escapeXml(m.label)}</text>
+    <rect width="${cardWidth}" height="${cardHeight}" fill="${theme.surface}" stroke="${m.color ? m.color + '55' : theme.border}" stroke-width="1" />
+    ${m.color ? `<rect width="${cardWidth}" height="3" fill="${m.color}" />` : ''}
+    <text x="32" y="52" font-family="monospace" font-size="14" font-weight="600" letter-spacing="2" fill="${m.color || theme.textMuted}">${this.escapeXml(m.label)}</text>
     ${m.change ? `<rect x="260" y="32" width="108" height="28" fill="${theme.surfaceRaised}" stroke="${theme.border}" stroke-width="1" />
     <text x="314" y="51" text-anchor="middle" font-family="monospace" font-size="12" fill="${theme.textPrimary}">${this.escapeXml(m.change)}</text>` : ''}
-    <text x="32" y="160" font-family="-apple-system, sans-serif" font-size="64" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(m.value)}</text>
+    <text x="32" y="160" font-family="-apple-system, sans-serif" font-size="64" font-weight="700" fill="${m.color || theme.textPrimary}">${this.escapeXml(m.value)}</text>
     ${m.subtext ? `<text x="32" y="240" font-family="-apple-system, sans-serif" font-size="16" fill="${theme.textSecondary}">${this.escapeXml(m.subtext)}</text>` : ''}
   </g>`;
         });
 
         bodySvg = `
-  <text x="96" y="240" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${theme.textPrimary}">${titleEscaped}</text>
-  <text x="96" y="290" font-family="-apple-system, sans-serif" font-size="22" fill="${theme.textSecondary}">${subtitleEscaped}</text>
+  <text x="96" y="240" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${slide.elements.titleColor || theme.textPrimary}">${titleEscaped}</text>
+  <text x="96" y="290" font-family="-apple-system, sans-serif" font-size="22" fill="${slide.elements.subtitleColor || theme.textSecondary}">${subtitleEscaped}</text>
   ${cardsSvg}`;
         break;
       }
@@ -531,22 +690,33 @@ export class ExportEngine {
         const bullets = slide.elements.bullets || [];
         let bulletsSvg = '';
         bullets.forEach((b, i) => {
-          const y = 380 + i * 100;
+          const y = 260 + i * 115;
           bulletsSvg += `
-  <rect x="880" y="${y}" width="944" height="80" fill="${theme.surfaceRaised}" stroke="${theme.border}" stroke-width="1" />
-  <rect x="904" y="${y + 32}" width="14" height="14" fill="${theme.surface}" stroke="${theme.accent}" stroke-width="2" />
-  <text x="936" y="${y + 46}" font-family="-apple-system, sans-serif" font-size="18" fill="${theme.textPrimary}">${this.escapeXml(b)}</text>`;
+  <rect x="860" y="${y}" width="964" height="96" fill="${theme.surfaceRaised}" stroke="${theme.border}" stroke-width="1" />
+  <rect x="884" y="${y + 38}" width="16" height="16" fill="${theme.surface}" stroke="${theme.accent}" stroke-width="2" />
+  <text x="920" y="${y + 55}" font-family="-apple-system, sans-serif" font-size="18" fill="${theme.textPrimary}">${this.escapeXml(b)}</text>`;
         });
+
+        const callout = slide.elements.callout || {
+          kicker: 'CORE THESIS',
+          title: 'Autonomous System Coherence',
+          text: 'Structured mathematical layout boundaries preserve typographic rhythm and visual equilibrium without responsive slippage.',
+          color: theme.accent,
+        };
+        const calloutColor = callout.color || theme.accent;
 
         bodySvg = `
   <g transform="translate(96, 240)">
-    <text x="0" y="60" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${theme.textPrimary}">${titleEscaped}</text>
-    <text x="0" y="120" font-family="-apple-system, sans-serif" font-size="22" fill="${theme.textSecondary}">${subtitleEscaped}</text>
+    <text x="0" y="50" font-family="-apple-system, sans-serif" font-size="48" font-weight="700" fill="${slide.elements.titleColor || theme.textPrimary}">${titleEscaped}</text>
+    <text x="0" y="100" font-family="-apple-system, sans-serif" font-size="20" fill="${slide.elements.subtitleColor || theme.textSecondary}">${subtitleEscaped}</text>
     
-    <rect x="0" y="200" width="700" height="200" fill="${theme.surface}" stroke="${theme.border}" stroke-width="1" />
-    <text x="32" y="240" font-family="monospace" font-size="13" letter-spacing="2" fill="${theme.textMuted}">CORE THESIS</text>
-    <text x="32" y="280" font-family="-apple-system, sans-serif" font-size="18" fill="${theme.textPrimary}">Structured mathematical layout boundaries preserve typographic rhythm</text>
-    <text x="32" y="310" font-family="-apple-system, sans-serif" font-size="18" fill="${theme.textPrimary}">and visual equilibrium without responsive slippage.</text>
+    <g transform="translate(0, 160)">
+      <rect x="0" y="0" width="700" height="280" fill="${theme.surface}" stroke="${calloutColor ? calloutColor + '55' : theme.border}" stroke-width="1" />
+      ${calloutColor ? `<rect x="0" y="0" width="700" height="3" fill="${calloutColor}" />` : ''}
+      <text x="32" y="44" font-family="monospace" font-size="13" letter-spacing="2" font-weight="700" fill="${calloutColor}">${this.escapeXml(callout.kicker || 'CORE THESIS')}</text>
+      ${callout.title ? `<text x="32" y="84" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(callout.title)}</text>` : ''}
+      <text x="32" y="${callout.title ? 130 : 90}" font-family="-apple-system, sans-serif" font-size="17" fill="${theme.textSecondary}">${this.escapeXml(callout.text)}</text>
+    </g>
   </g>
   ${bulletsSvg}`;
         break;
@@ -566,10 +736,11 @@ export class ExportEngine {
           const x = startX + i * (cardWidth + gap);
           cardsSvg += `
   <g transform="translate(${x}, ${startY})">
-    <rect width="${cardWidth}" height="${cardHeight}" fill="${theme.surface}" stroke="${theme.border}" stroke-width="1" />
+    <rect width="${cardWidth}" height="${cardHeight}" fill="${theme.surface}" stroke="${p.color ? p.color + '55' : theme.border}" stroke-width="1" />
+    ${p.color ? `<rect width="${cardWidth}" height="3" fill="${p.color}" />` : ''}
     <line x1="32" y1="64" x2="${cardWidth - 32}" y2="64" stroke="${theme.border}" stroke-width="1" />
-    <text x="32" y="44" font-family="monospace" font-size="13" letter-spacing="2" fill="${theme.textMuted}">${this.escapeXml(p.tag || `PILLAR 0${i + 1}`)}</text>
-    <text x="${cardWidth - 32}" y="44" text-anchor="end" font-family="monospace" font-size="14" fill="${theme.textSecondary}">0${i + 1}</text>
+    <text x="32" y="44" font-family="monospace" font-size="13" letter-spacing="2" fill="${p.color || theme.textMuted}">${this.escapeXml(p.tag || `PILLAR 0${i + 1}`)}</text>
+    <text x="${cardWidth - 32}" y="44" text-anchor="end" font-family="monospace" font-size="14" fill="${p.color || theme.textSecondary}">0${i + 1}</text>
     
     <text x="32" y="120" font-family="-apple-system, sans-serif" font-size="26" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(p.title)}</text>
     <text x="32" y="170" font-family="-apple-system, sans-serif" font-size="18" fill="${theme.textSecondary}">${this.escapeXml(p.description)}</text>
@@ -580,38 +751,61 @@ export class ExportEngine {
         });
 
         bodySvg = `
-  <text x="96" y="240" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${theme.textPrimary}">${titleEscaped}</text>
-  <text x="96" y="290" font-family="-apple-system, sans-serif" font-size="22" fill="${theme.textSecondary}">${subtitleEscaped}</text>
+  <text x="96" y="240" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${slide.elements.titleColor || theme.textPrimary}">${titleEscaped}</text>
+  <text x="96" y="290" font-family="-apple-system, sans-serif" font-size="22" fill="${slide.elements.subtitleColor || theme.textSecondary}">${subtitleEscaped}</text>
   ${cardsSvg}`;
         break;
       }
 
       case 'bento': {
         const cards = slide.elements.bentoCards || [];
+        const layoutItems: { card: typeof cards[0]; col: number; row: number; span: number }[] = [];
+        let curCol = 0;
+        let curRow = 0;
+        for (const card of cards) {
+          const span = card.spanCol === 2 ? 2 : 1;
+          if (curCol + span > 3) {
+            curRow++;
+            curCol = 0;
+          }
+          layoutItems.push({ card, col: curCol, row: curRow, span });
+          curCol += span;
+        }
+        const maxRow = layoutItems.length > 0 ? Math.max(...layoutItems.map((item) => item.row)) : 0;
+        const isMultiRow = maxRow >= 1;
+
+        const marginX = 96;
+        const gapX = 32;
+        const colW = (1728 - 2 * gapX) / 3;
+        const span2W = 2 * colW + gapX;
+
         let bentoSvg = '';
-        cards.forEach((card, i) => {
-          const isWide = card.spanCol === 2;
-          const colX = i === 0 ? 96 : i === 1 ? 96 + 560 + 32 : 96 + 560 + 32 + 560 + 32;
-          const cardW = isWide ? 1152 : 560;
+        layoutItems.forEach(({ card, col, row, span }) => {
+          const cardX = marginX + col * (colW + gapX);
+          const cardW = span === 2 ? span2W : colW;
+          const cardH = isMultiRow ? 240 : 440;
+          const cardY = isMultiRow ? (360 + row * 264) : 380;
+          const cardColor = card.color || null;
 
           bentoSvg += `
-  <g transform="translate(${colX}, 380)">
-    <rect width="${cardW}" height="440" fill="${theme.surface}" stroke="${theme.border}" stroke-width="1" />
-    <text x="32" y="48" font-family="monospace" font-size="13" letter-spacing="2" fill="${theme.textMuted}">${this.escapeXml(card.subtitle || 'MODULE')}</text>
-    ${card.badge ? `<rect x="${cardW - 140}" y="28" width="108" height="28" fill="${theme.surfaceRaised}" stroke="${theme.border}" stroke-width="1" />
-    <text x="${cardW - 86}" y="47" text-anchor="middle" font-family="monospace" font-size="12" fill="${theme.textPrimary}">${this.escapeXml(card.badge)}</text>` : ''}
-    <text x="32" y="110" font-family="-apple-system, sans-serif" font-size="28" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(card.title)}</text>
-    <text x="32" y="160" font-family="-apple-system, sans-serif" font-size="18" fill="${theme.textSecondary}">${this.escapeXml(card.description)}</text>
+  <g transform="translate(${cardX}, ${cardY})">
+    <rect width="${cardW}" height="${cardH}" fill="${theme.surface}" stroke="${cardColor ? cardColor + '55' : theme.border}" stroke-width="1" />
+    ${cardColor ? `<rect width="${cardW}" height="3" fill="${cardColor}" />` : ''}
+    <text x="24" y="${isMultiRow ? 36 : 48}" font-family="monospace" font-size="${isMultiRow ? 11 : 13}" letter-spacing="2" fill="${cardColor || theme.textMuted}">${this.escapeXml(card.subtitle || 'MODULE')}</text>
+    ${card.badge ? `<rect x="${cardW - 110}" y="${isMultiRow ? 18 : 28}" width="86" height="22" fill="${theme.surfaceRaised}" stroke="${theme.border}" stroke-width="1" />
+    <text x="${cardW - 67}" y="${isMultiRow ? 33 : 44}" text-anchor="middle" font-family="monospace" font-size="10" fill="${theme.textPrimary}">${this.escapeXml(card.badge)}</text>` : ''}
+    <text x="24" y="${isMultiRow ? 76 : 110}" font-family="-apple-system, sans-serif" font-size="${isMultiRow ? 22 : 28}" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(card.title)}</text>
+    <text x="24" y="${isMultiRow ? 115 : 160}" font-family="-apple-system, sans-serif" font-size="${isMultiRow ? 14 : 18}" fill="${theme.textSecondary}">${this.escapeXml(card.description)}</text>
     ${card.stat ? `
-    <line x1="32" y1="360" x2="${cardW - 32}" y2="360" stroke="${theme.border}" stroke-width="1" />
-    <text x="32" y="400" font-family="monospace" font-size="12" fill="${theme.textMuted}">TELEMETRY RATING</text>
-    <text x="${cardW - 32}" y="400" text-anchor="end" font-family="monospace" font-size="24" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(card.stat)}</text>` : ''}
+    <line x1="24" y1="${cardH - 45}" x2="${cardW - 24}" y2="${cardH - 45}" stroke="${theme.border}" stroke-width="1" />
+    <text x="24" y="${cardH - 18}" font-family="monospace" font-size="11" fill="${theme.textMuted}">TELEMETRY</text>
+    <text x="${cardW - 24}" y="${cardH - 18}" text-anchor="end" font-family="monospace" font-size="${isMultiRow ? 18 : 24}" font-weight="700" fill="${cardColor || theme.textPrimary}">${this.escapeXml(card.stat)}</text>` : ''}
   </g>`;
         });
 
         bodySvg = `
-  <text x="96" y="240" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${theme.textPrimary}">${titleEscaped}</text>
-  <text x="96" y="290" font-family="-apple-system, sans-serif" font-size="22" fill="${theme.textSecondary}">${subtitleEscaped}</text>
+  <text x="96" y="240" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${slide.elements.titleColor || theme.textPrimary}">${titleEscaped}</text>
+  <text x="96" y="290" font-family="-apple-system, sans-serif" font-size="22" fill="${slide.elements.subtitleColor || theme.textSecondary}">${subtitleEscaped}</text>
   ${bentoSvg}`;
         break;
       }

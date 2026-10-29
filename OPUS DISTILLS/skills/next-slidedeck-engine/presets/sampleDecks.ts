@@ -332,6 +332,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             subtext: 'Lossless needle-in-haystack retrieval with O(log N) compute overhead',
             change: '+500%',
             iconName: 'database',
+            color: '#06B6D4',
           },
           {
             id: 'am2',
@@ -340,6 +341,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             subtext: 'Ultra-low latency streaming inference for agentic micro-loops',
             change: '-72%',
             iconName: 'zap',
+            color: '#10B981',
           },
           {
             id: 'am3',
@@ -348,6 +350,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             subtext: 'Formal self-verifying chain-of-thought proofs with zero hallucinations',
             change: 'VERIFIED',
             iconName: 'check-circle',
+            color: '#8B5CF6',
           },
           {
             id: 'am4',
@@ -356,6 +359,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             subtext: 'Speculative multi-token decoding throughput on TPU v6e clusters',
             change: 'TPU v6e',
             iconName: 'cpu',
+            color: '#38BDF8',
           },
         ],
         footnote: 'SOURCE: DEEPMIND BENCHMARK SUITE // OCTOBER 2026 AUDIT',
@@ -368,6 +372,13 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
       subtitle: 'Dual-engine orchestration fusing dynamic memory compression with deterministic agentic planning primitives.',
       layout: 'split',
       elements: {
+        callout: {
+          kicker: 'NEUROMORPHIC RUNTIME',
+          title: 'Continuous Multimodal Grounding',
+          text: 'Fuses dense sensory perception with mathematical verification sandboxes to preserve deterministic coherence without catastrophic cognitive drift.',
+          iconName: 'cpu',
+          color: '#10B981',
+        },
         bullets: [
           'Hybrid Dynamic Attention: Dynamically routes compute between dense local attention heads and sparse global latent memories.',
           'Native Multimodal Sensory Fusion: Zero-adapter raw tokenization across 4K video streams, spatial audio, and LiDAR telemetry.',
@@ -390,6 +401,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             title: 'I. Spatial & Sensory Grounding',
             tag: 'PERCEPTION',
             iconName: 'target',
+            color: '#06B6D4',
             description:
               'Native continuous coordinate grounding across high-resolution video streams and 3D point clouds without auxiliary visual encoders.',
           },
@@ -398,6 +410,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             title: 'II. Deterministic Agentic Loops',
             tag: 'ORCHESTRATION',
             iconName: 'git-branch',
+            color: '#10B981',
             description:
               'Self-correcting multi-step planning framework with sub-second feedback loops and automatic state checkpoint rollbacks.',
           },
@@ -406,6 +419,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             title: 'III. Verifiable Code Synthesis',
             tag: 'SYNTHESIS',
             iconName: 'terminal',
+            color: '#8B5CF6',
             description:
               'Direct compilation of multi-language software systems with automated unit test generation and zero security regressions.',
           },
@@ -432,6 +446,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             badge: 'MIL-SPEC',
             stat: 'ZERO-LEAK',
             iconName: 'lock',
+            color: '#10B981',
           },
           {
             id: 'ab2',
@@ -444,6 +459,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             badge: 'FP4 / INT8',
             stat: '45 tok/s',
             iconName: 'box',
+            color: '#38BDF8',
           },
           {
             id: 'ab3',
@@ -456,6 +472,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             badge: 'CDP / MCP / REST',
             stat: '0.00% Err',
             iconName: 'server',
+            color: '#F59E0B',
           },
           {
             id: 'ab4',
@@ -468,6 +485,7 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
             badge: 'VERIFIED',
             stat: '100% Trace',
             iconName: 'activity',
+            color: '#8B5CF6',
           },
         ],
         footnote: 'ARGON TELEMETRY SPECIFICATION // PRODUCTION GRADE PLATFORM',

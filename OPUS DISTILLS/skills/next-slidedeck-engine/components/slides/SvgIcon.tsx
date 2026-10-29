@@ -283,3 +283,87 @@ export const StatusPill: React.FC<{
     <span>{label}</span>
   </div>
 );
+
+/**
+ * CAD Corner L-Bracket for Architectural Precision
+ */
+export const CadCornerBracket: React.FC<{
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  color?: string;
+  size?: number;
+  className?: string;
+}> = ({ position = 'top-left', color = 'currentColor', size = 12, className = '' }) => {
+  const getPath = () => {
+    switch (position) {
+      case 'top-left':
+        return `M0 ${size} L0 0 L${size} 0`;
+      case 'top-right':
+        return `M0 0 L${size} 0 L${size} ${size}`;
+      case 'bottom-left':
+        return `M0 0 L0 ${size} L${size} ${size}`;
+      case 'bottom-right':
+        return `M0 ${size} L${size} ${size} L${size} 0`;
+    }
+  };
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      fill="none"
+      className={`pointer-events-none opacity-50 ${className}`}
+    >
+      <path d={getPath()} stroke={color} strokeWidth="1.25" strokeLinecap="square" />
+    </svg>
+  );
+};
+
+/**
+ * Telemetry Hairline Divider with Coordinate Notch
+ */
+export const TelemetryDivider: React.FC<{
+  color?: string;
+  label?: string;
+  className?: string;
+}> = ({ color = '#27272A', label, className = '' }) => (
+  <div className={`relative flex items-center w-full my-4 ${className}`}>
+    <div className="flex-1 h-[1px]" style={{ backgroundColor: color }} />
+    {label && (
+      <span
+        className="px-2 text-[9px] font-mono tracking-widest uppercase text-zinc-500 shrink-0"
+        style={{ color: '#71717A' }}
+      >
+        {label}
+      </span>
+    )}
+    <div className="flex-1 h-[1px]" style={{ backgroundColor: color }} />
+  </div>
+);
+
+/**
+ * Pure Mathematical SVG Metric Sparkline Curve
+ */
+export const MetricSparkline: React.FC<{
+  color?: string;
+  width?: number;
+  height?: number;
+  className?: string;
+}> = ({ color = '#10B981', width = 64, height = 20, className = '' }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 64 20"
+    fill="none"
+    className={`inline-block shrink-0 ${className}`}
+  >
+    <path
+      d="M2 17 L14 13 L24 15 L36 8 L48 10 L62 3"
+      stroke={color}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="62" cy="3" r="2" fill={color} />
+  </svg>
+);
