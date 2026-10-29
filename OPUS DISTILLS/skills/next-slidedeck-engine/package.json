@@ -9,7 +9,10 @@
     "start": "next start -p 5200",
     "export:pdf": "node scripts/export-headless.mjs --format=pdf",
     "export:pptx": "node scripts/export-headless.mjs --format=pptx",
-    "export:svg": "node scripts/export-headless.mjs --format=svg"
+    "export:svg": "node scripts/export-headless.mjs --format=svg",
+    "test:audit": "node scripts/verify-all.mjs",
+    "test:cdp": "python3 scripts/test_cdp_audit.py",
+    "test:hydration": "python3 scripts/test_hydration_reproduction.py"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -9,7 +9,7 @@ export const INITIAL_DECK: SlideDeck = {
     duration: 0.5,
     springBounce: 0.15,
   },
-  updatedAt: new Date().toISOString(),
+  updatedAt: '2026-10-29T00:00:00.000Z',
   slides: [
     {
       id: 'slide-1',
@@ -250,7 +250,7 @@ export const LIGHT_CONSULTING_DECK: SlideDeck = {
     duration: 0.5,
     springBounce: 0.15,
   },
-  updatedAt: new Date().toISOString(),
+  updatedAt: '2026-10-29T00:00:00.000Z',
   slides: [
     {
       id: 'light-slide-1',
