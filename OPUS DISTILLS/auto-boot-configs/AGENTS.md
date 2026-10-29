@@ -144,7 +144,7 @@ Kesalahan fatal yang bikin web terlihat amatir/kocak: saat diminta bikin desain 
    * **CONTOH BENAR (100% Bahasa Industri Asli, Layout Tetap Bento CSS Grid):**
      * Menu Navbar: `SPESIFIKASI MESIN` atau `KAPABILITAS` ✅
      * Judul H2: `Spesifikasi Teknis & Kapasitas Pemesinan` ✅
-     * Badge: `KAPABILITAS PERALATAN WORKSHOP // GEDANGAN, SIDOARJO` ✅
+     * Badge: `KAPABILITAS PERALATAN WORKSHOP · GEDANGAN, SIDOARJO` ✅
 2. **Satu-satunya Pengecualian:** Hanya pada **tombol pemilih tema di bar paling atas** file `design-style-preview.html` kamu boleh menulis nama tema (`[1. Nordic Precision]`, `[2. Blueprint CAD]`, dst.). Di dalam kanvas halaman webnya sendiri, 100% teks wajib menggunakan bahasa bisnis/industri klien!
 
 ---
@@ -251,3 +251,17 @@ Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan 
      2) Raster PDF (4K canvas snapshot)
      3) Editable PowerPoint (.pptx via native PPTX builder)
      4) Pure SVG Vector (Single slide atau seluruh slide dalam format ZIP bundle)
+
+
+---
+
+## 11. HUKUM BESI #8: DILARANG MENGGUNAKAN KARAKTER `//` (DOUBLE SLASH) PADA TEKS KICKER, BADGE, FOOTER, MAUPUN DIVIDER (ANTI-AI SLOP CLICHÉ)!
+
+Kesalahan fatal yang bikin desain slide, UI, atau web kelihatan seperti buatan AI amatir (*AI Slop*): menggunakan karakter ganda `//` sebagai pemisah kata atau kicker (contoh jelek: `EXECUTIVE BRIEFING // 2026`, `CORE BENCHMARKS // SCALED PERFORMANCE`, `CONFIDENTIAL // SOURCE LOGS`).
+1. **Dilarang Keras Double Slash `//` di Judul/Kicker/Badge/Footer:**
+   - Karakter `//` adalah stereotip pseudo-cyberpunk/terminal kaku yang murahan dan menjatuhkan estetika editorial berkelas.
+2. **Pengganti Tipografi Agensi Profesional:**
+   - Gunakan titik tengah interpunct `·` (`EXECUTIVE BRIEFING · STRATEGY`).
+   - Gunakan garis pisah em-dash `—` (`EXECUTIVE BRIEFING — STRATEGY`).
+   - Gunakan bullet point tipis atau tanda pipa `|`.
+   - Atau cukup buat 1 judul/kicker deklaratif bersih tanpa dipaksakan rangkap dua (*single clean title*).

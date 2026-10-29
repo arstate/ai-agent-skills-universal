@@ -2,7 +2,7 @@
 <!-- transition: slide -->
 
 <!-- layout: cover -->
-<!-- kicker: ANNUAL STRATEGY BRIEF // 2026 -->
+<!-- kicker: ANNUAL STRATEGY BRIEF · 2026 -->
 # Swiss Precision Modern
 ### Structured Bento Grid Systems for High-Performance Digital Enterprise
 <!-- metadata: Executive Presentation · Zurich / San Francisco -->

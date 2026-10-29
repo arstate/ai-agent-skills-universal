@@ -22,6 +22,7 @@ description: Autonomous Multi-Aesthetic 16:9 Presentation Studio Engine built on
      - **Vibrant & Bold Modern:** Venture Pitch Cobalt (`#2563EB`), Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Neon Cyber (`#00FFCC`), Zara Zhang Sakura Chroma (`#121016`), and Zara Zhang Creative Mode (`#0A0A12`).
      - **Minimalist Monochrome Dark & Tech:** Obsidian Pure (`#000000`), Titanium Precision (`#090A0C`), Swiss Modernist Dark (`#09090B`), Editorial Noir (`#080809`), Graphite Telemetry (`#070809`), SlideSpeak Hypergradient (`#0B0420`), Zara Zhang Editorial Forest (`#0D1F17`), Zara Zhang Cobalt Grid (`#061325`), Zara Zhang Emerald Editorial (`#062A1F`), and Zara Zhang Pure Monochrome (`#000000`).
    - **Zero decorative emojis, cartoon badges, or chaotic AI slop.** Pure mathematical, typography-led elegance.
+   - **Strict Ban on Double Slash (`//`) AI Slop Clichés:** Dilarang keras menggunakan karakter `//` (double slash) sebagai pemisah teks judul, kicker, badge, tagar, maupun footnote (misal: `SYSTEM // ARCHITECTURE` atau `CONFIDENTIAL // 2026`). Ini adalah ciri paling mencolok dari AI slop amatir. Gunakan interpunct (`·`), em-dash (`—`), bullet point, tanda pipa (`|`), atau susun frasa bersih tanpa pemisah artifisial.
 
 2. **Fixed 16:9 Canvas Ratio (Anti-Responsive Distortion):**
    - Base canvas coordinate space: `1920 × 1080 px` (Full HD presentation standard).

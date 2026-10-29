@@ -132,7 +132,7 @@ Kesalahan fatal yang bikin web terlihat amatir/kocak: saat diminta bikin desain 
 
      * Judul H2: `Spesifikasi Teknis & Kapasitas Pemesinan` ✅
 
-     * Badge: `KAPABILITAS PERALATAN WORKSHOP // GEDANGAN, SIDOARJO` ✅
+     * Badge: `KAPABILITAS PERALATAN WORKSHOP · GEDANGAN, SIDOARJO` ✅
 
 2. **Satu-satunya Pengecualian:** Hanya pada **tombol pemilih tema di bar paling atas** file `design-style-preview.html` kamu boleh menulis nama tema (`[1. Nordic Precision]`, `[2. Blueprint CAD]`, dst.). Di dalam kanvas halaman webnya sendiri, 100% teks wajib menggunakan bahasa bisnis/industri klien!
 

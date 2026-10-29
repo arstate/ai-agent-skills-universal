@@ -2,7 +2,7 @@
 <!-- transition: slide -->
 
 <!-- layout: cover -->
-<!-- kicker: PRODUCT KEYNOTE // 2026 -->
+<!-- kicker: PRODUCT KEYNOTE · 2026 -->
 # Autonomous Neural Mesh
 ### The Next Evolutionary Leap in Decentralized Swarm Intelligence
 <!-- metadata: Keynote Presentation · NextGen Developer Summit -->

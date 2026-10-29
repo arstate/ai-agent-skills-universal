@@ -2,7 +2,7 @@
 <!-- transition: slide -->
 
 <!-- layout: cover -->
-<!-- kicker: PRIVATE ADVISORY BRIEFING // Q4 2026 -->
+<!-- kicker: PRIVATE ADVISORY BRIEFING · Q4 2026 -->
 # The Strategic Intelligence Review
 ### Long-Horizon Perspectives on Technology, Capital, and Geopolitics
 <!-- metadata: Strictly Confidential · For Senior Leadership Review Only -->

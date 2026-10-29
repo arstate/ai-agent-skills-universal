@@ -65,7 +65,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               isStudioLight ? 'text-zinc-900' : 'text-white'
             }`}
           >
-            SLIDEDECK // NEXT
+            SLIDEDECK · NEXT
           </span>
         </div>
 

@@ -57,6 +57,7 @@ Load these bundled reference files in `references/` whenever creating or critiqu
 
 - **Zero Emojis in Professional Layouts:** Use crisp vector icons or typographic numbers (`01`, `02`).
 - **Zero Forbidden Jargon:** Never use the word "brutalist"; use *Desain Modern Tegas* or *Minimalis Berkelas*.
+- **Zero Double Slash (`//`) AI Slop Clichés:** Dilarang keras menggunakan karakter `//` sebagai pemisah teks judul, slide kicker, badge, kategori, atau footnote. Gunakan interpunct (`·`), em-dash (`—`), bullet point, tanda pipa (`|`), atau frase bersih tanpa pemisah artifisial.
 - **Optical Inner Border:** Add a subtle `1px` inner border (`rgba(0,0,0,0.08)`) around light screenshots/photos so they stay crisp against light paper backgrounds.
 
 ## 3. Closed-Loop Visual Critique & Mandatory Revision (`view_file` Gate)

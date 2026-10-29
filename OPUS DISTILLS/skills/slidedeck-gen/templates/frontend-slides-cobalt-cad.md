@@ -2,7 +2,7 @@
 <!-- transition: slide -->
 
 <!-- layout: cover -->
-<!-- kicker: SPECIFICATION SHEET // CAD-REV-04 -->
+<!-- kicker: SPECIFICATION SHEET · CAD-REV-04 -->
 # Project Telemetry CAD
 ### Deep System Architecture & Fault-Tolerant Distributed Storage
 <!-- metadata: Document Ref: SPEC-2026-X · Engineering Working Group · Confidential -->

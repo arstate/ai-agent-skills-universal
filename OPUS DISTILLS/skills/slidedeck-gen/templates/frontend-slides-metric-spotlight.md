@@ -2,7 +2,7 @@
 <!-- transition: slide -->
 
 <!-- layout: cover -->
-<!-- kicker: ANNUAL INVESTOR LETTER // 2026 -->
+<!-- kicker: ANNUAL INVESTOR LETTER · 2026 -->
 # Scale, Profitability & Market Leadership
 ### A Comprehensive Review of Financial Trajectory and Long-Term Capital Allocation
 <!-- metadata: Executive Committee · Global Asset Management · Fiscal Year 2026 -->

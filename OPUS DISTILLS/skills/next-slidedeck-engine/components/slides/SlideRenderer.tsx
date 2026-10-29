@@ -352,7 +352,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
               className="flex items-center gap-2.5"
             >
               <EditableText
-                value={slide.elements.footnote || 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM'}
+                value={slide.elements.footnote || 'CONFIDENTIAL · REPRODUCIBLE VECTOR SYSTEM'}
                 isEditMode={isEditMode}
                 isSelected={selectedId === 'footnote'}
                 onSelect={() => onSelectElement?.('footnote')}
@@ -371,7 +371,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
               className="text-sm font-mono tracking-wider font-medium"
               style={{ color: theme.textMuted }}
             >
-              NEXT-SLIDEDECK-ENGINE // v1.2
+              NEXT-SLIDEDECK-ENGINE · v1.2
             </span>
           </div>
         </motion.div>

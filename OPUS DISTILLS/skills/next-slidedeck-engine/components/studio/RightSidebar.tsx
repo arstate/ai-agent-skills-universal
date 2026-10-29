@@ -336,7 +336,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                   onUpdateActiveSlide((prev) => ({ ...prev, kicker: e.target.value }))
                 }
                 className={inputClass}
-                placeholder="e.g. EXECUTIVE BRIEFING // 2026"
+                placeholder="e.g. EXECUTIVE BRIEFING · 2026"
               />
             </div>
 
@@ -384,7 +384,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                   }))
                 }
                 className={inputClass}
-                placeholder="e.g. CONFIDENTIAL // SOURCE LOGS"
+                placeholder="e.g. CONFIDENTIAL · SOURCE LOGS"
               />
             </div>
 

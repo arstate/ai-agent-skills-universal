@@ -134,12 +134,12 @@ export const SlideStudio: React.FC = () => {
   const handleAddSlide = (layout: LayoutType) => {
     const newSlide: Slide = {
       id: `slide-${Date.now()}`,
-      kicker: 'NEW SECTION // STRATEGY',
+      kicker: 'NEW SECTION · STRATEGY',
       title: 'New Slide Title',
       subtitle: 'Add contextual description for this slide layout',
       layout,
       elements: {
-        footnote: 'CONFIDENTIAL // REPRODUCIBLE VECTOR SYSTEM',
+        footnote: 'CONFIDENTIAL · REPRODUCIBLE VECTOR SYSTEM',
         bullets: ['First strategic observation', 'Secondary analytical finding'],
         metrics: [
           { id: `m-${Date.now()}-1`, value: '100%', label: 'ACCURACY', subtext: 'Lossless' },

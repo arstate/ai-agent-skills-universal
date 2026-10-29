@@ -148,11 +148,13 @@ for (const deckKey of requiredSampleDecks) {
   assert(sampleDecksContent.includes(`'${deckKey}'`), `SAMPLE_DECKS must contain key: ${deckKey}`);
 }
 assert(!sampleDecksContent.includes('dashi-financial-index'), 'SAMPLE_DECKS must not contain Dashi decks');
+assert(!sampleDecksContent.includes(' // '), 'SAMPLE_DECKS must not contain double-slash (//) AI slop dividers');
 
 const topBarPath = path.join(engineDir, 'components/studio/TopBar.tsx');
 const topBarContent = fs.readFileSync(topBarPath, 'utf8');
 assert(!topBarContent.includes('PRESET DECKS'), 'TopBar must not contain preset decks dropdown (authoring freedom)');
 assert(!topBarContent.includes('onSelectSampleDeck'), 'TopBar must not contain onSelectSampleDeck');
-console.log('[PASS] Verified presets: 39 themes, 8 sample decks, and TopBar clean authoring mode (preset dropdown removed).');
+assert(!topBarContent.includes('SLIDEDECK // NEXT'), 'TopBar must not contain SLIDEDECK // NEXT (AI slop)');
+console.log('[PASS] Verified presets: 39 themes, 8 sample decks, clean typography without // slashes, and TopBar clean authoring mode.');
 
 console.log('\n[SUCCESS] ALL AUDIT CHECKS PASSED WITH 100% COMPLIANCE!');

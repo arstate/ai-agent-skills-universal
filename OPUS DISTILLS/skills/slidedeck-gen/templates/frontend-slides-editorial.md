@@ -2,7 +2,7 @@
 <!-- transition: slide -->
 
 <!-- layout: cover -->
-<!-- kicker: EXECUTIVE BRIEFING // 2026 -->
+<!-- kicker: EXECUTIVE BRIEFING · 2026 -->
 # Autonomous Architecture & The Future of Work
 ### How Generative Intelligence is Rewriting Software Systems and Human Leverage
 <!-- metadata: Global Strategy Summit · October 2026 · Confidential -->

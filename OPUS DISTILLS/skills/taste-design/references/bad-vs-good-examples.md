@@ -15,6 +15,7 @@ Use this guide whenever building or reviewing UI, landing pages, slides, or visu
 | **Bentuk Sudut Tombol & Kartu** | Semua memakai `rounded-xl` (`12px-16px`) tanggung | Pilih tegas: `rounded-none` (`0px` Arsitektural) ATAU `rounded-full` (Kapsul) | Studi 247 situs membuktikan 52% situs terbaik memakai sudut tegas `0px-2px` dan 23% kapsul penuh; radius `12px` adalah ciri khas template AI murahan. |
 | **Bingkai Foto di Latar Terang** | `<img src="..." className="w-full" />` tanpa batas | Tambahkan `ring-1 ring-inset ring-black/10 dark:ring-white/10` | Mencegah tepi foto yang berwarna terang menyatu/bocor ke warna latar halaman (*optical boundary*). |
 | **Angka Harga & Statistik** | Font proporsional biasa (lebar angka berubah-ubah) | Wajib `tabular-nums` (`font-variant-numeric: tabular-nums`) | Agar angka harga `Rp 1.450.000` dan `Rp 890.000` sejajar lurus vertikal saat dibandingkan di tabel atau kalkulator. |
+| **Pemisah Teks / Kicker / Tag** | `KAPABILITAS // SPESIFIKASI` (double slash `//`) | `KAPABILITAS · SPESIFIKASI` (interpunct `·`) atau `KAPABILITAS — SPESIFIKASI` (em-dash `—`) | Double slash `//` adalah stereotip AI slop paling klise (pseudo-cyberpunk/terminal). Tipografi agensi profesional memakai titik tengah `·`, garis pisah `—`, koma, atau 1 judul bersih. |
 
 ---
 
