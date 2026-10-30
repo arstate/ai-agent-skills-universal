@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="4000" height="4000" viewBox="0 0 4000 4000">
+  <g id="cybersecurity-shield-check-keyhole" transform="translate(2000, 2000) rotate(-6)">
+    
+    <path id="shield-outer-left" fill="#1D4ED8" d="M 0.00,-1280.00 L -1020.00,-920.00 V -120.00 C -1020.00,620.00 -580.00,1120.00 0.00,1340.00 V -1280.00 Z" />
+    
+    <path id="shield-outer-right" fill="#1E40AF" d="M 0.00,-1280.00 L 1020.00,-920.00 V -120.00 C 1020.00,620.00 580.00,1120.00 0.00,1340.00 V -1280.00 Z" />
+
+    
+    <path id="shield-cyan-left" fill="#00AEEF" d="M 0.00,-1140.00 L -890.00,-825.00 V -120.00 C -890.00,535.00 -505.00,980.00 0.00,1180.00 V -1140.00 Z" />
+    
+    <path id="shield-cyan-right" fill="#0284C7" d="M 0.00,-1140.00 L 890.00,-825.00 V -120.00 C 890.00,535.00 505.00,980.00 0.00,1180.00 V -1140.00 Z" />
+
+    
+    <path id="shield-core-left" fill="#2563EB" d="M 0.00,-960.00 L -730.00,-700.00 V -120.00 C -730.00,430.00 -410.00,810.00 0.00,990.00 V -960.00 Z" />
+    
+    <path id="shield-core-right" fill="#1D4ED8" d="M 0.00,-960.00 L 730.00,-700.00 V -120.00 C 730.00,430.00 410.00,810.00 0.00,990.00 V -960.00 Z" />
+
+    
+    <path id="shield-emerald-checkmark" fill="#10B981" d="M -460.00,-80.00 L -320.00,-220.00 L -110.00,-10.00 L 360.00,-480.00 L 500.00,-340.00 L -110.00,270.00 L -460.00,-80.00 Z" />
+
+    
+    <g id="keyhole-badge" transform="translate(360, 420)">
+      <path id="keyhole-gold-circle" fill="#F59E0B" d="M -360.00,0.00 A 360.00,360.00 0 1 0 360.00,0.00 A 360.00,360.00 0 1 0 -360.00,0.00 Z" />
+      <path id="keyhole-inner-cutout" fill="#B45309" d="M 0.00,-150.00 C 66.27,-150.00 120.00,-96.27 120.00,-30.00 C 120.00,15.50 94.60,55.10 57.20,75.40 L 105.00,220.00 H -105.00 L -57.20,75.40 C -94.60,55.10 -120.00,15.50 -120.00,-30.00 C -120.00,-96.27 -66.27,-150.00 0.00,-150.00 Z" />
+    </g>
+  </g>
+<metadata><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>Flat 2D Cybersecurity Shield Checkmark and Keyhole Lock Vector Icon</dc:title><dc:description>Flat 2D Cybersecurity Shield Checkmark and Keyhole Lock Vector Icon</dc:description><dc:subject><rdf:Bag><rdf:li>cybersecurity</rdf:li><rdf:li>security shield</rdf:li><rdf:li>checkmark</rdf:li><rdf:li>keyhole</rdf:li><rdf:li>data protection</rdf:li><rdf:li>antivirus</rdf:li><rdf:li>privacy</rdf:li><rdf:li>encryption</rdf:li><rdf:li>safety</rdf:li><rdf:li>verified</rdf:li><rdf:li>firewall</rdf:li><rdf:li>network security</rdf:li><rdf:li>information security</rdf:li><rdf:li>lock</rdf:li><rdf:li>padlock</rdf:li><rdf:li>trust</rdf:li><rdf:li>compliance</rdf:li><rdf:li>guard</rdf:li><rdf:li>defense</rdf:li><rdf:li>icon</rdf:li><rdf:li>flat</rdf:li><rdf:li>vector</rdf:li><rdf:li>2d</rdf:li><rdf:li>isolated</rdf:li><rdf:li>illustration</rdf:li></rdf:Bag></dc:subject></cc:Work></rdf:RDF></metadata></svg>

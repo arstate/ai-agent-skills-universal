@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="4000" height="4000" viewBox="0 0 4000 4000">
+  <g id="fintech-banking-flat-icon-sheet-16mp">
+
+    
+    <g id="icon-01-digital-wallet" transform="translate(1050, 1050)">
+      <path id="wallet-banknote-left" fill="#059669" d="M -520.00,-120.00 L -380.00,-620.00 L 20.00,-510.00 L -120.00,-10.00 L -520.00,-120.00 Z" />
+      <path id="wallet-banknote-front" fill="#10B981" d="M -320.00,-80.00 L -160.00,-660.00 L 260.00,-540.00 L 100.00,40.00 L -320.00,-80.00 Z" />
+      <path id="wallet-banknote-seal" fill="#047857" d="M -60.00,-340.00 A 90.00,90.00 0 1 0 120.00,-340.00 A 90.00,90.00 0 1 0 -60.00,-340.00 Z" />
+      <path id="wallet-credit-card" fill="#00AEEF" d="M 40.00,-100.00 L 260.00,-560.00 L 660.00,-370.00 L 440.00,90.00 L 40.00,-100.00 Z" />
+      <path id="wallet-card-chip" fill="#FDE047" d="M 270.00,-420.00 L 360.00,-375.00 L 325.00,-305.00 L 235.00,-350.00 L 270.00,-420.00 Z" />
+      <path id="wallet-body-base" fill="#1D4ED8" d="M -560.00,-160.00 H 480.00 A 100.00,100.00 0 0 1 580.00,-60.00 V 520.00 A 100.00,100.00 0 0 1 480.00,620.00 H -560.00 A 100.00,100.00 0 0 1 -660.00,520.00 V -60.00 A 100.00,100.00 0 0 1 -560.00,-160.00 Z" />
+      <path id="wallet-cyan-facet" fill="#0284C7" d="M 120.00,-160.00 H 480.00 A 100.00,100.00 0 0 1 580.00,-60.00 V 520.00 A 100.00,100.00 0 0 1 480.00,620.00 H -220.00 L 120.00,-160.00 Z" />
+      <path id="wallet-clasp-strap" fill="#0F172A" d="M 260.00,110.00 H 640.00 A 60.00,60.00 0 0 1 700.00,170.00 V 290.00 A 60.00,60.00 0 0 1 640.00,350.00 H 260.00 A 120.00,120.00 0 0 1 140.00,230.00 A 120.00,120.00 0 0 1 260.00,110.00 Z" />
+      <path id="wallet-clasp-button" fill="#FFFFFF" d="M 210.00,230.00 A 55.00,55.00 0 1 0 320.00,230.00 A 55.00,55.00 0 1 0 210.00,230.00 Z" />
+    </g>
+
+    
+    <g id="icon-02-bank-building" transform="translate(2950, 1050)">
+      <path id="bank-roof-outer" fill="#1D4ED8" d="M 0.00,-680.00 L 720.00,-220.00 H -720.00 L 0.00,-680.00 Z" />
+      <path id="bank-roof-inner" fill="#00AEEF" d="M 0.00,-570.00 L 540.00,-270.00 H -540.00 L 0.00,-570.00 Z" />
+      <path id="bank-roof-medallion" fill="#0284C7" d="M -75.00,-390.00 A 75.00,75.00 0 1 0 75.00,-390.00 A 75.00,75.00 0 1 0 -75.00,-390.00 Z" />
+      <path id="bank-architrave" fill="#0284C7" d="M -660.00,-220.00 H 660.00 V -140.00 H -660.00 Z" />
+      <path id="bank-four-pillars" fill="#1D4ED8" d="M -580.00,-140.00 H -400.00 V 460.00 H -580.00 Z M -240.00,-140.00 H -60.00 V 460.00 H -240.00 Z M 60.00,-140.00 H 240.00 V 460.00 H 60.00 Z M 400.00,-140.00 H 580.00 V 460.00 H 400.00 Z" />
+      <path id="bank-step-upper" fill="#00AEEF" d="M -680.00,460.00 H 680.00 V 540.00 H -680.00 Z" />
+      <path id="bank-step-lower" fill="#0F172A" d="M -760.00,540.00 H 760.00 V 630.00 H -760.00 Z" />
+      <g id="bank-gold-coin" transform="translate(520, -480)">
+        <path id="bank-coin-outer" fill="#FBBF24" d="M -220.00,0.00 A 220.00,220.00 0 1 0 220.00,0.00 A 220.00,220.00 0 1 0 -220.00,0.00 Z" />
+        <path id="bank-coin-inner" fill="#D97706" d="M -170.00,0.00 A 170.00,170.00 0 1 0 170.00,0.00 A 170.00,170.00 0 1 0 -170.00,0.00 Z" />
+        <path id="bank-coin-dollar" fill="#FFFFFF" d="M -16.00,-120.00 H 16.00 V -88.00 C 52.00,-82.00 78.00,-60.00 78.00,-28.00 H 40.00 C 40.00,-46.00 22.00,-58.00 0.00,-58.00 C -22.00,-58.00 -38.00,-48.00 -38.00,-32.00 C -38.00,-16.00 -18.00,-10.00 14.00,-2.00 C 54.00,8.00 82.00,24.00 82.00,56.00 C 82.00,84.00 56.00,104.00 16.00,110.00 V 140.00 H -16.00 V 110.00 C -54.00,104.00 -82.00,80.00 -82.00,44.00 H -44.00 C -44.00,64.00 -24.00,76.00 0.00,76.00 C 24.00,76.00 44.00,64.00 44.00,48.00 C 44.00,32.00 24.00,24.00 -10.00,16.00 C -48.00,6.00 -76.00,-10.00 -76.00,-40.00 C -76.00,-68.00 -52.00,-84.00 -16.00,-88.00 V -120.00 Z" />
+      </g>
+    </g>
+
+    
+    <g id="icon-03-mobile-payment" transform="translate(1050, 2950) rotate(-10)">
+      <path id="phone-chassis" fill="#1D4ED8" d="M -380.00,-720.00 H 380.00 A 110.00,110.00 0 0 1 490.00,-610.00 V 610.00 A 110.00,110.00 0 0 1 380.00,720.00 H -380.00 A 110.00,110.00 0 0 1 -490.00,610.00 V -610.00 A 110.00,110.00 0 0 1 -380.00,-720.00 Z" />
+      <path id="phone-screen" fill="#F8FAFC" d="M -340.00,-650.00 H 340.00 A 70.00,70.00 0 0 1 410.00,-580.00 V 580.00 A 70.00,70.00 0 0 1 340.00,650.00 H -340.00 A 70.00,70.00 0 0 1 -410.00,580.00 V -580.00 A 70.00,70.00 0 0 1 -340.00,-650.00 Z" />
+      <path id="phone-notch" fill="#1D4ED8" d="M -160.00,-660.00 H 160.00 V -590.00 A 40.00,40.00 0 0 1 120.00,-550.00 H -120.00 A 40.00,40.00 0 0 1 -160.00,-590.00 V -660.00 Z" />
+      <path id="phone-verified-ring" fill="#10B981" fill-rule="evenodd" d="M -250.00,-120.00 A 250.00,250.00 0 1 0 250.00,-120.00 A 250.00,250.00 0 1 0 -250.00,-120.00 Z M -190.00,-120.00 A 190.00,190.00 0 1 0 190.00,-120.00 A 190.00,190.00 0 1 0 -190.00,-120.00 Z" />
+      <path id="phone-verified-tick" fill="#059669" d="M -130.00,-130.00 L -80.00,-180.00 L -20.00,-120.00 L 130.00,-270.00 L 180.00,-220.00 L -20.00,-20.00 L -130.00,-130.00 Z" />
+      <path id="phone-cta-button" fill="#1D4ED8" d="M -220.00,240.00 H 220.00 A 45.00,45.00 0 0 1 265.00,285.00 V 335.00 A 45.00,45.00 0 0 1 220.00,380.00 H -220.00 A 45.00,45.00 0 0 1 -265.00,335.00 V 285.00 A 45.00,45.00 0 0 1 -220.00,240.00 Z" />
+      <path id="phone-home-bar" fill="#CBD5E1" d="M -130.00,560.00 H 130.00 A 14.00,14.00 0 0 1 144.00,574.00 V 586.00 A 14.00,14.00 0 0 1 130.00,600.00 H -130.00 A 14.00,14.00 0 0 1 -144.00,586.00 V 574.00 A 14.00,14.00 0 0 1 -130.00,560.00 Z" />
+    </g>
+
+    
+    <g id="icon-04-growth-analytics" transform="translate(2950, 2950)">
+      <path id="chart-bars-and-base" fill="#0F172A" d="M -640.00,520.00 H -560.00 V 220.00 H -360.00 V 520.00 H -240.00 V -20.00 H -40.00 V 520.00 H 80.00 V 80.00 H 280.00 V 520.00 H 400.00 V -220.00 H 600.00 V 520.00 H 680.00 V 590.00 H -640.00 V 520.00 Z" />
+      <path id="chart-trend-arrow" fill="#0284C7" d="M -490.00,30.00 L -150.00,-310.00 L 170.00,-130.00 L 460.00,-460.00 L 370.00,-550.00 L 640.00,-620.00 L 580.00,-350.00 L 510.00,-410.00 L 180.00,-35.00 L -140.00,-215.00 L -435.00,80.00 L -490.00,30.00 Z" />
+      <path id="chart-emerald-nodes" fill="#10B981" d="M -550.00,55.00 A 85.00,85.00 0 1 0 -380.00,55.00 A 85.00,85.00 0 1 0 -550.00,55.00 Z M -225.00,-260.00 A 85.00,85.00 0 1 0 -55.00,-260.00 A 85.00,85.00 0 1 0 -225.00,-260.00 Z M 95.00,-80.00 A 85.00,85.00 0 1 0 265.00,-80.00 A 85.00,85.00 0 1 0 95.00,-80.00 Z" />
+    </g>
+
+  </g>
+<metadata><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>Fintech and Digital Banking Flat 2D Vector Icon Set Wallet Analytics</dc:title><dc:description>Fintech and Digital Banking Flat 2D Vector Icon Set Wallet Analytics</dc:description><dc:subject><rdf:Bag><rdf:li>fintech</rdf:li><rdf:li>banking</rdf:li><rdf:li>icon set</rdf:li><rdf:li>digital wallet</rdf:li><rdf:li>bank building</rdf:li><rdf:li>mobile payment</rdf:li><rdf:li>analytics chart</rdf:li><rdf:li>credit card</rdf:li><rdf:li>finance</rdf:li><rdf:li>money</rdf:li><rdf:li>investment</rdf:li><rdf:li>growth</rdf:li><rdf:li>cashless</rdf:li><rdf:li>online banking</rdf:li><rdf:li>transaction</rdf:li><rdf:li>wealth</rdf:li><rdf:li>commerce</rdf:li><rdf:li>business</rdf:li><rdf:li>currency</rdf:li><rdf:li>financial</rdf:li><rdf:li>flat</rdf:li><rdf:li>vector</rdf:li><rdf:li>2d</rdf:li><rdf:li>isolated</rdf:li><rdf:li>illustration</rdf:li></rdf:Bag></dc:subject></cc:Work></rdf:RDF></metadata></svg>
