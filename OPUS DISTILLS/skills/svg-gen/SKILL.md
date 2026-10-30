@@ -3,23 +3,25 @@ name: svg-gen
 description: 4-Pass Progressive 2D Flat Vector & Icon Set Engineering Skill for Adobe Stock Contributor (Pass 1 Clean Skeleton -> Pass 2 Split-Tone Shading -> Pass 3 Micro-Details -> Pass 4 Artifact Purge & Final Retouch, 15+ MP, Auto-Fit Preview, Zero Live Strokes, Zero Cairo Raster EPS).
 ---
 
-# /svg-gen (v4.0) — 4-Pass Progressive Vector & Artifact-Purge Skill
+# /svg-gen (v4.1) — 4-Pass Progressive Vector & Artifact-Purge Skill
 
 ## Overview
-`/svg-gen` v4.0 eliminates AI vector hallucinations and geometry artifacts by enforcing a strict **4-Pass Progressive Vector Pipeline**:
+`/svg-gen` v4.1 eliminates AI vector hallucinations and geometry artifacts by enforcing a strict **4-Pass Progressive Vector Pipeline** and the **7 Iron Laws of Commercial Craft** (anti-clipart engineering for both seasonal and high-ticket B2B corporate assets):
 - **Pass 1 (`*_pass1_skeleton.svg`):** Clean & simple base silhouettes, keyline proportions, 2–3 flat colors.
-- **Pass 2 (`*_pass2_shading.svg`):** Soft pastel backdrops, ground shadows, and 2D split-tone planar shading (zero alpha opacity).
-- **Pass 3 (`*_pass3_details.svg`):** Specular crescent highlights, compound ribbon loops, surface patterns, and 4-point sparkles.
-- **Pass 4 (`*_pass4_final.svg`):** Adversarial Artifact Forensics & Final Retouch (arc-clipping overhangs, fixing tangent collisions, adding micro-specular accents, and locking 10/10 Adobe Stock Gates).
+- **Pass 2 (`*_pass2_shading.svg`):** Harmonized high-key pastel backdrops (Luminance > 96%), ground shadows, and volumetric planar split-tone shading (zero alpha opacity, multi-tone fluting, no candy-cane splits).
+- **Pass 3 (`*_pass3_details.svg`):** Specular crescent highlights, compound loops, UI data visualization, fanned card angles, Guilloche seals, and 4-point diamond sparkles.
+- **Pass 4 (`*_pass4_final.svg`):** Adversarial Artifact Forensics & Final Retouch (arc-clipping overhangs, fixing tangent collisions with >= 50px clearance, micro-specular accents, and locking 10/10 Adobe Stock Gates).
 
 ---
 
 ## 📚 Mandatory References to Read (Akses via `read_file`)
-1. Read `references/four-pass-retouch-plan.md` before writing any SVG coordinates.
+1. Read `references/four-pass-retouch-plan.md` before writing any SVG coordinates (contains the 7 Iron Laws of Commercial Craft: Classical Architecture, Fanned Overlaps, UI Intelligence, Volume Bars, Harmonized Backdrops, Strict Clearance, Specular Glints).
 2. Read `references/adobe-stock-guidelines.md` for the 10 Iron Laws of Adobe Stock compliance.
 3. Read `references/core-rules.md` for coordinate grid systems and auto-fit declaration.
-4. Read `references/two-pass-retouch-rules.md` for planar split-tone shading math.
-5. Inspect the 4 reference files in `assets/examples/xmas_pass1_skeleton.svg` through `xmas_pass4_final.svg`.
+4. Read `references/two-pass-retouch-rules.md` for planar split-tone shading math (anti-mechanical split rule).
+5. Inspect the reference files in `assets/examples/`:
+   - Seasonal: `xmas_pass1_skeleton.svg` through `xmas_pass4_final.svg`
+   - B2B Corporate/Fintech: `fintech_pass1_skeleton.svg` through `fintech_pass4_final.svg`
 
 ---
 
