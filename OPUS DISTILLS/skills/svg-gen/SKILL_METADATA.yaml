@@ -1,15 +1,22 @@
 name: svg-gen
-version: 3.0.0
-description: Two-Pass Progressive 2D Flat Vector & Commercial Icon Set Engineering Skill for Adobe Stock, Shutterstock & Freepik (Pass 1 Clean Simple Base -> Pass 2 Aesthetic Retouch, 15+ MP, Auto-Fit Preview, Zero Live Strokes, Zero Cairo Raster EPS).
+slash_command: /svg-gen
+version: 4.0.0
+license: MIT
+description: "4-Pass Progressive 2D Flat Vector & Commercial Icon Set Engineering Skill for Adobe Stock."
 triggers:
-  - "/svg-gen"
-  - "svg-gen"
-  - "vector design"
-  - "adobe stock svg"
-  - "microstock vector"
-  - "icon pack 16mp"
-authors:
-  - "Djadi Creative & AI Agent Engineering Swarm"
-requirements:
-  - python3
-  - inkscape
+  keywords:
+    - "/svg-gen"
+    - "buat svg"
+    - "buat vektor"
+    - "icon set"
+    - "icon pack"
+    - "adobe stock"
+    - "4 pass"
+    - "retouch svg"
+output_formats:
+  - pure-svg-16mp
+  - eps-postscript-3
+  - html-4pass-inspector
+references_dir: "./references"
+examples_dir: "./assets/examples"
+scripts_dir: "./scripts"

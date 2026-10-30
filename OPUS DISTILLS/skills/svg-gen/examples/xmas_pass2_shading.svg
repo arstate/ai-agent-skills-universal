@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4000 4000" width="4000" height="4000" style="max-width:100%;height:auto;display:block;background:#FFFFFF;">
+  <g id="pass2-volumetric-split-tone-shading">
+
+    <!-- ICON 01 (PASS 2): SPLIT-TONE SHADED PINE TREE -->
+    <g id="p2-xmas-tree" transform="translate(1050, 1050)">
+      <path id="p2-tree-backdrop" fill="#FEF3C7" d="M -680.00,0.00 A 680.00,680.00 0 1 0 680.00,0.00 A 680.00,680.00 0 1 0 -680.00,0.00 Z" />
+      <path id="p2-tree-ground-shadow" fill="#FDE68A" d="M -320.00,640.00 H 320.00 A 35.00,35.00 0 0 1 355.00,675.00 V 685.00 A 35.00,35.00 0 0 1 320.00,720.00 H -320.00 A 35.00,35.00 0 0 1 -355.00,685.00 V 675.00 A 35.00,35.00 0 0 1 -320.00,640.00 Z" />
+      <path id="p2-tree-trunk" fill="#78350F" d="M -90.00,320.00 H 90.00 V 500.00 H -90.00 Z" />
+      <path id="p2-tree-pot-left" fill="#DC2626" d="M -210.00,480.00 H 0.00 V 680.00 H -165.00 L -210.00,480.00 Z" />
+      <path id="p2-tree-pot-right" fill="#991B1B" d="M 0.00,480.00 H 210.00 L 165.00,680.00 H 0.00 V 480.00 Z" />
+      <path id="p2-tree-bot-left" fill="#059669" d="M 0.00,-120.00 L 0.00,360.00 H -560.00 L 0.00,-120.00 Z" />
+      <path id="p2-tree-bot-right" fill="#065F46" d="M 0.00,-120.00 L 560.00,360.00 H 0.00 L 0.00,-120.00 Z" />
+      <path id="p2-tree-mid-left" fill="#10B981" d="M 0.00,-380.00 L 0.00,80.00 H -440.00 L 0.00,-380.00 Z" />
+      <path id="p2-tree-mid-right" fill="#047857" d="M 0.00,-380.00 L 440.00,80.00 H 0.00 L 0.00,-380.00 Z" />
+      <path id="p2-tree-top-left" fill="#34D399" d="M 0.00,-620.00 L 0.00,-180.00 H -320.00 L 0.00,-620.00 Z" />
+      <path id="p2-tree-top-right" fill="#059669" d="M 0.00,-620.00 L 320.00,-180.00 H 0.00 L 0.00,-620.00 Z" />
+      <path id="p2-tree-star" fill="#F59E0B" d="M 0.00,-810.00 L 48.00,-695.00 L 172.00,-685.00 L 78.00,-600.00 L 106.00,-480.00 L 0.00,-545.00 L -106.00,-480.00 L -78.00,-600.00 L -172.00,-685.00 L -48.00,-695.00 Z" />
+    </g>
+
+    <!-- ICON 02 (PASS 2): SPLIT-TONE SHADED GIFT BOX -->
+    <g id="p2-gift-box" transform="translate(2950, 1050)">
+      <path id="p2-gift-backdrop" fill="#DCFCE7" d="M -680.00,0.00 A 680.00,680.00 0 1 0 680.00,0.00 A 680.00,680.00 0 1 0 -680.00,0.00 Z" />
+      <path id="p2-box-body-left" fill="#DC2626" d="M -440.00,-120.00 H 0.00 V 600.00 H -360.00 A 80.00,80.00 0 0 1 -440.00,520.00 V -120.00 Z" />
+      <path id="p2-box-body-right" fill="#991B1B" d="M 0.00,-120.00 H 440.00 V 520.00 A 80.00,80.00 0 0 1 360.00,600.00 H 0.00 V -120.00 Z" />
+      <path id="p2-box-under-shadow" fill="#7F1D1D" d="M -440.00,-100.00 H 440.00 V -30.00 H -440.00 Z" />
+      <path id="p2-box-lid" fill="#EF4444" d="M -495.00,-280.00 H 495.00 A 45.00,45.00 0 0 1 540.00,-235.00 V -125.00 A 45.00,45.00 0 0 1 495.00,-80.00 H -495.00 A 45.00,45.00 0 0 1 -540.00,-125.00 V -235.00 A 45.00,45.00 0 0 1 -495.00,-280.00 Z" />
+      <path id="p2-box-ribbons" fill="#FBBF24" d="M -85.00,-280.00 H 85.00 V 600.00 H -85.00 Z M -440.00,160.00 H 440.00 V 310.00 H -440.00 Z" />
+    </g>
+
+    <!-- ICON 03 (PASS 2): LAYERED WREATH BADGE WITH GOLD SEAL -->
+    <g id="p2-wreath-badge" transform="translate(1050, 2950)">
+      <path id="p2-badge-gold-seal" fill="#F59E0B" d="M 0.00,-690.00 L 160.00,-575.00 L 345.00,-598.00 L 425.00,-425.00 L 598.00,-345.00 L 575.00,-160.00 L 690.00,0.00 L 575.00,160.00 L 598.00,345.00 L 425.00,425.00 L 345.00,598.00 L 160.00,575.00 L 0.00,690.00 L -160.00,575.00 L -345.00,598.00 L -425.00,425.00 L -598.00,345.00 L -575.00,160.00 L -690.00,0.00 L -575.00,-160.00 L -598.00,-345.00 L -425.00,-425.00 L -345.00,-598.00 L -160.00,-575.00 Z" />
+      <path id="p2-badge-pine-outer" fill="#064E3B" d="M -565.00,0.00 A 565.00,565.00 0 1 0 565.00,0.00 A 565.00,565.00 0 1 0 -565.00,0.00 Z" />
+      <path id="p2-badge-pine-inner" fill="#047857" d="M -510.00,0.00 A 510.00,510.00 0 1 0 510.00,0.00 A 510.00,510.00 0 1 0 -510.00,0.00 Z" />
+      <path id="p2-badge-blank-center" fill="#FFFFFF" d="M -380.00,0.00 A 380.00,380.00 0 1 0 380.00,0.00 A 380.00,380.00 0 1 0 -380.00,0.00 Z" />
+    </g>
+
+    <!-- ICON 04 (PASS 2): SHADED BAUBLE ORNAMENT -->
+    <g id="p2-bauble" transform="translate(2950, 2950)">
+      <path id="p2-bauble-backdrop" fill="#E0F2FE" d="M -680.00,0.00 A 680.00,680.00 0 1 0 680.00,0.00 A 680.00,680.00 0 1 0 -680.00,0.00 Z" />
+      <path id="p2-bauble-cap" fill="#F59E0B" d="M -150.00,-495.00 H 150.00 A 32.00,32.00 0 0 1 182.00,-463.00 V -335.00 H -182.00 V -463.00 A 32.00,32.00 0 0 1 -150.00,-495.00 Z" />
+      <path id="p2-bauble-sphere-base" fill="#DC2626" d="M -480.00,70.00 A 480.00,480.00 0 1 0 480.00,70.00 A 480.00,480.00 0 1 0 -480.00,70.00 Z" />
+      <path id="p2-bauble-crescent-shade" fill="#991B1B" d="M 0.00,-410.00 A 480.00,480.00 0 0 1 0.00,550.00 A 340.00,480.00 0 0 0 0.00,-410.00 Z" />
+    </g>
+
+  </g>
+</svg>
