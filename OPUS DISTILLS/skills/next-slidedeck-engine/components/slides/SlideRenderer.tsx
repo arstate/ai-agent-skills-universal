@@ -546,27 +546,52 @@ function renderLayoutContent(
     );
   }
 
-  // Dedicated Renderers for Group 11: AI GEN & Creative Agency Layouts (User Ref Images)
-  if (slide.layout === 'ai-klyro-hero') {
+  // Dedicated Autonomous AI GEN Renderer (Single Option - Controlled by AI Agent)
+  if (slide.layout === 'ai-gen' || (typeof slide.layout === 'string' && slide.layout.startsWith('ai-'))) {
+    if (slide.elements?.rawHtml || slide.rawHtml) {
+      return (
+        <div
+          className="w-full h-full relative overflow-hidden"
+          dangerouslySetInnerHTML={{ __html: slide.elements?.rawHtml || slide.rawHtml || '' }}
+        />
+      );
+    }
+
+    const variant = slide.elements?.aiVariant || slide.layout;
+    if (variant === 'klyro-hero' || variant === 'ai-klyro-hero') {
+      return renderAiKlyroHero({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (variant === 'klyro-split-stats' || variant === 'ai-klyro-split-stats') {
+      return renderAiKlyroSplitStats({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (variant === 'klyro-ticket-principles' || variant === 'ai-klyro-ticket-principles') {
+      return renderAiKlyroTicketPrinciples({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (variant === 'chuckle-retro-hero' || variant === 'ai-chuckle-retro-hero') {
+      return renderAiChuckleRetroHero({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (variant === 'borcelle-donut-data' || variant === 'ai-borcelle-donut-data') {
+      return renderAiBorcelleDonutData({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (variant === 'borcelle-venn-diagram' || variant === 'ai-borcelle-venn-diagram') {
+      return renderAiBorcelleVennDiagram({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (variant === 'fintech-ribbon-wave' || variant === 'ai-fintech-ribbon-wave') {
+      return renderAiFintechRibbonWave({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+
+    // Adaptive Auto-Detection from Slide Content
+    if (slide.elements?.comparison) {
+      return renderAiBorcelleVennDiagram({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (slide.elements?.metrics && slide.elements.metrics.length > 2) {
+      return renderAiKlyroSplitStats({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+    if (slide.elements?.pillars && slide.elements.pillars.length > 0) {
+      return renderAiKlyroTicketPrinciples({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+    }
+
     return renderAiKlyroHero({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
-  }
-  if (slide.layout === 'ai-klyro-split-stats') {
-    return renderAiKlyroSplitStats({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
-  }
-  if (slide.layout === 'ai-klyro-ticket-principles') {
-    return renderAiKlyroTicketPrinciples({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
-  }
-  if (slide.layout === 'ai-chuckle-retro-hero') {
-    return renderAiChuckleRetroHero({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
-  }
-  if (slide.layout === 'ai-borcelle-donut-data') {
-    return renderAiBorcelleDonutData({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
-  }
-  if (slide.layout === 'ai-borcelle-venn-diagram') {
-    return renderAiBorcelleVennDiagram({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
-  }
-  if (slide.layout === 'ai-fintech-ribbon-wave') {
-    return renderAiFintechRibbonWave({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
   }
 
   const meta = resolveLayoutMeta(slide.layout);

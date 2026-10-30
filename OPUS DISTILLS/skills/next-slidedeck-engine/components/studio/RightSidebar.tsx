@@ -444,7 +444,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
 
               {/* Clean Categorized Dropdown */}
               <select
-                value={activeSlide.layout}
+                value={
+                  activeSlide.layout === 'ai-gen' || (typeof activeSlide.layout === 'string' && activeSlide.layout.startsWith('ai-'))
+                    ? 'ai-gen'
+                    : activeSlide.layout
+                }
                 onChange={(e) =>
                   onUpdateActiveSlide((prev) => ({
                     ...prev,

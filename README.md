@@ -9,39 +9,47 @@ A high-performance, production-ready ecosystem of **23+ universal skills**, brow
 
 ---
 
-## ⚡ Quick One-Liner Installation
+## ⚡ Prompt Sekali Paste untuk AI Agent (One-Shot Boot Prompt)
 
-Run this single command in your terminal to automatically download, unpack, and install all skills, browser control tools, and global rules across your host environment:
+> **Cukup copy-paste prompt di bawah ini ke AI Agent baru (Google Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, atau Cline) untuk langsung menginstal, memverifikasi, dan mengaktifkan seluruh 23+ skills, browser tools, dan rules secara otomatis dari awal:**
+
+```markdown
+Install dan inisialisasi ekosistem AI Agent Skills Universal (Opus Distills, Next.js Presentation Studio, SVG Gen, Hallmark v2.8.0, Web Builder, dll.) di mesin ini sekarang. Jalankan perintah instalasi berikut:
 
 ```bash
-curl -sSL "https://raw.githubusercontent.com/arstate/ai-agent-skills-universal/main/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip 2>/dev/null || \
-curl -sSL "https://accuracy-translations-nights-situations.trycloudflare.com/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip && \
-mkdir -p /tmp/opus_pack && \
-unzip -q -o /tmp/opus_pack.zip -d /tmp/opus_pack && \
-bash /tmp/opus_pack/"OPUS DISTILLS"/install-default-opus.sh && \
-rm -rf /tmp/opus_pack.zip /tmp/opus_pack
+if [ -d "$HOME/ai-agent-skills-universal" ]; then
+  cd "$HOME/ai-agent-skills-universal" && git pull origin main
+else
+  git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+fi && bash "OPUS DISTILLS/install-default-opus.sh"
 ```
 
-*(For local manual installation, simply clone this repository and run `bash "OPUS DISTILLS/install-default-opus.sh"`)*
+Pastikan semua skills terpasang di:
+- `~/.agents/skills/`
+- `~/.gemini/antigravity-cli/skills/`
+- `~/.gemini/config/skills/`
+- `~/.gemini/antigravity/skills/`
+- `~/.cursor/skills/` dan `~/.claude/skills/` (jika ada)
+
+Terapkan standar kerja:
+1. Split-channel communication: respon chat ultra-terse (padat, efisien, zero filler) & deliverable kode 100% utuh tanpa potongan.
+2. Presentation Studio Engine (`next-slidedeck-engine`): 39 curated palettes, mode AI GEN otonom (1 opsi fleksibel tanpa rigid template lock), kontras WCAG AAA, dan nol stroke perimeter hijau artifisial.
+3. Microstock Vector Standard (`svg-gen`): 10 Iron Laws, resolusi >= 15.0 MP, 100% closed compound paths (Z), zero live strokes, zero alpha raster (cairo_image = 0), dan auto metadata Dublin Core & XMP.
+```
 
 ---
 
-## 📋 Ready-to-Copy Master Prompt for AI Agents
+## 💻 Manual CLI One-Liner Installation
 
-To equip any newly booted AI assistant with the complete skill ecosystem, simply copy and send this prompt:
+Jika ingin menginstal langsung via terminal host tanpa melalui prompt AI:
 
-```markdown
-You are equipped with the Universal AI Agent Skills Ecosystem.
-Download and initialize all universal skills and rules by running:
-curl -sSL "https://raw.githubusercontent.com/arstate/ai-agent-skills-universal/main/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip && \
-mkdir -p /tmp/opus_pack && unzip -q -o /tmp/opus_pack.zip -d /tmp/opus_pack && \
-bash /tmp/opus_pack/"OPUS DISTILLS"/install-default-opus.sh && rm -rf /tmp/opus_pack.zip /tmp/opus_pack
-
-Verify installations in ~/.agents/skills/, ~/.gemini/antigravity-cli/skills/, ~/.cursor/skills/, and ~/.claude/skills/.
-Enforce the split-channel communication rule: concise chat responses paired with 100% uncut, production-complete code deliverables.
+```bash
+if [ -d "$HOME/ai-agent-skills-universal" ]; then
+  cd "$HOME/ai-agent-skills-universal" && git pull origin main
+else
+  git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+fi && bash "OPUS DISTILLS/install-default-opus.sh"
 ```
-
-*(See [PROMPT_INSTALL_AI_AGENT.md](PROMPT_INSTALL_AI_AGENT.md) for the extended multi-step briefing prompt)*
 
 ---
 
@@ -51,16 +59,17 @@ Enforce the split-channel communication rule: concise chat responses paired with
 Autonomous presentation studio engine built on Next.js, featuring full multi-aesthetic creative freedom:
 - **Next.js Multi-Aesthetic Presentation Studio (`next-slidedeck-engine`)**:
   * Built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
-  * **Full Creative Design Freedom (Never Locked to Dark Mode):** 26 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
-    - Light & Cream Editorial: Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink.
-    - Vibrant & Bold Accents: Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Cobalt (`#2563EB`), Neon Cyber (`#00FFCC`).
-    - Minimalist Dark: Obsidian Pure (`#000000`), Titanium Precision, Swiss Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal.
-    - **0% emoji/cartoon clutter:** Disciplined typography, mathematical grid alignment, and executive credibility.
+  * **Autonomous AI GEN Mode (Single Flexible Option):** Eliminates rigid template pickers in favor of 1 single `AI GEN (Autonomous Creative Layout)` option. The AI agent retains complete creative freedom to tailor visual geometry, kinetic accents, brand typography, and adaptive layouts per slide.
+  * **Full Creative Design Freedom (Never Locked to Dark Mode):** 39 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
+    - Light & Cream Editorial: Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink, Pin & Paper, Vellum, Neo Grid Bold.
+    - Vibrant & Bold Accents: Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Cobalt (`#2563EB`), Neon Cyber (`#00FFCC`), Sakura Chroma, Creative Mode.
+    - Minimalist Dark: Obsidian Pure (`#000000`), Titanium Precision, Swiss Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal, Editorial Forest, Cobalt Grid, Emerald Editorial.
+    - **0% emoji/cartoon clutter:** Disciplined typography, mathematical grid alignment, WCAG AAA contrast enforcement, and zero outer perimeter border strokes.
   * **Topbar Instant Light/Dark Toggle:** Seamlessly toggle between Light Mode and Dark Mode palettes with zero SSR hydration mismatch.
   * **3-Panel Studio Layout:**
-    - Left Sidebar: Interactive slide filmstrip, add slide (8 layout templates: Cover, Key Metrics, Asymmetric Split 60/40, 3-Pillars, Bento Matrix, Quote Spotlight, Comparison Table, Milestone Timeline), reorder up/down, duplicate, delete.
+    - Left Sidebar: Interactive slide filmstrip, add slide (Cover, Metrics, Split 60/40, Pillars, Bento, Quote, Comparison, Timeline, Image, AI GEN Autonomous, Standalone HTML), reorder, duplicate, delete.
     - Center Canvas: Pristine 16:9 presentation stage (`1920x1080`) with mathematical fixed-ratio scaling (anti-squish). **ZERO overlay buttons or UI clutter inside the slide canvas itself** — 100% focus on presentation design!
-    - Right Sidebar: Inspector tabs for Style (26 curated palettes categorized by All/Light/Dark/Vibrant), Text (kicker, title, subtitle, footnote), Elements (metrics, pillars, bento cards, bullets, quote), Animation (Morph Smooth shared-layout transitions, Crossfade, Slide, Zoom, Clip, Flip 3D, Stagger Blur), and Universal Export.
+    - Right Sidebar: Inspector tabs for Style (39 curated palettes categorized by All/Light/Dark/Vibrant), Text (kicker, title, subtitle, footnote), Elements (metrics, pillars, bento cards, bullets, quote), Animation (Morph Smooth shared-layout transitions, Crossfade, Slide, Zoom, Clip, Flip 3D, Stagger Blur), and Universal Export.
   * **Universal Multi-Target Export:**
     1) Vector PDF (lossless SVG print via `@page { size: 16in 9in; margin: 0; }`)
     2) Raster 4K PDF (high-density canvas snapshot)
@@ -91,6 +100,17 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 ### 4. Visual Chrome Browser Control & Live AI Cursor HUD (`chrome-browser-control`)
 - Controls headed Google Chrome GUI across Linux, macOS, and Windows via CDP on port `9223`.
 - Injects Live AI Cursor HUD (`ai-cursor-hud.js`) featuring animated cursor glide, golden highlight outlines, click ripple waves, and real-time status badges.
+
+### 5. Master Microstock 2D Flat Vector Engine (`svg-gen`)
+- **10 Iron Laws of Vector Construction**: Strict 2D flat vector standards guaranteeing 100% curation pass rate on Adobe Stock, Shutterstock, and Freepik.
+- **Microstock Engineering Standards**:
+  * Canvas resolution $\ge 15.0\text{ Megapixels}$ (`4000x4000`, `5000x5000`, or `5000x3000`).
+  * 100% closed compound paths ending in `Z` (`fill-rule="evenodd"`).
+  * Zero live strokes (`stroke-width = 0`), zero open polylines.
+  * Zero alpha raster effects (`opacity = 0`, `<filter> = 0`, `cairo_image = 0`).
+  * Zero text labels (`<text> = 0`) for universal international localization.
+  * 100% transparent background on icon sheets (transparent PNG badge).
+  * Automated Dublin Core RDF & XMP metadata embedding via Adobe Sensei SEO engine.
 
 ---
 

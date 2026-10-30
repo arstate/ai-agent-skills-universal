@@ -110,13 +110,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
     { type: 'timeline', label: 'Milestone Roadmap', desc: 'Phase progression flow' },
     { type: 'quote', label: 'Quote Spotlight', desc: 'Full-bleed doctrine citation' },
     { type: 'image', label: 'Image Hero', desc: 'Hero photo with narrative column' },
-    { type: 'ai-klyro-hero', label: '✨ AI Klyro Hero', desc: 'Vibrant agency display + lime photo' },
-    { type: 'ai-klyro-split-stats', label: '✨ AI Klyro Split Stats', desc: 'Vivid orange/lime split numbers' },
-    { type: 'ai-klyro-ticket-principles', label: '✨ AI Ticket Principles', desc: '4 vertical punched-hole tags' },
-    { type: 'ai-chuckle-retro-hero', label: '✨ AI Chuckle 3D Hero', desc: 'Chunky title & device frame' },
-    { type: 'ai-borcelle-donut-data', label: '✨ AI Donut Data', desc: 'Donut chart + 3 stat bars' },
-    { type: 'ai-borcelle-venn-diagram', label: '✨ AI Venn Diagram', desc: '3 overlapping circular Venn' },
-    { type: 'ai-fintech-ribbon-wave', label: '✨ AI Fintech Ribbon', desc: 'Fluid wavy curves & compliance' },
+    { type: 'ai-gen', label: '✨ AI GEN (Autonomous)', desc: 'Autonomous AI creative layout design' },
     { type: 'html', label: 'Arbitrary Standalone HTML', desc: 'Pure 1-slide = 1 HTML file standard' },
   ];
 

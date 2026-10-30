@@ -47,11 +47,12 @@ And verify global auto-boot rules:
 ### 1. Presentation Studio Engine: `next-slidedeck-engine`, `slide-design`, & `slidedeck-gen`
 - **Multi-Aesthetic Next.js Presentation Studio (`next-slidedeck-engine`):**
   * Custom lightweight studio built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
-  * **Full Creative Design Freedom (Never Locked to Dark Mode):** 26 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
-    - Light & Cream Editorial: Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink.
-    - Vibrant & Bold Accents: Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Cobalt (`#2563EB`), Neon Cyber (`#00FFCC`).
-    - Minimalist Dark: Obsidian Pure (`#000000`), Titanium Precision, Swiss Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal.
-    - **0% emoji/cartoon clutter:** Disciplined typography, mathematical grid alignment, and executive credibility.
+  * **Autonomous AI GEN Mode (Single Flexible Option):** Eliminates rigid template pickers in favor of 1 single `AI GEN (Autonomous Creative Layout)` option. The AI agent retains complete creative freedom to tailor visual geometry, kinetic accents, brand typography, and adaptive layouts per slide.
+  * **Full Creative Design Freedom (Never Locked to Dark Mode):** 39 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
+    - Light & Cream Editorial: Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink, Pin & Paper, Vellum, Neo Grid Bold.
+    - Vibrant & Bold Accents: Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Cobalt (`#2563EB`), Neon Cyber (`#00FFCC`), Sakura Chroma, Creative Mode.
+    - Minimalist Dark: Obsidian Pure (`#000000`), Titanium Precision, Swiss Dark, Editorial Noir, Graphite Telemetry, Velvet Charcoal, Editorial Forest, Cobalt Grid, Emerald Editorial.
+    - **0% emoji/cartoon clutter:** Disciplined typography, mathematical grid alignment, WCAG AAA contrast enforcement, and zero outer perimeter border strokes.
   * **Topbar Instant Light/Dark Toggle:** Seamlessly toggle between Light Mode and Dark Mode palettes with zero SSR hydration mismatch.
   * **3-Panel Studio Layout:**
     - Left Sidebar: Interactive slide filmstrip, add slide (8 layout templates: Cover, Key Metrics, Asymmetric Split 60/40, 3-Pillars, Bento Matrix, Quote Spotlight, Comparison Table, Milestone Timeline), reorder up/down, duplicate, delete.
@@ -86,6 +87,10 @@ And verify global auto-boot rules:
 ### 4. Visual Chrome Browser Control & Live AI Cursor HUD (`chrome-browser-control`)
 - Opens visible, headed Chrome GUI across Linux, macOS, and Windows on CDP port `9223`.
 - Injects Live AI Cursor HUD (`ai-cursor-hud.js`) with animated cursor motion, golden highlight outlines, click ripple waves, and real-time status badges.
+
+### 5. Master Microstock 2D Flat Vector Engine (`svg-gen`)
+- 10 Iron Laws of Vector Construction for Adobe Stock, Shutterstock, and Freepik.
+- Enforces 15+ MP resolution, 100% closed compound paths (Z), zero live strokes, zero raster alpha filters (cairo_image = 0), zero text, and automated Dublin Core RDF & XMP metadata embedding.
 
 ## Step 4: Confirm Setup
 After running the installation, type `/skills reload` (or restart your agent session) and reply:

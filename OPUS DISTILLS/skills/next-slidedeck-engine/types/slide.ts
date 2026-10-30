@@ -20,6 +20,7 @@ export type LayoutType =
   | 'code'
   | 'html'
   | 'bespoke'
+  | 'ai-gen'
   // Group 1: Covers & Hero Openers (10)
   | 'cover-headline'
   | 'cover-minimal'
@@ -248,6 +249,7 @@ export interface SlideElements {
     iconName?: string;
     color?: string;
   };
+  aiVariant?: string;
   titleColor?: string;
   subtitleColor?: string;
   footnote?: string;

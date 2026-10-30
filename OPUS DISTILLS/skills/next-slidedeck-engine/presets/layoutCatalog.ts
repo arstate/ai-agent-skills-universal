@@ -20,7 +20,7 @@ export const LAYOUT_CATEGORIES: string[] = [
   '08. Comparisons & Problem-Solution',
   '09. Timelines & Roadmaps',
   '10. Media, Visuals & Showcase',
-  '11. AI GEN & Bespoke Creative Layouts',
+  '11. AI GEN (Autonomous)',
 ];
 
 export const LAYOUT_CATALOG: LayoutDefinition[] = [
@@ -864,71 +864,15 @@ export const LAYOUT_CATALOG: LayoutDefinition[] = [
     desc: 'Pure 1-slide = 1 HTML file standard with unlimited creative freedom',
   },
   // ============================================================
-  // GROUP 11: AI GEN & BESPOKE CREATIVE LAYOUTS (USER REFS)
+  // GROUP 11: AI GEN (AUTONOMOUS CREATIVE ENGINE - SINGLE OPTION)
   // ============================================================
   {
-    id: 'ai-klyro-hero',
-    name: 'AI GEN · Klyro Kinetic Agency Hero',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'cover',
-    variant: 11,
-    desc: 'Bold grotesque display, kinetic flower icon, and lime bordered photo card',
-  },
-  {
-    id: 'ai-klyro-split-stats',
-    name: 'AI GEN · Klyro Split Stat Matrix',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'metrics',
-    variant: 11,
-    desc: 'Split container with massive 346 & 74 client stat blocks and spinning floral motif',
-  },
-  {
-    id: 'ai-klyro-ticket-principles',
-    name: 'AI GEN · Klyro Ticket-Stub Principles',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'process',
-    variant: 11,
-    desc: '4 vertical cards shaped like price tags with punched circle hole and colored heads',
-  },
-  {
-    id: 'ai-chuckle-retro-hero',
-    name: 'AI GEN · Chuckle 3D Device & Chunky Hero',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'cover',
-    variant: 12,
-    desc: 'Bold chunky title overlaying rounded white photo frame and retro device',
-  },
-  {
-    id: 'ai-borcelle-donut-data',
-    name: 'AI GEN · Borcelle Donut Chart & Stat Pillars',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'metrics',
-    variant: 12,
-    desc: 'Center-left donut chart data visualization with 3 colored stat bars',
-  },
-  {
-    id: 'ai-borcelle-venn-diagram',
-    name: 'AI GEN · Borcelle 3-Circle Venn Diagram',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'pillars',
-    variant: 11,
-    desc: 'Borcelle 3-Circle Venn Diagram: overlapping translucent Venn circles with glowing strategic pillar labels',
-  },
-  {
-    id: 'ai-fintech-ribbon-wave',
-    name: 'AI GEN · Fintech Fluid Wave Accent',
-    category: '11. AI GEN & Bespoke Creative Layouts',
-    archetype: 'split',
-    variant: 11,
-    desc: 'Flowing SVG ribbon curve traveling across modern cards with floating stat pills',
-  },
-  {
-    id: 'ai-bespoke-html',
-    name: 'AI GEN · Pure Bespoke Freeform Canvas',
-    category: '11. AI GEN & Bespoke Creative Layouts',
+    id: 'ai-gen',
+    name: 'AI GEN (Autonomous Creative Layout)',
+    category: '11. AI GEN (Autonomous)',
     archetype: 'html',
-    variant: 2,
-    desc: 'Full 1920x1080 unrestricted canvas with zero template rules',
+    variant: 1,
+    desc: 'Autonomous AI-generated slide with complete creative design freedom. AI agent determines visual layout, geometry, color accents, and typography adaptively without template locks.',
   },
 ];
 
@@ -944,6 +888,10 @@ LAYOUT_CATALOG.forEach((item) => {
  * Helper to resolve archetype and variant for any layout ID
  */
 export function resolveLayoutMeta(layoutId: string | LayoutType): LayoutDefinition {
+  if (layoutId === 'ai-gen' || (typeof layoutId === 'string' && layoutId.startsWith('ai-'))) {
+    return LAYOUT_CATALOG[LAYOUT_CATALOG.length - 1]; // The single AI GEN definition
+  }
+
   if (LAYOUT_LOOKUP[layoutId]) {
     return LAYOUT_LOOKUP[layoutId];
   }
