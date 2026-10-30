@@ -171,3 +171,27 @@ Every presentation deck is structured and stored per project on disk:
    - `ai-borcelle-venn-diagram`: Overlapping 3-circle Venn diagram with strategic pillar labels.
    - `ai-fintech-ribbon-wave`: Flowing SVG wavy liquid ribbon traveling across modern cards with floating stat pills.
    - `ai-bespoke-html`: Pure 1-slide = 1 HTML file mode with 100% arbitrary HTML/CSS freedom.
+
+---
+
+## 7. Aesthetic Fine-Tuning & WCAG AAA Contrast Guardrails (Autonomous AI Gen Mode)
+
+1. **Zero Artificial Canvas Perimeter Strokes:**
+   - The 16:9 canvas frame (`1920 × 1080 px`) MUST NEVER have an outer perimeter border stroke (`pointer-events-none absolute inset-0 border`). Slides must bleed cleanly to stage edges without clashing framing lines.
+2. **Context-Aware Adaptive Folio Dividers:**
+   - Divider borders (`border-b`, `border-t`) and micro-grids must adapt to the slide's specific background lightness:
+     - Dark slides: `rgba(255, 255, 255, 0.08)`
+     - Light slides: `rgba(0, 0, 0, 0.06)`
+   - NEVER inherit a bright neon green `#88EE00` border across all slides.
+3. **Strict Badge & Pill Contrast Law (Anti-Dead-Color Guard):**
+   - **Yellow/Amber Badges (`#FACC15` / `#F59E0B`):** Text MUST be dark charcoal (`#18181B`). NEVER use white text on yellow (zero contrast failure).
+   - **Dark Badges (`#18181B` / `#0F172A`):** Text MUST be pure crisp white (`#FFFFFF`). NEVER use dark navy or dark green on dark tags.
+   - **Vibrant Primary Badges (`#FF5722` / `#4F46E5` / `#38BDF8`):** Text MUST have >= 4.5:1 contrast against tag background.
+4. **Radiant Metric Contrast on Dark Cards:**
+   - NEVER assign dark navy `#0F172A` or dark slate to metric values inside dark cards (`#181820` / `#1E1E24`).
+   - Use high-luminance primaries: Electric Sky Blue (`#38BDF8`), Coral Orange (`#FF6422`), Neon Chartreuse (`#D4FF00`), or Pure White (`#FFFFFF`).
+5. **1080p Canvas Typography Scale (Anti-Kekecilan):**
+   - Base canvas is 1920×1080. Microprint (`text-xs` / 12px) is unreadable in presentations.
+   - Footnotes & Page Numbers: `text-sm` to `text-base` font-mono font-bold (`14px`–`16px`).
+   - Pillar / Card Body Text: `text-xl` to `text-2xl` font-bold with `text-base` subtext.
+   - Metric Headlines: `text-7xl` to `text-9xl` font-black (`80px`–`120px`).
