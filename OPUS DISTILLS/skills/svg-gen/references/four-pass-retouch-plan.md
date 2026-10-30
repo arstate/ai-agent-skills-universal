@@ -73,19 +73,23 @@ Dokumentasi arsitektur progresif 4 tahap (/svg-gen v4.0) untuk menghasilkan set 
   4. **Concentric Metric Data Pucks:** Simpul data di setiap koordinat bar berupa lingkaran 3 lapis: ring luar gelap, ring tengah glow cyan, dan inti putih bersih.
   5. **Floating Metric Tag:** Lencana pil hijau (+38.5% Growth) dengan panah mini chevron `▲` yang mengambang di atas chart.
 
-### Hukum 5: Unified Harmonized Backdrop System (Anti-Circus Colors)
-* **Larangan Keras:** Dilarang memberikan warna latar belakang acak-acakan (satu kuning mencolok, satu hijau, satu merah muda, satu biru) yang membuat icon pack terlihat seperti sirkus anak-anak.
+### Hukum 5: Law of Grounded Integrity (Integrated Platforms & Direct Ground Shadows)
+* **Larangan Keras:** Dilarang menempatkan piringan lingkaran pastel (*circle backdrop medallions*) di belakang ikon korporat dan dilarang keras menaruh kapsul bayangan abu-abu melayang (*detached floating ground shadow pills*) yang terpisah di ruang hampa! Hal tersebut membuat ikon terlihat seperti stiker murahan era 2012.
 * **Standar Mutu:**
-  - Seluruh ikon dalam 1 paket wajib menggunakan sistem piringan latar (*backdrop medallions*) yang serasi dengan tingkat kecerahan tinggi (*high-key pastel tints*, Luminance > 96%):
-    - FinTech / B2B: Ice Blue (`#F0F9FF`), Slate Platinum (`#F8FAFC`), Mint Aura (`#ECFDF5`), Indigo Sky (`#EEF2FF`).
-  - Setiap piringan dilengkapi aksen busur sabit lembut di pojok kiri atas dan kapsul bayangan tanah (*ground shadow pill*) di bagian bawah (`y = 640..710`).
+  1. **Clean Isolated Canvas:** Aset ikon korporat B2B wajib bersih di atas kanvas putih `#FFFFFF` sehingga pembeli dapat langsung menyeleksi dan mengekspor ikon secara instan.
+  2. **Direct Contact Shadow:** Jika bayangan bawah digunakan, bentuk bayangan wajib langsung menyentuh (*direct contact base*) dasar objek (misal: di bawah plinth tangga bank, dasar dompet, dasar chassis ponsel, atau datum plinth chart), bukan melayang 40px di udara.
 
-### Hukum 6: Tangent & Clearance Guard (>= 50px Rule)
-* Seluruh elemen melayang (koin emas, sparkle bintang, badge tag) WAJIB memiliki jarak bebas minimal **50px** dari batas tepi bangunan, atap, dompet, atau piringan latar belakang.
-* Dilarang menempelkan koin emas secara tumpang-tindih canggung di atas lereng atap pediment! Berikan ruang bernapas yang elegan.
+### Hukum 6: Law of Professional B2B Aesthetics (Anti-Fairy Sparkle & Anti-Spam Coins)
+* **Larangan Keras:** 
+  1. Dilarang menambahkan bintang sparkle 4 titik (*4-point fairy diamond sparkles*) pada set ikon korporat, perbankan, dan fintech! Efek kilau peri membuat aset B2B terlihat kekanak-kanakan dan tidak profesional.
+  2. Dilarang menempelkan koin emas klise secara seragam di sudut setiap ikon atau menempelkannya di atas lereng atap segitiga pediment!
+* **Standar Mutu:**
+  1. **Authentic Architectural Crest:** Bangunan bank menggunakan lambang perisai keamanan (*security crest / balance scales*) geometris di dalam tympanum pediment, bukan koin kartun yang ditempel di genteng.
+  2. **Real UI Data & Integrated Wealth:** Ponsel menampilkan rincian transaksi nyata di layar; grafik pertumbuhan menampilkan batangan emas murni (*gold bullion bar*) yang duduk rapi di atas datum plinth.
+  3. **Strict Tangent Clearance (>= 50px):** Seluruh elemen visual memiliki jarak bernapas minimal 50px dari tepi kanvas dan antar objek.
 
-### Hukum 7: Specular Micro-Accents & 10-Gate Adobe Stock Compliance
-* **Specular Highlights:** Tambahkan aksen pantulan sabit emas (`#FEF08A`) pada koin dolar, kilau garis putih pada tepi kaca ponsel, dan sparkle 4 titik emas (`#F59E0B`).
+### Hukum 7: Specular Micro-Glints & 10-Gate Adobe Stock Compliance
+* **Specular Highlights:** Tambahkan aksen pantulan sabit emas (`#FEF08A`) pada kancing snap kuningan dan kontak EMV chip, sapuan pantulan cahaya diagonal 2D pada kaca ponsel, serta bevel specular pada batangan emas.
 * **10-Gate Absolute Audit:**
   - 100% path ditutup dengan `Z`.
   - 0 live stroke (seluruh outline wajib berupa bidang isi / filled ribbons).

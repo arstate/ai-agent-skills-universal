@@ -3,19 +3,19 @@ name: svg-gen
 description: 4-Pass Progressive 2D Flat Vector & Icon Set Engineering Skill for Adobe Stock Contributor (Pass 1 Clean Skeleton -> Pass 2 Split-Tone Shading -> Pass 3 Micro-Details -> Pass 4 Artifact Purge & Final Retouch, 15+ MP, Auto-Fit Preview, Zero Live Strokes, Zero Cairo Raster EPS).
 ---
 
-# /svg-gen (v4.1) — 4-Pass Progressive Vector & Artifact-Purge Skill
+# /svg-gen (v4.2) — 4-Pass Progressive Vector & Artifact-Purge Skill
 
 ## Overview
-`/svg-gen` v4.1 eliminates AI vector hallucinations and geometry artifacts by enforcing a strict **4-Pass Progressive Vector Pipeline** and the **7 Iron Laws of Commercial Craft** (anti-clipart engineering for both seasonal and high-ticket B2B corporate assets):
-- **Pass 1 (`*_pass1_skeleton.svg`):** Clean & simple base silhouettes, keyline proportions, 2–3 flat colors.
-- **Pass 2 (`*_pass2_shading.svg`):** Harmonized high-key pastel backdrops (Luminance > 96%), ground shadows, and volumetric planar split-tone shading (zero alpha opacity, multi-tone fluting, no candy-cane splits).
-- **Pass 3 (`*_pass3_details.svg`):** Specular crescent highlights, compound loops, UI data visualization, fanned card angles, Guilloche seals, and 4-point diamond sparkles.
-- **Pass 4 (`*_pass4_final.svg`):** Adversarial Artifact Forensics & Final Retouch (arc-clipping overhangs, fixing tangent collisions with >= 50px clearance, micro-specular accents, and locking 10/10 Adobe Stock Gates).
+`/svg-gen` v4.2 eliminates AI vector hallucinations, amateur clipart geometry, and tacky embellishments by enforcing a strict **4-Pass Progressive Vector Pipeline** and the **True 7 Iron Laws of Commercial Vector Craft** (anti-clipart engineering for both high-ticket B2B corporate assets and seasonal packs):
+- **Pass 1 (`*_pass1_skeleton.svg`):** Clean & simple base silhouettes, keyline proportions, 2–3 flat colors, origin centered.
+- **Pass 2 (`*_pass2_shading.svg`):** Grounded bases and volumetric 2D planar split-tone shading (directional lighting from top-left, zero alpha opacity, multi-tone fluting; strictly banned: detached floating pills and tacky pastel circle discs).
+- **Pass 3 (`*_pass3_details.svg`):** Authentic craftsmanship: architectural capitals & dentils, realistic fanned cards with EMV chip tracks & NFC wave arcs, live mobile app UI with verified badge, ascending volume bars with milestone data nodes (strictly banned: juvenile 4-point magic fairy sparkles and spammy copy-paste coins).
+- **Pass 4 (`*_pass4_final.svg`):** Adversarial Artifact Forensics & Final Retouch (specular crescent highlights, glass light sweeps, metallic bevel glints, tangent clearances >= 50px, arc-clipping math, and locking 10/10 Adobe Stock Quality Gates).
 
 ---
 
 ## 📚 Mandatory References to Read (Akses via `read_file`)
-1. Read `references/four-pass-retouch-plan.md` before writing any SVG coordinates (contains the 7 Iron Laws of Commercial Craft: Classical Architecture, Fanned Overlaps, UI Intelligence, Volume Bars, Harmonized Backdrops, Strict Clearance, Specular Glints).
+1. Read `references/four-pass-retouch-plan.md` before writing any SVG coordinates (contains the True 7 Iron Laws of Commercial Vector Craft: Authentic Architecture, Fanned Overlaps, Live Gadget UI Intelligence, Volume Bar Cadence, Grounded Integrity, Professional B2B Aesthetics, Specular Glints & 10-Gate Lock).
 2. Read `references/adobe-stock-guidelines.md` for the 10 Iron Laws of Adobe Stock compliance.
 3. Read `references/core-rules.md` for coordinate grid systems and auto-fit declaration.
 4. Read `references/two-pass-retouch-rules.md` for planar split-tone shading math (anti-mechanical split rule).
@@ -41,21 +41,24 @@ Always start directly with `<svg>` (no `<?xml ...?>` wrapper that blocks markdow
   └─ Lock 100% accurate silhouettes and origin: <g transform="translate(cx, cy)">
          │
          ▼
-[PASS 2: Volumetric 2D Split-Tone Shading (*_pass2_shading.svg)]
-  ├─ Pastel circular backdrop + ground shadow capsule pill
-  └─ Split symmetrical shapes: Left Sunlit Plane (Hex solid) / Right Shaded Plane (Zero Opacity!)
+[PASS 2: Volumetric 2D Planar Shading & Grounded Bases (*_pass2_shading.svg)]
+  ├─ Directional light from top-left (135° azimuth)
+  ├─ Integrated grounding base (strictly NO detached floating pills or circle badges)
+  └─ Split planar facets: Sunlit Plane (Hex solid) / Shaded Plane (Zero Opacity!)
          │
          ▼
-[PASS 3: Commercial Micro-Details & Surface Gloss (*_pass3_details.svg)]
-  ├─ Specular crescent highlights & compound loops (fill-rule="evenodd")
-  └─ Surface motifs, diamonds, baubles, and 4-point diamond sparkles
+[PASS 3: Commercial Micro-Details & Craftsmanship (*_pass3_details.svg)]
+  ├─ Real architectural capitals, dentils, and entrance portals
+  ├─ Dynamic fanned cards with EMV chip tracks, contactless waves, saddle stitches
+  ├─ Live device UI with status bar, virtual card, verified badge, transaction pills
+  └─ Ascending volume bars, trendline spline ribbon, concentric data node pucks
          │
          ▼
 [PASS 4: Adversarial Artifact Purge & Final Retouch (*_pass4_final.svg)]
   ├─ Fix Secant Overhang (Arc-Clipping Math: A r,r with Δx = √(R² - Δy²))
-  ├─ Fix Tangent Collisions (ensure ≥ 25–40px clearance from outer bounds)
-  ├─ Add Secondary Micro-Highlights & Botanical Framing (holly leaves & ribbon knots)
-  └─ 10-Gate Final Lock: 100% closed paths (Z), 0 live strokes, 0 text, 0 opacity
+  ├─ Fix Tangent Collisions (ensure ≥ 50px clearance from outer bounds)
+  ├─ Specular micro-glints (crescents on snaps/chips, glass reflection sweep, metallic sheen)
+  └─ 10-Gate Final Lock: 100% closed paths (Z), 0 live strokes, 0 text, 0 opacity, >= 15 MP
 ```
 
 ---
