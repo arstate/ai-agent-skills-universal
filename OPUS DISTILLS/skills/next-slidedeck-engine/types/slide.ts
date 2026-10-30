@@ -7,6 +7,7 @@ export type LayoutType =
   | 'quote'
   | 'comparison'
   | 'timeline'
+  | 'image'
   | 'code'
   | 'html'
   | 'bespoke';
@@ -20,6 +21,20 @@ export type TransitionType =
   | 'clip-reveal'
   | 'flip-3d'
   | 'stagger-blur';
+
+export interface SlideImage {
+  url: string;
+  alt?: string;
+  caption?: string;
+  objectFit?: 'cover' | 'contain' | 'none'; // Default 'cover' to ensure zero stretching!
+  aspectRatio?: '16/9' | '4/3' | '1/1' | '3/4' | '2/3' | 'auto';
+  scale?: number; // 1.0 = 100%, 1.2 = 120%, up to 2.5
+  positionX?: number; // 0% - 100%, default 50%
+  positionY?: number; // 0% - 100%, default 50%
+  borderRadius?: number; // 0 for architectural sharp, 4, 8, etc.
+  border?: boolean; // Optical hairline border
+  filter?: string; // e.g. 'none', 'grayscale(100%)', 'contrast(110%)'
+}
 
 export interface MetricItem {
   id: string;
@@ -51,6 +66,7 @@ export interface BentoCard {
   badge?: string;
   iconName?: string;
   color?: string;
+  image?: SlideImage;
 }
 
 export interface TimelineItem {
@@ -62,6 +78,8 @@ export interface TimelineItem {
 }
 
 export interface SlideElements {
+  image?: SlideImage;
+  images?: SlideImage[];
   metrics?: MetricItem[];
   pillars?: PillarItem[];
   bentoCards?: BentoCard[];

@@ -38,7 +38,7 @@ console.log('[PASS] Checked next-slidedeck-engine: 0% emojis found.');
 const exportEnginePath = path.join(engineDir, 'export/ExportEngine.ts');
 const exportEngineContent = fs.readFileSync(exportEnginePath, 'utf8');
 
-const requiredLayouts = ['cover', 'metrics', 'split', 'pillars', 'bento', 'quote', 'comparison'];
+const requiredLayouts = ['cover', 'metrics', 'split', 'pillars', 'bento', 'quote', 'comparison', 'image'];
 for (const layout of requiredLayouts) {
   assert(exportEngineContent.includes(`case '${layout}':`), `ExportEngine must support SVG export for layout: ${layout}`);
 }

@@ -77,6 +77,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
     { type: 'quote', label: 'Quote Spotlight' },
     { type: 'comparison', label: 'Comparison' },
     { type: 'timeline', label: 'Timeline' },
+    { type: 'image', label: 'Image Hero' },
     { type: 'html', label: 'Arbitrary HTML' },
   ];
 

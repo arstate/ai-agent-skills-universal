@@ -4,7 +4,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Slide, ThemeConfig, TransitionConfig } from '../../types/slide';
 import { SlideRenderer } from '../slides/SlideRenderer';
 import { SvgIcon } from '../slides/SvgIcon';
-import { Sparkles, Palette, Plus, MousePointerClick, Type, Shield, Layers, Trash2, X, Check } from 'lucide-react';
+import { ImageEditorModal } from './ImageEditorModal';
+import { DEFAULT_SLIDE_IMAGE } from '../../presets/curatedPhotos';
+import { Sparkles, Palette, Plus, MousePointerClick, Type, Shield, Layers, Trash2, X, Check, Image as ImageIcon, Crop } from 'lucide-react';
 
 interface CenterCanvasProps {
   slide: Slide;
@@ -33,6 +35,8 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
   const [scale, setScale] = useState<number>(0.6);
   const [showIconPicker, setShowIconPicker] = useState<boolean>(false);
   const [selectedElementId, setSelectedElementId] = useState<string | null>(null);
+  const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
+  const [activeImageKey, setActiveImageKey] = useState<string>('slide-image');
 
   // Available mathematical SVG icons for vector design elements (0% Emojis)
   const availableIcons = [
@@ -479,6 +483,28 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
             <span>+ ITEM</span>
           </button>
 
+          {/* Format / Add Slide Image Action */}
+          <button
+            onClick={() => {
+              if (!slide.elements.image) {
+                onUpdateActiveSlide?.((prev) => ({
+                  ...prev,
+                  elements: {
+                    ...prev.elements,
+                    image: DEFAULT_SLIDE_IMAGE,
+                  },
+                }));
+              }
+              setActiveImageKey('slide-image');
+              setIsImageModalOpen(true);
+            }}
+            className="flex items-center gap-1.5 border border-[#27272a] hover:border-emerald-400 bg-[#141418] hover:bg-[#1c1c22] px-2.5 py-1 text-[11px] text-white transition-all shrink-0"
+            title="Add or format slide image (upload file, paste URL, crop, scale, aspect ratio)"
+          >
+            <ImageIcon className="h-3 w-3 text-emerald-400" />
+            <span>{slide.elements.image ? 'FORMAT IMAGE' : '+ IMAGE'}</span>
+          </button>
+
           {/* Delete Selected Item */}
           {isDeletable && (
             <button
@@ -520,8 +546,50 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
           selectedId={selectedElementId}
           onSelectElement={setSelectedElementId}
           onUpdateSlide={onUpdateActiveSlide}
+          onOpenImageEditor={(key) => {
+            setActiveImageKey(key);
+            setIsImageModalOpen(true);
+          }}
         />
       </div>
+
+      {/* High-Precision Image Formatting & Crop Workstation Modal */}
+      {isImageModalOpen && (
+        <ImageEditorModal
+          isOpen={isImageModalOpen}
+          onClose={() => setIsImageModalOpen(false)}
+          image={
+            activeImageKey.startsWith('bento-')
+              ? (() => {
+                  const idx = parseInt(activeImageKey.replace('bento-', '').replace('-img', ''), 10);
+                  return slide.elements.bentoCards?.[idx]?.image || DEFAULT_SLIDE_IMAGE;
+                })()
+              : slide.elements.image || DEFAULT_SLIDE_IMAGE
+          }
+          theme={theme}
+          isStudioLight={studioMode === 'light'}
+          onSave={(updatedImage) => {
+            if (activeImageKey.startsWith('bento-')) {
+              const idx = parseInt(activeImageKey.replace('bento-', '').replace('-img', ''), 10);
+              onUpdateActiveSlide?.((prev) => {
+                const updated = [...(prev.elements.bentoCards || [])];
+                if (updated[idx]) {
+                  updated[idx] = { ...updated[idx], image: updatedImage };
+                }
+                return { ...prev, elements: { ...prev.elements, bentoCards: updated } };
+              });
+            } else {
+              onUpdateActiveSlide?.((prev) => ({
+                ...prev,
+                elements: {
+                  ...prev.elements,
+                  image: updatedImage,
+                },
+              }));
+            }
+          }}
+        />
+      )}
     </main>
   );
 };

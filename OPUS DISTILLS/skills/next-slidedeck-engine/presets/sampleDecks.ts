@@ -491,6 +491,35 @@ export const GEMINI_ARGON_DECK: SlideDeck = {
         footnote: 'ARGON TELEMETRY SPECIFICATION · PRODUCTION GRADE PLATFORM',
       },
     },
+    {
+      id: 'argon-slide-6',
+      kicker: 'PHYSICAL TELEMETRY · OPTICAL HARDWARE',
+      title: 'Silicon Substrate & Optoelectronic Integration',
+      subtitle: 'Deterministic optical interconnects operating across distributed neural compute enclaves.',
+      layout: 'image',
+      elements: {
+        callout: {
+          kicker: 'HARDWARE SUBSTRATE',
+          title: 'Direct Optical Routing',
+          text: 'Lossless sub-nanosecond optical transport across multi-chassis wafer-scale matrix fabrics.',
+          iconName: 'target',
+          color: '#06B6D4',
+        },
+        image: {
+          url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80',
+          alt: 'Silicon Micro-optics Hardware',
+          caption: 'OPTICAL WAFER FABRIC · 1080P FIELD TELEMETRY',
+          objectFit: 'cover',
+          aspectRatio: '16/9',
+          scale: 1.0,
+          positionX: 50,
+          positionY: 50,
+          borderRadius: 0,
+          border: true,
+        },
+        footnote: 'OPTICAL TELEMETRY SPECIFICATION · HARDWARE FABRIC 2026',
+      },
+    },
   ],
 };
 

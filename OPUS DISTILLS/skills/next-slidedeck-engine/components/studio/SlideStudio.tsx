@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { SlideDeck, Slide, LayoutType, TransitionType } from '../../types/slide';
 import { INITIAL_DECK, GEMINI_ARGON_DECK, SAMPLE_DECKS } from '../../presets/sampleDecks';
 import { THEMES, isColorLight } from '../../presets/themes';
+import { DEFAULT_SLIDE_IMAGE } from '../../presets/curatedPhotos';
 import { TopBar } from './TopBar';
 import { LeftSidebar } from './LeftSidebar';
 import { CenterCanvas } from './CenterCanvas';
@@ -140,6 +141,7 @@ export const SlideStudio: React.FC = () => {
       layout,
       elements: {
         footnote: 'CONFIDENTIAL · REPRODUCIBLE VECTOR SYSTEM',
+        image: layout === 'image' ? DEFAULT_SLIDE_IMAGE : undefined,
         bullets: ['First strategic observation', 'Secondary analytical finding'],
         metrics: [
           { id: `m-${Date.now()}-1`, value: '100%', label: 'ACCURACY', subtext: 'Lossless' },

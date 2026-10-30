@@ -99,6 +99,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
     { type: 'quote', label: 'Quote Spotlight', desc: 'Full-bleed doctrine citation' },
     { type: 'comparison', label: 'Comparison Matrix', desc: 'Dual column side-by-side' },
     { type: 'timeline', label: 'Milestone Roadmap', desc: 'Phase progression flow' },
+    { type: 'image', label: 'Image Hero', desc: 'Hero photo with narrative column' },
     { type: 'html', label: 'Arbitrary Standalone HTML', desc: 'Pure 1-slide = 1 HTML file standard' },
   ];
 

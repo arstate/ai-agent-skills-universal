@@ -4,6 +4,8 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Slide, ThemeConfig, TransitionConfig } from '../../types/slide';
 import { SvgIcon, TelemetryCrosshair, StatusPill } from './SvgIcon';
+import { SlideImageFrame } from './SlideImageFrame';
+import { DEFAULT_SLIDE_IMAGE } from '../../presets/curatedPhotos';
 
 interface SlideRendererProps {
   slide: Slide;
@@ -16,6 +18,7 @@ interface SlideRendererProps {
   selectedId?: string | null;
   onSelectElement?: (id: string | null) => void;
   onUpdateSlide?: (updater: (prev: Slide) => Slide) => void;
+  onOpenImageEditor?: (imageKey: string) => void;
 }
 
 interface EditableTextProps {
@@ -127,6 +130,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
   selectedId = null,
   onSelectElement,
   onUpdateSlide,
+  onOpenImageEditor,
 }) => {
   // Determine motion transition variants based on configured transition type
   const getVariants = () => {
@@ -339,7 +343,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
 
           {/* MAIN BODY AREA DEPENDING ON LAYOUT */}
           <div className="my-auto flex flex-1 flex-col justify-center py-2 min-h-0">
-            {renderLayoutContent(slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide)}
+            {renderLayoutContent(slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor)}
           </div>
 
           {/* BOTTOM FOOTER / TELEMETRY */}
@@ -388,7 +392,8 @@ function renderLayoutContent(
   isEditMode: boolean = false,
   selectedId?: string | null,
   onSelectElement?: (id: string | null) => void,
-  onUpdateSlide?: (updater: (prev: Slide) => Slide) => void
+  onUpdateSlide?: (updater: (prev: Slide) => Slide) => void,
+  onOpenImageEditor?: (imageKey: string) => void
 ) {
   // Support rendering arbitrary, rich, standalone HTML slides (pure 1-slide = 1 HTML file standard)
   if (slide.rawHtml || slide.elements?.rawHtml) {
@@ -781,61 +786,219 @@ function renderLayoutContent(
             </div>
 
             {/* Right Column (7 Cols) */}
-            <div className="col-span-7 min-w-0 flex flex-col gap-3.5">
-              {slide.elements.bullets?.map((bullet, i) => {
-                const bulletIcons = ['network', 'layers', 'terminal', 'shield', 'zap'];
-                const iconName = bulletIcons[i % bulletIcons.length];
-                const bulletId = `bullet-${i}`;
-                const isBulletSelected = selectedId === bulletId;
+            <div className="col-span-7 min-w-0 flex flex-col justify-center">
+              {slide.elements.image ? (
+                <SlideImageFrame
+                  image={slide.elements.image}
+                  theme={theme}
+                  isEditMode={isEditMode}
+                  isSelected={selectedId === 'slide-image'}
+                  onSelect={() => onSelectElement?.('slide-image')}
+                  onOpenEditor={() => onOpenImageEditor?.('slide-image')}
+                  onUpdateCaption={(cap) =>
+                    onUpdateSlide?.((prev) => ({
+                      ...prev,
+                      elements: {
+                        ...prev.elements,
+                        image: { ...(prev.elements.image || DEFAULT_SLIDE_IMAGE), caption: cap },
+                      },
+                    }))
+                  }
+                />
+              ) : (
+                <div className="flex flex-col gap-3.5">
+                  {slide.elements.bullets?.map((bullet, i) => {
+                    const bulletIcons = ['network', 'layers', 'terminal', 'shield', 'zap'];
+                    const iconName = bulletIcons[i % bulletIcons.length];
+                    const bulletId = `bullet-${i}`;
+                    const isBulletSelected = selectedId === bulletId;
+                    return (
+                      <div
+                        key={i}
+                        onClick={(e) => {
+                          if (isEditMode) {
+                            e.stopPropagation();
+                            onSelectElement?.(bulletId);
+                          }
+                        }}
+                        className={`relative flex items-start gap-4 border px-6 py-5 transition-all ${
+                          isBulletSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-md' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
+                        }`}
+                        style={{
+                          backgroundColor: theme.surfaceRaised,
+                          borderColor: isBulletSelected ? '#10B981' : theme.border,
+                        }}
+                      >
+                        <div
+                          className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center border"
+                          style={{ borderColor: theme.border, backgroundColor: theme.surface }}
+                        >
+                          <SvgIcon name={iconName} size={16} color={theme.accent} />
+                        </div>
+                        <div
+                          className="text-lg font-medium leading-relaxed flex-1"
+                          style={{ color: theme.textPrimary }}
+                        >
+                          <EditableText
+                            value={bullet}
+                            isEditMode={isEditMode}
+                            isSelected={selectedId === bulletId}
+                            onSelect={() => onSelectElement?.(bulletId)}
+                            onSave={(val) =>
+                              onUpdateSlide?.((prev) => {
+                                const updated = [...(prev.elements.bullets || [])];
+                                updated[i] = val;
+                                return { ...prev, elements: { ...prev.elements, bullets: updated } };
+                              })
+                            }
+                            as="p"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'image': {
+      const slideImg = slide.elements.image || DEFAULT_SLIDE_IMAGE;
+      const isImgSelected = selectedId === 'slide-image';
+      return (
+        <div className="flex flex-col justify-center">
+          <div className="grid grid-cols-12 gap-14 items-center">
+            {/* Left Narrative Column (5 Cols) */}
+            <div className="col-span-5 min-w-0 flex flex-col justify-center">
+              <motion.div
+                className="text-5xl lg:text-6xl font-black tracking-tight mb-5 leading-tight"
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
+              >
+                <EditableText
+                  value={slide.title}
+                  isEditMode={isEditMode}
+                  isSelected={selectedId === 'title'}
+                  onSelect={() => onSelectElement?.('title')}
+                  onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                  style={{ color: slide.elements.titleColor || theme.textPrimary }}
+                  as="h2"
+                />
+              </motion.div>
+              <div
+                className="text-xl font-normal leading-relaxed mb-6"
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
+              >
+                <EditableText
+                  value={slide.subtitle}
+                  isEditMode={isEditMode}
+                  isSelected={selectedId === 'subtitle'}
+                  onSelect={() => onSelectElement?.('subtitle')}
+                  onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                  style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
+                  as="p"
+                />
+              </div>
+
+              {/* Dynamic Callout Feature Box */}
+              {(() => {
+                const callout = slide.elements.callout || {
+                  kicker: 'OPTICAL PRECISION',
+                  text: 'Strict 16:9 geometry lock and zero-stretch focal calibration prevent visual distortion on any stage.',
+                  iconName: 'target',
+                  color: theme.accent,
+                };
+                const isCalloutSelected = selectedId === 'callout';
+                const calloutColor = callout.color || theme.accent;
                 return (
                   <div
-                    key={i}
                     onClick={(e) => {
                       if (isEditMode) {
                         e.stopPropagation();
-                        onSelectElement?.(bulletId);
+                        onSelectElement?.('callout');
                       }
                     }}
-                    className={`relative flex items-start gap-4 border px-6 py-5 transition-all ${
-                      isBulletSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-md' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
+                    className={`relative border px-6 py-5 transition-all ${
+                      isCalloutSelected ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg' : isEditMode ? 'hover:border-zinc-500 cursor-pointer' : ''
                     }`}
                     style={{
-                      backgroundColor: theme.surfaceRaised,
-                      borderColor: isBulletSelected ? '#10B981' : theme.border,
+                      backgroundColor: theme.surface,
+                      borderColor: isCalloutSelected ? '#10B981' : callout.color ? callout.color + '66' : theme.border,
                     }}
                   >
-                    <div
-                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center border"
-                      style={{ borderColor: theme.border, backgroundColor: theme.surface }}
-                    >
-                      <SvgIcon name={iconName} size={16} color={theme.accent} />
-                    </div>
-                    <div
-                      className="text-lg font-medium leading-relaxed flex-1"
-                      style={{ color: theme.textPrimary }}
-                    >
+                    {callout.color && (
+                      <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: callout.color }} />
+                    )}
+                    <TelemetryCrosshair color={callout.color || theme.textMuted} className="absolute top-2.5 right-2.5" />
+                    <div className="flex items-center gap-2.5 mb-2.5">
+                      <SvgIcon name={callout.iconName || 'target'} size={16} color={calloutColor} />
                       <EditableText
-                        value={bullet}
+                        value={callout.kicker || 'FIELD TELEMETRY'}
                         isEditMode={isEditMode}
-                        isSelected={selectedId === bulletId}
-                        onSelect={() => onSelectElement?.(bulletId)}
+                        isSelected={selectedId === 'callout-kicker'}
+                        onSelect={() => onSelectElement?.('callout')}
                         onSave={(val) =>
-                          onUpdateSlide?.((prev) => {
-                            const updated = [...(prev.elements.bullets || [])];
-                            updated[i] = val;
-                            return { ...prev, elements: { ...prev.elements, bullets: updated } };
-                          })
+                          onUpdateSlide?.((prev) => ({
+                            ...prev,
+                            elements: {
+                              ...prev.elements,
+                              callout: { ...(prev.elements.callout || callout), kicker: val },
+                            },
+                          }))
+                        }
+                        className="text-sm font-mono uppercase tracking-widest font-bold"
+                        style={{ color: calloutColor }}
+                        as="span"
+                      />
+                    </div>
+                    <div className="text-base font-medium leading-relaxed" style={{ color: theme.textPrimary }}>
+                      <EditableText
+                        value={callout.text}
+                        isEditMode={isEditMode}
+                        isSelected={selectedId === 'callout-text'}
+                        onSelect={() => onSelectElement?.('callout')}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => ({
+                            ...prev,
+                            elements: {
+                              ...prev.elements,
+                              callout: { ...(prev.elements.callout || callout), text: val },
+                            },
+                          }))
                         }
                         as="p"
                       />
                     </div>
                   </div>
                 );
-              })}
+              })()}
+            </div>
+
+            {/* Right Column: SlideImageFrame (7 Cols) */}
+            <div className="col-span-7 min-w-0 flex flex-col justify-center">
+              <SlideImageFrame
+                image={slideImg}
+                theme={theme}
+                isEditMode={isEditMode}
+                isSelected={isImgSelected}
+                onSelect={() => onSelectElement?.('slide-image')}
+                onOpenEditor={() => onOpenImageEditor?.('slide-image')}
+                onUpdateCaption={(cap) =>
+                  onUpdateSlide?.((prev) => ({
+                    ...prev,
+                    elements: {
+                      ...prev.elements,
+                      image: { ...(prev.elements.image || DEFAULT_SLIDE_IMAGE), caption: cap },
+                    },
+                  }))
+                }
+              />
             </div>
           </div>
         </div>
       );
+    }
 
     case 'pillars':
     case 'timeline':
@@ -1099,6 +1262,19 @@ function renderLayoutContent(
                         />
                       )}
                     </div>
+                    {card.image && (
+                      <div className="my-2.5">
+                        <SlideImageFrame
+                          image={card.image}
+                          theme={theme}
+                          isEditMode={isEditMode}
+                          isSelected={selectedId === `${cardId}-img`}
+                          onSelect={() => onSelectElement?.(`${cardId}-img`)}
+                          onOpenEditor={() => onOpenImageEditor?.(`bento-${i}-img`)}
+                          aspectRatioOverride="16/9"
+                        />
+                      </div>
+                    )}
                     <div
                       className="text-2xl font-bold tracking-tight mb-2"
                       style={{ color: theme.textPrimary }}

@@ -359,6 +359,105 @@ export class ExportEngine {
             color: theme.textPrimary.replace('#', ''),
           });
         });
+      } else if (slide.layout === 'image') {
+        // Image Hero Layout: Left column (Headline, Subtitle, optional Callout), Right column (Zero-stretch image)
+        pptSlide.addText(slide.title, {
+          x: 0.8,
+          y: 1.3,
+          w: 5.2,
+          h: 1.1,
+          fontSize: 26,
+          fontFace: 'Arial',
+          bold: true,
+          color: (slide.elements.titleColor || theme.textPrimary).replace('#', ''),
+        });
+
+        if (slide.subtitle) {
+          pptSlide.addText(slide.subtitle, {
+            x: 0.8,
+            y: 2.45,
+            w: 5.2,
+            h: 0.8,
+            fontSize: 12,
+            fontFace: 'Arial',
+            color: (slide.elements.subtitleColor || theme.textSecondary).replace('#', ''),
+          });
+        }
+
+        const callout = slide.elements.callout;
+        if (callout) {
+          const calloutColor = (callout.color || theme.accent).replace('#', '');
+          pptSlide.addShape(pres.ShapeType.rect, {
+            x: 0.8,
+            y: 3.4,
+            w: 5.2,
+            h: 2.8,
+            fill: { color: theme.surface.replace('#', '') },
+            line: { color: calloutColor || theme.border.replace('#', ''), width: 1 },
+          });
+
+          pptSlide.addText(callout.kicker || 'EDITORIAL SPECIFICATION', {
+            x: 1.0,
+            y: 3.6,
+            w: 4.8,
+            h: 0.25,
+            fontSize: 9,
+            bold: true,
+            color: calloutColor,
+          });
+
+          if (callout.title) {
+            pptSlide.addText(callout.title, {
+              x: 1.0,
+              y: 3.95,
+              w: 4.8,
+              h: 0.4,
+              fontSize: 13,
+              bold: true,
+              color: theme.textPrimary.replace('#', ''),
+            });
+          }
+
+          pptSlide.addText(callout.text, {
+            x: 1.0,
+            y: callout.title ? 4.45 : 3.95,
+            w: 4.8,
+            h: 1.6,
+            fontSize: 10.5,
+            color: theme.textSecondary.replace('#', ''),
+          });
+        }
+
+        const img = slide.elements.image;
+        if (img?.url) {
+          try {
+            pptSlide.addImage({
+              path: img.url,
+              x: 6.3,
+              y: 1.3,
+              w: 6.2,
+              h: 5.1,
+            });
+          } catch {
+            pptSlide.addShape(pres.ShapeType.rect, {
+              x: 6.3,
+              y: 1.3,
+              w: 6.2,
+              h: 5.1,
+              fill: { color: theme.surfaceRaised.replace('#', '') },
+              line: { color: theme.border.replace('#', ''), width: 1 },
+            });
+            pptSlide.addText(img.caption || 'IMAGE ASSET', {
+              x: 6.5,
+              y: 3.5,
+              w: 5.8,
+              h: 0.5,
+              fontSize: 12,
+              align: 'center',
+              color: theme.textSecondary.replace('#', ''),
+            });
+          }
+        }
       } else if ((slide.layout === 'pillars' || slide.layout === 'timeline') && slide.elements.pillars) {
         slide.elements.pillars.forEach((pillar, pIdx) => {
           const cardX = 0.8 + pIdx * 4.0;
@@ -632,7 +731,7 @@ export class ExportEngine {
       });
 
       // Footnote
-      pptSlide.addText(slide.elements.footnote || 'CONFIDENTIAL // AUTONOMOUS SLIDE ENGINE', {
+      pptSlide.addText(slide.elements.footnote || 'CONFIDENTIAL · AUTONOMOUS SLIDE ENGINE', {
         x: 0.8,
         y: 6.85,
         w: 9.0,
@@ -671,7 +770,7 @@ export class ExportEngine {
     const titleEscaped = this.escapeXml(slide.title);
     const subtitleEscaped = this.escapeXml(slide.subtitle);
     const kickerEscaped = this.escapeXml(slide.kicker);
-    const footnoteEscaped = this.escapeXml(slide.elements.footnote || 'CONFIDENTIAL // VECTOR SPECIFICATION');
+    const footnoteEscaped = this.escapeXml(slide.elements.footnote || 'CONFIDENTIAL · VECTOR SPECIFICATION');
 
     let bodySvg = '';
 
@@ -905,6 +1004,52 @@ export class ExportEngine {
         break;
       }
 
+      case 'image': {
+        const img = slide.elements.image;
+        const imgUrl = this.escapeXml(img?.url || '');
+        const captionEscaped = this.escapeXml(img?.caption || '');
+        const callout = slide.elements.callout;
+        const calloutColor = callout?.color || theme.accent;
+        const scaleVal = (img?.scale || 100) / 100;
+        const posX = img?.positionX ?? 50;
+        const posY = img?.positionY ?? 50;
+
+        bodySvg = `
+  <!-- Left Column Text -->
+  <g transform="translate(96, 220)">
+    <text x="0" y="44" font-family="-apple-system, sans-serif" font-size="44" font-weight="700" fill="${theme.textPrimary}">${titleEscaped}</text>
+    <text x="0" y="94" font-family="-apple-system, sans-serif" font-size="20" fill="${theme.textSecondary}">${subtitleEscaped}</text>
+
+    ${callout ? `
+    <g transform="translate(0, 160)">
+      <rect width="760" height="340" fill="${theme.surface}" stroke="${theme.border}" stroke-width="1" />
+      <line x1="0" y1="0" x2="760" y2="0" stroke="${calloutColor}" stroke-width="4" />
+      <text x="32" y="44" font-family="monospace" font-size="12" font-weight="700" letter-spacing="2" fill="${calloutColor}">${this.escapeXml(callout.kicker || 'EDITORIAL SPECIFICATION')}</text>
+      ${callout.title ? `<text x="32" y="88" font-family="-apple-system, sans-serif" font-size="20" font-weight="700" fill="${theme.textPrimary}">${this.escapeXml(callout.title)}</text>` : ''}
+      <text x="32" y="${callout.title ? 130 : 88}" font-family="-apple-system, sans-serif" font-size="16" fill="${theme.textSecondary}">${this.escapeXml(callout.text)}</text>
+    </g>` : ''}
+  </g>
+
+  <!-- Right Column Image Frame (Zero-Stretch Optical Enclosure) -->
+  <g transform="translate(920, 200)">
+    <clipPath id="slide-img-clip-${index}">
+      <rect x="0" y="0" width="904" height="720" rx="4" />
+    </clipPath>
+    <rect width="904" height="720" rx="4" fill="${theme.surfaceRaised}" stroke="${theme.border}" stroke-width="1" />
+    ${imgUrl ? `
+    <g clip-path="url(#slide-img-clip-${index})">
+      <image href="${imgUrl}" x="0" y="0" width="904" height="720" preserveAspectRatio="xMidYMid slice" transform-origin="${posX}% ${posY}%" transform="scale(${scaleVal})" />
+    </g>
+    ` : ''}
+    <rect width="904" height="720" rx="4" fill="none" stroke="${theme.border}" stroke-width="1" />
+    ${captionEscaped ? `
+    <rect x="20" y="668" width="864" height="32" fill="${theme.bg}" opacity="0.85" rx="2" />
+    <text x="36" y="689" font-family="monospace" font-size="12" fill="${theme.textSecondary}">${captionEscaped}</text>
+    ` : ''}
+  </g>`;
+        break;
+      }
+
       default: {
         bodySvg = `
   <text x="96" y="320" font-family="-apple-system, sans-serif" font-size="52" font-weight="700" fill="${theme.textPrimary}">${titleEscaped}</text>
@@ -940,7 +1085,7 @@ export class ExportEngine {
   <!-- Bottom Metadata Bar -->
   <line x1="96" y1="984" x2="1824" y2="984" class="border-line" />
   <text x="96" y="1016" class="footnote">${footnoteEscaped}</text>
-  <text x="1824" y="1016" text-anchor="end" class="footnote">NEXT-SLIDEDECK-ENGINE // VECTOR</text>
+  <text x="1824" y="1016" text-anchor="end" class="footnote">NEXT-SLIDEDECK-ENGINE · VECTOR</text>
 </svg>`;
   }
 
