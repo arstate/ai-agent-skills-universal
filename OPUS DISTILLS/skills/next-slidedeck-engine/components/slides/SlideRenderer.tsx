@@ -444,7 +444,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                     onSelect={() => onSelectElement?.('kicker')}
                     onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
                     className="text-base font-mono font-bold tracking-[0.2em] uppercase"
-                    style={{ color: theme.textMuted }}
+                    style={{ color: isSlideDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)' }}
                     as="span"
                   />
                 </motion.div>
@@ -466,7 +466,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           >
             <motion.div
               layoutId={transition.type === 'morph' ? 'slide-footnote' : undefined}
-              className="flex items-center gap-2.5"
+              className="flex items-center gap-3"
             >
               <EditableText
                 value={slide.elements.footnote || `${effectiveBrand} · CONFIDENTIAL`}
@@ -479,8 +479,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                     elements: { ...prev.elements, footnote: val },
                   }))
                 }
-                className="text-xs font-mono font-semibold tracking-wider uppercase"
-                style={{ color: theme.textMuted }}
+                className="text-sm lg:text-base font-mono font-bold tracking-wider uppercase"
+                style={{ color: isSlideDark ? 'rgba(255, 255, 255, 0.65)' : 'rgba(0, 0, 0, 0.65)' }}
                 as="span"
               />
             </motion.div>
@@ -488,19 +488,19 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
             {/* MANDATORY BOTTOM-RIGHT PAGE NUMBER (halaman wajib di pojok kanan bawah) */}
             {effectiveChrome === 'badge-capsule' || effectiveChrome === 'creative-studio' ? (
               <div
-                className="rounded-full px-3.5 py-1 text-xs font-mono font-bold tracking-widest border tabular-nums shadow-sm"
+                className="rounded-full px-4 py-1.5 text-sm lg:text-base font-mono font-black tracking-widest border tabular-nums shadow-sm"
                 style={{
                   backgroundColor: theme.surface,
-                  borderColor: theme.border,
-                  color: theme.textPrimary,
+                  borderColor: slideBorder,
+                  color: isSlideDark ? '#FFFFFF' : '#0F172A',
                 }}
               >
                 {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
               </div>
             ) : (
               <span
-                className="text-sm font-mono font-bold tracking-widest tabular-nums"
-                style={{ color: theme.textSecondary }}
+                className="text-base lg:text-lg font-mono font-black tracking-widest tabular-nums"
+                style={{ color: isSlideDark ? 'rgba(255, 255, 255, 0.85)' : 'rgba(0, 0, 0, 0.85)' }}
               >
                 {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
               </span>
