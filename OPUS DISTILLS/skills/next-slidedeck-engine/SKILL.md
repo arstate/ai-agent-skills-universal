@@ -98,6 +98,7 @@ npm --prefix "<engine-dir>" run start
 ```
 skills/next-slidedeck-engine/
 ├── app/
+│   ├── api/projects/route.ts    # Auto-sync project & export manager (~/Downloads/deck-gen/projects/<slug>/)
 │   ├── api/slides/route.ts      # Local disk JSON synchronization
 │   ├── globals.css              # Dark/light theme styling & 16:9 @page print CSS
 │   ├── layout.tsx               # Root HTML shell
@@ -106,28 +107,67 @@ skills/next-slidedeck-engine/
 │   └── next-slidedeck.mjs       # Executable CLI launcher
 ├── components/
 │   ├── slides/
+│   │   ├── AiGenCreativeLayouts.tsx # Dedicated Group 11 AI GEN creative layouts (Klyro, Chuckle, Borcelle, Fintech)
+│   │   ├── SlideImageFrame.tsx  # Aspect ratio, crop, zoom, and objectFit frame
 │   │   ├── SlideRenderer.tsx    # Slide renderer with Framer Motion transitions & arbitrary HTML support
 │   │   └── SvgIcon.tsx          # 22 Mathematical SVG vector icons & graphic accents (0% emojis)
 │   └── studio/
 │       ├── CenterCanvas.tsx     # Pristine 16:9 canvas with decoupled outer stage background
-│       ├── ExportModal.tsx      # Vector PDF, PPTX, and SVG export dialog
+│       ├── ExportModal.tsx      # Vector PDF, PPTX, and SVG export dialog with deck-gen export folder banner
 │       ├── FullscreenPresenter.tsx # Fullscreen F5 keyboard presenter
-│       ├── LeftSidebar.tsx      # Slide filmstrip and page management
-│       ├── RightSidebar.tsx     # Style, Text, Elements, Animation, Export tabs
-│       ├── SlideStudio.tsx      # Orchestrator workstation with decoupled studioMode
-│       └── TopBar.tsx           # Brand header, slide status, studio light/dark toggle, present/export
+│       ├── ImageEditorModal.tsx # Inline image cropper, scale, position, and border modal
+│       ├── LeftSidebar.tsx      # Slide filmstrip and page management (sleek minimal w-48)
+│       ├── RightSidebar.tsx     # Style (with ✨ AI GEN filter), Text, Elements, Animation, Export tabs
+│       ├── SlideStudio.tsx      # Orchestrator workstation with auto-save & disk persistence
+│       └── TopBar.tsx           # Brand header, slide status, save to disk button, studio toggle
 ├── export/
 │   └── ExportEngine.ts          # Vector PDF, 4K PDF, PPTX, and SVG export algorithms
 ├── presets/
-│   ├── sampleDecks.ts           # 8 Curated sample decks (Monochrome, Consulting, SlideSpeak, Zara Zhang)
-│   └── themes.ts                # 39 Curated palettes (SlideSpeak, Zara Zhang, Monochrome)
-├── references/
-│   ├── COMBO_DESIGN_SYSTEM_GUIDE.md # Master guide for SlideSpeak & Zara Zhang synthesis
-│   ├── beautiful-html-templates/ # 34 Complete production templates (HTML, CSS, JSON, tokens)
-│   ├── zara-zhang/              # Zara Zhang templates reference vault
-│   ├── zara-zhang-frontend-slides/ # 34 Bold archetypes, manifests, patterns & 11 markdown templates
-│   └── slidespeak/              # 8 Consulting archetypes, McKinsey specs, 26 engine files & 6 HTML slide decks
+│   ├── layoutCatalog.ts         # 108 Curated layouts across 11 groups (including Group 11 AI GEN layouts)
+│   ├── sampleDecks.ts           # Curated sample decks (including Klyro Creative Agency Deck)
+│   └── themes.ts                # 44 Curated palettes (including 5 AI GEN themes)
 ├── types/
 │   └── slide.ts                 # TypeScript domain contracts (supports rawHtml & bespoke layout)
 └── package.json                 # Next.js, Framer Motion, pptxgenjs, jspdf dependencies
 ```
+
+---
+
+## 6. AI GEN Mode & Automated Project Architecture (`~/Downloads/deck-gen/projects/`)
+
+### A. Automatic Project Persistence for AI Agents
+Every presentation deck is structured and stored per project on disk:
+```
+~/Downloads/deck-gen/projects/<project-slug>/
+├── deck.json                 # Master slide deck JSON state & metadata
+├── slides/                   # 1-Slide = 1 HTML File standard
+│   ├── slide-01.html
+│   ├── slide-02.html
+│   └── ...
+├── export/                   # Export artifacts (.pdf, .pptx, .svg, .png)
+└── README.md                 # Complete AI context log (prompt, themes, tokens, layouts)
+```
+
+1. **Context Continuity:** The AI agent can read `deck.json` and `slides/` to maintain 100% continuous context across multiple chat turns.
+2. **Export Isolation:** All exported files (PDF, PPTX, SVG, ZIP) are automatically placed in the project's dedicated `export/` folder.
+3. **Live API Integration:**
+   - Save project: `POST /api/projects` with `{ projectSlug, deck }`
+   - Load project: `GET /api/projects?project=<slug>` or `http://localhost:5200/?project=<slug>`
+   - List projects: `GET /api/projects`
+
+### B. ✨ AI GEN Creative Engine (Zero Template Constraints)
+1. **5 Curated AI GEN Themes:**
+   - `ai-gen-klyro`: Electric lime (`#88EE00`), vivid vermillion orange (`#FF5722`), deep forest teal (`#0A3431`).
+   - `ai-gen-chuckle`: Vivid violet (`#6C2BD9`), pop tangerine (`#FF521B`), neon lime (`#C6FF00`).
+   - `ai-gen-borcelle`: Obsidian charcoal (`#16161A`), acid chartreuse (`#E2FD52`), tangerine orange (`#FF6422`).
+   - `ai-gen-fintech`: Crisp ice grey (`#F0F3FA`), royal cobalt blue (`#2B4CDE`), acid lime wave (`#A3E635`).
+   - `ai-gen-custom`: Live arbitrary hex color inputs with zero template locks.
+2. **Group 11 AI GEN Creative Layouts:**
+   - `ai-klyro-hero`: Asymmetric bold grotesque headline, kinetic rotating flower icon (`✻`), dual pill badges, and lime-bordered photo card.
+   - `ai-klyro-split-stats`: Split container with massive 346 & 74 client stat blocks and spinning floral motif.
+   - `ai-klyro-ticket-principles`: 4 vertical cards shaped like price/luggage tags with punched circle hole and colored heads.
+   - `ai-chuckle-retro-hero`: Bold chunky title overlaying rounded white photo frame and retro device.
+   - `ai-borcelle-donut-data`: Center-left donut chart data visualization with 3 colored stat bars.
+   - `ai-borcelle-venn-diagram`: Overlapping 3-circle Venn diagram with strategic pillar labels.
+   - `ai-fintech-ribbon-wave`: Flowing SVG wavy liquid ribbon traveling across modern cards with floating stat pills.
+   - `ai-bespoke-html`: Pure 1-slide = 1 HTML file mode with 100% arbitrary HTML/CSS freedom.

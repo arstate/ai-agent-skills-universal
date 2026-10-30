@@ -119,6 +119,8 @@ export const FullscreenPresenter: React.FC<FullscreenPresenterProps> = ({
           transition={deck.transition}
           index={activeSlideIndex}
           totalSlides={deck.slides.length}
+          chromeStyle={deck.chromeStyle}
+          brandLabel={deck.brandLabel}
         />
       </div>
 

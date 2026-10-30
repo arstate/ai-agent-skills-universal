@@ -17,11 +17,18 @@ import {
   LayoutType,
   TransitionType,
   ThemeConfig,
+  ChromeStyle,
   MetricItem,
   PillarItem,
   BentoCard,
 } from '../../types/slide';
 import { THEMES } from '../../presets/themes';
+import {
+  LAYOUT_CATALOG,
+  LAYOUT_CATEGORIES,
+  LAYOUT_LOOKUP,
+  resolveLayoutMeta,
+} from '../../presets/layoutCatalog';
 
 interface RightSidebarProps {
   deck: SlideDeck;
@@ -30,6 +37,8 @@ interface RightSidebarProps {
   studioMode?: 'dark' | 'light';
   onUpdateActiveSlide: (updater: (prev: Slide) => Slide) => void;
   onUpdateDeckTheme: (themeId: string) => void;
+  onUpdateDeckChrome?: (chromeStyle: ChromeStyle) => void;
+  onUpdateDeckBrand?: (brandLabel: string) => void;
   onUpdateTransition: (transitionType: TransitionType, duration: number) => void;
   onExport: (format: 'pdf-vector' | 'pdf-raster' | 'pptx' | 'svg-single' | 'svg-all') => void;
 }
@@ -43,17 +52,21 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   studioMode = 'dark',
   onUpdateActiveSlide,
   onUpdateDeckTheme,
+  onUpdateDeckChrome,
+  onUpdateDeckBrand,
   onUpdateTransition,
   onExport,
 }) => {
+  const activeTheme = THEMES[deck.themeId] || THEMES['obsidian-pure'];
   const [activeTab, setActiveTab] = useState<TabKey>('style');
-  const [themeCategoryFilter, setThemeCategoryFilter] = useState<'all' | 'light' | 'dark' | 'vibrant'>('all');
+  const [themeCategoryFilter, setThemeCategoryFilter] = useState<'all' | 'light' | 'dark' | 'vibrant' | 'ai-gen'>('all');
 
   const filteredThemes = Object.values(THEMES).filter((t) => {
     if (themeCategoryFilter === 'all') return true;
     if (themeCategoryFilter === 'light') return t.isLight === true || t.category === 'light' || t.category === 'editorial';
     if (themeCategoryFilter === 'dark') return t.isLight === false && (t.category === 'dark' || !t.category);
     if (themeCategoryFilter === 'vibrant') return t.category === 'vibrant';
+    if (themeCategoryFilter === 'ai-gen') return t.category === 'ai-gen';
     return true;
   });
 
@@ -207,12 +220,12 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
               </div>
 
               {/* Category Filter Chips */}
-              <div className="grid grid-cols-4 gap-1 mb-3">
-                {(['all', 'light', 'dark', 'vibrant'] as const).map((cat) => (
+              <div className="grid grid-cols-5 gap-1 mb-3">
+                {(['all', 'light', 'dark', 'vibrant', 'ai-gen'] as const).map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setThemeCategoryFilter(cat)}
-                    className={`py-1 text-center text-[10px] font-mono uppercase tracking-wider transition-colors border ${
+                    className={`py-1 text-center text-[9px] font-mono uppercase tracking-wider transition-colors border truncate ${
                       themeCategoryFilter === cat
                         ? isLight
                           ? 'border-zinc-900 bg-zinc-900 text-white font-semibold'
@@ -222,7 +235,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                         : 'border-[#222227] bg-[#101014] text-[#71717a] hover:text-[#d4d4d8]'
                     }`}
                   >
-                    {cat}
+                    {cat === 'ai-gen' ? '✨ AI GEN' : cat}
                   </button>
                 ))}
               </div>
@@ -291,34 +304,190 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                   );
                 })}
               </div>
+
+              {/* Slide Background Color Tuning (AI GEN Per-Slide Custom Color) */}
+              <div className="mt-3 pt-3 border-t flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <span className={labelClass}>SLIDE BG COLOR (PER-PAGE DYNAMIC)</span>
+                  <span className="text-[10px] font-mono font-bold uppercase" style={{ color: activeSlide.elements?.bg || activeTheme.bg }}>
+                    {activeSlide.elements?.bg || activeTheme.bg}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={activeSlide.elements?.bg || activeTheme.bg}
+                    onChange={(e) =>
+                      onUpdateActiveSlide((prev) => ({
+                        ...prev,
+                        elements: {
+                          ...prev.elements,
+                          bg: e.target.value,
+                          bgColor: e.target.value,
+                        },
+                      }))
+                    }
+                    className="h-8 w-10 border cursor-pointer bg-transparent p-0.5 rounded-xs"
+                    title="Choose custom background color for this slide"
+                  />
+                  <input
+                    type="text"
+                    value={activeSlide.elements?.bg || ''}
+                    placeholder={activeTheme.bg}
+                    onChange={(e) =>
+                      onUpdateActiveSlide((prev) => ({
+                        ...prev,
+                        elements: {
+                          ...prev.elements,
+                          bg: e.target.value,
+                          bgColor: e.target.value,
+                        },
+                      }))
+                    }
+                    className={inputClass}
+                  />
+                  {activeSlide.elements?.bg && (
+                    <button
+                      onClick={() =>
+                        onUpdateActiveSlide((prev) => ({
+                          ...prev,
+                          elements: {
+                            ...prev.elements,
+                            bg: undefined,
+                            bgColor: undefined,
+                          },
+                        }))
+                      }
+                      className="px-2 py-1 text-[10px] font-mono border hover:bg-zinc-800 text-zinc-400"
+                      title="Reset to theme background"
+                    >
+                      RESET
+                    </button>
+                  )}
+                </div>
+                {/* Fast Swatches */}
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  {[
+                    { label: 'Off-White', color: '#F7F7F7' },
+                    { label: 'Orange', color: '#FF5722' },
+                    { label: 'Alabaster', color: '#F4EFEA' },
+                    { label: 'Purple', color: '#6C2BD9' },
+                    { label: 'Dark', color: '#16161A' },
+                    { label: 'Cobalt', color: '#2B4CDE' },
+                    { label: 'White', color: '#FFFFFF' },
+                  ].map((swatch) => (
+                    <button
+                      key={swatch.color}
+                      onClick={() =>
+                        onUpdateActiveSlide((prev) => ({
+                          ...prev,
+                          elements: {
+                            ...prev.elements,
+                            bg: swatch.color,
+                            bgColor: swatch.color,
+                          },
+                        }))
+                      }
+                      className="flex items-center gap-1 px-1.5 py-0.5 border text-[9.5px] font-mono rounded-xs transition-transform hover:scale-105"
+                      style={{
+                        borderColor: isLight ? '#e4e4e7' : '#27272a',
+                        backgroundColor: swatch.color,
+                        color: ['#FFFFFF', '#F7F7F7', '#F4EFEA'].includes(swatch.color) ? '#18181B' : '#FFFFFF',
+                      }}
+                      title={`Set background to ${swatch.label} (${swatch.color})`}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full border border-black/20" style={{ backgroundColor: swatch.color }} />
+                      <span>{swatch.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Layout Switcher for Current Slide */}
+            {/* Deck Chrome / Folio Style Switcher */}
             <div>
-              <span className={labelClass}>
-                ACTIVE SLIDE LAYOUT
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                {layoutOptions.map((layout) => (
-                  <button
-                    key={layout.type}
-                    onClick={() =>
-                      onUpdateActiveSlide((prev) => ({ ...prev, layout: layout.type }))
-                    }
-                    className={`p-2.5 border text-left text-xs font-mono transition-all ${
-                      activeSlide.layout === layout.type
-                        ? isLight
-                          ? 'border-zinc-900 bg-zinc-900 text-white font-semibold'
-                          : 'border-white bg-white text-black font-semibold'
-                        : isLight
-                        ? 'border-[#e4e4e7] bg-white text-zinc-700 hover:border-zinc-400'
-                        : 'border-[#222227] bg-[#121215] text-[#d4d4d8] hover:border-[#383842]'
+              <span className={labelClass}>DECK CHROME / FOLIO STYLE</span>
+              <select
+                value={deck.chromeStyle || 'minimal'}
+                onChange={(e) => onUpdateDeckChrome?.(e.target.value as ChromeStyle)}
+                className={inputClass}
+              >
+                <option value="minimal">Minimal Clean (Bottom right page number)</option>
+                <option value="editorial">Broadsheet Editorial (Hairlines + brand label)</option>
+                <option value="badge-capsule">Modern Agency Capsule (Pill badge)</option>
+                <option value="creative-studio">Creative Agency Studio (Klyro / Chuckle brand pill)</option>
+                <option value="classic-rule">Executive Consulting (Crisp accent rule)</option>
+                <option value="clean-bleed">Clean Bleed (Zero header bar, max canvas)</option>
+              </select>
+            </div>
+
+            {/* Deck Brand / Studio Tag */}
+            <div>
+              <span className={labelClass}>DECK BRAND / STUDIO TAG</span>
+              <input
+                type="text"
+                value={deck.brandLabel || ''}
+                placeholder="e.g. KLYRO AGENCY / CHUCKLE / BORCELLE"
+                onChange={(e) => onUpdateDeckBrand?.(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            {/* Active Slide Layout Picker with 100 choices & clean dropdown */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className={labelClass}>ACTIVE SLIDE LAYOUT (100 CHOICES)</span>
+                <span className="text-[10px] font-mono text-emerald-400">
+                  {resolveLayoutMeta(activeSlide.layout).archetype.toUpperCase()}
+                </span>
+              </div>
+
+              {/* Clean Categorized Dropdown */}
+              <select
+                value={activeSlide.layout}
+                onChange={(e) =>
+                  onUpdateActiveSlide((prev) => ({
+                    ...prev,
+                    layout: e.target.value as LayoutType,
+                  }))
+                }
+                className={inputClass}
+              >
+                {LAYOUT_CATEGORIES.map((category) => {
+                  const catLayouts = LAYOUT_CATALOG.filter((l) => l.category === category);
+                  return (
+                    <optgroup key={category} label={category}>
+                      {catLayouts.map((l) => (
+                        <option key={l.id} value={l.id}>
+                          {l.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  );
+                })}
+              </select>
+
+              {/* Active Layout Metadata Card */}
+              {(() => {
+                const currentMeta = resolveLayoutMeta(activeSlide.layout);
+                return (
+                  <div
+                    className={`mt-2 p-2.5 border text-xs font-mono flex flex-col gap-1 ${
+                      isLight ? 'border-[#e4e4e7] bg-white' : 'border-[#27272a] bg-[#121215]'
                     }`}
                   >
-                    {layout.label}
-                  </button>
-                ))}
-              </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-emerald-400 truncate max-w-[190px]">
+                        {currentMeta.name}
+                      </span>
+                      <span className="text-[9px] uppercase text-zinc-400 border px-1.5 py-0.5 shrink-0">
+                        {currentMeta.category.split('.')[1]?.trim() || currentMeta.category}
+                      </span>
+                    </div>
+                    <p className="text-[11px] leading-tight text-zinc-400">{currentMeta.desc}</p>
+                  </div>
+                );
+              })()}
             </div>
           </div>
         )}

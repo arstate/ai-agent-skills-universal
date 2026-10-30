@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Play, Download, Sun, Moon, Edit3, MousePointerClick } from 'lucide-react';
+import { Play, Download, Sun, Moon, Edit3, MousePointerClick, FolderDown } from 'lucide-react';
 import { SlideDeck } from '../../types/slide';
 
 interface TopBarProps {
@@ -11,6 +11,9 @@ interface TopBarProps {
   onOpenExportModal: () => void;
   onTitleChange: (newTitle: string) => void;
   onToggleTheme?: () => void;
+  onSaveToDisk?: () => void;
+  isSavingToDisk?: boolean;
+  saveStatus?: string;
   isLightMode?: boolean;
   studioMode?: 'dark' | 'light';
   isMounted?: boolean;
@@ -25,6 +28,9 @@ export const TopBar: React.FC<TopBarProps> = ({
   onOpenExportModal,
   onTitleChange,
   onToggleTheme,
+  onSaveToDisk,
+  isSavingToDisk = false,
+  saveStatus,
   isLightMode = false,
   studioMode,
   isMounted: propMounted,
@@ -79,13 +85,32 @@ export const TopBar: React.FC<TopBarProps> = ({
           type="text"
           value={deck.title}
           onChange={(e) => onTitleChange(e.target.value)}
-          className={`bg-transparent text-sm font-medium transition-colors px-1 py-0.5 max-w-md truncate outline-none ${
+          className={`bg-transparent text-sm font-medium transition-colors px-1 py-0.5 max-w-xs truncate outline-none ${
             isStudioLight
               ? 'text-zinc-900 hover:border-b hover:border-zinc-400 focus:border-b focus:border-zinc-900'
               : 'text-[#fafafa] hover:border-b hover:border-[#3f3f46] focus:border-b focus:border-white'
           }`}
           title="Click to rename deck"
         />
+
+        {/* Project Folder Indicator & Quick Save to Disk Button */}
+        {onSaveToDisk && (
+          <button
+            onClick={onSaveToDisk}
+            disabled={isSavingToDisk}
+            className={`flex items-center gap-1.5 border px-2.5 py-1 text-[11px] font-mono transition-all rounded-xs shadow-xs ${
+              isStudioLight
+                ? 'border-emerald-600/40 bg-emerald-50 text-emerald-900 hover:bg-emerald-100 hover:border-emerald-700'
+                : 'border-emerald-500/40 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-900/50 hover:border-emerald-400'
+            }`}
+            title="Save project to ~/Downloads/deck-gen/projects/<slug>/ with deck.json and standalone slide HTML files"
+          >
+            <FolderDown className="h-3 w-3 text-emerald-500 shrink-0" />
+            <span className="truncate max-w-[170px]">
+              {isSavingToDisk ? 'SAVING...' : saveStatus || `SAVE (${deck.projectSlug || 'deck-gen'})`}
+            </span>
+          </button>
+        )}
       </div>
 
       {/* CENTER: Slide Count & Active Transition Mode */}

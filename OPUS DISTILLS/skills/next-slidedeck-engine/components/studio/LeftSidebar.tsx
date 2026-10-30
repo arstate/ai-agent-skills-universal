@@ -8,7 +8,7 @@ import {
   Copy,
   Trash2,
 } from 'lucide-react';
-import { Slide, LayoutType, ThemeConfig } from '../../types/slide';
+import { Slide, LayoutType, ThemeConfig, ChromeStyle } from '../../types/slide';
 import { THEMES } from '../../presets/themes';
 import { SlideRenderer } from '../slides/SlideRenderer';
 
@@ -16,6 +16,8 @@ interface LeftSidebarProps {
   slides: Slide[];
   activeSlideIndex: number;
   theme?: ThemeConfig;
+  chromeStyle?: ChromeStyle;
+  brandLabel?: string;
   studioMode?: 'dark' | 'light';
   onSelectSlide: (index: number) => void;
   onAddSlide: (layout: LayoutType) => void;
@@ -29,9 +31,11 @@ const SlideThumbnailPreview: React.FC<{
   theme: ThemeConfig;
   index: number;
   totalSlides: number;
-}> = ({ slide, theme, index, totalSlides }) => {
+  chromeStyle?: ChromeStyle;
+  brandLabel?: string;
+}> = ({ slide, theme, index, totalSlides, chromeStyle, brandLabel }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState<number>(0.11);
+  const [scale, setScale] = useState<number>(0.09);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -52,7 +56,7 @@ const SlideThumbnailPreview: React.FC<{
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[16/9] overflow-hidden border border-black/20 bg-zinc-950 pointer-events-none select-none shadow-sm mb-2"
+      className="relative w-full aspect-[16/9] overflow-hidden pointer-events-none select-none bg-zinc-950"
     >
       <div
         style={{
@@ -68,6 +72,8 @@ const SlideThumbnailPreview: React.FC<{
           transition={{ type: 'crossfade', duration: 0 }}
           index={index}
           totalSlides={totalSlides}
+          chromeStyle={chromeStyle}
+          brandLabel={brandLabel}
           isThumbnail={true}
         />
       </div>
@@ -79,6 +85,8 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   slides,
   activeSlideIndex,
   theme,
+  chromeStyle,
+  brandLabel,
   studioMode = 'dark',
   onSelectSlide,
   onAddSlide,
@@ -96,66 +104,75 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
     { type: 'split', label: 'Asymmetric Split', desc: '60/40 headline and bullets' },
     { type: 'pillars', label: '3-Pillars', desc: 'Three vertical modular cards' },
     { type: 'bento', label: 'Bento Matrix', desc: 'Modern asymmetric grid' },
-    { type: 'quote', label: 'Quote Spotlight', desc: 'Full-bleed doctrine citation' },
-    { type: 'comparison', label: 'Comparison Matrix', desc: 'Dual column side-by-side' },
+    { type: 'process-stepped-5', label: '01-05 Steps Flow', desc: 'Numbered step sequence' },
+    { type: 'team-trio-portraits', label: 'Team Leadership', desc: '3 portrait cards with role pills' },
+    { type: 'comparison', label: 'Problem vs Solution', desc: 'Dual column side-by-side' },
     { type: 'timeline', label: 'Milestone Roadmap', desc: 'Phase progression flow' },
+    { type: 'quote', label: 'Quote Spotlight', desc: 'Full-bleed doctrine citation' },
     { type: 'image', label: 'Image Hero', desc: 'Hero photo with narrative column' },
+    { type: 'ai-klyro-hero', label: '✨ AI Klyro Hero', desc: 'Vibrant agency display + lime photo' },
+    { type: 'ai-klyro-split-stats', label: '✨ AI Klyro Split Stats', desc: 'Vivid orange/lime split numbers' },
+    { type: 'ai-klyro-ticket-principles', label: '✨ AI Ticket Principles', desc: '4 vertical punched-hole tags' },
+    { type: 'ai-chuckle-retro-hero', label: '✨ AI Chuckle 3D Hero', desc: 'Chunky title & device frame' },
+    { type: 'ai-borcelle-donut-data', label: '✨ AI Donut Data', desc: 'Donut chart + 3 stat bars' },
+    { type: 'ai-borcelle-venn-diagram', label: '✨ AI Venn Diagram', desc: '3 overlapping circular Venn' },
+    { type: 'ai-fintech-ribbon-wave', label: '✨ AI Fintech Ribbon', desc: 'Fluid wavy curves & compliance' },
     { type: 'html', label: 'Arbitrary Standalone HTML', desc: 'Pure 1-slide = 1 HTML file standard' },
   ];
 
   return (
     <aside
-      className={`w-64 border-r flex flex-col justify-between select-none z-20 transition-colors duration-150 ${
+      className={`w-48 border-r flex flex-col justify-between select-none z-20 transition-colors duration-150 shrink-0 ${
         isLight
           ? 'border-[#e4e4e7] bg-[#f4f4f5] text-zinc-900'
-          : 'border-[#27272a] bg-[#0c0c0e] text-white'
+          : 'border-[#222227] bg-[#0c0c0e] text-white'
       }`}
     >
       {/* Top Header: Slide Navigation Title + Add Button */}
       <div
-        className={`p-3 border-b flex items-center justify-between ${
-          isLight ? 'border-[#e4e4e7]' : 'border-[#27272a]'
+        className={`px-2.5 py-2 border-b flex items-center justify-between shrink-0 ${
+          isLight ? 'border-[#e4e4e7] bg-[#fafafa]' : 'border-[#222227] bg-[#0c0c0e]'
         }`}
       >
         <span
-          className={`text-[11px] font-mono uppercase tracking-widest ${
+          className={`text-[10px] font-mono uppercase tracking-widest font-semibold ${
             isLight ? 'text-zinc-500' : 'text-[#71717a]'
           }`}
         >
-          SLIDE PAGES ({slides.length})
+          SLIDES ({slides.length})
         </span>
 
         <div className="relative">
           <button
             onClick={() => setShowAddMenu(!showAddMenu)}
-            className={`flex items-center gap-1 border px-2 py-1 text-xs font-mono transition-colors ${
+            className={`flex items-center gap-1 border px-1.5 py-0.5 text-[10px] font-mono font-semibold transition-all ${
               isLight
-                ? 'border-[#e4e4e7] bg-white hover:bg-[#e4e4e7] hover:border-zinc-400 text-zinc-900'
-                : 'border-[#27272a] bg-[#141417] hover:bg-[#1c1c21] hover:border-white text-white'
+                ? 'border-zinc-300 bg-white hover:border-zinc-900 text-zinc-900 shadow-xs'
+                : 'border-[#27272a] bg-[#141418] hover:border-white text-white'
             }`}
             title="Add Slide"
           >
-            <Plus className="h-3 w-3" />
+            <Plus className="h-2.5 w-2.5" />
             <span>NEW</span>
           </button>
 
           {/* New Slide Layout Picker Popover */}
           {showAddMenu && (
             <div
-              className={`absolute left-0 mt-2 w-56 border shadow-2xl z-50 p-1 flex flex-col gap-0.5 ${
+              className={`absolute left-0 mt-2 w-52 border shadow-2xl z-50 p-1 flex flex-col gap-0.5 max-h-[380px] overflow-y-auto ${
                 isLight
                   ? 'border-[#e4e4e7] bg-white text-zinc-900'
                   : 'border-[#27272a] bg-[#121215] text-white'
               }`}
             >
               <div
-                className={`px-3 py-1.5 border-b text-[10px] font-mono uppercase tracking-wider ${
+                className={`px-2.5 py-1.5 border-b text-[9px] font-mono uppercase tracking-wider ${
                   isLight
                     ? 'border-[#e4e4e7] text-zinc-500'
                     : 'border-[#27272a] text-[#71717a]'
                 }`}
               >
-                SELECT LAYOUT TEMPLATE
+                SELECT LAYOUT
               </div>
               {availableLayouts.map((layout) => (
                 <button
@@ -164,19 +181,19 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                     onAddSlide(layout.type);
                     setShowAddMenu(false);
                   }}
-                  className={`text-left px-3 py-2 flex flex-col transition-colors ${
+                  className={`text-left px-2.5 py-1.5 flex flex-col transition-colors rounded-sm ${
                     isLight ? 'hover:bg-[#f4f4f5]' : 'hover:bg-[#1a1a20]'
                   }`}
                 >
                   <span
-                    className={`text-xs font-mono font-medium uppercase ${
+                    className={`text-[11px] font-mono font-medium uppercase ${
                       isLight ? 'text-zinc-900' : 'text-white'
                     }`}
                   >
                     {layout.label}
                   </span>
                   <span
-                    className={`text-[10px] ${
+                    className={`text-[9px] truncate ${
                       isLight ? 'text-zinc-500' : 'text-[#71717a]'
                     }`}
                   >
@@ -189,137 +206,131 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
         </div>
       </div>
 
-      {/* Slide Thumbnails List */}
-      <div className="flex-1 overflow-y-auto p-3 flex flex-col gap-2.5">
+      {/* Slide Thumbnails List (Clean Minimalist Filmstrip) */}
+      <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-2">
         {slides.map((slide, idx) => {
           const isActive = idx === activeSlideIndex;
+          const shortLayout = slide.layout.replace(/[-_].*/, '').toUpperCase();
           return (
             <div
               key={slide.id || idx}
+              data-slide-index={idx}
               onClick={() => onSelectSlide(idx)}
-              className={`group relative flex flex-col border p-3 cursor-pointer transition-all ${
+              className={`group relative flex flex-col p-1.5 rounded-sm cursor-pointer transition-all ${
                 isActive
                   ? isLight
-                    ? 'border-zinc-900 bg-white shadow-sm ring-1 ring-zinc-900/10'
-                    : 'border-white bg-[#141418] shadow-md'
+                    ? 'bg-zinc-200/60 ring-1 ring-zinc-400/80 shadow-xs'
+                    : 'bg-white/[0.06] ring-1 ring-zinc-700 shadow-sm'
                   : isLight
-                  ? 'border-[#e4e4e7] bg-white/70 hover:border-zinc-400 hover:bg-white'
-                  : 'border-[#222227] bg-[#0e0e11] hover:border-[#383842] hover:bg-[#121216]'
+                  ? 'hover:bg-zinc-100/70'
+                  : 'hover:bg-white/[0.02]'
               }`}
             >
-              {/* Top metadata of thumbnail */}
-              <div className="flex items-center justify-between mb-1.5">
+              {/* Top metadata: index number + minimal layout indicator */}
+              <div className="flex items-center justify-between mb-1 px-0.5">
                 <span
-                  className={`text-[11px] font-mono font-bold tracking-widest ${
-                    isLight ? 'text-zinc-900' : 'text-white'
+                  className={`text-[10px] font-mono font-bold tracking-wider ${
+                    isActive
+                      ? isLight
+                        ? 'text-zinc-900'
+                        : 'text-white'
+                      : isLight
+                      ? 'text-zinc-500'
+                      : 'text-zinc-400'
                   }`}
                 >
                   {String(idx + 1).padStart(2, '0')}
                 </span>
                 <span
-                  className={`text-[9px] font-mono uppercase px-1.5 py-0.5 border ${
+                  className={`text-[8.5px] font-mono uppercase tracking-wider truncate max-w-[85px] ${
                     isActive
                       ? isLight
-                        ? 'border-zinc-300 bg-zinc-100 text-zinc-900 font-semibold'
-                        : 'border-[#3f3f46] bg-[#1f1f24] text-white'
+                        ? 'text-zinc-700 font-semibold'
+                        : 'text-emerald-400 font-semibold'
                       : isLight
-                      ? 'border-zinc-200 text-zinc-500'
-                      : 'border-[#1f1f24] text-[#71717a]'
+                      ? 'text-zinc-400'
+                      : 'text-zinc-500'
                   }`}
+                  title={slide.layout}
                 >
-                  {slide.layout}
+                  {shortLayout}
                 </span>
               </div>
 
               {/* Real Visual 16:9 Slide Canvas Preview */}
-              <SlideThumbnailPreview
-                slide={slide}
-                theme={activeTheme}
-                index={idx}
-                totalSlides={slides.length}
-              />
-
-              {/* Slide Title preview */}
               <div
-                className={`text-[11px] font-medium line-clamp-1 leading-tight mb-2 ${
-                  isLight
-                    ? 'text-zinc-700 group-hover:text-zinc-900'
-                    : 'text-[#d4d4d8] group-hover:text-white'
+                className={`relative rounded-sm overflow-hidden border transition-all ${
+                  isActive
+                    ? isLight
+                      ? 'border-zinc-900 ring-1 ring-zinc-900 shadow-xs'
+                      : 'border-emerald-500 ring-1 ring-emerald-500 shadow-xs'
+                    : isLight
+                    ? 'border-zinc-200 group-hover:border-zinc-400'
+                    : 'border-zinc-800/80 group-hover:border-zinc-700'
                 }`}
               >
-                {slide.title || 'Untitled Slide'}
-              </div>
+                <SlideThumbnailPreview
+                  slide={slide}
+                  theme={activeTheme}
+                  index={idx}
+                  totalSlides={slides.length}
+                  chromeStyle={chromeStyle}
+                  brandLabel={brandLabel}
+                />
 
-              {/* Action Buttons on Hover */}
-              <div
-                className={`flex items-center justify-between border-t pt-2 mt-auto ${
-                  isLight ? 'border-zinc-100' : 'border-[#1b1b22]'
-                }`}
-              >
-                <div className="flex items-center gap-1">
+                {/* Floating Action Buttons ONLY ON HOVER (Zero idle clutter!) */}
+                <div
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 absolute top-1 right-1 bg-black/90 backdrop-blur-md border border-zinc-700/80 p-0.5 rounded shadow-xl flex items-center gap-0.5 z-20"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <button
                     disabled={idx === 0}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onMoveSlide(idx, 'up');
-                    }}
-                    className={`p-1 disabled:opacity-20 transition-colors ${
-                      isLight
-                        ? 'hover:bg-zinc-100 text-zinc-400 hover:text-zinc-900'
-                        : 'hover:bg-[#22222a] text-[#71717a] hover:text-white'
-                    }`}
+                    onClick={() => onMoveSlide(idx, 'up')}
+                    className="p-1 text-zinc-400 hover:text-white disabled:opacity-20 transition-colors"
                     title="Move Up"
                   >
-                    <ChevronUp className="h-3 w-3" />
+                    <ChevronUp className="h-2.5 w-2.5" />
                   </button>
                   <button
                     disabled={idx === slides.length - 1}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onMoveSlide(idx, 'down');
-                    }}
-                    className={`p-1 disabled:opacity-20 transition-colors ${
-                      isLight
-                        ? 'hover:bg-zinc-100 text-zinc-400 hover:text-zinc-900'
-                        : 'hover:bg-[#22222a] text-[#71717a] hover:text-white'
-                    }`}
+                    onClick={() => onMoveSlide(idx, 'down')}
+                    className="p-1 text-zinc-400 hover:text-white disabled:opacity-20 transition-colors"
                     title="Move Down"
                   >
-                    <ChevronDown className="h-3 w-3" />
+                    <ChevronDown className="h-2.5 w-2.5" />
                   </button>
-                </div>
-
-                <div className="flex items-center gap-1">
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDuplicateSlide(idx);
-                    }}
-                    className={`p-1 transition-colors ${
-                      isLight
-                        ? 'hover:bg-zinc-100 text-zinc-400 hover:text-zinc-900'
-                        : 'hover:bg-[#22222a] text-[#71717a] hover:text-white'
-                    }`}
-                    title="Duplicate Slide"
+                    onClick={() => onDuplicateSlide(idx)}
+                    className="p-1 text-zinc-400 hover:text-white transition-colors"
+                    title="Duplicate"
                   >
-                    <Copy className="h-3 w-3" />
+                    <Copy className="h-2.5 w-2.5" />
                   </button>
                   <button
                     disabled={slides.length <= 1}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDeleteSlide(idx);
-                    }}
-                    className={`p-1 disabled:opacity-20 transition-colors ${
-                      isLight
-                        ? 'hover:bg-zinc-100 text-zinc-400 hover:text-red-600'
-                        : 'hover:bg-[#22222a] text-[#71717a] hover:text-red-400'
-                    }`}
-                    title="Delete Slide"
+                    onClick={() => onDeleteSlide(idx)}
+                    className="p-1 text-zinc-400 hover:text-red-400 disabled:opacity-20 transition-colors"
+                    title="Delete"
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-2.5 w-2.5" />
                   </button>
                 </div>
+              </div>
+
+              {/* Slide Title preview */}
+              <div
+                className={`text-[9.5px] font-mono truncate px-0.5 mt-1 transition-colors ${
+                  isActive
+                    ? isLight
+                      ? 'text-zinc-800 font-medium'
+                      : 'text-zinc-200 font-medium'
+                    : isLight
+                    ? 'text-zinc-500 group-hover:text-zinc-700'
+                    : 'text-zinc-500 group-hover:text-zinc-300'
+                }`}
+                title={slide.title}
+              >
+                {slide.title || 'Untitled Slide'}
               </div>
             </div>
           );

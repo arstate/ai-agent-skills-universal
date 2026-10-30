@@ -140,24 +140,12 @@ export class ExportEngine {
       pptSlide.addText(slide.kicker || 'EXECUTIVE BRIEFING', {
         x: 0.8,
         y: 0.45,
-        w: 8.0,
+        w: 11.73,
         h: 0.3,
         fontSize: 10,
         fontFace: 'Arial',
         color: theme.textMuted.replace('#', ''),
         bold: true,
-      });
-
-      // Slide Counter
-      pptSlide.addText(`${String(idx + 1).padStart(2, '0')} / ${String(deck.slides.length).padStart(2, '0')}`, {
-        x: 11.5,
-        y: 0.45,
-        w: 1.5,
-        h: 0.3,
-        align: 'right',
-        fontSize: 10,
-        fontFace: 'Arial',
-        color: theme.textMuted.replace('#', ''),
       });
 
       // Top Divider Line
@@ -730,8 +718,8 @@ export class ExportEngine {
         line: { color: theme.border.replace('#', ''), width: 1 },
       });
 
-      // Footnote
-      pptSlide.addText(slide.elements.footnote || 'CONFIDENTIAL · AUTONOMOUS SLIDE ENGINE', {
+      // Footnote on Bottom Left
+      pptSlide.addText(slide.elements.footnote || 'CONFIDENTIAL · STRATEGIC DECK', {
         x: 0.8,
         y: 6.85,
         w: 9.0,
@@ -739,6 +727,19 @@ export class ExportEngine {
         fontSize: 9,
         fontFace: 'Arial',
         color: theme.textMuted.replace('#', ''),
+      });
+
+      // Mandatory Page Counter on Bottom Right (halaman wajib di pojok kanan bawah)
+      pptSlide.addText(`${String(idx + 1).padStart(2, '0')} / ${String(deck.slides.length).padStart(2, '0')}`, {
+        x: 10.5,
+        y: 6.85,
+        w: 2.0,
+        h: 0.3,
+        align: 'right',
+        fontSize: 9,
+        fontFace: 'Arial',
+        color: theme.textMuted.replace('#', ''),
+        bold: true,
       });
     });
 
@@ -799,16 +800,16 @@ export class ExportEngine {
 
   <!-- Spec Footer Pills -->
   <line x1="96" y1="560" x2="1824" y2="560" stroke="${theme.border}" stroke-width="1" />
-  <text x="96" y="600" font-family="monospace" font-size="12" fill="${theme.textMuted}">ENGINE ARCHITECTURE</text>
-  <text x="96" y="625" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="${theme.textPrimary}">Next.js App Router / Vector SVG</text>
+  <text x="96" y="600" font-family="monospace" font-size="12" fill="${theme.textMuted}">INITIATIVE</text>
+  <text x="96" y="625" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="${theme.textPrimary}">STRATEGIC DIRECTIVE</text>
 
   <line x1="480" y1="585" x2="480" y2="635" stroke="${theme.border}" stroke-width="1" />
-  <text x="520" y="600" font-family="monospace" font-size="12" fill="${theme.textMuted}">RATIO SPECIFICATION</text>
-  <text x="520" y="625" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="${theme.textPrimary}">1920 × 1080 px (16:9 Standard)</text>
+  <text x="520" y="600" font-family="monospace" font-size="12" fill="${theme.textMuted}">TIMELINE</text>
+  <text x="520" y="625" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="${theme.textPrimary}">ACTIVE CYCLE 2026</text>
 
   <line x1="900" y1="585" x2="900" y2="635" stroke="${theme.border}" stroke-width="1" />
-  <text x="940" y="600" font-family="monospace" font-size="12" fill="${theme.textMuted}">SECURITY CLASSIFICATION</text>
-  <text x="940" y="625" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="${theme.textPrimary}">Proprietary &amp; Unrestricted</text>`;
+  <text x="940" y="600" font-family="monospace" font-size="12" fill="${theme.textMuted}">DISCLOSURE</text>
+  <text x="940" y="625" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="${theme.textPrimary}">${footnoteEscaped}</text>`;
         break;
       }
 
@@ -1077,15 +1078,14 @@ export class ExportEngine {
   <!-- Top Metadata Bar -->
   <line x1="96" y1="96" x2="1824" y2="96" class="border-line" />
   <text x="96" y="80" class="kicker">${kickerEscaped}</text>
-  <text x="1824" y="80" text-anchor="end" class="counter">${String(index + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}</text>
 
   <!-- Layout Content -->
   ${bodySvg}
 
-  <!-- Bottom Metadata Bar -->
+  <!-- Bottom Metadata Bar / Bottom-Right Page Counter -->
   <line x1="96" y1="984" x2="1824" y2="984" class="border-line" />
   <text x="96" y="1016" class="footnote">${footnoteEscaped}</text>
-  <text x="1824" y="1016" text-anchor="end" class="footnote">NEXT-SLIDEDECK-ENGINE · VECTOR</text>
+  <text x="1824" y="1016" text-anchor="end" class="counter">${String(index + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}</text>
 </svg>`;
   }
 

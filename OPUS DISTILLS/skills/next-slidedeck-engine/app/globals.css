@@ -23,6 +23,22 @@ body {
   width: 100vw;
 }
 
+/* Sleek minimal custom scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(140, 140, 150, 0.25);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 140, 150, 0.5);
+}
+
 /* Print CSS for Vector PDF Export (Exact 16:9 1920x1080 Zero Margin Multi-Page) */
 @page {
   size: 1920px 1080px;

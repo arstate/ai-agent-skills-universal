@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { Slide, ThemeConfig, TransitionConfig } from '../../types/slide';
+import { Slide, ThemeConfig, TransitionConfig, ChromeStyle } from '../../types/slide';
 import { SlideRenderer } from '../slides/SlideRenderer';
 import { SvgIcon } from '../slides/SvgIcon';
 import { ImageEditorModal } from './ImageEditorModal';
@@ -16,6 +16,8 @@ interface CenterCanvasProps {
   totalSlides: number;
   studioMode?: 'dark' | 'light';
   isEditMode?: boolean;
+  chromeStyle?: ChromeStyle;
+  brandLabel?: string;
   onUpdateActiveSlide?: (updater: (prev: Slide) => Slide) => void;
   onUpdateDeckTheme?: (themeId: string) => void;
 }
@@ -28,6 +30,8 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
   totalSlides,
   studioMode = 'dark',
   isEditMode = false,
+  chromeStyle,
+  brandLabel,
   onUpdateActiveSlide,
   onUpdateDeckTheme,
 }) => {
@@ -544,6 +548,8 @@ export const CenterCanvas: React.FC<CenterCanvasProps> = ({
           totalSlides={totalSlides}
           isEditMode={isEditMode}
           selectedId={selectedElementId}
+          chromeStyle={chromeStyle}
+          brandLabel={brandLabel}
           onSelectElement={setSelectedElementId}
           onUpdateSlide={onUpdateActiveSlide}
           onOpenImageEditor={(key) => {

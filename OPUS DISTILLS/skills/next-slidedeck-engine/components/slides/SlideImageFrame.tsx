@@ -131,7 +131,7 @@ export const SlideImageFrame: React.FC<SlideImageFrameProps> = ({
 
       {/* Anti-Stretch Image Viewport Box */}
       <div
-        className={`relative w-full overflow-hidden ${
+        className={`relative w-full h-full overflow-hidden ${
           showBorder ? 'border' : ''
         }`}
         style={{

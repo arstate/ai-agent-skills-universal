@@ -717,6 +717,29 @@ export const THEMES: Record<string, ThemeConfig> = {
     fontHeading: "var(--font-sans)",
     fontBody: "var(--font-sans)",
     fontMono: "var(--font-mono)",
+  },
+
+  // ==========================================
+  // 5. UNIFIED AI GEN & AUTONOMOUS CREATIVE MODE (TASTE-DESIGN)
+  // ==========================================
+  "ai-gen": {
+    id: "ai-gen",
+    name: "✨ AI GEN (Autonomous Creative)",
+    category: "ai-gen",
+    isLight: true,
+    description: "100% Unconstrained AI Agent Creative Mode: Per-slide dynamic background colors, high-taste visual variety, custom design elements, zero monotonous templates",
+    bg: "#F7F7F7",
+    surface: "#FFFFFF",
+    surfaceRaised: "#EFEFEF",
+    border: "#88EE00",
+    textPrimary: "#0A3431",
+    textSecondary: "#1E4D48",
+    textMuted: "#527873",
+    accent: "#88EE00",
+    secondaryAccent: "#FF5722",
+    fontHeading: "var(--font-display)",
+    fontBody: "var(--font-sans)",
+    fontMono: "var(--font-mono)",
   }
 };
 

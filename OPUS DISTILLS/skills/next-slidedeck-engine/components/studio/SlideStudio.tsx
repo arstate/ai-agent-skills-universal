@@ -21,6 +21,8 @@ export const SlideStudio: React.FC = () => {
   const [isPresenting, setIsPresenting] = useState<boolean>(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isSavingProject, setIsSavingProject] = useState<boolean>(false);
+  const [saveStatus, setSaveStatus] = useState<string>('');
 
   // Hydration-safe initial state loading from localStorage or URL query
   useEffect(() => {
@@ -28,6 +30,19 @@ export const SlideStudio: React.FC = () => {
     if (typeof window !== 'undefined') {
       try {
         const urlParams = new URLSearchParams(window.location.search);
+        const projectParam = urlParams.get('project');
+        if (projectParam) {
+          fetch(`/api/projects?project=${encodeURIComponent(projectParam)}`)
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success && data.deck) {
+                setDeck(data.deck);
+              }
+            })
+            .catch((err) => console.error('Failed to load project from disk:', err));
+          return;
+        }
+
         const deckParam = urlParams.get('deck');
         if (deckParam && SAMPLE_DECKS[deckParam]) {
           setDeck(SAMPLE_DECKS[deckParam]);
@@ -41,13 +56,57 @@ export const SlideStudio: React.FC = () => {
             setDeck(parsed);
           }
         } else {
-          setDeck(GEMINI_ARGON_DECK);
+          setDeck(SAMPLE_DECKS['klyro-creative-agency'] || GEMINI_ARGON_DECK);
         }
       } catch (e) {
         console.error('Error loading saved slide deck:', e);
       }
     }
   }, []);
+
+  const handleSaveToDeckGen = async () => {
+    try {
+      setIsSavingProject(true);
+      setSaveStatus('SAVING...');
+      const slug =
+        deck.projectSlug ||
+        deck.title
+          .toLowerCase()
+          .replace(/[^a-z0-9_-]/g, '-')
+          .replace(/-+/g, '-') ||
+        'deck-presentation';
+
+      const updatedDeck = {
+        ...deck,
+        projectSlug: slug,
+        updatedAt: new Date().toISOString(),
+      };
+
+      const res = await fetch('/api/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectSlug: slug,
+          deck: updatedDeck,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDeck(updatedDeck);
+        setSaveStatus('SAVED TO DISK!');
+        setTimeout(() => setSaveStatus(''), 3000);
+      } else {
+        setSaveStatus('ERR SAVING');
+        setTimeout(() => setSaveStatus(''), 3000);
+      }
+    } catch (e) {
+      console.error('Error saving project:', e);
+      setSaveStatus('ERR');
+      setTimeout(() => setSaveStatus(''), 3000);
+    } finally {
+      setIsSavingProject(false);
+    }
+  };
 
   // Sync to localStorage after mounting
   useEffect(() => {
@@ -255,6 +314,9 @@ export const SlideStudio: React.FC = () => {
         onOpenExportModal={() => setIsExportModalOpen(true)}
         onTitleChange={(title) => setDeck((prev) => ({ ...prev, title }))}
         onToggleTheme={handleToggleStudioMode}
+        onSaveToDisk={handleSaveToDeckGen}
+        isSavingToDisk={isSavingProject}
+        saveStatus={saveStatus}
         isLightMode={studioMode === 'light'}
         studioMode={studioMode}
         isMounted={mounted}
@@ -269,6 +331,8 @@ export const SlideStudio: React.FC = () => {
           slides={deck.slides}
           activeSlideIndex={activeSlideIndex}
           theme={activeTheme}
+          chromeStyle={deck.chromeStyle}
+          brandLabel={deck.brandLabel}
           studioMode={studioMode}
           onSelectSlide={handleSelectSlide}
           onAddSlide={handleAddSlide}
@@ -286,6 +350,8 @@ export const SlideStudio: React.FC = () => {
           totalSlides={deck.slides.length}
           studioMode={studioMode}
           isEditMode={isEditMode}
+          chromeStyle={deck.chromeStyle}
+          brandLabel={deck.brandLabel}
           onUpdateActiveSlide={handleUpdateActiveSlide}
           onUpdateDeckTheme={handleUpdateDeckTheme}
         />
@@ -298,6 +364,8 @@ export const SlideStudio: React.FC = () => {
           studioMode={studioMode}
           onUpdateActiveSlide={handleUpdateActiveSlide}
           onUpdateDeckTheme={handleUpdateDeckTheme}
+          onUpdateDeckChrome={(chrome) => setDeck((prev) => ({ ...prev, chromeStyle: chrome }))}
+          onUpdateDeckBrand={(brand) => setDeck((prev) => ({ ...prev, brandLabel: brand }))}
           onUpdateTransition={handleUpdateTransition}
           onExport={handleExport}
         />
@@ -347,7 +415,9 @@ export const SlideStudio: React.FC = () => {
               breakAfter: 'page',
               overflow: 'hidden',
               position: 'relative',
-              backgroundColor: (s.layout === 'html' || s.layout === 'bespoke' || s.rawHtml || s.elements?.rawHtml) ? 'transparent' : activeTheme.bg,
+              backgroundColor: (s.layout === 'html' || s.layout === 'bespoke' || s.rawHtml || s.elements?.rawHtml)
+                ? 'transparent'
+                : (s.elements?.bg || s.elements?.bgColor || activeTheme.bg),
             }}
           >
             <SlideRenderer
@@ -356,6 +426,8 @@ export const SlideStudio: React.FC = () => {
               transition={{ type: 'crossfade', duration: 0 }}
               index={idx}
               totalSlides={deck.slides.length}
+              chromeStyle={deck.chromeStyle}
+              brandLabel={deck.brandLabel}
               isThumbnail={false}
             />
           </div>

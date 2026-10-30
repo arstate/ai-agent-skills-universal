@@ -2,10 +2,21 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Slide, ThemeConfig, TransitionConfig } from '../../types/slide';
+import { Slide, ThemeConfig, TransitionConfig, ChromeStyle } from '../../types/slide';
 import { SvgIcon, TelemetryCrosshair, StatusPill } from './SvgIcon';
 import { SlideImageFrame } from './SlideImageFrame';
-import { DEFAULT_SLIDE_IMAGE } from '../../presets/curatedPhotos';
+import { DEFAULT_SLIDE_IMAGE, DEFAULT_TEAM_MEMBERS, DEFAULT_PROCESS_STEPS } from '../../presets/curatedPhotos';
+import { resolveLayoutMeta } from '../../presets/layoutCatalog';
+import { isColorLight } from '../../presets/themes';
+import {
+  renderAiKlyroHero,
+  renderAiKlyroSplitStats,
+  renderAiKlyroTicketPrinciples,
+  renderAiChuckleRetroHero,
+  renderAiBorcelleDonutData,
+  renderAiBorcelleVennDiagram,
+  renderAiFintechRibbonWave,
+} from './AiGenCreativeLayouts';
 
 interface SlideRendererProps {
   slide: Slide;
@@ -16,6 +27,8 @@ interface SlideRendererProps {
   isThumbnail?: boolean;
   isEditMode?: boolean;
   selectedId?: string | null;
+  chromeStyle?: ChromeStyle;
+  brandLabel?: string;
   onSelectElement?: (id: string | null) => void;
   onUpdateSlide?: (updater: (prev: Slide) => Slide) => void;
   onOpenImageEditor?: (imageKey: string) => void;
@@ -128,10 +141,14 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
   isThumbnail = false,
   isEditMode = false,
   selectedId = null,
+  chromeStyle,
+  brandLabel,
   onSelectElement,
   onUpdateSlide,
   onOpenImageEditor,
 }) => {
+  const effectiveChrome: ChromeStyle = chromeStyle || slide.chromeStyle || 'minimal';
+  const effectiveBrand: string = brandLabel || 'PRESENTATION';
   // Determine motion transition variants based on configured transition type
   const getVariants = () => {
     if (isThumbnail) {
@@ -206,7 +223,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
     ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
   };
 
-  const isMorph = transition.type === 'morph' && !isEditMode;
+  const isMorph = transition.type === 'morph' && !isEditMode && !isThumbnail;
 
   const isHtmlSlide = slide.layout === 'html' || slide.layout === 'bespoke' || Boolean(slide.rawHtml || slide.elements?.rawHtml);
 
@@ -272,8 +289,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
       style={{
         width: 1920,
         height: 1080,
-        backgroundColor: theme.bg,
-        color: theme.textPrimary,
+        backgroundColor: slide.elements.bg || slide.elements.bgColor || theme.bg,
+        color:
+          slide.elements.textColor ||
+          (isColorLight(slide.elements.bg || slide.elements.bgColor || theme.bg) ? '#111827' : '#ffffff'),
         fontFamily: theme.fontBody,
       }}
     >
@@ -301,54 +320,134 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
           transition={transitionConfig}
           className="relative flex h-full w-full flex-col justify-between px-20 py-10"
         >
-          {/* TOP METADATA BAR (Inside slide) */}
-          <div
-            className="flex items-center justify-between border-b pb-5"
-            style={{ borderColor: theme.border }}
-          >
-            <motion.div
-              layoutId={transition.type === 'morph' ? 'slide-kicker' : undefined}
-              className="flex items-center gap-3.5"
+          {/* TOP METADATA BAR / FOLIO (varied yet consistent within deck) */}
+          {effectiveChrome !== 'clean-bleed' && (
+            <div
+              className={`flex items-center justify-between pb-4 ${
+                effectiveChrome === 'editorial' || effectiveChrome === 'classic-rule'
+                  ? 'border-b'
+                  : ''
+              }`}
+              style={{
+                borderColor: effectiveChrome === 'classic-rule' ? theme.accent : theme.border,
+              }}
             >
-              <span
-                className="inline-block h-3 w-3 rounded-none"
-                style={{ backgroundColor: theme.accent }}
-              />
-              <EditableText
-                value={slide.kicker || 'EXECUTIVE BRIEFING'}
-                isEditMode={isEditMode}
-                isSelected={selectedId === 'kicker'}
-                onSelect={() => onSelectElement?.('kicker')}
-                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
-                className="text-base font-mono font-bold tracking-[0.2em] uppercase"
-                style={{ color: theme.textMuted }}
-                as="span"
-              />
-            </motion.div>
-            <div className="flex items-center gap-8">
-              <span
-                className="text-sm font-mono tracking-widest uppercase font-medium"
-                style={{ color: theme.textMuted }}
-              >
-                16:9 FIXED CANVAS
-              </span>
-              <span
-                className="text-base font-mono font-bold"
-                style={{ color: theme.textSecondary }}
-              >
-                {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
-              </span>
+              {effectiveChrome === 'badge-capsule' ? (
+                <div
+                  className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 border"
+                  style={{ backgroundColor: theme.surface, borderColor: theme.border }}
+                >
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: theme.accent }} />
+                  <EditableText
+                    value={slide.kicker || 'EXECUTIVE BRIEFING'}
+                    isEditMode={isEditMode}
+                    isSelected={selectedId === 'kicker'}
+                    onSelect={() => onSelectElement?.('kicker')}
+                    onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
+                    className="text-xs font-mono font-bold tracking-wider uppercase"
+                    style={{ color: theme.textPrimary }}
+                    as="span"
+                  />
+                </div>
+              ) : effectiveChrome === 'creative-studio' ? (
+                <div className="flex items-center gap-3">
+                  <span
+                    className="rounded-full px-3.5 py-1 text-xs font-mono font-black tracking-widest uppercase border shadow-sm"
+                    style={{
+                      backgroundColor: theme.accent,
+                      borderColor: theme.accent,
+                      color: '#000000',
+                    }}
+                  >
+                    {effectiveBrand}
+                  </span>
+                  <EditableText
+                    value={slide.kicker || 'CREATIVE BRIEF'}
+                    isEditMode={isEditMode}
+                    isSelected={selectedId === 'kicker'}
+                    onSelect={() => onSelectElement?.('kicker')}
+                    onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
+                    className="text-xs font-mono font-bold tracking-widest uppercase"
+                    style={{ color: theme.textMuted }}
+                    as="span"
+                  />
+                </div>
+              ) : effectiveChrome === 'editorial' ? (
+                <motion.div
+                  layoutId={transition.type === 'morph' ? 'slide-kicker' : undefined}
+                  className="flex items-center gap-3.5"
+                >
+                  <span
+                    className="text-xs font-mono font-bold tracking-[0.25em] uppercase px-2.5 py-0.5 border"
+                    style={{
+                      backgroundColor: theme.surfaceRaised,
+                      borderColor: theme.border,
+                      color: theme.textSecondary,
+                    }}
+                  >
+                    {effectiveBrand}
+                  </span>
+                  <span className="font-mono text-xs" style={{ color: theme.border }}>|</span>
+                  <EditableText
+                    value={slide.kicker || 'EXECUTIVE REPORT'}
+                    isEditMode={isEditMode}
+                    isSelected={selectedId === 'kicker'}
+                    onSelect={() => onSelectElement?.('kicker')}
+                    onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
+                    className="text-sm font-mono font-bold tracking-[0.2em] uppercase"
+                    style={{ color: theme.textMuted }}
+                    as="span"
+                  />
+                </motion.div>
+              ) : effectiveChrome === 'classic-rule' ? (
+                <div className="flex items-center gap-3">
+                  <span className="h-3 w-3" style={{ backgroundColor: theme.accent }} />
+                  <EditableText
+                    value={slide.kicker || 'STRATEGIC REPORT'}
+                    isEditMode={isEditMode}
+                    isSelected={selectedId === 'kicker'}
+                    onSelect={() => onSelectElement?.('kicker')}
+                    onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
+                    className="text-sm font-mono font-bold tracking-[0.25em] uppercase"
+                    style={{ color: theme.textPrimary }}
+                    as="span"
+                  />
+                </div>
+              ) : (
+                /* minimal: clean kicker with subtle accent square */
+                <motion.div
+                  layoutId={transition.type === 'morph' ? 'slide-kicker' : undefined}
+                  className="flex items-center gap-3"
+                >
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-none"
+                    style={{ backgroundColor: theme.accent }}
+                  />
+                  <EditableText
+                    value={slide.kicker || 'EXECUTIVE BRIEFING'}
+                    isEditMode={isEditMode}
+                    isSelected={selectedId === 'kicker'}
+                    onSelect={() => onSelectElement?.('kicker')}
+                    onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, kicker: val }))}
+                    className="text-base font-mono font-bold tracking-[0.2em] uppercase"
+                    style={{ color: theme.textMuted }}
+                    as="span"
+                  />
+                </motion.div>
+              )}
             </div>
-          </div>
+          )}
 
           {/* MAIN BODY AREA DEPENDING ON LAYOUT */}
           <div className="my-auto flex flex-1 flex-col justify-center py-2 min-h-0">
             {renderLayoutContent(slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor)}
           </div>
 
-          {/* BOTTOM FOOTER / TELEMETRY */}
+          {/* BOTTOM FOOTER / MANDATORY BOTTOM-RIGHT PAGE COUNTER */}
           <div
-            className="flex items-center justify-between border-t pt-5"
+            className={`flex items-center justify-between pt-4 ${
+              effectiveChrome === 'clean-bleed' ? '' : 'border-t'
+            }`}
             style={{ borderColor: theme.border }}
           >
             <motion.div
@@ -356,7 +455,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
               className="flex items-center gap-2.5"
             >
               <EditableText
-                value={slide.elements.footnote || 'CONFIDENTIAL · REPRODUCIBLE VECTOR SYSTEM'}
+                value={slide.elements.footnote || `${effectiveBrand} · CONFIDENTIAL`}
                 isEditMode={isEditMode}
                 isSelected={selectedId === 'footnote'}
                 onSelect={() => onSelectElement?.('footnote')}
@@ -366,17 +465,32 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                     elements: { ...prev.elements, footnote: val },
                   }))
                 }
-                className="text-sm font-mono font-semibold tracking-wider uppercase"
+                className="text-xs font-mono font-semibold tracking-wider uppercase"
                 style={{ color: theme.textMuted }}
                 as="span"
               />
             </motion.div>
-            <span
-              className="text-sm font-mono tracking-wider font-medium"
-              style={{ color: theme.textMuted }}
-            >
-              NEXT-SLIDEDECK-ENGINE · v1.2
-            </span>
+
+            {/* MANDATORY BOTTOM-RIGHT PAGE NUMBER (halaman wajib di pojok kanan bawah) */}
+            {effectiveChrome === 'badge-capsule' || effectiveChrome === 'creative-studio' ? (
+              <div
+                className="rounded-full px-3.5 py-1 text-xs font-mono font-bold tracking-widest border tabular-nums shadow-sm"
+                style={{
+                  backgroundColor: theme.surface,
+                  borderColor: theme.border,
+                  color: theme.textPrimary,
+                }}
+              >
+                {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+              </div>
+            ) : (
+              <span
+                className="text-sm font-mono font-bold tracking-widest tabular-nums"
+                style={{ color: theme.textSecondary }}
+              >
+                {String(index + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+              </span>
+            )}
           </div>
         </motion.div>
       </AnimatePresence>
@@ -418,9 +532,34 @@ function renderLayoutContent(
     );
   }
 
-  switch (slide.layout) {
+  // Dedicated Renderers for Group 11: AI GEN & Creative Agency Layouts (User Ref Images)
+  if (slide.layout === 'ai-klyro-hero') {
+    return renderAiKlyroHero({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+  if (slide.layout === 'ai-klyro-split-stats') {
+    return renderAiKlyroSplitStats({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+  if (slide.layout === 'ai-klyro-ticket-principles') {
+    return renderAiKlyroTicketPrinciples({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+  if (slide.layout === 'ai-chuckle-retro-hero') {
+    return renderAiChuckleRetroHero({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+  if (slide.layout === 'ai-borcelle-donut-data') {
+    return renderAiBorcelleDonutData({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+  if (slide.layout === 'ai-borcelle-venn-diagram') {
+    return renderAiBorcelleVennDiagram({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+  if (slide.layout === 'ai-fintech-ribbon-wave') {
+    return renderAiFintechRibbonWave({ slide, theme, isMorph, isEditMode, selectedId, onSelectElement, onUpdateSlide, onOpenImageEditor, EditableText });
+  }
+
+  const meta = resolveLayoutMeta(slide.layout);
+  const archetype = meta.archetype;
+
+  switch (archetype) {
     case 'html':
-    case 'bespoke':
       return (
         <div className="w-full h-full flex flex-col justify-center">
           <div
@@ -441,7 +580,7 @@ function renderLayoutContent(
             }}
           >
             <SvgIcon name="sparkles" size={15} color={theme.accent} />
-            <span>SYSTEM SPECIFICATION & ARCHITECTURE</span>
+            <span>{slide.elements.callout?.kicker || 'EXECUTIVE BRIEFING · STRATEGY'}</span>
           </div>
 
           <motion.div
@@ -475,6 +614,7 @@ function renderLayoutContent(
             />
           </div>
 
+          {/* Executive Presentation Metadata Footer */}
           <div
             className="mt-8 flex items-center gap-10 border-t pt-5"
             style={{ borderColor: theme.border }}
@@ -484,24 +624,11 @@ function renderLayoutContent(
                 className="text-xs font-mono uppercase tracking-widest font-semibold flex items-center gap-2"
                 style={{ color: theme.textMuted }}
               >
-                <SvgIcon name="cpu" size={14} color={theme.textMuted} />
-                ENGINE ARCHITECTURE
-              </span>
-              <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>
-                Next.js App Router / Vector SVG
-              </span>
-            </div>
-            <div className="h-10 w-[1px]" style={{ backgroundColor: theme.border }} />
-            <div className="flex flex-col gap-1.5">
-              <span
-                className="text-xs font-mono uppercase tracking-widest font-semibold flex items-center gap-2"
-                style={{ color: theme.textMuted }}
-              >
                 <SvgIcon name="target" size={14} color={theme.textMuted} />
-                RATIO SPECIFICATION
+                INITIATIVE
               </span>
               <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>
-                1920 × 1080 px (16:9 Standard)
+                {slide.elements.callout?.title || 'STRATEGIC DIRECTIVE'}
               </span>
             </div>
             <div className="h-10 w-[1px]" style={{ backgroundColor: theme.border }} />
@@ -511,15 +638,303 @@ function renderLayoutContent(
                 style={{ color: theme.textMuted }}
               >
                 <SvgIcon name="shield" size={14} color={theme.textMuted} />
-                SECURITY CLASSIFICATION
+                SECURITY &amp; ACCESS
               </span>
               <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>
-                Proprietary & Unrestricted
+                {slide.elements.footnote || 'CONFIDENTIAL · RESTRICTED'}
               </span>
             </div>
           </div>
         </div>
       );
+
+    case 'team': {
+      const teamMembers =
+        slide.elements.team && slide.elements.team.length > 0
+          ? slide.elements.team
+          : DEFAULT_TEAM_MEMBERS.slice(0, 3);
+      const is4Cols = teamMembers.length >= 4;
+      return (
+        <div className="flex flex-col justify-center w-full">
+          <div className="mb-4 max-w-4xl flex flex-col gap-1.5">
+            <motion.div
+              className="text-5xl lg:text-6xl font-black tracking-tight leading-tight"
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
+            >
+              <EditableText
+                value={slide.title}
+                isEditMode={isEditMode}
+                isSelected={selectedId === 'title'}
+                onSelect={() => onSelectElement?.('title')}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
+                as="h2"
+              />
+            </motion.div>
+            <div
+              className="text-xl leading-relaxed font-normal"
+              style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
+            >
+              <EditableText
+                value={slide.subtitle}
+                isEditMode={isEditMode}
+                isSelected={selectedId === 'subtitle'}
+                onSelect={() => onSelectElement?.('subtitle')}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
+                as="p"
+              />
+            </div>
+          </div>
+          <div className={`grid ${is4Cols ? 'grid-cols-4 gap-6' : 'grid-cols-3 gap-8'}`}>
+            {teamMembers.map((member, i) => {
+              const cardId = `team-${i}`;
+              const isCardSelected = selectedId === cardId;
+              const pillColor = member.color || theme.accent;
+              return (
+                <motion.div
+                  key={member.id || i}
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.stopPropagation();
+                      onSelectElement?.(cardId);
+                    }
+                  }}
+                  className={`relative border p-5 flex flex-col transition-all ${
+                    isCardSelected
+                      ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg'
+                      : isEditMode
+                      ? 'hover:border-zinc-500 cursor-pointer'
+                      : ''
+                  }`}
+                  style={{
+                    backgroundColor: theme.surface,
+                    borderColor: isCardSelected ? '#10B981' : pillColor ? pillColor + '55' : theme.border,
+                  }}
+                >
+                  {/* Portrait Image Container */}
+                  <div
+                    className="w-full h-[260px] overflow-hidden mb-3.5 relative border"
+                    style={{ borderColor: theme.border }}
+                  >
+                    <img
+                      src={member.avatarUrl || DEFAULT_TEAM_MEMBERS[i % 4].avatarUrl}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  {/* Role Pill Badge */}
+                  <div className="mb-2">
+                    <span
+                      className="inline-block px-3 py-1 text-xs font-mono font-bold tracking-wider uppercase rounded-sm"
+                      style={{
+                        backgroundColor: pillColor,
+                        color: '#000000',
+                      }}
+                    >
+                      {member.role}
+                    </span>
+                  </div>
+                  {/* Name */}
+                  <div
+                    className="text-2xl font-bold tracking-tight mb-1"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    <EditableText
+                      value={member.name}
+                      isEditMode={isEditMode}
+                      isSelected={selectedId === `${cardId}-name`}
+                      onSelect={() => onSelectElement?.(cardId)}
+                      onSave={(val) =>
+                        onUpdateSlide?.((prev) => {
+                          const currentTeam = prev.elements.team
+                            ? [...prev.elements.team]
+                            : [...DEFAULT_TEAM_MEMBERS.slice(0, 3)];
+                          currentTeam[i] = { ...currentTeam[i], name: val };
+                          return { ...prev, elements: { ...prev.elements, team: currentTeam } };
+                        })
+                      }
+                      as="h3"
+                    />
+                  </div>
+                  {/* Bio */}
+                  <div className="text-sm leading-relaxed" style={{ color: theme.textSecondary }}>
+                    <EditableText
+                      value={member.bio || ''}
+                      isEditMode={isEditMode}
+                      isSelected={selectedId === `${cardId}-bio`}
+                      onSelect={() => onSelectElement?.(cardId)}
+                      onSave={(val) =>
+                        onUpdateSlide?.((prev) => {
+                          const currentTeam = prev.elements.team
+                            ? [...prev.elements.team]
+                            : [...DEFAULT_TEAM_MEMBERS.slice(0, 3)];
+                          currentTeam[i] = { ...currentTeam[i], bio: val };
+                          return { ...prev, elements: { ...prev.elements, team: currentTeam } };
+                        })
+                      }
+                      as="p"
+                    />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    case 'process': {
+      const steps =
+        slide.elements.steps && slide.elements.steps.length > 0
+          ? slide.elements.steps
+          : DEFAULT_PROCESS_STEPS;
+      const count = steps.length;
+      return (
+        <div className="flex flex-col justify-center">
+          <div className="mb-6 max-w-4xl flex flex-col gap-2">
+            <motion.div
+              className="text-6xl font-black tracking-tight leading-tight"
+              style={{ color: slide.elements.titleColor || theme.textPrimary }}
+            >
+              <EditableText
+                value={slide.title}
+                isEditMode={isEditMode}
+                isSelected={selectedId === 'title'}
+                onSelect={() => onSelectElement?.('title')}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, title: val }))}
+                style={{ color: slide.elements.titleColor || theme.textPrimary }}
+                as="h2"
+              />
+            </motion.div>
+            <div
+              className="text-2xl leading-relaxed font-normal"
+              style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
+            >
+              <EditableText
+                value={slide.subtitle}
+                isEditMode={isEditMode}
+                isSelected={selectedId === 'subtitle'}
+                onSelect={() => onSelectElement?.('subtitle')}
+                onSave={(val) => onUpdateSlide?.((prev) => ({ ...prev, subtitle: val }))}
+                style={{ color: slide.elements.subtitleColor || theme.textSecondary }}
+                as="p"
+              />
+            </div>
+          </div>
+          <div className={`grid ${count >= 5 ? 'grid-cols-5' : 'grid-cols-4'} gap-5`}>
+            {steps.map((st, i) => {
+              const cardId = `step-${i}`;
+              const isCardSelected = selectedId === cardId;
+              const stepColor = st.color || theme.accent;
+              return (
+                <motion.div
+                  key={st.id || i}
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.stopPropagation();
+                      onSelectElement?.(cardId);
+                    }
+                  }}
+                  className={`relative border p-6 flex flex-col justify-between transition-all min-h-[350px] ${
+                    isCardSelected
+                      ? 'ring-2 ring-emerald-400 bg-emerald-500/10 shadow-lg'
+                      : isEditMode
+                      ? 'hover:border-zinc-500 cursor-pointer'
+                      : ''
+                  }`}
+                  style={{
+                    backgroundColor: theme.surface,
+                    borderColor: isCardSelected ? '#10B981' : stepColor ? stepColor + '55' : theme.border,
+                  }}
+                >
+                  {stepColor && (
+                    <div
+                      className="absolute top-0 left-0 right-0 h-1.5"
+                      style={{ backgroundColor: stepColor }}
+                    />
+                  )}
+                  <div>
+                    {/* Step Number in giant font */}
+                    <div
+                      className="flex items-center justify-between mb-4 border-b pb-3"
+                      style={{ borderColor: theme.border }}
+                    >
+                      <span className="text-4xl font-mono font-black" style={{ color: stepColor }}>
+                        {st.stepNumber || `0${i + 1}`}
+                      </span>
+                      <span
+                        className="text-xs font-mono font-bold uppercase tracking-widest"
+                        style={{ color: theme.textMuted }}
+                      >
+                        PHASE {i + 1}
+                      </span>
+                    </div>
+                    {/* Title */}
+                    <div
+                      className="text-xl font-bold tracking-tight mb-2.5"
+                      style={{ color: theme.textPrimary }}
+                    >
+                      <EditableText
+                        value={st.title}
+                        isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-title`}
+                        onSelect={() => onSelectElement?.(cardId)}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const currentSteps = prev.elements.steps
+                              ? [...prev.elements.steps]
+                              : [...DEFAULT_PROCESS_STEPS];
+                            currentSteps[i] = { ...currentSteps[i], title: val };
+                            return { ...prev, elements: { ...prev.elements, steps: currentSteps } };
+                          })
+                        }
+                        as="h3"
+                      />
+                    </div>
+                    {/* Description */}
+                    <div
+                      className="text-sm font-normal leading-relaxed"
+                      style={{ color: theme.textSecondary }}
+                    >
+                      <EditableText
+                        value={st.description}
+                        isEditMode={isEditMode}
+                        isSelected={selectedId === `${cardId}-desc`}
+                        onSelect={() => onSelectElement?.(cardId)}
+                        onSave={(val) =>
+                          onUpdateSlide?.((prev) => {
+                            const currentSteps = prev.elements.steps
+                              ? [...prev.elements.steps]
+                              : [...DEFAULT_PROCESS_STEPS];
+                            currentSteps[i] = { ...currentSteps[i], description: val };
+                            return { ...prev, elements: { ...prev.elements, steps: currentSteps } };
+                          })
+                        }
+                        as="p"
+                      />
+                    </div>
+                  </div>
+                  {/* Step Footer Indicator */}
+                  <div
+                    className="mt-4 pt-3 border-t flex items-center gap-2"
+                    style={{ borderColor: theme.border }}
+                  >
+                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: stepColor }} />
+                    <span
+                      className="text-[10px] font-mono uppercase tracking-wider font-semibold"
+                      style={{ color: theme.textMuted }}
+                    >
+                      STAGE VERIFIED
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
 
     case 'metrics':
       return (

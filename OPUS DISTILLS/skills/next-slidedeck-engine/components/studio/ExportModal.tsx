@@ -73,6 +73,18 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           </button>
         </div>
 
+        {/* Project Target Directory Banner */}
+        <div
+          className={`px-5 py-2 border-b text-[10.5px] font-mono flex items-center justify-between ${
+            isLight ? 'border-[#e4e4e7] bg-emerald-50 text-emerald-900' : 'border-[#222227] bg-emerald-950/20 text-emerald-400'
+          }`}
+        >
+          <span>📁 EXPORT DIRECTORY:</span>
+          <span className="font-semibold truncate max-w-[280px]">
+            ~/Downloads/deck-gen/projects/{deck.projectSlug || 'deck-presentation'}/export/
+          </span>
+        </div>
+
         {/* Content list of export options */}
         <div className="p-5 flex flex-col gap-3">
           {/* 1. PDF Vector */}
