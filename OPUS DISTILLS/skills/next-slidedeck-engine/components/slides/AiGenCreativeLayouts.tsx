@@ -641,7 +641,7 @@ export function renderAiBorcelleVennDiagram({
   onUpdateSlide,
   EditableText,
 }: AiGenProps) {
-  const accentChartreuse = theme.accent || '#E2FD52';
+  const accentSky = '#38BDF8';
   const accentOrange = theme.secondaryAccent || '#FF6422';
   const accentGold = '#FACC15';
 
@@ -669,17 +669,17 @@ export function renderAiBorcelleVennDiagram({
 
       {/* 3 Interlocking Dimensional Discs (Borcelle Reference 4 Style) */}
       <div className="relative w-[1140px] h-[390px] flex items-center justify-center">
-        {/* Disc 1: Left (Lime) */}
+        {/* Disc 1: Left (Electric Sky Blue - Zero Clashing Green) */}
         <div
           className="w-[390px] h-[390px] rounded-full border-[6px] flex flex-col items-center justify-center p-10 text-center shadow-2xl transition-transform hover:scale-105 -mr-16 relative z-10"
           style={{
             backgroundColor: '#181820',
-            borderColor: accentChartreuse,
+            borderColor: accentSky,
           }}
         >
           <span
             className="text-xs font-mono font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-3"
-            style={{ backgroundColor: `${accentChartreuse}25`, color: accentChartreuse }}
+            style={{ backgroundColor: `${accentSky}25`, color: accentSky }}
           >
             PILLAR 01
           </span>
@@ -691,7 +691,7 @@ export function renderAiBorcelleVennDiagram({
           </p>
           <span
             className="text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border"
-            style={{ borderColor: `${accentChartreuse}50`, color: accentChartreuse }}
+            style={{ borderColor: `${accentSky}50`, color: accentSky }}
           >
             55% ATTENTION LIFT
           </span>
@@ -790,7 +790,7 @@ export function renderAiFintechRibbonWave({
       />
       <div
         className="pointer-events-none absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #10B981 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #1D4ED8 0%, transparent 70%)' }}
       />
 
       {/* Left Column: Headline + Value Proposition Checklist (45% Width) */}
@@ -844,7 +844,7 @@ export function renderAiFintechRibbonWave({
               INSTITUTIONAL VOLUME GROWTH
             </span>
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-mono font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-black uppercase bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
                 ▲ +142% YOY
               </span>
               <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase bg-slate-800 text-slate-300 border border-slate-700">
@@ -854,7 +854,7 @@ export function renderAiFintechRibbonWave({
           </div>
 
           <div className="my-2">
-            <span className="text-[110px] font-black leading-none tracking-tight text-emerald-400">
+            <span className="text-[110px] font-black leading-none tracking-tight text-cyan-400">
               320%
             </span>
           </div>
@@ -894,7 +894,7 @@ export function renderAiFintechRibbonWave({
         {/* Security Compliance Strip */}
         <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/70 flex items-center justify-between text-xs font-mono font-bold uppercase text-slate-400 shadow-md">
           <div className="flex items-center gap-2 text-slate-300">
-            <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
             <span>BANK-GRADE SECURITY</span>

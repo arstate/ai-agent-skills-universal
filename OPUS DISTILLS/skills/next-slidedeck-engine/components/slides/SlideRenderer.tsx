@@ -279,6 +279,24 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
     );
   }
 
+  const slideBg = slide.elements.bg || slide.elements.bgColor || theme.bg;
+  const isSlideDark = !isColorLight(slideBg);
+
+  // Dynamic subtle border & accents: zero clashing neon strokes, perfectly harmonious with slide bg
+  const slideBorder =
+    theme.id === 'ai-gen' || slide.elements.bg || slide.elements.bgColor
+      ? isSlideDark
+        ? 'rgba(255, 255, 255, 0.08)'
+        : 'rgba(0, 0, 0, 0.06)'
+      : theme.border;
+
+  const slideAccent =
+    theme.id === 'ai-gen' || slide.elements.bg || slide.elements.bgColor
+      ? isSlideDark
+        ? 'rgba(255, 255, 255, 0.4)'
+        : '#0F172A'
+      : theme.accent;
+
   return (
     <div
       id={`slide-canvas-${slide.id}`}
@@ -289,10 +307,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
       style={{
         width: 1920,
         height: 1080,
-        backgroundColor: slide.elements.bg || slide.elements.bgColor || theme.bg,
+        backgroundColor: slideBg,
         color:
           slide.elements.textColor ||
-          (isColorLight(slide.elements.bg || slide.elements.bgColor || theme.bg) ? '#111827' : '#ffffff'),
+          (isSlideDark ? '#ffffff' : '#111827'),
         fontFamily: theme.fontBody,
       }}
     >
@@ -300,16 +318,12 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
-          backgroundImage: `linear-gradient(to right, ${theme.border} 1px, transparent 1px), linear-gradient(to bottom, ${theme.border} 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(to right, ${slideBorder} 1px, transparent 1px), linear-gradient(to bottom, ${slideBorder} 1px, transparent 1px)`,
           backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Frame perimeter hairline border */}
-      <div
-        className="pointer-events-none absolute inset-0 border"
-        style={{ borderColor: theme.border }}
-      />
+      {/* Frame perimeter hairline border removed to eliminate ugly outer stroke */}
 
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
@@ -329,15 +343,15 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                   : ''
               }`}
               style={{
-                borderColor: effectiveChrome === 'classic-rule' ? theme.accent : theme.border,
+                borderColor: effectiveChrome === 'classic-rule' ? slideAccent : slideBorder,
               }}
             >
               {effectiveChrome === 'badge-capsule' ? (
                 <div
                   className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 border"
-                  style={{ backgroundColor: theme.surface, borderColor: theme.border }}
+                  style={{ backgroundColor: theme.surface, borderColor: slideBorder }}
                 >
-                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: theme.accent }} />
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: slideAccent }} />
                   <EditableText
                     value={slide.kicker || 'EXECUTIVE BRIEFING'}
                     isEditMode={isEditMode}
@@ -354,8 +368,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                   <span
                     className="rounded-full px-3.5 py-1 text-xs font-mono font-black tracking-widest uppercase border shadow-sm"
                     style={{
-                      backgroundColor: theme.accent,
-                      borderColor: theme.accent,
+                      backgroundColor: slideAccent,
+                      borderColor: slideAccent,
                       color: '#000000',
                     }}
                   >
@@ -381,13 +395,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                     className="text-xs font-mono font-bold tracking-[0.25em] uppercase px-2.5 py-0.5 border"
                     style={{
                       backgroundColor: theme.surfaceRaised,
-                      borderColor: theme.border,
+                      borderColor: slideBorder,
                       color: theme.textSecondary,
                     }}
                   >
                     {effectiveBrand}
                   </span>
-                  <span className="font-mono text-xs" style={{ color: theme.border }}>|</span>
+                  <span className="font-mono text-xs" style={{ color: slideBorder }}>|</span>
                   <EditableText
                     value={slide.kicker || 'EXECUTIVE REPORT'}
                     isEditMode={isEditMode}
@@ -401,7 +415,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                 </motion.div>
               ) : effectiveChrome === 'classic-rule' ? (
                 <div className="flex items-center gap-3">
-                  <span className="h-3 w-3" style={{ backgroundColor: theme.accent }} />
+                  <span className="h-3 w-3" style={{ backgroundColor: slideAccent }} />
                   <EditableText
                     value={slide.kicker || 'STRATEGIC REPORT'}
                     isEditMode={isEditMode}
@@ -420,8 +434,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
                   className="flex items-center gap-3"
                 >
                   <span
-                    className="inline-block h-2.5 w-2.5 rounded-none"
-                    style={{ backgroundColor: theme.accent }}
+                    className="inline-block h-2 w-2 rounded-none opacity-60"
+                    style={{ backgroundColor: slideAccent }}
                   />
                   <EditableText
                     value={slide.kicker || 'EXECUTIVE BRIEFING'}
@@ -448,7 +462,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({
             className={`flex items-center justify-between pt-4 ${
               effectiveChrome === 'clean-bleed' ? '' : 'border-t'
             }`}
-            style={{ borderColor: theme.border }}
+            style={{ borderColor: slideBorder }}
           >
             <motion.div
               layoutId={transition.type === 'morph' ? 'slide-footnote' : undefined}
