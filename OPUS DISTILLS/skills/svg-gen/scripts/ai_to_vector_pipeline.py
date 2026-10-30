@@ -99,13 +99,13 @@ def finalize_production_package(
     shutil.copyfile(raw_svg_path, temp_raw)
     inkscape_cmd = get_inkscape_command()
 
-    # 1. Deep Ungroup + Convert Object & Stroke to Path via Inkscape
+    # 1. Convert Shapes & Strokes to Closed Paths via Inkscape (Preserving Semantic Groups)
     print("-> Expanding all objects and strokes to closed paths via Inkscape...")
     cmd_outline = inkscape_cmd + [
         str(temp_raw),
         (
-            "--actions=select-all:all;selection-ungroup;select-all:all;selection-ungroup;"
-            f"select-all:all;object-to-path;stroke-to-path;export-filename:{temp_outlined};export-do"
+            "--actions=select-all:all;object-to-path;object-stroke-to-path;"
+            f"export-filename:{temp_outlined};export-do"
         ),
     ]
     res_outline = subprocess.run(cmd_outline, capture_output=True, text=True)

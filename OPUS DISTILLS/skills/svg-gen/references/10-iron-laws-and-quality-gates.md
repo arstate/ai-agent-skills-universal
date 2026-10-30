@@ -73,7 +73,7 @@ Dokumentasi standar mutu industri grafis vektor komersial untuk kontributor **Ad
 | **#1** | **RASTER ARTIFACTS / BITMAPS** | Penggunaan `opacity`, `<filter>`, atau `<feDropShadow>` yang memicu panggilan `cairo_image` di file EPS. | **Gate 07:** Larang seluruh atribut alpha. Gunakan warna solid heksadesimal murni. |
 | **#2** | **OPEN PATHS / STRAY POINTS** | Path memiliki warna isi (`fill`) tetapi tidak ditutup dengan huruf `Z` di akhir atribut `d`. | **Gate 05:** Script memverifikasi setiap `<path>` wajib berakhiran `Z`/`z`. |
 | **#3** | **UNRESOLVED FONTS / TEXT TAGS** | Masih ada tag `<text>` yang belum di-outline menjadi kurva poligon tertutup. | **Gate 08:** Script menggagalkan build jika menemukan `<text>` atau `<tspan>`. |
-| **#4** | **UNEXPANDED STROKES** | Garis tepi masih berupa atribut `stroke="..."` mentah, bukan kurva ter-expand. | **Gate 06:** Inkscape CLI deep ungroup + `object-to-path` + `stroke-to-path`. |
+| **#4** | **UNEXPANDED STROKES** | Garis tepi masih berupa atribut `stroke="..."` mentah, bukan kurva ter-expand. | **Gate 06:** Inkscape CLI `object-to-path` + `object-stroke-to-path`. |
 | **#5** | **UNDER MINIMUM RESOLUTION** | Dimensi artboard di bawah 15.0 Megapixels. | **Gate 04:** Kanvas dikunci di `4000x4000` (16.0 MP) atau `5000x3000` (15.0 MP). |
 | **#6** | **TRADEMARK / COPYRIGHT** | Logo merek nyata (Visa, Apple, Mastercard) atau teks merek komersial. | Gambar simbol mata uang atau generic wireframe pills tanpa teks merek asli. |
 | **#7** | **KEYWORD SPAM / AI PENALTY** | Memasukkan kata "AI", "Midjourney", atau keyword repetitif di metadata. | **Gate 01:** Regex scanner memvalidasi title dan tags sebelum injeksi Dublin Core. |

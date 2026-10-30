@@ -13,6 +13,7 @@ import argparse
 import csv
 import re
 import xml.etree.ElementTree as ET
+from xml.sax.saxutils import escape
 from pathlib import Path
 
 try:
@@ -80,7 +81,8 @@ def embed_jpeg_metadata(jpeg_path: str, title: str, tags: list[str]) -> bool:
 
     try:
         img = Image.open(jpeg_path)
-        bag_items = "".join([f"<rdf:li>{t.strip()}</rdf:li>" for t in tags if t.strip()])
+        esc_title = escape(title)
+        bag_items = "".join([f"<rdf:li>{escape(t.strip())}</rdf:li>" for t in tags if t.strip()])
         xmp_data = f"""<x:xmpmeta xmlns:x="adobe:ns:meta/">
  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about=""
@@ -88,12 +90,12 @@ def embed_jpeg_metadata(jpeg_path: str, title: str, tags: list[str]) -> bool:
     xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">
    <dc:title>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">{title}</rdf:li>
+     <rdf:li xml:lang="x-default">{esc_title}</rdf:li>
     </rdf:Alt>
    </dc:title>
    <dc:description>
     <rdf:Alt>
-     <rdf:li xml:lang="x-default">{title}</rdf:li>
+     <rdf:li xml:lang="x-default">{esc_title}</rdf:li>
     </rdf:Alt>
    </dc:description>
    <dc:subject>
@@ -101,7 +103,7 @@ def embed_jpeg_metadata(jpeg_path: str, title: str, tags: list[str]) -> bool:
      {bag_items}
     </rdf:Bag>
    </dc:subject>
-   <photoshop:Headline>{title}</photoshop:Headline>
+   <photoshop:Headline>{esc_title}</photoshop:Headline>
   </rdf:Description>
  </rdf:RDF>
 </x:xmpmeta>""".encode('utf-8')

@@ -11,11 +11,26 @@ import argparse
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-FORBIDDEN_WORDS = {"ai", "artificial intelligence", "generative ai", "midjourney", "dall-e"}
+FORBIDDEN_WORDS = {
+    "ai", "artificial intelligence", "generative ai", "midjourney",
+    "dall-e", "chatgpt", "stable diffusion", "flux", "gemini"
+}
 
 
 class GateAuditError(Exception):
     pass
+
+
+def parse_style(style_str: str) -> dict:
+    """Parse CSS inline style attribute string into a lowercase key-value dictionary."""
+    styles = {}
+    if not style_str:
+        return styles
+    for item in style_str.split(";"):
+        if ":" in item:
+            k, v = item.split(":", 1)
+            styles[k.strip().lower()] = v.strip().lower()
+    return styles
 
 
 def audit_svg(svg_path: Path, title: str = "", tags: list[str] = None, require_zero_stroke: bool = True) -> dict:
@@ -45,15 +60,18 @@ def audit_svg(svg_path: Path, title: str = "", tags: list[str] = None, require_z
 
     results["Gate 01 - Forbidden Words"] = "PASS" if gate_01_pass else f"FAIL ({', '.join(found_forbidden)})"
     if not gate_01_pass:
-        errors.append(results["Gate 01 - Forbidden Words"])
+        errors.append(f"Gate 01 - Forbidden Words: {results['Gate 01 - Forbidden Words']}")
 
-    # Gate 02: Filename Length Check (<= 30 chars)
+    # Gate 02: Filename Length & snake_case Check (<= 30 chars)
     if len(filename) <= 30:
-        results["Gate 02 - Filename <= 30 chars"] = f"PASS ({len(filename)} chars)"
+        if re.match(r"^[a-z0-9_]+(?:\.svg|\.eps|\.png|\.jpg)$", filename):
+            results["Gate 02 - Filename <= 30 chars"] = f"PASS ({len(filename)} chars, snake_case)"
+        else:
+            results["Gate 02 - Filename <= 30 chars"] = f"PASS ({len(filename)} chars)"
     else:
         err = f"FAIL (Filename '{filename}' has {len(filename)} chars > 30 chars limit)"
         results["Gate 02 - Filename <= 30 chars"] = err
-        errors.append(err)
+        errors.append(f"Gate 02 - Filename: {err}")
 
     # Gate 03: Title Length Check (<= 70 chars)
     if not title or len(title) <= 70:
@@ -61,7 +79,7 @@ def audit_svg(svg_path: Path, title: str = "", tags: list[str] = None, require_z
     else:
         err = f"FAIL (Title '{title}' has {len(title)} chars > 70 chars limit)"
         results["Gate 03 - Title <= 70 chars"] = err
-        errors.append(err)
+        errors.append(f"Gate 03 - Title: {err}")
 
     # Parse XML
     try:
@@ -74,22 +92,31 @@ def audit_svg(svg_path: Path, title: str = "", tags: list[str] = None, require_z
     # Gate 04: Canvas Resolution Check (>= 15.0 MP)
     w_str = root.attrib.get("width", "0").replace("px", "").strip()
     h_str = root.attrib.get("height", "0").replace("px", "").strip()
+    w, h = 0.0, 0.0
     try:
         w = float(w_str)
         h = float(h_str)
-        mp = (w * h) / 1_000_000.0
-        if mp >= 15.0:
-            results["Gate 04 - Canvas >= 15.0 MP"] = f"PASS ({w:.0f}x{h:.0f} = {mp:.2f} MP)"
-        else:
-            err = f"FAIL ({w:.0f}x{h:.0f} = {mp:.2f} MP is under 15.0 MP threshold)"
-            results["Gate 04 - Canvas >= 15.0 MP"] = err
-            errors.append(err)
     except ValueError:
-        err = f"FAIL (Invalid width '{w_str}' or height '{h_str}')"
-        results["Gate 04 - Canvas >= 15.0 MP"] = err
-        errors.append(err)
+        pass
 
-    # Gate 05: Closed Path Verification (Every <path> must end with Z or z)
+    if (w <= 0 or h <= 0) and "viewBox" in root.attrib:
+        vb_parts = root.attrib["viewBox"].strip().replace(",", " ").split()
+        if len(vb_parts) == 4:
+            try:
+                w = float(vb_parts[2])
+                h = float(vb_parts[3])
+            except ValueError:
+                pass
+
+    mp = (w * h) / 1_000_000.0 if (w > 0 and h > 0) else 0.0
+    if mp >= 15.0:
+        results["Gate 04 - Canvas >= 15.0 MP"] = f"PASS ({w:.0f}x{h:.0f} = {mp:.2f} MP)"
+    else:
+        err = f"FAIL ({w:.0f}x{h:.0f} = {mp:.2f} MP is under 15.0 MP threshold)"
+        results["Gate 04 - Canvas >= 15.0 MP"] = err
+        errors.append(f"Gate 04 - Canvas: {err}")
+
+    # Gate 05 - Gate 09 inspection
     open_paths = []
     unexpanded_strokes = []
     alpha_attributes = []
@@ -98,66 +125,84 @@ def audit_svg(svg_path: Path, title: str = "", tags: list[str] = None, require_z
 
     for el in root.iter():
         tag = el.tag.split("}")[-1]
+        style_dict = parse_style(el.attrib.get("style", ""))
 
         # Gate 08: Zero Text Tags
         if tag in {"text", "tspan"}:
             text_elements.append(f"<{tag} id='{el.attrib.get('id', '')}'>")
 
-        # Gate 07: Zero Opacity / Filter attributes
-        for alpha_attr in ("opacity", "fill-opacity", "stroke-opacity", "stop-opacity", "filter"):
-            if alpha_attr in el.attrib:
-                alpha_attributes.append(f"<{tag} id='{el.attrib.get('id', '')}' {alpha_attr}='{el.attrib[alpha_attr]}'>")
+        # Gate 07: Zero Opacity / Filter attributes (allow 100% opaque: opacity=1 or 1.0)
+        for alpha_attr in ("opacity", "fill-opacity", "stroke-opacity", "stop-opacity"):
+            val = el.attrib.get(alpha_attr, style_dict.get(alpha_attr, None))
+            if val is not None:
+                val_clean = str(val).strip().lower().replace("%", "")
+                try:
+                    num_val = float(val_clean)
+                    if num_val < 0.999:
+                        alpha_attributes.append(f"<{tag} id='{el.attrib.get('id', '')}' {alpha_attr}='{val}'>")
+                except ValueError:
+                    alpha_attributes.append(f"<{tag} id='{el.attrib.get('id', '')}' {alpha_attr}='{val}'>")
+
+        if "filter" in el.attrib or "filter" in style_dict:
+            filt_val = el.attrib.get("filter", style_dict.get("filter", ""))
+            if filt_val and filt_val.lower() != "none":
+                alpha_attributes.append(f"<{tag} filter='{filt_val}'>")
 
         if tag in {"image", "filter", "feGaussianBlur", "feDropShadow"}:
             alpha_attributes.append(f"Forbidden tag <{tag}>")
 
-        # Gate 06: Zero Live Strokes
+        # Gate 06: Zero Live Strokes (checking both direct XML attribute and inline style)
         if tag in {"line", "polyline"}:
             unexpanded_strokes.append(f"Forbidden raw stroke tag <{tag}>")
         if require_zero_stroke:
-            stroke_val = el.attrib.get("stroke", "none").strip()
+            stroke_val = el.attrib.get("stroke", style_dict.get("stroke", "none")).strip()
             if stroke_val.lower() not in {"none", ""}:
                 unexpanded_strokes.append(f"<{tag} id='{el.attrib.get('id', '')}' stroke='{stroke_val}'>")
 
-        # Gate 05: Path inspection
+        # Gate 05: Path inspection (ensuring all subpaths end with Z/z)
         if tag == "path":
             d = el.attrib.get("d", "").strip()
-            if not d.endswith(("Z", "z")):
-                open_paths.append(f"<path id='{el.attrib.get('id', '')}'>")
+            subpaths = [sp.strip() for sp in re.split(r"(?=[Mm])", d) if sp.strip()]
+            for sp in subpaths:
+                if not sp.endswith(("Z", "z")):
+                    open_paths.append(f"<path id='{el.attrib.get('id', '')}'>")
+                    break
 
-        # Gate 09: Background check
+        # Gate 09: Background check (checking both fill attribute and style)
         if tag == "rect":
             rw = el.attrib.get("width", "").replace("px", "").strip()
             rh = el.attrib.get("height", "").replace("px", "").strip()
-            fill = el.attrib.get("fill", "").strip().lower()
-            if rw in {"100%", w_str} and rh in {"100%", h_str} and fill in {"#ffffff", "white", "#fff"}:
+            fill = el.attrib.get("fill", style_dict.get("fill", "")).strip().lower()
+            w_matches = rw in {"100%", str(int(w)) if w else "", w_str}
+            h_matches = rh in {"100%", str(int(h)) if h else "", h_str}
+            if w_matches and h_matches and fill in {"#ffffff", "white", "#fff"}:
                 full_bg_rects.append(f"White background <rect fill='{fill}'>")
 
     results["Gate 05 - Closed Paths (Z)"] = "PASS" if not open_paths else f"FAIL ({len(open_paths)} open paths: {', '.join(open_paths[:3])})"
     if open_paths:
-        errors.append(results["Gate 05 - Closed Paths (Z)"])
+        errors.append(f"Gate 05 - Closed Paths (Z): {results['Gate 05 - Closed Paths (Z)']}")
 
     results["Gate 06 - Zero Live Strokes"] = "PASS" if not unexpanded_strokes else f"FAIL ({len(unexpanded_strokes)} live strokes: {', '.join(unexpanded_strokes[:3])})"
     if unexpanded_strokes:
-        errors.append(results["Gate 06 - Zero Live Strokes"])
+        errors.append(f"Gate 06 - Zero Live Strokes: {results['Gate 06 - Zero Live Strokes']}")
 
     results["Gate 07 - Zero Alpha / Filters"] = "PASS" if not alpha_attributes else f"FAIL ({len(alpha_attributes)} raster risk attrs: {', '.join(alpha_attributes[:3])})"
     if alpha_attributes:
-        errors.append(results["Gate 07 - Zero Alpha / Filters"])
+        errors.append(f"Gate 07 - Zero Alpha / Filters: {results['Gate 07 - Zero Alpha / Filters']}")
 
     results["Gate 08 - Zero Text Tags"] = "PASS" if not text_elements else f"FAIL ({len(text_elements)} text tags: {', '.join(text_elements[:3])})"
     if text_elements:
-        errors.append(results["Gate 08 - Zero Text Tags"])
+        errors.append(f"Gate 08 - Zero Text Tags: {results['Gate 08 - Zero Text Tags']}")
 
     results["Gate 09 - Transparent Background"] = "PASS" if not full_bg_rects else f"FAIL ({len(full_bg_rects)} white backgrounds found)"
     if full_bg_rects:
-        errors.append(results["Gate 09 - Transparent Background"])
+        errors.append(f"Gate 09 - Transparent Background: {results['Gate 09 - Transparent Background']}")
 
     # Gate 10 - Semantic Grouping
     groups = [el for el in root.iter() if el.tag.split("}")[-1] == "g" and el.attrib.get("id")]
     results["Gate 10 - Semantic Grouping"] = f"PASS ({len(groups)} named groups)" if groups else "FAIL (No named <g id='...'> found)"
     if not groups:
-        errors.append(results["Gate 10 - Semantic Grouping"])
+        errors.append(f"Gate 10 - Semantic Grouping: {results['Gate 10 - Semantic Grouping']}")
 
     results["_errors"] = errors
     return results

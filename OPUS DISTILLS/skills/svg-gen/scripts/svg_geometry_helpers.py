@@ -64,8 +64,8 @@ def ring_compound_path(cx: float, cy: float, r_outer: float, r_inner: float) -> 
     )
     inner = (
         f"M {fmt(cx - r_inner)},{fmt(cy)} "
-        f"A {fmt(r_inner)},{fmt(r_inner)} 0 1 0 {fmt(cx + r_inner)},{fmt(cy)} "
-        f"A {fmt(r_inner)},{fmt(r_inner)} 0 1 0 {fmt(cx - r_inner)},{fmt(cy)} Z"
+        f"A {fmt(r_inner)},{fmt(r_inner)} 0 1 1 {fmt(cx + r_inner)},{fmt(cy)} "
+        f"A {fmt(r_inner)},{fmt(r_inner)} 0 1 1 {fmt(cx - r_inner)},{fmt(cy)} Z"
     )
     return f"{outer} {inner}"
 

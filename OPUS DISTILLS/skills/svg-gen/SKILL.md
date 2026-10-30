@@ -72,7 +72,7 @@ Setiap file vektor produksi yang dihasilkan oleh `/svg-gen` wajib mematuhi 10 hu
 [Stage 3: Precision Mathematical 2D Vector Construction]
   └─ Tulis kode SVG matematis 16 MP -> Closed paths (Z) -> Compound paths (evenodd)
 [Stage 4: Inkscape CLI Outlining & Multi-Format Finalization]
-  └─ Deep Ungroup -> stroke-to-path -> 10-Gate Audit -> Render PNG/JPG/EPS -> Injeksi Metadata RDF/XMP
+  └─ object-to-path + object-stroke-to-path -> 10-Gate Audit -> Render PNG/JPG/EPS -> Injeksi Metadata RDF/XMP
 ```
 
 ### Tahap 1: Riset & Konsep AI (Opsional)
@@ -122,7 +122,7 @@ finalize_production_package(
 | **Gate 03** | Panjang Document Title | $\le 70$ karakter | Ringkas judul tanpa mengurangi kata kunci utama. |
 | **Gate 04** | Resolusi Kanvas | $\ge 15.0$ Megapixels | Ubah ke `4000x4000` (16 MP) atau `5000x3000` (15 MP). |
 | **Gate 05** | Kurva Tertutup (*Closed Paths*) | Setiap `<path>` berakhiran `Z`/`z` | Tambahkan perintah `Z` di akhir sub-path. |
-| **Gate 06** | Zero Live Strokes | `stroke == 'none'`, 0 `<line>` | Jalankan deep ungroup + `stroke-to-path` via Inkscape. |
+| **Gate 06** | Zero Live Strokes | `stroke == 'none'`, 0 `<line>` | Jalankan `object-to-path` + `object-stroke-to-path` via Inkscape. |
 | **Gate 07** | Zero Opacity & Filter Raster | 0 atribut alpha/filter | Ganti dengan swatch warna heksadesimal murni solid. |
 | **Gate 08** | Zero Text Tags | 0 `<text>` dan `<tspan>` | Konversi seluruh teks menjadi kurva (*object-to-path*). |
 | **Gate 09** | Background Transparan (Khusus Ikon) | 0 `<rect fill="#fff">` | Hapus background putih pada file `.svg` master. |
