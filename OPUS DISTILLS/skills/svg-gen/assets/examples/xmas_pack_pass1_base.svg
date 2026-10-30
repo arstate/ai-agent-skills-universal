@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4000 4000" width="4000" height="4000" style="max-width:100%;height:auto;display:block;background:#FFFFFF;">
+  <g id="pass1-clean-simple-christmas-base">
+
+    <!-- ICON 01 (PASS 1): SIMPLE FLAT PINE TREE (Center: 1050, 1050) -->
+    <g id="p1-xmas-tree" transform="translate(1050, 1050)">
+      <path id="p1-tree-trunk" fill="#78350F" d="M -90.00,320.00 H 90.00 V 560.00 H -90.00 Z" />
+      <path id="p1-tree-bottom" fill="#047857" d="M 0.00,-120.00 L 540.00,360.00 H -540.00 Z" />
+      <path id="p1-tree-middle" fill="#059669" d="M 0.00,-380.00 L 420.00,60.00 H -420.00 Z" />
+      <path id="p1-tree-top" fill="#10B981" d="M 0.00,-620.00 L 300.00,-200.00 H -300.00 Z" />
+      <path id="p1-tree-star" fill="#F59E0B" d="M 0.00,-760.00 L 40.00,-660.00 L 145.00,-650.00 L 65.00,-580.00 L 90.00,-480.00 L 0.00,-535.00 L -90.00,-480.00 L -65.00,-580.00 L -145.00,-650.00 L -40.00,-660.00 Z" />
+    </g>
+
+    <!-- ICON 02 (PASS 1): SIMPLE FLAT GIFT BOX (Center: 2950, 1050) -->
+    <g id="p1-gift-box" transform="translate(2950, 1050)">
+      <path id="p1-box-body" fill="#DC2626" d="M -420.00,-120.00 H 420.00 V 540.00 H -420.00 Z" />
+      <path id="p1-box-lid" fill="#B91C1C" d="M -470.00,-260.00 H 470.00 V -100.00 H -470.00 Z" />
+      <path id="p1-box-ribbon" fill="#FBBF24" d="M -75.00,-260.00 H 75.00 V 540.00 H -75.00 Z M -420.00,150.00 H 420.00 V 290.00 H -420.00 Z" />
+    </g>
+
+    <!-- ICON 03 (PASS 1): SIMPLE BLANK HOLIDAY BADGE (Center: 1050, 2950) -->
+    <g id="p1-wreath-badge" transform="translate(1050, 2950)">
+      <path id="p1-badge-outer" fill="#065F46" d="M -560.00,0.00 A 560.00,560.00 0 1 0 560.00,0.00 A 560.00,560.00 0 1 0 -560.00,0.00 Z" />
+      <path id="p1-badge-center" fill="#FFFFFF" d="M -380.00,0.00 A 380.00,380.00 0 1 0 380.00,0.00 A 380.00,380.00 0 1 0 -380.00,0.00 Z" />
+    </g>
+
+    <!-- ICON 04 (PASS 1): SIMPLE BAUBLE ORNAMENT (Center: 2950, 2950) -->
+    <g id="p1-bauble" transform="translate(2950, 2950)">
+      <path id="p1-bauble-cap" fill="#F59E0B" d="M -130.00,-480.00 H 130.00 V -340.00 H -130.00 Z" />
+      <path id="p1-bauble-sphere" fill="#DC2626" d="M -460.00,60.00 A 460.00,460.00 0 1 0 460.00,60.00 A 460.00,460.00 0 1 0 -460.00,60.00 Z" />
+    </g>
+
+  </g>
+</svg>

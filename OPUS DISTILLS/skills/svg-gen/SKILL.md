@@ -1,21 +1,25 @@
 ---
 name: svg-gen
-description: Master 2D Flat Vector & Commercial Icon Set Engineering Skill for Adobe Stock, Shutterstock & Freepik Contributor Portfolios. Enforces 15+ MP artboards, 100% closed compound paths (Z), zero live strokes, zero alpha/raster filters (cairo_image = 0), and automated Sensei SEO metadata embedding.
+description: Two-Pass Progressive 2D Flat Vector & Icon Set Engineering Skill for Adobe Stock Contributor (Pass 1 Clean Simple Base -> Pass 2 Aesthetic Retouch, 15+ MP, Auto-Fit Preview, Zero Live Strokes, Zero Cairo Raster EPS).
 ---
 
-# /svg-gen — Master 2D Flat Vector & Commercial Icon Engineering Skill
+# /svg-gen (v3.0) — Two-Pass Progressive Vector & Adobe Stock Skill
 
-Skill spesialis rekayasa grafis vektor 2D murni berstandar industri komersial global (**Adobe Stock**, **Shutterstock**, dan **Freepik**). Menjamin tingkat kelolosan 100% dari kurasi AI Inspector maupun kurator manusia dengan menegakkan **The 10 Iron Laws of Vector Construction**, resolusi minimum $\ge 15.0\text{ Megapixels}$, 100% kurva tertutup (*closed compound paths*), 0 live strokes mentah, dan injeksi metadata otomatis Dublin Core RDF & XMP.
+Skill spesialis rekayasa grafis vektor 2D murni berstandar industri komersial global (**Adobe Stock**, **Shutterstock**, dan **Freepik**). Menggunakan **Two-Pass Progressive Vector Engineering** agar vektor tidak mengalami distorsi bentuk, visual berantakan, atau kurva kaku:
+1. **Pass 1 (`*_pass1_base.svg` — Clean Simple Base):** Siluet geometris murni, proporsi keyline seimbang, 2–3 warna dasar datar (flat).
+2. **Pass 2 (`*_pass2_final.svg` — Aesthetic Retouch & Commercial Polish):** Split-tone planar shading, specular highlights, pastel backdrops, micro-ornaments, dan 100% closed compound paths (`Z`).
 
 ---
 
-## 📚 Bundled Reference Manuals (Akses via `view_file`)
+## 📚 Bundled Reference Manuals (Akses via `read_file`)
 
-Skill ini dilengkapi 4 manual referensi teknis mendalam di folder `references/`:
-1. `references/10-iron-laws-and-quality-gates.md` — Rincian 10 Hukum Besi, kode penolakan microstock (#1 s/d #8), dan protokol pencegahan auto-reject.
-2. `references/vector-math-and-compound-paths.md` — Rumus matematika konstruksi path, koordinat kanvas 16 MP, compound path (`fill-rule="evenodd"`), dan pita poligon tanpa stroke.
-3. `references/metadata-and-seo-guide.md` — Algoritma pencarian Adobe Sensei, aturan 10 kata kunci pertama (bobot 80%), batas title $\le 70$ karakter, batas filename $\le 30$ karakter, dan daftar ID Kategori 1–21.
-4. `references/commercial-niches-and-prompts.md` — 7 Ceruk B2B terlaris (Fintech, Cyber, Cloud, Telehealth, Logistics, Green Energy, Infographics) dan bank prompt konsep `/gen-img`.
+Skill ini dilengkapi manual referensi teknis mendalam di folder `references/`:
+1. `references/two-pass-retouch-rules.md` — ★ PANDUAN UTAMA: Transformasi Pass 1 (Skeleton) ➔ Pass 2 (Retouch Pro: Split-Tone, Highlights, Micro-Details).
+2. `references/adobe-stock-guidelines.md` — Standar 10-Gate Adobe Stock ($\ge 15.0\text{ MP}$, 0 Cairo Image, 0 Live Strokes, SEO Sensei).
+3. `references/core-rules.md` — Deklarasi root `<svg>`, viewBox, koordinat grid, dan aturan auto-fit preview.
+4. `references/vector-math-and-compound-paths.md` — Rumus matematika konstruksi path, compound path (`fill-rule="evenodd"`), dan pita poligon tanpa stroke.
+5. `references/metadata-and-seo-guide.md` — Algoritma pencarian Adobe Sensei, aturan 10 kata kunci pertama (bobot 80%), batas title $\le 70$ karakter, batas filename $\le 30$ karakter, dan daftar ID Kategori 1–21.
+6. `references/commercial-niches-and-prompts.md` — 7 Ceruk B2B terlaris (Fintech, Cyber, Cloud, Telehealth, Logistics, Green Energy, Infographics) dan bank prompt konsep `/gen-img`.
 
 ---
 
@@ -26,11 +30,14 @@ Setiap file vektor produksi yang dihasilkan oleh `/svg-gen` wajib mematuhi 10 hu
 1. **100% 2D Flat Vector Murni (Zero 3D):**
    - Dilarang membuat ekstrusi 3D tebal, bevel/emboss metalik, bayangan blur sintetis, atau gradient mesh rumit.
    - Gunakan bidang warna solid murni (*flat fills*), bayangan datar (*solid flat cast shadows*), atau proyeksi aksonometrik 30° (*true isometric*).
-2. **Kanvas Wajib $\ge 15.0\text{ Megapixels}$:**
-   - **Square (1:1)** untuk Icon Sheets, Single Hero Icons, Badges:
-     `width="4000" height="4000" viewBox="0 0 4000 4000"` (**16.0 MP**) atau `5000 x 5000` (**25.0 MP**).
-   - **Landscape (5:3 / 16:9)** untuk Infographics, Flowcharts, B2B Diagrams:
-     `width="5000" height="3000" viewBox="0 0 5000 3000"` (**15.0 MP**) atau `6000 x 3375` (**20.25 MP**).
+2. **Kanvas Wajib $\ge 15.0\text{ Megapixels}$ & Auto-Fit Preview:**
+   - **Square (1:1)**: `width="4000" height="4000" viewBox="0 0 4000 4000"` (**16.0 MP**) atau `5000 x 5000` (**25.0 MP**).
+   - **Landscape (5:3 / 16:9)**: `width="5000" height="3000" viewBox="0 0 5000 3000"` (**15.0 MP**) atau `6000 x 3375` (**20.25 MP**).
+   - **Wajib Deklarasi Root Auto-Fit (Anti-Jebol Monitor):**
+     ```xml
+     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4000 4000" width="4000" height="4000" style="max-width:100%;height:auto;display:block;background:#FFFFFF;">
+     ```
+   - Hilangkan prolog `<?xml ...?>` agar live preview di VS Code dan browser web langsung render tanpa error.
 3. **100% Closed Compound Paths (`Z`) & Zero Live Strokes:**
    - Semua elemen bentuk wajib berupa kurva tertutup berakhiran `Z` (`<path d="... Z" />`).
    - Dilarang meninggalkan atribut `stroke="..." stroke-width="..."` hidup, `<line>`, atau `<polyline>`.
@@ -38,7 +45,7 @@ Setiap file vektor produksi yang dihasilkan oleh `/svg-gen` wajib mematuhi 10 hu
 4. **Zero Alpha Opacity & Zero Filter Raster (`cairo_image = 0`):**
    - Dilarang keras memakai `opacity`, `fill-opacity`, `stroke-opacity`, `stop-opacity`, `<filter>`, `<feGaussianBlur>`, `<feDropShadow>`, atau `<image>`.
    - Efek transparansi memicu ekspor EPS merender bitmap raster beresolusi rendah (`cairo_image`).
-   - Simulasikan bayangan dan highlight menggunakan swatch warna heksadesimal 100% solid (misalnya `#DBEAFE`, `#0284C7`, `#0F172A`).
+   - Simulasikan bayangan dan highlight menggunakan swatch warna heksadesimal 100% solid (Split-Tone Planar Shading).
 5. **Zero-Text Rule untuk Ikon & Karakter (`<text> = 0`):**
    - Jangan menaruh label teks di bawah ikon atau di dalam layar gadget karakter.
    - Gambar simbol mata uang (`$`, `€`, `₿`), panah, dan centang sebagai kurva kontur vektor tertutup murni (`<path d="... Z" />`).
@@ -53,123 +60,49 @@ Setiap file vektor produksi yang dihasilkan oleh `/svg-gen` wajib mematuhi 10 hu
    - `Title`: Kalimat deskriptif bahasa Inggris alami, **$\le 70$ karakter**.
    - **Kata Terlarang Mutlak:** Haram mencantumkan `"AI"`, `"Artificial Intelligence"`, `"Generative AI"`, atau `"Midjourney"` di Judul maupun Keywords.
    - `Keywords`: 25–35 tags, dengan **10 kata kunci pertama** membawa 80% bobot ranking pencarian Sensei.
-9. **Presisi Geometris & Grid Snapping:**
-   - Koordinat titik kurva dibulatkan rapi 2 desimal (`.2f`).
-   - Radius sudut seragam, simetri terjaga, dan bebas dari titik kurva liar (*stray anchor points*).
+9. **Two-Pass Generation Discipline:**
+   - Pass 1: Bangun siluet dasar simpel (`*_pass1_base.svg`).
+   - Pass 2: Retouch dengan split-tone planar shading, specular highlights, dan micro-details (`*_pass2_final.svg`).
 10. **Multi-Format Staging & Deduplicated Master Catalog:**
     - Setiap aset diproduksi dalam 5 file: `.svg` (Dublin Core RDF), `.eps` (DSC 3.0), `.png` ($\ge 15\text{ MP}$ transparan), `.jpg` ($\ge 15\text{ MP}$ white-flattened + XMP), dan thumbnail 360h.
     - Baris metadata di-upsert ke `metadata_batch_active.csv` tanpa membuat duplikasi baris.
 
 ---
 
-## ⚡ 2. Alur Kerja Produksi 4 Tahap (The 4-Stage Protocol)
+## ⚡ 2. Two-Pass Execution Protocol
 
 ```text
-[Stage 1: Riset & Konsep AI]
-  └─ Pilih micro-niche B2B -> (Opsional) Generate konsep raster via `/gen-img` -> Simpan di raw/
-[Stage 2: Vision Inspection & Feature Extraction]
-  └─ Buka via Vision -> Ekstrak layout & warna -> Eliminasi teks halusinasi & efek 3D
-[Stage 3: Precision Mathematical 2D Vector Construction]
-  └─ Tulis kode SVG matematis 16 MP -> Closed paths (Z) -> Compound paths (evenodd)
-[Stage 4: Inkscape CLI Outlining & Multi-Format Finalization]
-  └─ object-to-path + object-stroke-to-path -> 10-Gate Audit -> Render PNG/JPG/EPS -> Injeksi Metadata RDF/XMP
-```
-
-### Tahap 1: Riset & Konsep AI (Opsional)
-Jika memerlukan eksplorasi bentuk awal, jalankan tool `/gen-img`:
-```bash
-/gen-img "flat 2d vector icon set, fintech digital banking, clean minimalist, isolated white background, zero 3d, zero text, wide spacing" -r 1:1 -o "raw/fintech_concept.jpg"
-```
-
-### Tahap 2: Vision Inspection & Feature Extraction
-Buka file konsep menggunakan Vision Agent (`view_file`), identifikasi elemen kunci (kartu, koin, chip, perisai), dan buang seluruh artefak kompresi, bayangan blur, atau teks gibberish.
-
-### Tahap 3: Konstruksi Vektor Matematis Murni
-Tulis file SVG menggunakan bantuan geometri di `scripts/svg_geometry_helpers.py` atau koordinat terhitung presisi:
-- Seluruh bentuk ditutup dengan `Z`.
-- Gunakan warna solid heksadesimal kontras tinggi (60-30-10 palette).
-
-### Tahap 4: Finalisasi Produksi & Validasi 10-Gate
-Jalankan skrip pipeline produksi untuk meng-expand stroke dan menghasilkan seluruh artefak siap submit:
-```python
-from pathlib import Path
-from scripts.ai_to_vector_pipeline import finalize_production_package
-
-finalize_production_package(
-    asset_dir=Path("07-PRODUKSI-ASET-SIAP-SUBMIT/fintech_card_coin_flat_01"),
-    base_name="fintech_card_coin_flat_01",
-    raw_svg_path=Path("raw/fintech_card_coin_raw.svg"),
-    title="Flat 2D Credit Card and Gold Dollar Coin Digital Payment Vector Icon",
-    tags=[
-        "fintech", "credit card", "payment", "digital banking", "gold coin",
-        "money", "finance", "debit card", "cashless", "transaction",
-        "online shopping", "ecommerce", "smart chip", "banking", "wealth"
-    ],
-    category_id=3,
-    canvas_w=4000,
-    canvas_h=4000
-)
+[PASS 1: Clean & Simple Base]
+  ├─ 3–5 <path> per icon
+  ├─ 2–3 warna flat solid murni
+  └─ Fokus 100% siluet, proporsi simetris, keyline grid
+         │
+         ▼
+[PASS 2: Aesthetic Retouch & Polish]
+  ├─ Layer 1: Soft contrast backdrop circle/squircle + ground shadow pill
+  ├─ Layer 2: Split-Tone Planar Shading (kiri sunlit / kanan shaded via solid Hex)
+  ├─ Layer 3: Specular crescent highlights & compound cutouts (evenodd)
+  ├─ Layer 4: Commercial micro-details (sparkles 4-point, satin ribbons, Nordic diamonds)
+  └─ Layer 5: Blank customizable copy-space (Gate 08)
+         │
+         ▼
+[Audit & Auto-Preview HTML]
+  └─ python3 scripts/svg_two_pass_engine.py <pass1.svg> <pass2.svg> --html preview_comparison.html
 ```
 
 ---
 
-## 🔍 3. Matriks 10-Gate Quality Assurance Table
+## 🛠️ 3. Inkscape CLI Action Pipeline
 
-| Gate | Kriteria Pengujian | Batas Toleransi | Tindakan Jika Gagal |
-|:---:|---|---|---|
-| **Gate 01** | Larangan Kata Terlarang ("AI", "Midjourney") | 0 toleransi | Regex scanner membatalkan build seketika. |
-| **Gate 02** | Panjang Filename | $\le 30$ karakter | Pangkas nama file menjadi snake_case ringkas. |
-| **Gate 03** | Panjang Document Title | $\le 70$ karakter | Ringkas judul tanpa mengurangi kata kunci utama. |
-| **Gate 04** | Resolusi Kanvas | $\ge 15.0$ Megapixels | Ubah ke `4000x4000` (16 MP) atau `5000x3000` (15 MP). |
-| **Gate 05** | Kurva Tertutup (*Closed Paths*) | Setiap `<path>` berakhiran `Z`/`z` | Tambahkan perintah `Z` di akhir sub-path. |
-| **Gate 06** | Zero Live Strokes | `stroke == 'none'`, 0 `<line>` | Jalankan `object-to-path` + `object-stroke-to-path` via Inkscape. |
-| **Gate 07** | Zero Opacity & Filter Raster | 0 atribut alpha/filter | Ganti dengan swatch warna heksadesimal murni solid. |
-| **Gate 08** | Zero Text Tags | 0 `<text>` dan `<tspan>` | Konversi seluruh teks menjadi kurva (*object-to-path*). |
-| **Gate 09** | Background Transparan (Khusus Ikon) | 0 `<rect fill="#fff">` | Hapus background putih pada file `.svg` master. |
-| **Gate 10** | Semantic Grouping & Deduplikasi CSV | ID grup deskriptif, 0 baris duplikat | Bungkus dalam `<g id="...">` dan jalankan upsert CSV. |
-
----
-
-## 🛠️ 4. Tooling & Script CLI Bawaan
-
-Semua script pembantu siap pakai terletak di subdirektori `scripts/`:
-
-### 1. Standalone 10-Gate Auditor (`audit_svg_gates.py`)
-Gunakan untuk mengaudit kepatuhan file SVG apa pun sebelum dimasukkan ke pipeline produksi:
+Jika menggunakan Inkscape CLI untuk konversi dan flattening:
 ```bash
-python3 scripts/audit_svg_gates.py "asset.svg" \
-  --title "Flat 2D Credit Card and Gold Dollar Coin Digital Payment Vector Icon" \
-  --tags "fintech, credit card, payment, digital banking, gold coin"
-```
-
-### 2. Standalone Metadata Embedder (`auto_embed_metadata.py`)
-Gunakan untuk menginjeksi Dublin Core RDF ke SVG atau XMP ke JPEG secara langsung:
-```bash
-# Per-file
-python3 scripts/auto_embed_metadata.py --file "asset.svg" --title "..." --tags "tag1, tag2"
-
-# Inspeksi metadata file
-python3 scripts/auto_embed_metadata.py --inspect "asset.svg"
-```
-
-### 3. Generator Bentuk Geometri Matematis (`svg_geometry_helpers.py`)
-Modul Python untuk menghasilkan string path SVG kurva tertutup:
-```python
-from scripts.svg_geometry_helpers import rect_path, circle_path, ring_compound_path, capsule_path
-
-# Membuat kartu kredit dengan sudut tumpul
-card_body = rect_path(x=-1160, y=-800, w=2320, h=880, rx=140, ry=140)
-
-# Membuat cincin berlubang compound path
-donut = ring_compound_path(cx=0, cy=0, r_outer=520, r_inner=410)
+inkscape input.svg \
+  --actions="select-all:all;selection-ungroup;select-all:all;selection-ungroup;select-all:all;object-to-path;object-stroke-to-path;export-filename:output.eps;export-do"
 ```
 
 ---
 
-## 📦 5. Contoh Aset Produksi 16.0 MP Terverifikasi
-
-Lihat folder `examples/` untuk referensi kode SVG murni 16.0 MP yang 100% lolos 10-Gate:
-- `examples/fintech_card_coin_flat_01.svg` — Kartu kredit flat 2D + koin dollar emas.
-- `examples/cyber_shield_check_flat_01.svg` — Perisai dual-tone + centang zamrud + lubang kunci lingkaran penuh (memperbaiki cacat clipping).
-- `examples/fintech_banking_icons_01.svg` — Lembar 4 ikon perbankan (Dompet, Bank, Pembayaran Mobile, Analitik).
-- `examples/metadata_examples.csv` — Template baris CSV siap impor Adobe Stock.
+## 🎄 4. Gold Standard Example Assets
+- Pass 1 Clean Base: `assets/examples/xmas_pack_pass1_base.svg`
+- Pass 2 Retouched Pro: `assets/examples/xmas_pack_pass2_retouched.svg`
+- Interactive Inspector: `assets/examples/preview_comparison.html`
