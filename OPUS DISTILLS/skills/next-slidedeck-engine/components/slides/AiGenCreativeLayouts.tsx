@@ -643,17 +643,15 @@ export function renderAiBorcelleVennDiagram({
 }: AiGenProps) {
   const accentChartreuse = theme.accent || '#E2FD52';
   const accentOrange = theme.secondaryAccent || '#FF6422';
+  const accentGold = '#FACC15';
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center px-6">
-      {/* Title */}
-      <div className="text-center max-w-5xl mb-8">
-        <span className="text-sm font-mono font-black tracking-widest uppercase text-emerald-700 px-5 py-2 rounded-full border border-emerald-400/40 bg-emerald-50 shadow-sm">
-          {slide.kicker || 'STRATEGIC ALIGNMENT'}
-        </span>
+      {/* Title Block: Single Axis Clean Hierarchy */}
+      <div className="text-center max-w-5xl mb-12">
         <div
-          className="text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[1.05] mt-5 mb-4 text-zinc-900"
-          style={{ color: slide.elements.titleColor || '#0F172A' }}
+          className="text-7xl lg:text-8xl font-black uppercase tracking-tight leading-[0.95] mb-5 text-white"
+          style={{ color: slide.elements.titleColor || '#FFFFFF' }}
         >
           <EditableText
             value={slide.title || 'WHERE STRATEGY MEETS EXECUTION'}
@@ -664,53 +662,103 @@ export function renderAiBorcelleVennDiagram({
             as="h2"
           />
         </div>
-        <p className="text-xl font-medium text-zinc-600 max-w-2xl mx-auto leading-relaxed">
-          {slide.subtitle || 'The tri-factor intersection driving high conversion and long-term brand equity.'}
+        <p className="text-2xl font-medium text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+          {slide.subtitle || 'The tri-factor intersection driving high conversion, brand equity, and scalable growth.'}
         </p>
       </div>
 
-      {/* 3 Overlapping Horizontal Circles (Borcelle Reference Style) */}
-      <div className="relative w-[1000px] h-[360px] flex items-center justify-center">
-        {/* Circle 1: Left (Lime) */}
+      {/* 3 Interlocking Dimensional Discs (Borcelle Reference 4 Style) */}
+      <div className="relative w-[1140px] h-[390px] flex items-center justify-center">
+        {/* Disc 1: Left (Lime) */}
         <div
-          className="w-80 h-80 rounded-full border-[6px] flex flex-col items-center justify-center p-8 text-center shadow-xl transition-transform hover:scale-105 -mr-12 relative z-10"
+          className="w-[390px] h-[390px] rounded-full border-[6px] flex flex-col items-center justify-center p-10 text-center shadow-2xl transition-transform hover:scale-105 -mr-16 relative z-10"
           style={{
-            backgroundColor: `${accentChartreuse}40`,
+            backgroundColor: '#181820',
             borderColor: accentChartreuse,
-            color: '#0A3431',
           }}
         >
-          <span className="text-xs font-mono font-black uppercase tracking-wider mb-2">PILLAR 01</span>
-          <span className="text-xl font-black leading-tight uppercase">STRATEGIC CREATIVE DIRECTION</span>
+          <span
+            className="text-xs font-mono font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-3"
+            style={{ backgroundColor: `${accentChartreuse}25`, color: accentChartreuse }}
+          >
+            PILLAR 01
+          </span>
+          <h3 className="text-2xl font-black leading-tight uppercase text-white mb-3">
+            STRATEGIC CREATIVE DIRECTION
+          </h3>
+          <p className="text-base text-zinc-300 font-medium leading-relaxed max-w-[280px] mb-4">
+            Data-driven brand identity and high-converting visual assets designed to stop the scroll.
+          </p>
+          <span
+            className="text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border"
+            style={{ borderColor: `${accentChartreuse}50`, color: accentChartreuse }}
+          >
+            55% ATTENTION LIFT
+          </span>
         </div>
 
-        {/* Circle 2: Center (Orange) */}
+        {/* Disc 2: Center (Orange) */}
         <div
-          className="w-80 h-80 rounded-full border-[6px] flex flex-col items-center justify-center p-8 text-center shadow-xl transition-transform hover:scale-105 -mr-12 relative z-20"
+          className="w-[390px] h-[390px] rounded-full border-[6px] flex flex-col items-center justify-center p-10 text-center shadow-2xl transition-transform hover:scale-105 -mr-16 relative z-20"
           style={{
-            backgroundColor: `${accentOrange}40`,
+            backgroundColor: '#181820',
             borderColor: accentOrange,
-            color: '#7C2D12',
           }}
         >
-          <span className="text-xs font-mono font-black uppercase tracking-wider mb-2">PILLAR 02</span>
-          <span className="text-xl font-black leading-tight uppercase">TAILORED DIGITAL SOLUTIONS</span>
+          <span
+            className="text-xs font-mono font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-3"
+            style={{ backgroundColor: `${accentOrange}25`, color: accentOrange }}
+          >
+            PILLAR 02
+          </span>
+          <h3 className="text-2xl font-black leading-tight uppercase text-white mb-3">
+            TAILORED DIGITAL SOLUTIONS
+          </h3>
+          <p className="text-base text-zinc-300 font-medium leading-relaxed max-w-[280px] mb-4">
+            High-speed Next.js code, frictionless mobile checkout, and direct WhatsApp conversion funnels.
+          </p>
+          <span
+            className="text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border"
+            style={{ borderColor: `${accentOrange}50`, color: accentOrange }}
+          >
+            3.4X CONVERSION RATE
+          </span>
         </div>
 
-        {/* Circle 3: Right (Yellow / Medallion) */}
+        {/* Disc 3: Right (Gold) */}
         <div
-          className="w-80 h-80 rounded-full border-[6px] flex flex-col items-center justify-center p-8 text-center shadow-xl transition-transform hover:scale-105 relative z-30"
+          className="w-[390px] h-[390px] rounded-full border-[6px] flex flex-col items-center justify-center p-10 text-center shadow-2xl transition-transform hover:scale-105 relative z-30"
           style={{
-            backgroundColor: 'rgba(250, 204, 21, 0.45)',
-            borderColor: '#FACC15',
-            color: '#713F12',
+            backgroundColor: '#181820',
+            borderColor: accentGold,
           }}
         >
-          <div className="w-16 h-16 rounded-full bg-amber-400 text-zinc-950 flex items-center justify-center text-3xl shadow-lg border-2 border-white mb-2">
-            🏆
+          <div className="w-12 h-12 rounded-full bg-amber-400 text-zinc-950 flex items-center justify-center shadow-lg border-2 border-white mb-2">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+              <path d="M4 22h16" />
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34c0-1.88 1.4-3.48 3.28-3.64A8.005 8.005 0 0 0 18 3H6c-2.67 0-4.94 1.3-6.28 3.28C4.4 7.9 6 9.5 6 11.34V14.66z" />
+            </svg>
           </div>
-          <span className="text-xs font-mono font-black uppercase tracking-wider mb-1">PILLAR 03</span>
-          <span className="text-xl font-black leading-tight uppercase">END-TO-END EXECUTION</span>
+          <span
+            className="text-xs font-mono font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-2"
+            style={{ backgroundColor: `${accentGold}25`, color: accentGold }}
+          >
+            PILLAR 03
+          </span>
+          <h3 className="text-2xl font-black leading-tight uppercase text-white mb-3">
+            END-TO-END EXECUTION
+          </h3>
+          <p className="text-base text-zinc-300 font-medium leading-relaxed max-w-[280px] mb-3">
+            Seamless deployment from initial wireframe to live production and continuous CBO scaling.
+          </p>
+          <span
+            className="text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border"
+            style={{ borderColor: `${accentGold}50`, color: accentGold }}
+          >
+            MAX VERIFIED ROI
+          </span>
         </div>
       </div>
     </div>
@@ -730,41 +778,30 @@ export function renderAiFintechRibbonWave({
   onUpdateSlide,
   EditableText,
 }: AiGenProps) {
-  const accentCobalt = theme.accent || '#2B4CDE';
-  const accentAcidLime = theme.secondaryAccent || '#A3E635';
+  const accentCobalt = theme.accent || '#3B82F6';
+  const accentEmerald = '#10B981';
 
   return (
-    <div className="w-full h-full flex items-center justify-between gap-12 px-6 relative overflow-hidden">
-      {/* Background SVG Fluid Wavy Ribbon */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-40"
-        viewBox="0 0 1920 1080"
-        fill="none"
-      >
-        <path
-          d="M -100 450 C 400 200, 800 700, 1300 350 S 1800 650, 2100 400"
-          stroke={accentAcidLime}
-          strokeWidth="24"
-          strokeLinecap="round"
-        />
-        <path
-          d="M -100 520 C 420 280, 820 760, 1320 420 S 1820 720, 2100 480"
-          stroke={accentCobalt}
-          strokeWidth="8"
-          strokeLinecap="round"
-          strokeDasharray="20 20"
-        />
-      </svg>
+    <div className="w-full h-full flex items-center justify-between gap-16 px-8 relative overflow-hidden">
+      {/* Background Subtle Radial Gradient Glow (Zero Messy Squiggles) */}
+      <div
+        className="pointer-events-none absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #2563EB 0%, transparent 70%)' }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full opacity-15 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #10B981 0%, transparent 70%)' }}
+      />
 
-      {/* Left Column: Headline + Metric Pill */}
-      <div className="flex-1 flex flex-col justify-center max-w-xl relative z-10">
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border-2 text-sm font-mono font-black uppercase tracking-wider mb-6 bg-white/90 text-zinc-900 shadow-sm w-fit">
-          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentCobalt }} />
-          <span>FINANCIAL TECHNOLOGY</span>
+      {/* Left Column: Headline + Value Proposition Checklist (45% Width) */}
+      <div className="flex-1 flex flex-col justify-center max-w-2xl relative z-10">
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-blue-500/30 text-xs font-mono font-black uppercase tracking-wider mb-6 bg-blue-500/10 text-blue-300 w-fit">
+          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+          <span>FINANCIAL TECHNOLOGY INFRASTRUCTURE</span>
         </div>
 
         <div
-          className="text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.98] mb-6 text-white"
+          className="text-7xl lg:text-8xl font-black uppercase tracking-tight leading-[0.92] mb-6 text-white"
           style={{ color: slide.elements.titleColor || '#FFFFFF' }}
         >
           <EditableText
@@ -777,59 +814,97 @@ export function renderAiFintechRibbonWave({
           />
         </div>
 
-        <p className="text-2xl leading-relaxed text-white/90 mb-10 max-w-lg font-medium">
-          {slide.subtitle || 'Transforming high-frequency transactions with verifiable security and sub-millisecond execution.'}
+        <p className="text-2xl leading-relaxed text-slate-300 mb-10 max-w-xl font-medium">
+          {slide.subtitle || 'Transforming high-frequency transactions with verifiable cryptographic security and sub-millisecond execution.'}
         </p>
 
-        {/* Big Metric Badge */}
-        <div
-          className="p-8 rounded-[36px] border-[4px] shadow-2xl flex items-center justify-between max-w-lg bg-white text-zinc-950"
-          style={{ borderColor: accentCobalt }}
-        >
-          <div>
-            <span className="text-8xl font-black leading-none" style={{ color: accentCobalt }}>
-              320%
-            </span>
-            <p className="text-sm font-mono uppercase tracking-widest text-zinc-500 font-bold mt-2">
-              YEAR-OVER-YEAR VOLUME
-            </p>
-          </div>
-          <div className="px-5 py-2.5 rounded-full text-sm font-mono font-black uppercase bg-emerald-500 text-white shadow-md">
-            VERIFIED
-          </div>
+        {/* 3 Structured Capability Checkpoints (Single-Axis Left Alignment) */}
+        <div className="flex flex-col gap-3.5 border-t border-slate-800 pt-6">
+          {[
+            { num: '01', text: 'Sub-8ms deterministic finality across global nodes' },
+            { num: '02', text: 'Verifiable cryptographic zero-knowledge proofs' },
+            { num: '03', text: 'High-throughput automated liquidity rebalancing' },
+          ].map((item, idx) => (
+            <div key={idx} className="flex items-center gap-3 text-base text-slate-300 font-medium">
+              <span className="text-xs font-mono font-bold text-blue-400 bg-blue-950/60 border border-blue-800/60 px-2 py-0.5 rounded">
+                {item.num}
+              </span>
+              <span>{item.text}</span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Right Column: Cards Stack & Compliance Badges */}
-      <div className="w-[680px] flex flex-col gap-6 relative z-10">
-        <div className="p-8 rounded-[36px] border-2 shadow-2xl bg-white/95 text-zinc-950 backdrop-blur-md">
-          <span className="text-sm font-mono font-black uppercase tracking-widest text-zinc-500">
-            PLATFORM CAPABILITIES
-          </span>
-          <div className="grid grid-cols-2 gap-6 mt-6">
-            <div className="p-6 rounded-2xl border-2 bg-zinc-50 border-zinc-200">
-              <span className="text-6xl font-black text-emerald-600">80%+</span>
-              <p className="text-sm font-mono text-zinc-600 mt-2 uppercase font-bold">Automation Rate</p>
+      {/* Right Column: Telemetry Bento Matrix (55% Width) */}
+      <div className="w-[740px] flex flex-col gap-6 relative z-10">
+        {/* Top Hero Metric Card */}
+        <div className="p-10 rounded-[36px] border border-slate-700/80 bg-slate-900/90 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-mono font-black uppercase tracking-widest text-slate-400">
+              INSTITUTIONAL VOLUME GROWTH
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                ▲ +142% YOY
+              </span>
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase bg-slate-800 text-slate-300 border border-slate-700">
+                AUDITED
+              </span>
             </div>
-            <div className="p-6 rounded-2xl border-2 bg-zinc-50 border-zinc-200">
-              <span className="text-6xl font-black text-indigo-600">2M+</span>
-              <p className="text-sm font-mono text-zinc-600 mt-2 uppercase font-bold">Daily Transactions</p>
-            </div>
+          </div>
+
+          <div className="my-2">
+            <span className="text-[110px] font-black leading-none tracking-tight text-emerald-400">
+              320%
+            </span>
+          </div>
+
+          <p className="text-sm font-mono uppercase tracking-wider text-slate-400 font-semibold mt-2">
+            Annualized settlement volume across distributed financial network nodes
+          </p>
+        </div>
+
+        {/* Bottom 2-Column KPI Cards */}
+        <div className="grid grid-cols-2 gap-6">
+          <div className="p-8 rounded-[32px] border border-slate-700/80 bg-slate-900/90 shadow-xl backdrop-blur-xl">
+            <span className="text-6xl font-black text-cyan-400 leading-none">
+              80%+
+            </span>
+            <h4 className="text-base font-mono font-bold uppercase tracking-wider text-white mt-3 mb-1">
+              AUTOMATION RATE
+            </h4>
+            <p className="text-xs font-mono text-slate-400 uppercase">
+              Zero Manual Intervention
+            </p>
+          </div>
+
+          <div className="p-8 rounded-[32px] border border-slate-700/80 bg-slate-900/90 shadow-xl backdrop-blur-xl">
+            <span className="text-6xl font-black text-indigo-400 leading-none">
+              2.4M+
+            </span>
+            <h4 className="text-base font-mono font-bold uppercase tracking-wider text-white mt-3 mb-1">
+              DAILY TRANSACTIONS
+            </h4>
+            <p className="text-xs font-mono text-slate-400 uppercase">
+              P99 Latency &lt; 12ms
+            </p>
           </div>
         </div>
 
-        {/* Security Compliance Pills */}
-        <div className="flex items-center gap-4">
-          <div className="px-6 py-3 rounded-2xl border-2 text-sm font-mono font-black uppercase bg-white/90 text-zinc-900 shadow-md flex items-center gap-2.5">
-            <span>🔒</span>
-            <span>BANK GRADE SECURITY</span>
+        {/* Security Compliance Strip */}
+        <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/70 flex items-center justify-between text-xs font-mono font-bold uppercase text-slate-400 shadow-md">
+          <div className="flex items-center gap-2 text-slate-300">
+            <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span>BANK-GRADE SECURITY</span>
           </div>
-          <div className="px-6 py-3 rounded-2xl border-2 text-sm font-mono font-black uppercase bg-white/90 text-zinc-900 shadow-md">
-            PCI DSS
-          </div>
-          <div className="px-6 py-3 rounded-2xl border-2 text-sm font-mono font-black uppercase bg-white/90 text-zinc-900 shadow-md">
-            ISO 27001
-          </div>
+          <span>•</span>
+          <span>PCI-DSS LEVEL 1</span>
+          <span>•</span>
+          <span>SOC 2 TYPE II</span>
+          <span>•</span>
+          <span>ISO 27001</span>
         </div>
       </div>
     </div>
