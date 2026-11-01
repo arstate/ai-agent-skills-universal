@@ -27,7 +27,7 @@ NEGATION_PATTERNS = re.compile(
     re.IGNORECASE
 )
 
-REQUIRED_23_SKILLS = [
+REQUIRED_24_SKILLS = [
     "anti-yes-man",
     "brainstorming",
     "chrome-browser-control",
@@ -53,8 +53,9 @@ REQUIRED_23_SKILLS = [
     "web-planning",
     "websearch",
 ]
-REQUIRED_22_SKILLS = REQUIRED_23_SKILLS
-REQUIRED_SKILLS = REQUIRED_23_SKILLS
+REQUIRED_23_SKILLS = REQUIRED_24_SKILLS
+REQUIRED_22_SKILLS = REQUIRED_24_SKILLS
+REQUIRED_SKILLS = REQUIRED_24_SKILLS
 
 REQUIRED_MULTI_SKILLS = {
     "opus-distills": ["token-efficiency-and-cod-playbook.md"],

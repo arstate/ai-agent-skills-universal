@@ -13,10 +13,6 @@ import argparse
 import numpy as np
 from PIL import Image
 
-# Import spandrel and torch
-import torch
-import spandrel
-
 MODELS_DIR = "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL"
 
 MODEL_MAP = {
@@ -61,12 +57,17 @@ def resolve_model_path(model_arg):
     return full_path
 
 def load_upscale_model(model_path, device="cuda"):
+    # Lazy import to ensure instant --help and CLI argument parsing
+    import torch
+    import spandrel
+
     print(f"📦 Loading model: {os.path.basename(model_path)} onto {device.upper()}...")
     loader = spandrel.ModelLoader()
     model = loader.load_from_file(model_path)
     if device == "cuda" and torch.cuda.is_available():
         gpu_name = torch.cuda.get_device_name(0)
-        print(f"⚡ GPU Acceleration Active: {gpu_name} (VRAM: {torch.cuda.get_device_properties(0).total_memory / (1024**3):.1f} GB)")
+        vram_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+        print(f"⚡ GPU Acceleration Active: {gpu_name} (VRAM: {vram_gb:.1f} GB)")
         model = model.cuda().eval()
     else:
         print("⚠️ CUDA not available or CPU requested. Running on CPU (slower).")
@@ -75,9 +76,11 @@ def load_upscale_model(model_path, device="cuda"):
 
 def tile_upscale(model, img_arr, tile_size=256, tile_pad=24, scale=4, device="cuda"):
     """
-    Seamless tiled inference with cosine/linear feather blending.
+    Seamless tiled inference with true raised-cosine feather blending.
     img_arr: numpy array (H, W, 3) in range [0, 1] float32
     """
+    import torch
+
     h, w, c = img_arr.shape
     out_h = h * scale
     out_w = w * scale
@@ -86,6 +89,9 @@ def tile_upscale(model, img_arr, tile_size=256, tile_pad=24, scale=4, device="cu
     weights = np.zeros((out_h, out_w, c), dtype=np.float32)
 
     step = tile_size - 2 * tile_pad
+    if step <= 0:
+        raise ValueError(f"tile_size ({tile_size}) must be strictly greater than 2 * tile_pad ({2 * tile_pad})")
+
     h_starts = list(range(0, h, step))
     w_starts = list(range(0, w, step))
     total_tiles = len(h_starts) * len(w_starts)
@@ -118,21 +124,29 @@ def tile_upscale(model, img_arr, tile_size=256, tile_pad=24, scale=4, device="cu
                 out_tile_bottom = t_bot * scale
                 out_tile_right = t_right * scale
 
-                # Feather mask
+                # True raised-cosine feather mask for C1 continuous seamless stitching
                 th_out, tw_out, _ = out_tile.shape
                 pad_out = tile_pad * scale
 
                 mask_y = np.ones((th_out, 1, 1), dtype=np.float32)
-                if t_top > 0 and pad_out > 0:
-                    mask_y[:pad_out, 0, 0] = np.linspace(0, 1, pad_out)
-                if t_bot < h and pad_out > 0:
-                    mask_y[-pad_out:, 0, 0] = np.linspace(1, 0, pad_out)
+                if pad_out > 0:
+                    t_y = np.linspace(0, np.pi / 2, pad_out, dtype=np.float32)
+                    fade_in_y = np.sin(t_y) ** 2
+                    fade_out_y = np.cos(t_y) ** 2
+                    if t_top > 0:
+                        mask_y[:pad_out, 0, 0] = fade_in_y
+                    if t_bot < h:
+                        mask_y[-pad_out:, 0, 0] = fade_out_y
 
                 mask_x = np.ones((1, tw_out, 1), dtype=np.float32)
-                if t_left > 0 and pad_out > 0:
-                    mask_x[0, :pad_out, 0] = np.linspace(0, 1, pad_out)
-                if t_right < w and pad_out > 0:
-                    mask_x[0, -pad_out:, 0] = np.linspace(1, 0, pad_out)
+                if pad_out > 0:
+                    t_x = np.linspace(0, np.pi / 2, pad_out, dtype=np.float32)
+                    fade_in_x = np.sin(t_x) ** 2
+                    fade_out_x = np.cos(t_x) ** 2
+                    if t_left > 0:
+                        mask_x[0, :pad_out, 0] = fade_in_x
+                    if t_right < w:
+                        mask_x[0, -pad_out:, 0] = fade_out_x
 
                 tile_mask = mask_y * mask_x
                 output[out_tile_top:out_tile_bottom, out_tile_left:out_tile_right, :] += out_tile * tile_mask
@@ -158,34 +172,64 @@ def process_single_image(input_path, output_path, model, scale=4, tile_size=256,
     exif_data = raw_img.info.get("exif")
     icc_profile = raw_img.info.get("icc_profile")
 
-    img_rgb = raw_img.convert("RGB")
-    arr = np.array(img_rgb, dtype=np.float32) / 255.0
+    has_alpha = raw_img.mode in ("RGBA", "LA") or ("transparency" in raw_img.info)
+    alpha_channel = None
 
+    if has_alpha:
+        rgba_img = raw_img.convert("RGBA")
+        r, g, b, a = rgba_img.split()
+        img_rgb = Image.merge("RGB", (r, g, b))
+        alpha_channel = a
+    else:
+        img_rgb = raw_img.convert("RGB")
+
+    arr = np.array(img_rgb, dtype=np.float32) / 255.0
     out_arr = tile_upscale(model, arr, tile_size=tile_size, tile_pad=tile_pad, scale=scale, device=device)
-    out_img = Image.fromarray(np.round(out_arr * 255.0).astype(np.uint8))
+    out_rgb = Image.fromarray(np.round(out_arr * 255.0).astype(np.uint8))
+
+    out_w, out_h = out_rgb.size
+    ext = os.path.splitext(output_path)[1].lower()
+
+    if alpha_channel is not None:
+        out_alpha = alpha_channel.resize((out_w, out_h), resample=Image.Resampling.LANCZOS)
+        if ext in [".png", ".webp"]:
+            out_img = Image.merge("RGBA", (*out_rgb.split(), out_alpha))
+        else:
+            # Composite onto clean white background for non-alpha formats
+            bg = Image.new("RGB", (out_w, out_h), (255, 255, 255))
+            bg.paste(out_rgb, mask=out_alpha)
+            out_img = bg
+    else:
+        out_img = out_rgb
 
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    save_kwargs = {"quality": quality, "subsampling": subsampling}
+    save_kwargs = {}
     if exif_data:
         save_kwargs["exif"] = exif_data
     if icc_profile:
         save_kwargs["icc_profile"] = icc_profile
 
-    # Format detection
-    ext = os.path.splitext(output_path)[1].lower()
+    # Format detection with metadata preservation
     if ext in [".jpg", ".jpeg"]:
-        out_img.save(output_path, "JPEG", **save_kwargs)
+        out_img.save(output_path, "JPEG", quality=quality, subsampling=subsampling, **save_kwargs)
     elif ext == ".png":
-        out_img.save(output_path, "PNG", compress_level=6)
+        out_img.save(output_path, "PNG", compress_level=6, **save_kwargs)
     elif ext == ".webp":
-        out_img.save(output_path, "WEBP", quality=quality)
+        out_img.save(output_path, "WEBP", quality=quality, **save_kwargs)
     else:
-        out_img.save(output_path, "JPEG", **save_kwargs)
+        out_img.save(output_path, "JPEG", quality=quality, subsampling=subsampling, **save_kwargs)
 
     out_bytes = os.path.getsize(output_path)
     mp = (out_img.size[0] * out_img.size[1]) / 1_000_000
     print(f"✅ Saved: {output_path} ({out_img.size[0]}x{out_img.size[1]} px, {mp:.1f} MP, {out_bytes / (1024*1024):.2f} MB)")
     return output_path
+
+def get_default_suffix(scale):
+    if scale == 4:
+        return "4k"
+    elif scale == 2:
+        return "2k"
+    return f"{scale}x"
 
 def main():
     parser = argparse.ArgumentParser(description="Master Hardware-Accelerated 4K/8K AI Image Upscaler (CUDA + Spandrel)")
@@ -204,24 +248,28 @@ def main():
 
     # Scale inference from model descriptor if available
     scale = getattr(model, "scale", 4)
+    suffix = get_default_suffix(scale)
 
     input_path = os.path.abspath(args.input)
     if os.path.isfile(input_path):
         if not args.output:
             dir_name, base_name = os.path.split(input_path)
             stem, ext = os.path.splitext(base_name)
-            output_path = os.path.join(dir_name, f"{stem}_4k{ext if ext else '.jpg'}")
-        elif os.path.isdir(args.output):
+            out_ext = ext if ext else ".jpg"
+            output_path = os.path.join(dir_name, f"{stem}_{suffix}{out_ext}")
+        elif os.path.isdir(args.output) or args.output.endswith(os.sep) or args.output.endswith("/") or args.output.endswith("\\"):
+            os.makedirs(args.output, exist_ok=True)
             base_name = os.path.basename(input_path)
             stem, ext = os.path.splitext(base_name)
-            output_path = os.path.join(args.output, f"{stem}_4k{ext if ext else '.jpg'}")
+            out_ext = ext if ext else ".jpg"
+            output_path = os.path.join(args.output, f"{stem}_{suffix}{out_ext}")
         else:
             output_path = os.path.abspath(args.output)
 
         process_single_image(input_path, output_path, model, scale=scale, tile_size=args.tile_size, tile_pad=args.tile_pad, quality=args.quality, device=device)
 
     elif os.path.isdir(input_path):
-        out_dir = os.path.abspath(args.output) if args.output else os.path.join(input_path, "upscaled_4k")
+        out_dir = os.path.abspath(args.output) if args.output else os.path.join(input_path, f"upscaled_{suffix}")
         os.makedirs(out_dir, exist_ok=True)
         valid_exts = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
         files = [f for f in sorted(os.listdir(input_path)) if os.path.splitext(f)[1].lower() in valid_exts]
@@ -229,7 +277,7 @@ def main():
         for idx, f in enumerate(files, 1):
             src = os.path.join(input_path, f)
             stem, ext = os.path.splitext(f)
-            dst = os.path.join(out_dir, f"{stem}_4k{ext}")
+            dst = os.path.join(out_dir, f"{stem}_{suffix}{ext}")
             print(f"\n[{idx}/{len(files)}] Processing batch item...")
             process_single_image(src, dst, model, scale=scale, tile_size=args.tile_size, tile_pad=args.tile_pad, quality=args.quality, device=device)
         print(f"\n🎉 Batch processing completed! Results saved to: {out_dir}")

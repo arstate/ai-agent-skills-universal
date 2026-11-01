@@ -7,7 +7,7 @@ Dokumen ini menjelaskan formulasi matematis dan algoritma rekonstruksi gambar mo
 ## 1. Latar Belakang Masalah (Memory Footprint 4K Forward Pass)
 
 Sebuah gambar 4K memiliki dimensi $4096 \times 2304$ piksel.
-Jika diproses sekaligus (non-tiled) melalui model Transformer (seperti SCHAT):
+Jika diproses sekaligus (non-tiled) melalui model Transformer (seperti SCHAT/HAT):
 - Tensor input: $(1, 3, 1024, 576)$
 - Alokasi memori untuk matriks intermediate self-attention: $O(N^2)$ di mana $N = H \times W$.
 - Kebutuhan VRAM melonjak hingga $> 14\text{ GB}$, melampaui kapasitas 6 GB GTX 1660 SUPER dan memicu `CUDA out of memory. Tried to allocate...`.
@@ -20,7 +20,7 @@ Kanvas input $H \times W$ dipotong menjadi kisi sub-gambar (tile) berukuran $S \
 - `tile_size` ($S$) = $256$ piksel.
 - `tile_pad` ($P$) = $24$ piksel.
 - `step` = $S - 2P = 208$ piksel.
-- `scale` ($K$) = $4$.
+- `scale` ($K$) = $4$ (atau $2$).
 
 Untuk setiap titik acuan $(y, x)$:
 $$\text{top}_{\text{pad}} = \max(0, y - P)$$
@@ -30,25 +30,25 @@ $$\text{right}_{\text{pad}} = \min(W, x + \text{step} + P)$$
 
 ---
 
-## 3. Formulasi Masker Feather Kosinus / Linear
+## 3. Formulasi Masker Raised-Cosine (Hann Window)
 
 Setiap tile yang dihasilkan oleh model memiliki dimensi output $(T_h, T_w, 3)$.
-Untuk menghilangkan batas kotak sambungan (*boundary seam lines*), masker bobot gradien 2D $M(u, v)$ diterapkan:
+Untuk menghilangkan batas kotak sambungan (*boundary seam lines*) dan mencegah diskontinuitas turunan (kink/slope jump), masker bobot gradien 2D $M(u, v)$ berbasis raised-cosine ($\sin^2 / \cos^2$) diterapkan:
 
 ### Masker Sumbu Vertikal ($M_y$):
-- Jika tile berada di tengah (memiliki overlap di atas):
-  $$M_y(u) = \frac{u}{P_{\text{out}}} \quad \text{untuk } 0 \le u < P_{\text{out}}$$
-- Jika tile memiliki overlap di bawah:
-  $$M_y(u) = 1.0 - \frac{u - (T_h - P_{\text{out}})}{P_{\text{out}}} \quad \text{untuk } T_h - P_{\text{out}} \le u < T_h$$
-- Area tengah:
+- Jika tile berada di tengah atau bawah (memiliki overlap di atas, $t_{\text{top}} > 0$):
+  $$M_y(u) = \sin^2\left(\frac{\pi u}{2 P_{\text{out}}}\right) \quad \text{untuk } 0 \le u < P_{\text{out}}$$
+- Jika tile memiliki overlap di bawah ($t_{\text{bot}} < H$):
+  $$M_y(u) = \cos^2\left(\frac{\pi (u - (T_h - P_{\text{out}}))}{2 P_{\text{out}}}\right) \quad \text{untuk } T_h - P_{\text{out}} \le u < T_h$$
+- Area interior tengah:
   $$M_y(u) = 1.0$$
 
 ### Masker Sumbu Horizontal ($M_x$):
-- Jika tile memiliki overlap di kiri:
-  $$M_x(v) = \frac{v}{P_{\text{out}}} \quad \text{untuk } 0 \le v < P_{\text{out}}$$
-- Jika tile memiliki overlap di kanan:
-  $$M_x(v) = 1.0 - \frac{v - (T_w - P_{\text{out}})}{P_{\text{out}}} \quad \text{untuk } T_w - P_{\text{out}} \le v < T_w$$
-- Area tengah:
+- Jika tile memiliki overlap di kiri ($t_{\text{left}} > 0$):
+  $$M_x(v) = \sin^2\left(\frac{\pi v}{2 P_{\text{out}}}\right) \quad \text{untuk } 0 \le v < P_{\text{out}}$$
+- Jika tile memiliki overlap di kanan ($t_{\text{right}} < W$):
+  $$M_x(v) = \cos^2\left(\frac{\pi (v - (T_w - P_{\text{out}}))}{2 P_{\text{out}}}\right) \quad \text{untuk } T_w - P_{\text{out}} \le v < T_w$$
+- Area interior tengah:
   $$M_x(v) = 1.0$$
 
 ### Masker 2D Total:
@@ -68,8 +68,7 @@ Setelah seluruh tile selesai diproses:
 $$O_{\text{final}} = \frac{O}{\max(\Omega, 10^{-6})}$$
 $$O_{\text{clipped}} = \text{clip}(O_{\text{final}}, 0.0, 1.0)$$
 
-### Keunggulan Matematis:
-1. **0% Seams:** Pergeseran bobot dari 0.0 ke 1.0 secara linier menjamin bahwa pada perbatasan sambungan, jumlah total bobot kedua tile yang tumpang tindih selalu tepat sama dengan 1.0:
-   $$M_{\text{tile}_1}(x) + M_{\text{tile}_2}(x) = (1 - \alpha) + \alpha = 1.0$$
-2. **Kestabilan Warna:** Tidak ada perubahan luminance atau chrominance pada pertemuan batas tile.
+### Keunggulan Matematis Raised-Cosine:
+1. **0% Seams & $C^1$ Continuity:** Karena $\sin^2(t) + \cos^2(t) = 1.0$, dan $\left.\frac{d}{dt}\sin^2(t)\right|_{t=0} = \left.\frac{d}{dt}\sin^2(t)\right|_{t=\pi/2} = 0$, gradien pembobotan bertransisi secara mulus tanpa ada lonjakan turunan/sudut patah pada batas tile.
+2. **Kestabilan Warna & Luminance:** Tidak ada distorsi kontras atau warna pada pertemuan batas sambungan.
 3. **Efisiensi Memori:** Konsumsi VRAM puncak di GPU GTX 1660 SUPER tetap stabil di angka ~1.2 GB hingga 2.4 GB, memungkinkan pemrosesan gambar ukuran 8K atau 12K sekalipun tanpa OOM.
