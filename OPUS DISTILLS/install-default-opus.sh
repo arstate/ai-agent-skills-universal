@@ -71,10 +71,13 @@ python3 -c "import pptx" 2>/dev/null || pip install --quiet python-pptx 2>/dev/n
 # Symlink convenience binaries to ~/.local/bin
 chmod +x "$HOME/.agents/skills/next-slidedeck-engine/bin/next-slidedeck.mjs" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.agents/skills/slidedeck-gen/scripts"/*.mjs "$HOME/.agents/skills/slidedeck-gen/scripts"/*.py "$HOME/.agents/skills/slidedeck-gen/scripts"/*.sh 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.agents/skills/upscale-img/scripts/upscale_cuda.py" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/launch-visible-chrome.sh" "$HOME/.local/bin/launch-visible-chrome" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/next-slidedeck-engine/bin/next-slidedeck.mjs" "$HOME/.local/bin/next-slidedeck" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.local/bin/slidedeck-gen" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.local/bin/upscale-img" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.local/bin/boost" 2>/dev/null || true
 
 # Ensure and install Next.js Slide Deck Studio runtime dependencies
 if [ -d "$HOME/.agents/skills/next-slidedeck-engine" ]; then

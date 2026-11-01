@@ -42,6 +42,7 @@ REQUIRED_23_SKILLS = [
     "social-media-research",
     "taste-design",
     "terse-respon",
+    "upscale-img",
     "visual-breakdown",
     "web-animation",
     "web-builder",
@@ -106,6 +107,11 @@ REQUIRED_MULTI_SKILLS = {
         "cat-08-luxury-automotive-hardware.md",
         "cat-09-healthcare-edtech-wellness.md",
         "cat-10-web3-gaming-and-retro.md",
+    ],
+    "upscale-img": [
+        "hardware-and-models-guide.md",
+        "seamless-tiling-and-blend-math.md",
+        "adobe-stock-and-exiv2-metadata.md",
     ],
 }
 

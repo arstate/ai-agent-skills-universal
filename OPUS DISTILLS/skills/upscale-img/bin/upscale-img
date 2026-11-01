@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Universal CLI Launcher for upscale-img / boost
+set -e
+
+# Resolve physical directory even if invoked through symlink
+REAL_BIN="$(readlink -f "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(cd "$(dirname "$REAL_BIN")/.." && pwd)"
+PYTHON_SCRIPT="$SCRIPT_DIR/scripts/upscale_cuda.py"
+
+# Detect Python with CUDA & Spandrel
+CHAINNER_PY="/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11"
+
+if [ -x "$CHAINNER_PY" ]; then
+  EXEC_PY="$CHAINNER_PY"
+elif command -v python3 &>/dev/null && python3 -c "import spandrel, torch" &>/dev/null; then
+  EXEC_PY="python3"
+else
+  echo "❌ Error: Could not find Python runtime with spandrel and PyTorch CUDA."
+  echo "Expected path: $CHAINNER_PY"
+  exit 1
+fi
+
+exec "$EXEC_PY" "$PYTHON_SCRIPT" "$@"
