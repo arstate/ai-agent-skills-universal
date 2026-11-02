@@ -1,11 +1,11 @@
 # Universal AI Agent Skills Ecosystem (`opus-distills` Edition)
 
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#)
-[![Skills](https://img.shields.io/badge/skills-23%2B%20Universal%20Packs-emerald.svg)](#)
+[![Skills](https://img.shields.io/badge/skills-25%2B%20Universal%20Packs-emerald.svg)](#)
 [![Standard](https://img.shields.io/badge/standards-Frontend%20Slides%20%2B%20Hallmark%20v2.8.0-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](#)
 
-A high-performance, production-ready ecosystem of **23+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
+A high-performance, production-ready ecosystem of **25+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
 
 ---
 
@@ -111,6 +111,17 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
   * Zero text labels (`<text> = 0`) for universal international localization.
   * 100% transparent background on icon sheets (transparent PNG badge).
   * Automated Dublin Core RDF & XMP metadata embedding via Adobe Sensei SEO engine.
+
+### 6. Hardware-Accelerated 4K/8K AI Image Upscaler (`upscale-img`)
+- **PyTorch CUDA & Spandrel Engine**: Hardware-accelerated neural image upscaler using `4xNomos8kSCHAT-S.pth` (DAT/HAT Transformer Attention) on GTX 1660 SUPER.
+- **Raised-Cosine Hann Window Tiling**: 256x256 tiles with 24px pad and continuous $C^1$ derivative blending for zero seam lines.
+- **Full Transparency & Metadata Retention**: Preserves RGBA alpha transparency and embeds ICC/EXIF metadata.
+
+### 7. Broadcast-Grade AI Voiceover & TTS Engine (`tts-gen`)
+- **Gemini 3.8 Flash TTS Multi-Key Router**: High-fidelity speech synthesis with auto-failover across multiple API keys on HTTP 429 and graceful Edge-TTS fallback.
+- **7 Curated Voices & Style Tags**: Expressive personas (`Koda` default, `Ludo`, `Aoede`, `Kore`, `Puck`, `Charon`, `Fenrir`) and style tags (`<Friendly>`, `<Professional>`, `<Enthusiastic>`, `<Calm>`, `<Dramatic>`).
+- **EBU R128 Broadcast Loudness Mastering**: Built-in FFmpeg loudness normalization (`-16 LUFS, TP -1.5 dB, 48 kHz`) for direct drop-in to Instagram Reels, TikTok, and Remotion video timelines.
+- **Global CLI Access**: Available globally as `tts-gen` and `notif-tts`.
 
 ---
 

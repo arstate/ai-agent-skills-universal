@@ -42,6 +42,7 @@ REQUIRED_24_SKILLS = [
     "social-media-research",
     "taste-design",
     "terse-respon",
+    "tts-gen",
     "upscale-img",
     "visual-breakdown",
     "web-animation",
@@ -113,6 +114,10 @@ REQUIRED_MULTI_SKILLS = {
         "hardware-and-models-guide.md",
         "seamless-tiling-and-blend-math.md",
         "adobe-stock-and-exiv2-metadata.md",
+    ],
+    "tts-gen": [
+        "voices-and-styles-guide.md",
+        "broadcast-loudness-and-remotion-guide.md",
     ],
 }
 

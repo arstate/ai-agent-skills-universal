@@ -92,7 +92,18 @@ And verify global auto-boot rules:
 - 10 Iron Laws of Vector Construction for Adobe Stock, Shutterstock, and Freepik.
 - Enforces 15+ MP resolution, 100% closed compound paths (Z), zero live strokes, zero raster alpha filters (cairo_image = 0), zero text, and automated Dublin Core RDF & XMP metadata embedding.
 
+### 6. Hardware-Accelerated 4K/8K AI Image Upscaler (`upscale-img`)
+- Hardware-accelerated neural upscaling on NVIDIA CUDA via PyTorch & Spandrel using `4xNomos8kSCHAT-S.pth` (DAT/HAT Transformer Attention).
+- Seamless 256x256 raised-cosine Hann window feather tiling with C1 continuity, zero boundary artifacts, and full RGBA transparency support.
+- Global CLI commands: `upscale-img` and `boost`.
+
+### 7. Broadcast-Grade AI Voiceover & TTS Engine (`tts-gen`)
+- Multi-key router for **Google Gemini 3.8 Flash TTS** with automatic HTTP 429 failover and Microsoft Edge-TTS graceful fallback.
+- 7 Expressive prebuilt voices (`Koda` default, `Ludo`, `Aoede`, `Kore`, `Puck`, `Charon`, `Fenrir`) and style tags (`<Friendly>`, `<Professional>`, `<Enthusiastic>`, `<Calm>`, `<Dramatic>`).
+- EBU R128 loudness normalization (`-16 LUFS, TP -1.5 dB, 48 kHz`) via FFmpeg for direct integration with Instagram Reels, TikTok, and Remotion video timelines.
+- Global CLI commands: `tts-gen` and `notif-tts`.
+
 ## Step 4: Confirm Setup
 After running the installation, type `/skills reload` (or restart your agent session) and reply:
-"All 23+ universal skills, browser automation tools, and rules successfully installed and verified!"
+"All 25+ universal skills, browser automation tools, and rules successfully installed and verified!"
 ```

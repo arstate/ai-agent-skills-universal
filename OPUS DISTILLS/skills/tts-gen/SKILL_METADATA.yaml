@@ -1,0 +1,21 @@
+name: tts-gen
+slash_command: /tts-gen
+version: 1.0.0
+license: MIT
+description: "Gemini 3.8 Flash TTS Voiceover Engine & Key Router with Edge-TTS Fallback, EBU R128 Broadcast Loudness, and Multi-Key Failover."
+triggers:
+  keywords:
+    - "/tts-gen"
+    - "@tts-gen"
+    - "tts-gen"
+    - "gemini tts"
+    - "generate voiceover"
+    - "bikin voiceover"
+    - "text to speech"
+    - "notif-tts"
+    - "voiceover reels"
+output_formats:
+  - wav-48khz-ebu-r128
+  - mp3-192k-ebu-r128
+references_dir: "./references"
+scripts_dir: "./scripts"

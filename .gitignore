@@ -23,3 +23,6 @@ out/
 build/
 *.tsbuildinfo
 opus_distills_universal_pack.zip
+
+# Secrets & local API configs
+**/tts-gen/**/config.json

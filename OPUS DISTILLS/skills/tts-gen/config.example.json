@@ -1,0 +1,18 @@
+{
+  "model": "gemini-3.8-flash-tts",
+  "default_voice": "Koda",
+  "default_style": "Friendly",
+  "temperature": 1.1,
+  "available_voices": [
+    "Koda",
+    "Ludo",
+    "Aoede",
+    "Kore",
+    "Puck",
+    "Charon",
+    "Fenrir"
+  ],
+  "api_keys": [
+    "YOUR_GEMINI_API_KEY_HERE"
+  ]
+}
