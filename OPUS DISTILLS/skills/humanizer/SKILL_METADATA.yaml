@@ -1,0 +1,22 @@
+name: humanizer
+slash_command: /humanizer
+version: 3.1.0
+license: MIT
+description: "Claude Humanizer v3.1 Anti-AI-Slop & Authentic Human Cadence Engine (Bilingual EN/ID). Eliminates 26 AI writing tells, removes Indonesian bureaucratic cliches, and restores natural rhythm."
+triggers:
+  keywords:
+    - "/humanizer"
+    - "@humanizer"
+    - "humanize"
+    - "humanizer"
+    - "anti-ai-slop"
+    - "ai slop"
+    - "hapus gaya ai"
+    - "bahasa manusia"
+    - "bikin natural"
+output_formats:
+  - natural-human-prose
+  - markdown-report
+  - file-in-place
+references_dir: "./references"
+scripts_dir: "./scripts"

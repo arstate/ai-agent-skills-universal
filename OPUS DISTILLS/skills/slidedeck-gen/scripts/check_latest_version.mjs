@@ -8,8 +8,8 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const SKILL_ROOT = path.resolve(SCRIPT_DIR, '..');
 const INSTALLED_PACKAGE = path.join(SKILL_ROOT, 'project/package.json');
 const SOURCE_PACKAGE = path.join(SKILL_ROOT, 'package.json');
-// 端点按国内可达性排序:npmmirror(国内可达)→ npm 官方 → GitHub raw(兜底,
-// 兼容 npm 包尚未发布的过渡期)。任一端点拿到版本即停,全部失败保持静默。
+// Endpoints ordered by reachability: GitHub raw endpoint fallback.
+// Stops as soon as any endpoint returns a valid version; fails silently on error.
 const REMOTE_VERSION_ENDPOINTS = [
   { url: 'https://raw.githubusercontent.com/arstate/ai-agent-skills-universal/main/package.json', pick: (json) => json.version },
 ];

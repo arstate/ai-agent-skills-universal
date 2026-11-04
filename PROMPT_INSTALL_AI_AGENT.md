@@ -1,6 +1,6 @@
 # Master Prompt: Install & Auto-Boot Universal AI Agent Skills Ecosystem
 
-> **Copy and paste this prompt directly into your AI Agent (Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, or Cline) to automatically download, install, verify, and activate all 23+ universal skills, browser automation tools, and rules.**
+> **Copy and paste this prompt directly into your AI Agent (Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, or Cline) to automatically download, install, verify, and activate all 26+ universal skills, browser automation tools, and rules.**
 
 ```markdown
 # MISSION: INSTALL, CONFIGURE & ACTIVATE THE UNIVERSAL AI AGENT SKILLS ECOSYSTEM (OPUS DISTILLS EDITION)
@@ -103,7 +103,14 @@ And verify global auto-boot rules:
 - EBU R128 loudness normalization (`-16 LUFS, TP -1.5 dB, 48 kHz`) via FFmpeg for direct integration with Instagram Reels, TikTok, and Remotion video timelines.
 - Global CLI commands: `tts-gen` and `notif-tts`.
 
+### 8. Anti-AI-Slop & Authentic Human Cadence Engine (`humanizer`)
+- Rewrites robotic, AI-sounding prose in English and Indonesian so it reads like an authentic human writer without changing meaning.
+- Eliminates all **26 Wikipedia AI writing signs** (§1 negative-positive contrasts, §2 dramatic one-line closers, §3 throat-clearing, §6 forced triads, §8 em-dash overuse, §12 stock buzzwords, §19 bold bullets).
+- Eliminates **Indonesian bureaucratic AI tropes** (*"dalam era digital yang serba cepat", "tidak dapat dipungkiri", "merajut benang merah", "menyelami", "bukti nyata"*).
+- Enforces natural burstiness and sentence length variation.
+- Global CLI command: `humanizer`.
+
 ## Step 4: Confirm Setup
 After running the installation, type `/skills reload` (or restart your agent session) and reply:
-"All 25+ universal skills, browser automation tools, and rules successfully installed and verified!"
+"All 26+ universal skills, browser automation tools, and rules successfully installed and verified!"
 ```

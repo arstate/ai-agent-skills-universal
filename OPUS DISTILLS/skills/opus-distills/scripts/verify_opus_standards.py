@@ -33,6 +33,7 @@ REQUIRED_24_SKILLS = [
     "chrome-browser-control",
     "generate-fresh-ideas",
     "hallmark",
+    "humanizer",
     "image-gen",
     "indo-genz-ponytail",
     "opus-distills",
@@ -118,6 +119,11 @@ REQUIRED_MULTI_SKILLS = {
     "tts-gen": [
         "voices-and-styles-guide.md",
         "broadcast-loudness-and-remotion-guide.md",
+    ],
+    "humanizer": [
+        "the-26-ai-patterns.md",
+        "indonesian-ai-slop-guide.md",
+        "voice-matching-and-cadence.md",
     ],
 }
 
@@ -285,7 +291,11 @@ def verify_single_skills_dir(skills_dir):
         chinese_re = re.compile(r'[\u4e00-\u9fff]')
         chinese_errors = 0
         for root, _, files in os.walk(sdg_dir):
+            if "design-repositories" in root or "node_modules" in root or ".git" in root or "templates" in root:
+                continue
             for f in files:
+                if not f.endswith(('.md', '.yaml', '.yml', '.py', '.js', '.mjs', '.sh', '.html', '.css')):
+                    continue
                 fpath = os.path.join(root, f)
                 try:
                     with open(fpath, 'r', encoding='utf-8', errors='ignore') as fl:

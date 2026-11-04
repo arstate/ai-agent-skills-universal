@@ -1,11 +1,11 @@
 # Universal AI Agent Skills Ecosystem (`opus-distills` Edition)
 
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#)
-[![Skills](https://img.shields.io/badge/skills-25%2B%20Universal%20Packs-emerald.svg)](#)
+[![Skills](https://img.shields.io/badge/skills-26%2B%20Universal%20Packs-emerald.svg)](#)
 [![Standard](https://img.shields.io/badge/standards-Frontend%20Slides%20%2B%20Hallmark%20v2.8.0-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](#)
 
-A high-performance, production-ready ecosystem of **25+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
+A high-performance, production-ready ecosystem of **26+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
 
 ---
 
@@ -122,6 +122,12 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 - **7 Curated Voices & Style Tags**: Expressive personas (`Koda` default, `Ludo`, `Aoede`, `Kore`, `Puck`, `Charon`, `Fenrir`) and style tags (`<Friendly>`, `<Professional>`, `<Enthusiastic>`, `<Calm>`, `<Dramatic>`).
 - **EBU R128 Broadcast Loudness Mastering**: Built-in FFmpeg loudness normalization (`-16 LUFS, TP -1.5 dB, 48 kHz`) for direct drop-in to Instagram Reels, TikTok, and Remotion video timelines.
 - **Global CLI Access**: Available globally as `tts-gen` and `notif-tts`.
+
+### 8. Anti-AI-Slop & Authentic Human Cadence Engine (`humanizer`)
+- **Elimination of 26 Wikipedia AI Signs**: Detects and rewrites negative-positive contrasts (§1), dramatic one-line closers (§2), pseudo-profound throat-clearing (§3), forced triads (§6), em-dash overuse (§8), stock buzzwords (§12), and decorative bold bullet labels (§19).
+- **Indonesian Bureaucratic Cliché Cleanser**: Strips robotic Indonesian AI tropes (*"dalam era digital yang serba cepat"*, *"tidak dapat dipungkiri"*, *"merajut benang merah"*, *"menyelami lebih dalam"*, *"lanskap dinamis"*).
+- **Burstiness & Rhythm Optimization**: Enforces natural alternation between short punchy sentences (4–7 words) and detailed clauses (18–25 words).
+- **Global CLI Linter**: Available globally as `humanizer`.
 
 ---
 

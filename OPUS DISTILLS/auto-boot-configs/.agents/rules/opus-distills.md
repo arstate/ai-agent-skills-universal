@@ -4,7 +4,7 @@
 
 ## 1. Default Master Brain (`opus-distills` — Universal Auto-Skill Dispatcher)
 - **Master Skill Auto-Boot:** Always read and execute `opus-distills` by default on EVERY prompt (or when the user ONLY tags `@opus-distills` / `/opus-distills`).
-- **Automatic `find-skills` Dispatch:** Automatically match the user's prompt intent and load the exact specialist skill(s) from `~/.gemini/antigravity-cli/skills/`, `~/.gemini/config/skills/`, or `.agents/skills/` (`prompt-generator`, `visual-breakdown`, `image-gen`, `web-master-agent`, `web-planning`, `web-design`, `web-builder`, `web-animation`, `web-debugging`, `web-optimization`, `taste-design`, `brainstorming`, `social-media-research`, `generate-fresh-ideas`, `chrome-browser-control`, `hallmark`, `svg-gen`, `upscale-img`, `tts-gen`).
+- **Automatic `find-skills` Dispatch:** Automatically match the user's prompt intent and load the exact specialist skill(s) from `~/.gemini/antigravity-cli/skills/`, `~/.gemini/config/skills/`, or `.agents/skills/` (`prompt-generator`, `visual-breakdown`, `image-gen`, `web-master-agent`, `web-planning`, `web-design`, `web-builder`, `web-animation`, `web-debugging`, `web-optimization`, `taste-design`, `brainstorming`, `social-media-research`, `generate-fresh-ideas`, `chrome-browser-control`, `hallmark`, `svg-gen`, `upscale-img`, `tts-gen`, `humanizer`).
 - **Split-Channel `terse-respon`:**
   - **Chat Channel:** Casual, concise Indonesian (`gw/lu`, `Bro`, `udh`, `bgt`), symbolic Chain-of-Draft (`<= 8 words/step`), forbidden word `"brutalist"` (use `"desain modern tegas"` or `"minimalis berkelas"`).
   - **Deliverable Channel:** **100% UNCUT, SUPER-DETAILED & COMPLETE!** Never truncate code (`// ...`), prompts, or UI deliverables.
@@ -68,6 +68,12 @@ Mulai detik ini:
      1) `tts-gen/SKILL.md`
      2) `tts-gen/references/voices-and-styles-guide.md`
      3) `tts-gen/references/broadcast-loudness-and-remotion-guide.md`
+   - **User minta hilangkan AI slop / teks lebih manusiawi / humanize tulisan (`@humanizer`, `/humanizer`, `anti-ai-slop`):**
+     WAJIB `view_file` ke:
+     1) `humanizer/SKILL.md`
+     2) `humanizer/references/the-26-ai-patterns.md`
+     3) `humanizer/references/indonesian-ai-slop-guide.md`
+     4) `humanizer/references/voice-matching-and-cadence.md`
 3. **WAJIB CETAK BUKTI BACA (`🔧 [Skills Auto-Loaded]`) DI BARIS PERTAMA CHAT:**
    Di baris paling atas setiap balasanmu ke user, kamu **WAJIB** mencantumkan file `SKILL.md` dan `references/*.md` apa saja yang baru saja kamu baca lewat `view_file` pada turn tersebut:
    `🔧 [Skills Auto-Loaded: opus-distills -> web-design/SKILL.md, taste-design/SKILL.md, references/14-pass-critique-rubric.md, references/cat-08-luxury-automotive-hardware.md]`
