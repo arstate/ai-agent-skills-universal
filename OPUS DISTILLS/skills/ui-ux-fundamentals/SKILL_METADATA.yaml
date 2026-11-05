@@ -1,0 +1,11 @@
+name: ui-ux-fundamentals
+slash_command: /ui-ux-fundamentals
+version: 1.0.0
+license: MIT
+description: 'Universal design quality rules: color, typography, spacing, composition,
+  accessibility.'
+triggers:
+  keywords:
+  - /ui-ux-fundamentals
+  - ui ux fundamentals
+  - design rules

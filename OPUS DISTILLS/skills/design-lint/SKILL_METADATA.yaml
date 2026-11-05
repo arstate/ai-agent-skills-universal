@@ -1,0 +1,12 @@
+name: design-lint
+slash_command: /design-lint
+version: 1.0.0
+license: MIT
+description: Lint Figma designs for compliance and auto-fix violations across 40 quality
+  rules.
+triggers:
+  keywords:
+  - /design-lint
+  - design lint
+  - lint figma
+  - figma lint

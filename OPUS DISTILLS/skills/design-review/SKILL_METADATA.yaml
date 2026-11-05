@@ -1,0 +1,10 @@
+name: design-review
+slash_command: /design-review
+version: 1.0.0
+license: MIT
+description: Structured Figma quality audit & heuristic critique against 40 rules.
+triggers:
+  keywords:
+  - /design-review
+  - design review
+  - audit design figma

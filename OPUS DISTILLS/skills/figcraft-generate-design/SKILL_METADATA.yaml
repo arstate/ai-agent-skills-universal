@@ -1,0 +1,11 @@
+name: figcraft-generate-design
+slash_command: /figcraft-generate-design
+version: 1.0.0
+license: MIT
+description: Assemble production screens from an existing design system in Figma using
+  FigCraft.
+triggers:
+  keywords:
+  - /figcraft-generate-design
+  - generate design
+  - assemble screen

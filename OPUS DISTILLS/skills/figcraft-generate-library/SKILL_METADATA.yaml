@@ -1,0 +1,11 @@
+name: figcraft-generate-library
+slash_command: /figcraft-generate-library
+version: 1.0.0
+license: MIT
+description: Build a complete, reusable design system / UI kit in Figma.
+triggers:
+  keywords:
+  - /figcraft-generate-library
+  - generate library
+  - create design system
+references_dir: ./references

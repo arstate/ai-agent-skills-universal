@@ -1,8 +1,8 @@
 name: figma-design
 slash_command: /figma-design
-version: 3.0.0
+version: 4.5.0
 license: MIT
-description: "Master Figma Design & Canvas Automation Engine via Figma Bridge WebSocket Relay & Native Auto Layout. Integrates 6 industry repositories and 4 typical applications: Design System Enforcement, Heuristic Evaluation, Language Localization, and Structural Code Handoff."
+description: "Master One-Shot Figma Design v4.5 (Djadi Creative GSM v2.5 Clean Agency Edition), High-Impact Ad Poster & Carousel Art Direction, Invisible Drop-Zone Engine, Dual-MCP Automation (figma-bridge + FigCraft + Official Figma MCP), 6 Core GitHub Libraries, and 4 Design Agent Applications."
 triggers:
   keywords:
     - "/figma-design"
@@ -11,6 +11,7 @@ triggers:
     - "desain figma"
     - "figma auto layout"
     - "figma bridge"
+    - "figcraft"
     - "audit figma"
     - "figma to code"
     - "figma handoff"

@@ -1,0 +1,11 @@
+name: design-guardian
+slash_command: /design-guardian
+version: 1.0.0
+license: MIT
+description: 'Library mode design rules: token priority, typography, spacing, elevation,
+  dark mode.'
+triggers:
+  keywords:
+  - /design-guardian
+  - design guardian
+  - library design

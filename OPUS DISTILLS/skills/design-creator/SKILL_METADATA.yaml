@@ -1,0 +1,11 @@
+name: design-creator
+slash_command: /design-creator
+version: 1.0.0
+license: MIT
+description: 'No-library mode design rules: intentional design thinking, color, typography,
+  iconography.'
+triggers:
+  keywords:
+  - /design-creator
+  - design creator
+  - no library design

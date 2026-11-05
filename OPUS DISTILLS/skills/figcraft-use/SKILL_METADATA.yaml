@@ -1,0 +1,11 @@
+name: figcraft-use
+slash_command: /figcraft-use
+version: 1.0.0
+license: MIT
+description: Complete integration handbook and gotchas for FigCraft declarative tools.
+triggers:
+  keywords:
+  - /figcraft-use
+  - figcraft use
+  - figcraft mcp
+references_dir: ./references

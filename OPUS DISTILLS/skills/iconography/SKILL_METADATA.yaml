@@ -1,0 +1,10 @@
+name: iconography
+slash_command: /iconography
+version: 1.0.0
+license: MIT
+description: Icon ordering, placement, sizing, and toolchain rules in Figma Auto Layout.
+triggers:
+  keywords:
+  - /iconography
+  - figma icons
+  - icon placement

@@ -1,0 +1,10 @@
+name: figma-create-ui
+slash_command: /figma-create-ui
+version: 1.0.0
+license: MIT
+description: Declarative UI creation in Figma using FigCraft Opinion Engine.
+triggers:
+  keywords:
+  - /figma-create-ui
+  - figma create ui
+  - create figma screen
