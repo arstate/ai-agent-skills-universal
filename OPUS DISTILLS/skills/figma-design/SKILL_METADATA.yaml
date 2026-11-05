@@ -1,0 +1,24 @@
+name: figma-design
+slash_command: /figma-design
+version: 3.0.0
+license: MIT
+description: "Master Figma Design & Canvas Automation Engine via Figma Bridge WebSocket Relay & Native Auto Layout. Integrates 6 industry repositories and 4 typical applications: Design System Enforcement, Heuristic Evaluation, Language Localization, and Structural Code Handoff."
+triggers:
+  keywords:
+    - "/figma-design"
+    - "/djadi-figma-control"
+    - "@figma-design"
+    - "figma design"
+    - "desain figma"
+    - "figma auto layout"
+    - "figma bridge"
+    - "audit figma"
+    - "figma to code"
+    - "figma handoff"
+output_formats:
+  - figma-native-nodes
+  - pure-png-export
+  - typescript-relay-script
+  - nextjs-tailwind-components
+references_dir: "./references"
+scripts_dir: "./scripts"

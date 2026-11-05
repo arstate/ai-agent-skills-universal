@@ -4,7 +4,7 @@
 
 ## 1. Default Master Brain (`opus-distills` — Universal Auto-Skill Dispatcher)
 - **Master Skill Auto-Boot:** Always read and execute `opus-distills` by default on EVERY prompt (or when the user ONLY tags `@opus-distills` / `/opus-distills`).
-- **Automatic `find-skills` Dispatch:** Automatically match the user's prompt intent and load the exact specialist skill(s) from `~/.gemini/antigravity-cli/skills/`, `~/.gemini/config/skills/`, or `.agents/skills/` (`prompt-generator`, `visual-breakdown`, `image-gen`, `web-master-agent`, `web-planning`, `web-design`, `web-builder`, `web-animation`, `web-debugging`, `web-optimization`, `taste-design`, `brainstorming`, `social-media-research`, `generate-fresh-ideas`, `chrome-browser-control`, `hallmark`, `svg-gen`, `upscale-img`, `tts-gen`, `humanizer`).
+- **Automatic `find-skills` Dispatch:** Automatically match the user's prompt intent and load the exact specialist skill(s) from `~/.gemini/antigravity-cli/skills/`, `~/.gemini/config/skills/`, or `.agents/skills/` (`prompt-generator`, `visual-breakdown`, `image-gen`, `web-master-agent`, `web-planning`, `web-design`, `web-builder`, `web-animation`, `web-debugging`, `web-optimization`, `taste-design`, `brainstorming`, `social-media-research`, `generate-fresh-ideas`, `chrome-browser-control`, `hallmark`, `svg-gen`, `upscale-img`, `tts-gen`, `humanizer`, `figma-design`).
 - **Split-Channel `terse-respon`:**
   - **Chat Channel:** Casual, concise Indonesian (`gw/lu`, `Bro`, `udh`, `bgt`), symbolic Chain-of-Draft (`<= 8 words/step`), forbidden word `"brutalist"` (use `"desain modern tegas"` or `"minimalis berkelas"`).
   - **Deliverable Channel:** **100% UNCUT, SUPER-DETAILED & COMPLETE!** Never truncate code (`// ...`), prompts, or UI deliverables.
@@ -74,6 +74,14 @@ Mulai detik ini:
      2) `humanizer/references/the-26-ai-patterns.md`
      3) `humanizer/references/indonesian-ai-slop-guide.md`
      4) `humanizer/references/voice-matching-and-cadence.md`
+   - **User minta desain figma / manipulasi kanvas / auto layout / audit figma / handoff kode (`@figma-design`, `/figma-design`, `/djadi-figma-control`):**
+     WAJIB `view_file` ke:
+     1) `figma-design/SKILL.md`
+     2) `figma-design/references/core-design-libraries-and-frameworks.md`
+     3) `figma-design/references/four-design-agent-applications.md`
+     4) `figma-design/references/auto-layout-engine-guide.md`
+     5) `figma-design/references/figma-bridge-and-relay-api.md`
+     6) `figma-design/references/design-tokens-and-gsm.md`
 3. **WAJIB CETAK BUKTI BACA (`🔧 [Skills Auto-Loaded]`) DI BARIS PERTAMA CHAT:**
    Di baris paling atas setiap balasanmu ke user, kamu **WAJIB** mencantumkan file `SKILL.md` dan `references/*.md` apa saja yang baru saja kamu baca lewat `view_file` pada turn tersebut:
    `🔧 [Skills Auto-Loaded: opus-distills -> web-design/SKILL.md, taste-design/SKILL.md, references/14-pass-critique-rubric.md, references/cat-08-luxury-automotive-hardware.md]`

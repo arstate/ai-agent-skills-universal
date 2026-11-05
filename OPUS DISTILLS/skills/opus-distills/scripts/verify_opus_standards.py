@@ -31,6 +31,7 @@ REQUIRED_24_SKILLS = [
     "anti-yes-man",
     "brainstorming",
     "chrome-browser-control",
+    "figma-design",
     "generate-fresh-ideas",
     "hallmark",
     "humanizer",
@@ -124,6 +125,13 @@ REQUIRED_MULTI_SKILLS = {
         "the-26-ai-patterns.md",
         "indonesian-ai-slop-guide.md",
         "voice-matching-and-cadence.md",
+    ],
+    "figma-design": [
+        "core-design-libraries-and-frameworks.md",
+        "four-design-agent-applications.md",
+        "auto-layout-engine-guide.md",
+        "figma-bridge-and-relay-api.md",
+        "design-tokens-and-gsm.md",
     ],
 }
 

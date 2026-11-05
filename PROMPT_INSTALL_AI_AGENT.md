@@ -1,6 +1,6 @@
 # Master Prompt: Install & Auto-Boot Universal AI Agent Skills Ecosystem
 
-> **Copy and paste this prompt directly into your AI Agent (Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, or Cline) to automatically download, install, verify, and activate all 26+ universal skills, browser automation tools, and rules.**
+> **Copy and paste this prompt directly into your AI Agent (Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, or Cline) to automatically download, install, verify, and activate all 27+ universal skills, browser automation tools, and rules.**
 
 ```markdown
 # MISSION: INSTALL, CONFIGURE & ACTIVATE THE UNIVERSAL AI AGENT SKILLS ECOSYSTEM (OPUS DISTILLS EDITION)
@@ -110,7 +110,13 @@ And verify global auto-boot rules:
 - Enforces natural burstiness and sentence length variation.
 - Global CLI command: `humanizer`.
 
+### 9. Master Figma Design & Canvas Automation Engine (`figma-design`)
+- Bidirectional Figma Plugin API control via **Figma Bridge WebSocket Relay** (`ws://127.0.0.1:4395`) and **Native Auto Layout Architecture**.
+- Integrates 6 industry design frameworks (`figma/mcp-server-guide`, `warpdotdev/figma-skills`, `nexu-io/open-design`, `mengto/skills`, `jakubkrehel/skills`, `benjitaylor/skills`).
+- Supports 4 core design agent applications: **Design System Enforcement** (token & variable auditor), **Heuristic Usability Evaluation** (Nielsen Norman 10 heuristics on-canvas pin annotations), **Language Localization** with dynamic copy reflow, and **Structural Code Handoff** (1:1 Next.js 15 Tailwind conversion).
+- Global CLI commands: `figma-exec`, `figma-audit`, and `figma-handoff`.
+
 ## Step 4: Confirm Setup
 After running the installation, type `/skills reload` (or restart your agent session) and reply:
-"All 26+ universal skills, browser automation tools, and rules successfully installed and verified!"
+"All 27+ universal skills, browser automation tools, and rules successfully installed and verified!"
 ```

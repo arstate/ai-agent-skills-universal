@@ -1,11 +1,11 @@
 # Universal AI Agent Skills Ecosystem (`opus-distills` Edition)
 
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#)
-[![Skills](https://img.shields.io/badge/skills-26%2B%20Universal%20Packs-emerald.svg)](#)
+[![Skills](https://img.shields.io/badge/skills-27%2B%20Universal%20Packs-emerald.svg)](#)
 [![Standard](https://img.shields.io/badge/standards-Frontend%20Slides%20%2B%20Hallmark%20v2.8.0-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](#)
 
-A high-performance, production-ready ecosystem of **26+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
+A high-performance, production-ready ecosystem of **27+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
 
 ---
 
@@ -128,6 +128,11 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 - **Indonesian Bureaucratic Cliché Cleanser**: Strips robotic Indonesian AI tropes (*"dalam era digital yang serba cepat"*, *"tidak dapat dipungkiri"*, *"merajut benang merah"*, *"menyelami lebih dalam"*, *"lanskap dinamis"*).
 - **Burstiness & Rhythm Optimization**: Enforces natural alternation between short punchy sentences (4–7 words) and detailed clauses (18–25 words).
 - **Global CLI Linter**: Available globally as `humanizer`.
+
+### 9. Master Figma Design & Canvas Automation Engine (`figma-design`)
+- **6 Core GitHub Frameworks**: Synthesizes `figma/mcp-server-guide` (MCP parameters & AST schemas), `warpdotdev/figma-skills` (4-phase edit workflow), `nexu-io/open-design` (1:1 layout fidelity & 4px/8px design system rules), `mengto/skills` (multi-screen component constraints), `jakubkrehel/skills` (modular typography & WCAG AA/AAA gates), and `benjitaylor/skills` (8-state product UI craft & physical solid drop shadows).
+- **4 Design Agent Applications**: Automated Design System Enforcement (`figma-audit`), Heuristic Usability Evaluations (Nielsen Norman NN/g 10 heuristics pin annotations), Language Localization & Dynamic Auto-Reflow, and Structural Code Handoff (`figma-handoff` to Next.js 15 Tailwind).
+- **Global CLI Access**: Available globally as `figma-exec`, `figma-audit`, and `figma-handoff`.
 
 ---
 

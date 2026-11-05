@@ -76,6 +76,7 @@ chmod +x "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.agen
 chmod +x "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.agents/skills/upscale-img/bin/boost" "$HOME/.agents/skills/upscale-img/scripts/upscale_cuda.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/tts-gen/scripts/gemini_tts.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/humanizer/scripts/humanize_cli.py" 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/figma-design/scripts"/*.ts 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/launch-visible-chrome.sh" "$HOME/.local/bin/launch-visible-chrome" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/next-slidedeck-engine/bin/next-slidedeck.mjs" "$HOME/.local/bin/next-slidedeck" 2>/dev/null || true
@@ -85,6 +86,9 @@ ln -sf "$HOME/.agents/skills/upscale-img/bin/boost" "$HOME/.local/bin/boost" 2>/
 ln -sf "$HOME/.agents/skills/tts-gen/scripts/gemini_tts.py" "$HOME/.local/bin/tts-gen" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/tts-gen/scripts/gemini_tts.py" "$HOME/.local/bin/notif-tts" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/humanizer/scripts/humanize_cli.py" "$HOME/.local/bin/humanizer" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/figma-design/scripts/figma-exec.ts" "$HOME/.local/bin/figma-exec" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/figma-design/scripts/design_system_auditor.ts" "$HOME/.local/bin/figma-audit" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/figma-design/scripts/figma_handoff.ts" "$HOME/.local/bin/figma-handoff" 2>/dev/null || true
 
 # Ensure and install Next.js Slide Deck Studio runtime dependencies
 if [ -d "$HOME/.agents/skills/next-slidedeck-engine" ]; then
