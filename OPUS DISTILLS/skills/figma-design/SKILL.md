@@ -12,7 +12,7 @@ description: |
 
 Engine otomasi, manipulasi kanvas, audit heuristik, dan handoff kode Figma modern menggunakan **Figma Bridge WebSocket Relay** (`ws://127.0.0.1:4395`) dan **Figma Native Auto Layout Architecture**. Mengintegrasikan 6 repositori arsitektur desain terkemuka dunia dan 4 pilar aplikasi agen desain tanpa bergantung pada simulasi klik browser lambat.
 
-> **Triggers & Aliases:** `/figma-design`, `/djadi-figma-control`, `@figma-design`, `figma design`, `desain figma`, `figma auto layout`, `figma bridge`, `audit figma`, `figma to code`, `figma handoff`.
+> **Triggers & Aliases:** `/figma-design`, `@figma-design`, `figma design`, `desain figma`, `figma auto layout`, `figma bridge`, `audit figma`, `figma to code`, `figma handoff`.
 
 ---
 

@@ -74,7 +74,7 @@ Mulai detik ini:
      2) `humanizer/references/the-26-ai-patterns.md`
      3) `humanizer/references/indonesian-ai-slop-guide.md`
      4) `humanizer/references/voice-matching-and-cadence.md`
-   - **User minta desain figma / manipulasi kanvas / auto layout / audit figma / handoff kode (`@figma-design`, `/figma-design`, `/djadi-figma-control`):**
+   - **User minta desain figma / manipulasi kanvas / auto layout / audit figma / handoff kode (`@figma-design`, `/figma-design`):**
      WAJIB `view_file` ke:
      1) `figma-design/SKILL.md`
      2) `figma-design/references/core-design-libraries-and-frameworks.md`

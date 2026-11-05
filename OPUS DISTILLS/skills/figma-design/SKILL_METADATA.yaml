@@ -6,7 +6,6 @@ description: "Master Figma Design & Canvas Automation Engine via Figma Bridge We
 triggers:
   keywords:
     - "/figma-design"
-    - "/djadi-figma-control"
     - "@figma-design"
     - "figma design"
     - "desain figma"
