@@ -28,6 +28,9 @@ for src_base in "$SCRIPT_DIR/skills" "$SCRIPT_DIR"; do
       [ -d "$dir" ] || continue
       dirname=$(basename "$dir")
       if [ "$dirname" != "auto-boot-configs" ] && [ "$dirname" != "skills" ] && [ "$dirname" != "tools" ] && [ "$dirname" != "readme-ai-agent-starter-template" ] && [ -f "$dir/SKILL.md" ]; then
+        if [ "$dirname" = "slidedeck-gen" ] || [ "$dirname" = "next-slidedeck-engine" ]; then
+          continue
+        fi
         for dest in "${DEST_DIRS[@]}"; do
           [ -L "$dest/$dirname" ] && rm -f "$dest/$dirname"
           mkdir -p "$dest/$dirname"
@@ -36,6 +39,14 @@ for src_base in "$SCRIPT_DIR/skills" "$SCRIPT_DIR"; do
         echo "  -> Skill installed: $dirname"
       fi
     done
+    # Consolidate legacy slidedeck-gen & next-slidedeck-engine into pdf-deck
+    for dest in "${DEST_DIRS[@]}"; do
+      [ -d "$dest/slidedeck-gen" ] && [ ! -L "$dest/slidedeck-gen" ] && rm -rf "$dest/slidedeck-gen"
+      [ -d "$dest/next-slidedeck-engine" ] && [ ! -L "$dest/next-slidedeck-engine" ] && rm -rf "$dest/next-slidedeck-engine"
+      ln -sfn "pdf-deck" "$dest/slidedeck-gen"
+      ln -sfn "pdf-deck" "$dest/next-slidedeck-engine"
+    done
+    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck"
     break
   fi
 done
@@ -71,16 +82,16 @@ python3 -c "import websockets" 2>/dev/null || pip install --quiet websockets 2>/
 python3 -c "import pptx" 2>/dev/null || pip install --quiet python-pptx 2>/dev/null || pip3 install --quiet python-pptx 2>/dev/null || true
 
 # Symlink convenience binaries to ~/.local/bin
-chmod +x "$HOME/.agents/skills/next-slidedeck-engine/bin/next-slidedeck.mjs" 2>/dev/null || true
-chmod +x "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.agents/skills/slidedeck-gen/scripts"/*.mjs "$HOME/.agents/skills/slidedeck-gen/scripts"/*.py "$HOME/.agents/skills/slidedeck-gen/scripts"/*.sh 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/pdf-deck/bin"/*.mjs "$HOME/.agents/skills/pdf-deck/scripts"/*.mjs "$HOME/.agents/skills/pdf-deck/scripts"/*.py "$HOME/.agents/skills/pdf-deck/scripts"/*.sh 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.agents/skills/upscale-img/bin/boost" "$HOME/.agents/skills/upscale-img/scripts/upscale_cuda.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/tts-gen/scripts/gemini_tts.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/humanizer/scripts/humanize_cli.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/figma-design/scripts"/*.ts 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/launch-visible-chrome.sh" "$HOME/.local/bin/launch-visible-chrome" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>/dev/null || true
-ln -sf "$HOME/.agents/skills/next-slidedeck-engine/bin/next-slidedeck.mjs" "$HOME/.local/bin/next-slidedeck" 2>/dev/null || true
-ln -sf "$HOME/.agents/skills/slidedeck-gen/bin/slidedeck-gen.mjs" "$HOME/.local/bin/slidedeck-gen" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/pdf-deck/bin/pdf-deck.mjs" "$HOME/.local/bin/pdf-deck" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/pdf-deck/bin/pdf-deck.mjs" "$HOME/.local/bin/next-slidedeck" 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/pdf-deck/bin/pdf-deck.mjs" "$HOME/.local/bin/slidedeck-gen" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.local/bin/upscale-img" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/upscale-img/bin/boost" "$HOME/.local/bin/boost" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/tts-gen/scripts/gemini_tts.py" "$HOME/.local/bin/tts-gen" 2>/dev/null || true
@@ -90,28 +101,32 @@ ln -sf "$HOME/.agents/skills/figma-design/scripts/figma-exec.ts" "$HOME/.local/b
 ln -sf "$HOME/.agents/skills/figma-design/scripts/design_system_auditor.ts" "$HOME/.local/bin/figma-audit" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/figma-design/scripts/figma_handoff.ts" "$HOME/.local/bin/figma-handoff" 2>/dev/null || true
 
-# Ensure and install Next.js Slide Deck Studio runtime dependencies
-if [ -d "$HOME/.agents/skills/next-slidedeck-engine" ]; then
-  echo "📦 Menyiapkan Next.js Slide Deck Studio Engine di ~/.agents/skills/next-slidedeck-engine..."
+# Ensure and install Next.js Slide Deck Studio runtime dependencies in pdf-deck
+if [ -d "$HOME/.agents/skills/pdf-deck" ]; then
+  echo "📦 Menyiapkan Next.js Slide Deck Studio Engine di ~/.agents/skills/pdf-deck..."
   (
-    cd "$HOME/.agents/skills/next-slidedeck-engine"
-    npm install --no-audit 2>/dev/null || npm install
+    cd "$HOME/.agents/skills/pdf-deck"
+    if [ ! -d "node_modules" ] && [ -d "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ]; then
+      cp -al "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ./node_modules 2>/dev/null || cp -r "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ./node_modules 2>/dev/null || npm install --no-audit
+    elif [ ! -d "node_modules" ]; then
+      npm install --no-audit 2>/dev/null || npm install
+    fi
     npm run build 2>/dev/null || true
   ) || true
-  if [ -d "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ]; then
-    for other in "$HOME/.gemini/antigravity-cli/skills/next-slidedeck-engine" "$HOME/.gemini/config/skills/next-slidedeck-engine" "$HOME/.gemini/antigravity/skills/next-slidedeck-engine"; do
+  if [ -d "$HOME/.agents/skills/pdf-deck/node_modules" ]; then
+    for other in "$HOME/.gemini/antigravity-cli/skills/pdf-deck" "$HOME/.gemini/config/skills/pdf-deck" "$HOME/.gemini/antigravity/skills/pdf-deck"; do
       if [ -d "$other" ] && [ ! -d "$other/node_modules" ]; then
-        ln -s "$HOME/.agents/skills/next-slidedeck-engine/node_modules" "$other/node_modules" 2>/dev/null || true
+        ln -s "$HOME/.agents/skills/pdf-deck/node_modules" "$other/node_modules" 2>/dev/null || true
       fi
     done
   fi
 fi
 
-# Run slidedeck-gen engine installer & diagnostics
-if [ -f "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" ]; then
-  bash "$HOME/.agents/skills/slidedeck-gen/scripts/install-engine.sh" || true
+# Run pdf-deck engine installer & diagnostics
+if [ -f "$HOME/.agents/skills/pdf-deck/scripts/install-engine.sh" ]; then
+  bash "$HOME/.agents/skills/pdf-deck/scripts/install-engine.sh" || true
 fi
-echo "✅ Tools & Slide Deck Engines berhasil dipasang dan dioptimasi!"
+echo "✅ Tools & pdf-deck Engine berhasil dipasang dan dioptimasi!"
 
 echo ""
 echo "=========================================================================="

@@ -44,8 +44,8 @@ And verify global auto-boot rules:
 
 ## Step 3: Verified Capabilities Overview
 
-### 1. Presentation Studio Engine: `next-slidedeck-engine`, `slide-design`, & `slidedeck-gen`
-- **Multi-Aesthetic Next.js Presentation Studio (`next-slidedeck-engine`):**
+### 1. Presentation Studio & High-Fidelity PDF/PPTX Engine: `pdf-deck` & `slide-design`
+- **Multi-Aesthetic Next.js Presentation Studio (`pdf-deck`):**
   * Custom lightweight studio built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
   * **Autonomous AI GEN Mode (Single Flexible Option):** Eliminates rigid template pickers in favor of 1 single `AI GEN (Autonomous Creative Layout)` option. The AI agent retains complete creative freedom to tailor visual geometry, kinetic accents, brand typography, and adaptive layouts per slide.
   * **Full Creative Design Freedom (Never Locked to Dark Mode):** 39 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
@@ -67,8 +67,8 @@ And verify global auto-boot rules:
 - **Master Presentation Design Engine (`slide-design`):**
   * Automated style derivation derived from the brief (never picked from rigid templates).
   * 8 Distinct layout grammars, tokens, and component sets from SlideSpeak (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
-- **Zara Zhang Editorial & Live Preview Engine (`slidedeck-gen`):**
-  * Live Preview Daemon: `slidedeck-gen dev <dir> --daemon` or `slidedeck-gen studio` immediately opens Chrome GUI on CDP port 9223.
+- **Zara Zhang Editorial & Live Preview Engine (`pdf-deck`):**
+  * Live Preview Daemon: `pdf-deck dev <dir> --daemon` or `pdf-deck studio` immediately opens Chrome GUI on CDP port 9223.
   * In-place text editing auto-saved to disk with real-time sync.
   * 34 Zara Zhang Bold Archetypes (`frontend-slides`): `signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.
 

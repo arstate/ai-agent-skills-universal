@@ -33,7 +33,7 @@ Pastikan semua skills terpasang di:
 
 Terapkan standar kerja:
 1. Split-channel communication: respon chat ultra-terse (padat, efisien, zero filler) & deliverable kode 100% utuh tanpa potongan.
-2. Presentation Studio Engine (`next-slidedeck-engine`): 39 curated palettes, mode AI GEN otonom (1 opsi fleksibel tanpa rigid template lock), kontras WCAG AAA, dan nol stroke perimeter hijau artifisial.
+2. Presentation Studio Engine (`pdf-deck`): 39 curated palettes, mode AI GEN otonom (1 opsi fleksibel tanpa rigid template lock), kontras WCAG AAA, dan nol stroke perimeter hijau artifisial.
 3. Microstock Vector Standard (`svg-gen`): 10 Iron Laws, resolusi >= 15.0 MP, 100% closed compound paths (Z), zero live strokes, zero alpha raster (cairo_image = 0), dan auto metadata Dublin Core & XMP.
 ```
 
@@ -55,9 +55,9 @@ fi && bash "OPUS DISTILLS/install-default-opus.sh"
 
 ## 🚀 Key Highlights & Capabilities
 
-### 1. Presentation Studio Engine: `next-slidedeck-engine`, `slide-design`, & `slidedeck-gen`
+### 1. Presentation Studio & High-Fidelity PDF/PPTX Engine: `pdf-deck` & `slide-design`
 Autonomous presentation studio engine built on Next.js, featuring full multi-aesthetic creative freedom:
-- **Next.js Multi-Aesthetic Presentation Studio (`next-slidedeck-engine`)**:
+- **Next.js Multi-Aesthetic Presentation Studio (`pdf-deck`)**:
   * Built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
   * **Autonomous AI GEN Mode (Single Flexible Option):** Eliminates rigid template pickers in favor of 1 single `AI GEN (Autonomous Creative Layout)` option. The AI agent retains complete creative freedom to tailor visual geometry, kinetic accents, brand typography, and adaptive layouts per slide.
   * **Full Creative Design Freedom (Never Locked to Dark Mode):** 39 curated palettes from SlideSpeak (`slide-design-skill`) and Zara Zhang (`frontend-slides`):
@@ -79,8 +79,8 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 - **Master Presentation Design Engine (`slide-design`)**:
   * Automated style derivation derived from the brief (never picked from rigid templates).
   * 8 Distinct layout grammars, tokens, and component sets from SlideSpeak (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
-- **Zara Zhang Editorial & Live Preview Engine (`slidedeck-gen`)**:
-  * Live Preview Daemon: `slidedeck-gen dev <dir> --daemon` or `slidedeck-gen studio` immediately opens Chrome GUI on CDP port 9223.
+- **Zara Zhang Editorial & Live Preview Engine (`pdf-deck`)**:
+  * Live Preview Daemon: `pdf-deck dev <dir> --daemon` or `pdf-deck studio` immediately opens Chrome GUI on CDP port 9223.
   * In-place text editing auto-saved to disk with real-time sync.
   * 34 Zara Zhang Bold Production Archetypes (`signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.).
 
@@ -141,8 +141,8 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 ```
 ├── OPUS DISTILLS/
 │   ├── skills/                       # 23+ Specialized Agent Skills
-│   │   ├── slidedeck-gen/            # Presentation Studio & Frontend Slides Engine
-│   │   │   ├── bin/slidedeck-gen.mjs # Universal CLI Binary
+│   │   ├── pdf-deck/            # Presentation Studio & Frontend Slides Engine
+│   │   │   ├── bin/pdf-deck.mjs # Universal CLI Binary
 │   │   │   ├── scripts/              # Compiler, Preview Server, PDF & PPTX Exporters
 │   │   │   ├── templates/            # Markdown & JSON Presentation Templates
 │   │   │   └── references/           # Design Systems & Layout Catalogues
@@ -168,26 +168,26 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 
 ---
 
-## 🛠️ CLI Quick Reference (`slidedeck-gen`)
+## 🛠️ CLI Quick Reference (`pdf-deck`)
 
 ```bash
 # Verify runtime dependencies & install engines:
-slidedeck-gen install-engine
+pdf-deck install-engine
 
 # Start live presentation dev server with visible Chrome auto-open:
-slidedeck-gen dev my-deck --theme bold-signal
+pdf-deck dev my-deck --theme bold-signal
 
 # Scaffold a new presentation template:
-slidedeck-gen init my-deck --template frontend-slides-editorial
+pdf-deck init my-deck --template frontend-slides-editorial
 
 # Compile Markdown to standalone HTML presentation:
-slidedeck-gen compile my-deck/deck.md --out dist/my-deck
+pdf-deck compile my-deck/deck.md --out dist/my-deck
 
 # Export vector-crisp 16:9 PDF:
-slidedeck-gen export-pdf dist/my-deck --out dist/my-deck/presentation.pdf
+pdf-deck export-pdf dist/my-deck --out dist/my-deck/presentation.pdf
 
 # Export editable PowerPoint (.pptx):
-slidedeck-gen export-pptx dist/my-deck --out dist/my-deck/presentation.pptx
+pdf-deck export-pptx dist/my-deck --out dist/my-deck/presentation.pptx
 ```
 
 ---

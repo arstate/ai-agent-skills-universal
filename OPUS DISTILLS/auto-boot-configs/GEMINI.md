@@ -44,13 +44,13 @@ Mulai detik ini:
      1) `visual-breakdown/SKILL.md`
      2) `prompt-generator/SKILL.md`
      3) `image-gen/SKILL.md`
-   - **User minta bikin slide presentation / pitch deck / ekspor PPTX atau PDF (`@slidedeck-gen` atau `@next-slidedeck-engine`):**
+   - **User minta bikin slide presentation / pitch deck / ekspor PPTX atau PDF (`@pdf-deck` atau `/pdf-deck`):**
      WAJIB `view_file` ke:
-     1) `next-slidedeck-engine/SKILL.md`
-     2) `slidedeck-gen/SKILL.md`
-     3) `taste-design/SKILL.md`
-     4) `slidedeck-gen/references/slide-design-and-export-guide.md`
-     5) `slidedeck-gen/references/theme-and-layout-catalog.md`
+     1) `pdf-deck/SKILL.md`
+     2) `taste-design/SKILL.md`
+     3) `pdf-deck/references/slide-design-and-export-guide.md`
+     4) `pdf-deck/references/theme-and-layout-catalog.md`
+     5) `pdf-deck/references/cli-tool-reference.md`
    - **User minta buat vektor design / icon set / aset Adobe Stock SVG (`@svg-gen` atau `/svg-gen`):**
      WAJIB `view_file` ke:
      1) `svg-gen/SKILL.md`
@@ -253,13 +253,13 @@ Seluruh skill desain (`web-design`, `taste-design`, dan `opus-distills`) telah d
 
 ---
 
-## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK ENGINE (@next-slidedeck-engine, @slide-design, & @slidedeck-gen) — ENGINE NEXT.JS MULTI-AESTHETIC & CREATIVE FREEDOM (LIGHT, CREAM EDITORIAL, BOLD ACCENT, & MINIMALIST DARK) + AUTO-OPEN STUDIO LIVE!
+## 10. HUKUM BESI #7: PROTOKOL SLIDE DECK ENGINE (@pdf-deck & @slide-design) — ENGINE NEXT.JS MULTI-AESTHETIC & CREATIVE FREEDOM (LIGHT, CREAM EDITORIAL, BOLD ACCENT, & MINIMALIST DARK) + AUTO-OPEN STUDIO LIVE!
 
 Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan presentasi PDF:
 1. **Interactive Briefing & Clarification Gate (Anti-Guessing):**
    - Jika request user minim detail (belum menentukan tema, format visual, target audiens, dan format deliverable), **AGENT DILARANG KERAS MENEBAK!**
    - Tawarkan opsi arah visual kreatif (Light Consulting Cream ala McKinsey/BCG, Academic Slate, Washi Ivory, Swiss Modernist, Venture Pitch Cobalt, Bold Signal Coral, atau Minimalist Dark Obsidian) dan tunggu konfirmasi user.
-2. **MANDAT WAJIB PAKAI ENGINE NEXT.JS SLIDE DECK (`@next-slidedeck-engine`, `@slide-design`, `@slidedeck-gen`):**
+2. **MANDAT WAJIB PAKAI ENGINE NEXT.JS SLIDE DECK (`@pdf-deck`, `@slide-design`):**
    - **DILARANG ME-LOCK KE DARK MODE SAJA!** AI Agent wajib memiliki fleksibilitas kreatif penuh menggunakan 26 palet desain berkelas dari SlideSpeak (`slide-design-skill`) dan Zara Zhang (`frontend-slides`):
      * **Light & Editorial:** Consulting Cream (`#F7F5F2`), Academic Slate (`#F5F1E8`), Kanagi Washi (`#EFEAE2`), Neue Klasse (`#FFFFFF`), OpEx Navy, Notebook Tabs, Pastel Geometry, Vintage Editorial, Swiss Modern, Paper & Ink.
      * **Vibrant & Bold:** Bold Signal Coral (`#FF5722`), Electric Studio Royal Split (`#4361EE`), Creative Voltage Neon Lime (`#D4FF00`), Venture Pitch Blue (`#2563EB`), Neon Cyber (`#00FFCC`).
@@ -277,7 +277,7 @@ Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan 
    - **Topbar Quick Toggle:** Tombol beralih Light Mode / Dark Mode instan tanpa error hidrasi Next.js.
    - **Fullscreen Presentation Mode (`F5`):** Tekan `F5` atau tombol Present untuk mode presentasi layar penuh, navigasi keyboard lengkap (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
 3. **MANDAT WAJIB AUTO-OPEN GOOGLE CHROME GUI DI MONITOR:**
-   - Jalankan engine studio Next.js (`next-slidedeck dev 5200` atau `slidedeck-gen dev <dir>`) dan buka Chrome GUI monitor user (port 9223) tanpa flag `--headless` mengarah ke `http://127.0.0.1:5200/`.
+   - Jalankan engine studio Next.js (`pdf-deck studio 5200` atau `pdf-deck dev <dir>`) dan buka Chrome GUI monitor user (port 9223) tanpa flag `--headless` mengarah ke `http://127.0.0.1:5200/`.
 4. **Ekspor Multi-Format Langsung:**
    - Pilih satu dari 4 format deliverable:
      1) Vector PDF (SVG Print CSS `@page 16in 9in` zero margin)

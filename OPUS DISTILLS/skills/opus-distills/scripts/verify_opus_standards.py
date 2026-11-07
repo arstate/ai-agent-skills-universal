@@ -49,7 +49,7 @@ REQUIRED_24_SKILLS = [
     "opus-distills",
     "ponytail",
     "prompt-generator",
-    "slidedeck-gen",
+    "pdf-deck",
     "social-media-research",
     "taste-design",
     "terse-respon",
@@ -72,7 +72,7 @@ REQUIRED_SKILLS = REQUIRED_24_SKILLS
 
 REQUIRED_MULTI_SKILLS = {
     "opus-distills": ["token-efficiency-and-cod-playbook.md"],
-    "slidedeck-gen": [
+    "pdf-deck": [
         "slide-design-and-export-guide.md",
         "theme-and-layout-catalog.md",
         "cli-tool-reference.md",
@@ -326,13 +326,13 @@ def verify_single_skills_dir(skills_dir):
         if skill_ref_errors == 0:
             print(f"  [PASS REFERENCES] {skill_name} ({len(req_files)} files verified)")
 
-    # Language Guardrail: Strictly 0 Chinese/Mandarin characters in slidedeck-gen
-    sdg_dir = os.path.join(skills_dir, "slidedeck-gen")
+    # Language Guardrail: Strictly 0 Chinese/Mandarin characters in pdf-deck
+    sdg_dir = os.path.join(skills_dir, "pdf-deck")
     if os.path.isdir(sdg_dir):
         chinese_re = re.compile(r'[\u4e00-\u9fff]')
         chinese_errors = 0
         for root, _, files in os.walk(sdg_dir):
-            if "design-repositories" in root or "node_modules" in root or ".git" in root or "templates" in root:
+            if "design-repositories" in root or "node_modules" in root or ".git" in root or "templates" in root or ".next" in root:
                 continue
             for f in files:
                 if not f.endswith(('.md', '.yaml', '.yml', '.py', '.js', '.mjs', '.sh', '.html', '.css')):
@@ -342,7 +342,7 @@ def verify_single_skills_dir(skills_dir):
                     with open(fpath, 'r', encoding='utf-8', errors='ignore') as fl:
                         for lno, line in enumerate(fl, 1):
                             if chinese_re.search(line):
-                                print(f"  [FAIL CHINESE GUARDRAIL] slidedeck-gen/{os.path.relpath(fpath, sdg_dir)}:{lno} -> Mandarin detected: {line.strip()[:60]}")
+                                print(f"  [FAIL CHINESE GUARDRAIL] pdf-deck/{os.path.relpath(fpath, sdg_dir)}:{lno} -> Mandarin detected: {line.strip()[:60]}")
                                 errors += 1
                                 chinese_errors += 1
                                 if chinese_errors >= 5:
@@ -350,7 +350,7 @@ def verify_single_skills_dir(skills_dir):
                 except Exception:
                     pass
         if chinese_errors == 0:
-            print(f"  [PASS LANGUAGE GUARDRAIL] slidedeck-gen (100% English, 0 Mandarin characters)")
+            print(f"  [PASS LANGUAGE GUARDRAIL] pdf-deck (100% English, 0 Mandarin characters)")
 
     wp_tpl = os.path.join(skills_dir, "web-planning", "resources", "templates")
     if os.path.isdir(wp_tpl):
