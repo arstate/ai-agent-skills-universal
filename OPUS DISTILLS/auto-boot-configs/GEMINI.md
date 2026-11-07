@@ -21,8 +21,9 @@ Mulai detik ini:
      WAJIB `view_file` ke:
      1) `web-design/SKILL.md`
      2) `taste-design/SKILL.md`
-     3) `web-design/references/14-pass-critique-rubric.md` (berisi **48 Tema Material `Nutlope/hallmark` & 58 Gate `sloplint`**)
-     4) `web-design/references/cat-XX-*.md` (1 file kategori dari **300-Ref Vault** yang sesuai industri klien)
+     3) `web-design/references/the-4-pillars-of-web-design.md` (The 4 Pillars: Tailwind + OKLCH, shadcn/ui, Lucide React, Hallmark)
+     4) `web-design/references/14-pass-critique-rubric.md` (berisi **48 Tema Material `Nutlope/hallmark` & 58 Gate `sloplint`**)
+     5) `web-design/references/cat-XX-*.md` (1 file kategori dari **300-Ref Vault** yang sesuai industri klien)
    - **User minta next steps / user flow / planning step-by-step / arsitektur web:**
      WAJIB `view_file` ke:
      1) `web-planning/SKILL.md`

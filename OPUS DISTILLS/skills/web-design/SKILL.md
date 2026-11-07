@@ -8,11 +8,37 @@ Opinionated, accessibility-aware, AI-slop-resistant Web & Frontend Design Collab
 
 ## Bundled Reference Guides (Read via `get_skill_resources`)
 
-This skill includes 3 detailed reference manuals in `references/`. Load them when designing, coding, or critiquing interfaces:
+This skill includes detailed reference manuals in `references/`. Load them when designing, coding, or critiquing interfaces:
 
+0. `references/the-4-pillars-of-web-design.md` - **The 4 Iron Pillars of S-Rank Web UI Engineering**: (1) Tailwind CSS + OKLCH Colors, (2) shadcn/ui (Radix Primitives), (3) Lucide React Single Icon Standard, and (4) Nutlope/Hallmark 48 Themes + 14-Pass Rubric.
 1. `references/bad-vs-good-examples.md` - Side-by-side **❌ Desain Jelek (AI Slop)** vs **✅ Desain Bagus (S-Rank Craft)** code & layout comparisons, plus Emil Kowalski's `| Before | After | Why |` UI polish table.
 2. `references/niche-ui-blueprints.md` - Ready-to-use art direction, color tokens, typography pairings, and *"One Live Thing"* interactive widget specs by industry (Property/Real Estate, Bridal/Fashion, B2B Agency/SaaS, Aesthetic Clinic/Skincare).
 3. `references/14-pass-critique-rubric.md` - The 14-Pass Visual & UX Jury Rubric (`DESIGN-CRITIQUE.md`) used to inspect 7-viewport Vision Agent screenshots and trigger automatic revisions.
+
+## 🏛️ 0. The 4 Iron Pillars of S-Rank Web UI Engineering (Non-Negotiable Stack)
+
+To achieve world-class, clean, and high-converting web interfaces without architectural bloat, enforce these **4 Non-Negotiable Pillars** on EVERY project:
+
+1. **Styling Core: Tailwind CSS v3.4/v4 + OKLCH Colors**
+   - **Zero Runtime Overhead & Rapid Loading:** Native utility classes compiled to minimal static CSS (< 15 KB). Guaranteed LCP < 1.2s and INP < 200ms.
+   - **OKLCH Perceptual Uniformity:** Use OKLCH color functions (`oklch(L C H)`) for lightness-accurate contrast math (`|L_text - L_bg| >= 50%`). Eliminates muddy grey banding in dark modes and ensures 100% WCAG AAA / APCA compliance.
+   - **Banned Legacy Frameworks:** Strictly NO Bootstrap 5, Bulma, or heavy monolithic CSS frameworks that inflate bundles and conflict with utility class naming (`.container`, `.flex`, `.hidden`).
+
+2. **Komponen Primitives: `shadcn/ui` (Radix Primitives)**
+   - **Copy-Paste Unstyled Architecture:** Components live directly in your codebase (`components/ui/*`), giving 100% granular control over styling, transitions, and layout via Tailwind CSS.
+   - **Zero CSS Clashes & Zero Runtime Vendor Lock-in:** Never use heavy, opinionated UI kits (Ant Design, MUI, Mantine, Vuetify) that impose outdated aesthetics, bloated emotion/styled-components runtimes, and impossible style overrides.
+   - **World-Class Accessibility:** Built-in ARIA attributes, keyboard navigation, focus trap management, and screen-reader semantics out of the box.
+
+3. **Ikon Tunggal: Lucide React (`lucide-react`)**
+   - **Single Unified Icon System:** Standardize exclusively on Lucide React across all screens and components.
+   - **Consistent Optical Weight:** Clean `1.5px` (editorial/subtle) or `2.0px` (bold/interface) stroke width matching typography metrics.
+   - **Tree-Shaking Native:** Each icon imports individually (`import { ArrowRight, Check, Shield } from "lucide-react"`), keeping production bundles featherlight. No multi-library bloat (no mixing Tabler, Phosphor, FontAwesome, and Remix in one app).
+
+4. **Taste Engine: `Nutlope/hallmark` (v2.8.0) 48 Material Themes + 14-Pass Rubric**
+   - **Editorial & Upright Typography:** Strict `4.3x` headline-to-body contrast (`clamp(2.25rem, 5vw, 4.5rem)` vs `16px`), `<= 2 lines` per headline, upright roman headings (`0` italic headings), and `tabular-nums` on all numbers/metrics.
+   - **Architectural Negative Space:** Keep `>= 40%` open breathing room, single clear visual focal point per viewport, and strict 60-30-10 tonal hierarchy.
+   - **Zero AI Slop Enforcement:** Verified against the 58 `sloplint` gates (`0 FAIL, 0 REFLEX`).
+   - **Strict Terminology Guard:** Strictly banned term "brutalist" (use "desain modern tegas" or "minimalis berkelas").
 
 ## 1. Step 1: Lock the Surface Mode (`Impeccable` Framework)
 

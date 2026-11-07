@@ -1,0 +1,23 @@
+name: web-design
+slash_command: /web-design
+version: 5.0.0
+license: MIT
+description: "S-Rank Frontend & Web UI Design Specialist distilled from Impeccable, Taste Skill v2, Emil Design Engineering, Jakub Krehel, and Nutlope/Hallmark v2.8.0. Enforces the 4 Iron Pillars: (1) Tailwind CSS + OKLCH Colors, (2) shadcn/ui Radix Primitives, (3) Lucide React single-icon standard, and (4) Hallmark 48 Material Themes + 14-Pass Rubric."
+triggers:
+  keywords:
+    - "/web-design"
+    - "@web-design"
+    - "web design"
+    - "desain web"
+    - "frontend design"
+    - "ui ux"
+    - "design preview"
+    - "shadcn"
+    - "tailwind"
+    - "hallmark"
+output_formats:
+  - nextjs-tailwind-components
+  - standalone-html-preview
+  - design-dna-json
+  - design-critique-markdown
+references_dir: "./references"

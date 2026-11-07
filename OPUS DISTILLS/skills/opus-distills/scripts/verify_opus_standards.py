@@ -93,6 +93,7 @@ REQUIRED_MULTI_SKILLS = {
         "template-catalog.md",
     ],
     "web-design": [
+        "the-4-pillars-of-web-design.md",
         "14-pass-critique-rubric.md",
         "bad-vs-good-examples.md",
         "niche-ui-blueprints.md",
