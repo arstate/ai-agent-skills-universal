@@ -82,7 +82,7 @@ console.log('[PASS] Verified pdf-deck CLI has zero Dashi PPT dependencies.');
 const refDir = path.join(engineDir, 'references');
 
 // 7a. Verify Dashi is completely purged
-assert(!fs.existsSync(path.join(refDir, 'dashi')), 'Dashi vault must be completely removed from next-slidedeck-engine/references');
+assert(!fs.existsSync(path.join(refDir, 'dashi')), 'Dashi vault must be completely removed from pdf-deck/references');
 console.log('[PASS] Verified 100% purge of legacy Dashi references vault.');
 
 // 7b. SlideSpeak Vault

@@ -17,7 +17,7 @@ err()  { echo -e "${RED}✗${NC} $*" >&2; }
 
 if [[ $# -lt 1 ]]; then
   echo ""
-  echo -e "${BOLD}slidedeck-gen PDF Exporter (Zero-Margin 16:9)${NC}"
+  echo -e "${BOLD}pdf-deck PDF Exporter (Zero-Margin 16:9)${NC}"
   echo "Usage: bash scripts/export-pdf.sh <path-to-deck-or-html> [output.pdf]"
   echo ""
   echo "Examples:"

@@ -18,7 +18,7 @@ err()  { echo -e "${RED}✗${NC} $*" >&2; }
 echo ""
 echo -e "${BOLD}╔════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${BOLD}║     Slide Deck PDF & PPTX Engine Installer & Doctor        ║${NC}"
-echo -e "${BOLD}║      slidedeck-gen (Presentation Deck Studio Suite)        ║${NC}"
+echo -e "${BOLD}║         pdf-deck (Presentation Deck Studio Suite)          ║${NC}"
 echo -e "${BOLD}╚════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -101,17 +101,19 @@ else
 fi
 
 # ─── 4. Install / Link CLI Binary ─────────────────────────────
-info "Step 4/5: Linking slidedeck-gen CLI binary..."
-BIN_SOURCE="$SKILL_ROOT/bin/slidedeck-gen.mjs"
-chmod +x "$BIN_SOURCE"
+info "Step 4/5: Linking pdf-deck CLI binaries..."
+BIN_SOURCE="$SKILL_ROOT/bin/pdf-deck.mjs"
+chmod +x "$BIN_SOURCE" "$SKILL_ROOT/bin/next-slidedeck.mjs" "$SKILL_ROOT/bin/slidedeck-gen.mjs" 2>/dev/null || true
 chmod +x "$SCRIPT_DIR/export-pdf.sh"
 
 USER_BIN="$HOME/.local/bin"
 mkdir -p "$USER_BIN"
-TARGET_LINK="$USER_BIN/slidedeck-gen"
+TARGET_LINK="$USER_BIN/pdf-deck"
 
 ln -sf "$BIN_SOURCE" "$TARGET_LINK"
-ok "Symlinked CLI binary to: $TARGET_LINK"
+ln -sf "$BIN_SOURCE" "$USER_BIN/next-slidedeck"
+ln -sf "$BIN_SOURCE" "$USER_BIN/slidedeck-gen"
+ok "Symlinked CLI binaries (pdf-deck, next-slidedeck, slidedeck-gen) to: $USER_BIN"
 
 if [[ ":$PATH:" != *":$USER_BIN:"* ]]; then
   warn "Notice: $USER_BIN is not currently in your PATH. Add it to ~/.bashrc or ~/.zshrc:"
@@ -120,7 +122,7 @@ fi
 
 # ─── 5. Run Verification Self-Test ────────────────────────────
 info "Step 5/5: Running automated end-to-end self-test..."
-TEST_DIR=$(mktemp -d /tmp/slidedeck-engine-test-XXXXXX)
+TEST_DIR=$(mktemp -d /tmp/pdf-deck-engine-test-XXXXXX)
 TEST_MD="$TEST_DIR/test-deck.md"
 TEST_PDF="$TEST_DIR/test-deck.pdf"
 TEST_PPTX="$TEST_DIR/test-deck.pptx"
@@ -131,7 +133,7 @@ cat > "$TEST_MD" << 'EOF'
 
 <!-- layout: cover -->
 <!-- kicker: ENGINE DIAGNOSTIC TEST -->
-# slidedeck-gen Verification
+# pdf-deck Verification
 ### Testing Autonomous 16:9 PDF & PPTX Output
 <!-- metadata: Automated Verification Suite · Passed -->
 
@@ -176,8 +178,8 @@ echo -e "${GREEN}${BOLD}✓ Slide Deck PDF & PPTX Engine Installed and Fully Ver
 echo -e "${GREEN}${BOLD}============================================================${NC}"
 echo ""
 echo "Quick CLI Usage Commands:"
-echo "  slidedeck-gen dev ./my-presentation.md    # Start live server with studio editor"
-echo "  slidedeck-gen export-pdf ./deck.md        # Export zero-margin 16:9 PDF"
-echo "  slidedeck-gen export-pptx ./deck.md       # Export editable PowerPoint PPTX"
+echo "  pdf-deck dev ./my-presentation.md    # Start live server with studio editor"
+echo "  pdf-deck export-pdf ./deck.md        # Export zero-margin 16:9 PDF"
+echo "  pdf-deck export-pptx ./deck.md       # Export editable PowerPoint PPTX"
 echo "  bash scripts/export-pdf.sh ./deck.md      # Direct shell script PDF exporter"
 echo ""

@@ -240,24 +240,24 @@ Saat kamu membuka preview desain (`design-style-preview.html`), mengetes web (`l
    - **Error macOS `unidentified developer / quarantine`:**
      * Jalankan: `xattr -d com.apple.quarantine ~/.agents/tools/macos/*`.
 
-## 7. HUKUM BESI #7: PROTOKOL SLIDE DECK (`@slidedeck-gen`) — WAJIB BRIEFING MENU JIKA MINIM DETAIL + AUTO-OPEN CHROME CDP LIVE DEV EDITOR!
+## 7. HUKUM BESI #7: PROTOKOL SLIDE DECK (`@pdf-deck`) — WAJIB BRIEFING MENU JIKA MINIM DETAIL + AUTO-OPEN CHROME CDP LIVE DEV EDITOR!
 
 Setiap kali user meminta dibuatkan slide presentation, pitch deck, atau laporan presentasi PDF:
 1. **Interactive Briefing & Clarification Gate (Anti-Guessing):**
-   - Jika request user minim detail (belum menentukan tema dari 12 themes, jumlah slide, ada/tidaknya contoh referensi PDF/gambar/URL, target audiens, dan format akhir PDF/PPTX/Web), **AGENT DILARANG KERAS MENEBAK!**
+   - Jika request user minim detail (belum menentukan tema, format visual, target audiens, dan format akhir PDF/PPTX/Web), **AGENT DILARANG KERAS MENEBAK!**
    - Agen **WAJIB** langsung menyajikan **Menu Briefing Interaktif 5 Poin** (Pilihan Theme, Referensi Desain/Aset Brand, Jumlah Slide & Pacing, Target Audiens & Tujuan Utama, Format Deliverable Akhir) dan menunggu respon user.
 2. **Auto-Open Chrome CDP Live Dev Editor Saat Mulai Bekerja:**
    - Begitu user mengonfirmasi atau saat mulai mengerjakan slide deck, jalankan background dev server:
-     `slidedeck-gen dev <dir> --theme <theme>`
+     `pdf-deck dev <dir> --theme <theme>`
    - Browser Google Chrome GUI **langsung terbuka di layar monitor** via CDP port 9223 menampilkan engine editor slide deck dengan badge Live AI Cursor HUD: `"Building Slide Deck Live..."`.
    - Setiap kali agen menulis atau menambahkan slide ke dalam file `deck.md` / `goal.json`, server dev otomatis mengompilasi ulang dalam `< 25ms` dan melakukan hot-reload instan via SSE.
    - User dapat melihat secara langsung slide deck bertambah dan ter-render rapi detik demi detik di monitornya.
 3. **Session Handover ke In-Browser Live Editor:**
    - Ketika seluruh slide selesai dibuat, jalankan:
-     `slidedeck-gen done`
+     `pdf-deck done`
    - HUD AI akan beralih ke `"✅ Slide Deck Ready — In-Browser Live Editor Active"` lalu memudar, membiarkan jendela Chrome tetap terbuka.
    - User dapat langsung mengklik teks apa saja (judul, paragraf, kartu metrik, list) langsung di layar Chrome untuk melakukan live in-place editing yang otomatis tersimpan ke file `index.html` (auto-save persistence).
-   - Ekspor final dilakukan dengan `slidedeck-gen export-pdf` dan `slidedeck-gen export-pptx`.
+   - Ekspor final dilakukan dengan `pdf-deck export-pdf` dan `pdf-deck export-pptx`.
 
 ## 8. Deep Retraining `Nutlope/hallmark` v2.8.0 (Direct Repo Read + 48 Themes + 21 Macrostructures + 58 Gates)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * self-debug-suite.mjs — Comprehensive Integration Test Suite for slidedeck-gen
+ * self-debug-suite.mjs — Comprehensive Integration Test Suite for pdf-deck
  * Validates CLI commands, markdown/json compilation, layout parsing, live preview server,
  * zero-margin 16:9 PDF export, editable PowerPoint (.pptx) export, and session finalization.
  */
@@ -16,11 +16,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const candidateRoots = [
   path.resolve(__dirname, '..'),
+  path.join(process.env.HOME || '', '.agents/skills/pdf-deck'),
+  path.join(process.env.HOME || '', '.gemini/antigravity-cli/skills/pdf-deck'),
   path.join(process.env.HOME || '', '.agents/skills/slidedeck-gen'),
   path.join(process.env.HOME || '', '.gemini/antigravity-cli/skills/slidedeck-gen')
 ];
-const SKILL_ROOT = candidateRoots.find(r => existsSync(path.join(r, 'bin/slidedeck-gen.mjs')));
-const CLI_BIN = path.join(SKILL_ROOT, 'bin/slidedeck-gen.mjs');
+const SKILL_ROOT = candidateRoots.find(r => existsSync(path.join(r, 'bin/pdf-deck.mjs')) || existsSync(path.join(r, 'bin/slidedeck-gen.mjs')));
+const CLI_BIN = existsSync(path.join(SKILL_ROOT, 'bin/pdf-deck.mjs')) ? path.join(SKILL_ROOT, 'bin/pdf-deck.mjs') : path.join(SKILL_ROOT, 'bin/slidedeck-gen.mjs');
 const TEST_DIR = '/tmp/slidedeck-suite-run';
 
 let passedTests = 0;
@@ -38,7 +40,7 @@ function assert(condition, message) {
 
 async function run() {
   console.log('===============================================================');
-  console.log('[*] Running slidedeck-gen Forensic Integration Test Suite');
+  console.log('[*] Running pdf-deck Forensic Integration Test Suite');
   console.log('===============================================================\n');
 
   // Clean test scratch directory
@@ -50,7 +52,7 @@ async function run() {
   // 1. CLI Version & Help
   console.log('[Phase 1: CLI Basics]');
   const versionOut = execSync(`node "${CLI_BIN}" --version`, { encoding: 'utf8' }).trim();
-  assert(versionOut.includes('v1.1.0'), `CLI prints correct version (output: ${versionOut})`);
+  assert(versionOut.includes('v2.0.0') || versionOut.includes('v1.1.0'), `CLI prints correct version (output: ${versionOut})`);
 
   const helpOut = execSync(`node "${CLI_BIN}" --help`, { encoding: 'utf8' });
   assert(helpOut.includes('dev [deck-path]') && helpOut.includes('done'), 'CLI help lists dev and done commands');
@@ -158,12 +160,12 @@ print("PPTX verification passed: 8 slides with rich shapes")
   assert(existsSync(pptxOut2) && readFileSync(pptxOut2).length > 20000, `PPTX export directly from goal.json succeeded (${(readFileSync(pptxOut2).length / 1024).toFixed(1)} KB)`);
 
   // 7. Session Finalization & Handover
-  console.log('\n[Phase 7: Session Finalization (slidedeck-gen done)]');
+  console.log('\n[Phase 7: Session Finalization (pdf-deck done)]');
   const doneStart = Date.now();
   const doneOut = execSync(`node "${CLI_BIN}" done`, { encoding: 'utf8' });
   const doneDuration = Date.now() - doneStart;
-  assert(doneOut.includes('Slide Deck Generation Complete!'), 'slidedeck-gen done prints completion output');
-  assert(doneDuration < 3000, `slidedeck-gen done completes promptly without hanging (${doneDuration}ms)`);
+  assert(doneOut.includes('Slide Deck Generation Complete!'), 'pdf-deck done prints completion output');
+  assert(doneDuration < 3000, `pdf-deck done completes promptly without hanging (${doneDuration}ms)`);
 
   // 8. Universal Package Bundle & Cloudflare Tunnel Check
   console.log('\n[Phase 8: Universal Package & Cloudflare Tunnel Check]');

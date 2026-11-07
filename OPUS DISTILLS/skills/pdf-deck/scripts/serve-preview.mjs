@@ -79,10 +79,10 @@ async function triggerCompilation(silent = false) {
     const targetHtml = path.join(serveDir, 'index.html');
     writeFileSync(targetHtml, html, 'utf8');
     if (!silent) {
-      console.log(`[slidedeck-gen] Auto-compiled ${path.basename(sourceFile)} -> index.html (${(html.length / 1024).toFixed(1)} KB)`);
+      console.log(`[pdf-deck] Auto-compiled ${path.basename(sourceFile)} -> index.html (${(html.length / 1024).toFixed(1)} KB)`);
     }
   } catch (err) {
-    console.error(`[slidedeck-gen] Compilation error: ${err.message}`);
+    console.error(`[pdf-deck] Compilation error: ${err.message}`);
   }
 }
 
@@ -219,7 +219,7 @@ const server = http.createServer(async (req, res) => {
             }
             writeFileSync(targetHtml, currentContent, 'utf8');
           }
-          console.log(`[slidedeck-gen] Auto-saved in-place edits to: ${path.basename(targetHtml)}`);
+          console.log(`[pdf-deck] Auto-saved in-place edits to: ${path.basename(targetHtml)}`);
         }
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, savedAt: Date.now() }));
@@ -309,12 +309,12 @@ async function startServer() {
   const port = await reserveAvailablePort(requestedPort, host);
   server.listen(port, host, () => {
     const url = `http://${host === '0.0.0.0' ? '127.0.0.1' : host}:${port}/`;
-    console.log(`[slidedeck-gen] Live preview server running at: ${url}`);
-    console.log(`[slidedeck-gen] Serving directory: ${serveDir}`);
+    console.log(`[pdf-deck] Live preview server running at: ${url}`);
+    console.log(`[pdf-deck] Serving directory: ${serveDir}`);
     if (sourceFile) {
-      console.log(`[slidedeck-gen] Watching source file: ${sourceFile} (Auto-Recompile Active)`);
+      console.log(`[pdf-deck] Watching source file: ${sourceFile} (Auto-Recompile Active)`);
     }
-    console.log(`[slidedeck-gen] Hot-reload and live-persistence active.`);
+    console.log(`[pdf-deck] Hot-reload and live-persistence active.`);
 
     if (autoOpen) {
       launchVisibleBrowser(url, enableCdp);
@@ -330,12 +330,12 @@ function launchVisibleBrowser(url, cdpMode) {
     const winPs1 = path.join(homeDir, '.agents/tools/windows/launch-visible-chrome.ps1');
     const winBat = path.join(homeDir, '.agents/tools/windows/launch-visible-chrome.bat');
     if (existsSync(winPs1)) {
-      console.log(`[slidedeck-gen] Launching visible Chrome on CDP port ${cdpPort} (PowerShell)...`);
+      console.log(`[pdf-deck] Launching visible Chrome on CDP port ${cdpPort} (PowerShell)...`);
       spawn('powershell', ['-ExecutionPolicy', 'Bypass', '-File', winPs1, '-Port', cdpPort, '-Url', url], { detached: true, stdio: 'ignore' }).unref();
       if (cdpMode) scheduleAttachCdp(url, cdpPort);
       return;
     } else if (existsSync(winBat)) {
-      console.log(`[slidedeck-gen] Launching visible Chrome on CDP port ${cdpPort} (Batch)...`);
+      console.log(`[pdf-deck] Launching visible Chrome on CDP port ${cdpPort} (Batch)...`);
       spawn('cmd.exe', ['/c', winBat, cdpPort, url], { detached: true, stdio: 'ignore' }).unref();
       if (cdpMode) scheduleAttachCdp(url, cdpPort);
       return;
@@ -352,7 +352,7 @@ function launchVisibleBrowser(url, cdpMode) {
   const launcherPath = launcherCandidates.find(p => existsSync(p));
 
   if (launcherPath) {
-    console.log(`[slidedeck-gen] Launching visible Chrome on CDP port ${cdpPort}...`);
+    console.log(`[pdf-deck] Launching visible Chrome on CDP port ${cdpPort}...`);
     const proc = spawn('bash', [launcherPath, cdpPort, url], { detached: true, stdio: 'ignore' });
     proc.unref();
 
@@ -448,7 +448,7 @@ startServer();
 
 function injectLiveEditorHud(html, statusText) {
   const hudHtml = `
-  <!-- slidedeck-gen Live Studio & In-Place Editor HUD -->
+  <!-- pdf-deck Live Studio & In-Place Editor HUD -->
   <div id="slidedeck-studio-bar" style="position:fixed;top:0;left:0;right:0;height:38px;background:rgba(15,23,42,0.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.12);z-index:999999;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-family:system-ui,-apple-system,sans-serif;color:#fff;box-sizing:border-box;user-select:none;">
     <div style="display:flex;align-items:center;gap:12px;">
       <span style="font-weight:800;font-size:11px;letter-spacing:0.06em;color:#000;background:#00f0ff;padding:3px 8px;border-radius:4px;box-shadow:0 0 10px rgba(0,240,255,0.4);">LIVE PREVIEW</span>

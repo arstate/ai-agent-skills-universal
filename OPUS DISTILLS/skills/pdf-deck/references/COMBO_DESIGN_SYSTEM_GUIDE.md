@@ -1,10 +1,10 @@
-# Master Presentation Design Guide: SlideSpeak & Zara Zhang on Next-Slidedeck-Engine
+# Master Presentation Design Guide: SlideSpeak & Zara Zhang on pdf-deck
 
-This architecture guide documents the synthesis of the two world-class presentation lineages into the high-performance **`next-slidedeck-engine`**:
+This architecture guide documents the synthesis of the two world-class presentation lineages into the high-performance **`pdf-deck`**:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                       NEXT-SLIDEDECK-ENGINE                                 │
+│                                  PDF-DECK                                   │
 │       Next.js 16 + React 19 + Tailwind CSS + Framer Motion + Lucide        │
 │          Fixed 16:9 Canvas (1920x1080) + On-Canvas PowerPoint Edit Mode     │
 │          Decoupled Studio Theme Shell vs Unrestricted Slide Deck Canvas     │
@@ -23,7 +23,7 @@ This architecture guide documents the synthesis of the two world-class presentat
 
 ## 1. Lineage Comparison & Unique Strengths
 
-| Aspect | SlideSpeak Lineage | Zara Zhang `beautiful-html-templates` & `frontend-slides` Lineage | `next-slidedeck-engine` Unified Engine |
+| Aspect | SlideSpeak Lineage | Zara Zhang `beautiful-html-templates` & `frontend-slides` Lineage | `pdf-deck` Unified Engine |
 |---|---|---|---|
 | **Primary Focus** | McKinsey/BCG consulting briefs, executive boards, cream editorial, PE/M&A | High-taste creative branding, bold typography, bento grids, risograph pastels, pure HTML freedom | **Both lineages natively supported with 39 curated palettes & arbitrary standalone HTML** |
 | **Color Dominance** | Warm cream (`#F7F5F2`), academic slate, washed linen, royal navy | Soft cream paper (`#F2EEDF`), deep pine forest (`#0D1F17`), neo-grid Swiss, cobalt blueprint | **Light / Dark Studio UI decoupled from slide canvas** |
@@ -81,7 +81,7 @@ This architecture guide documents the synthesis of the two world-class presentat
 All blueprints, archetypes, and raw templates are indexed under:
 
 ```
-next-slidedeck-engine/
+pdf-deck/
 ├── references/
 │   ├── COMBO_DESIGN_SYSTEM_GUIDE.md          # This unified synthesis manual
 │   ├── beautiful-html-templates/             # All 34 Zara Zhang production templates (HTML, CSS, JSON, tokens)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 review-cdp.py — Autonomous Chrome CDP Slide Deck Reviewer & Layout Auditor
-Part of slidedeck-gen tools suite.
+Part of pdf-deck tools suite.
 """
 
 import sys

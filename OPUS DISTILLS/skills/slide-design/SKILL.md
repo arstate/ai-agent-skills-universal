@@ -5,7 +5,7 @@ description: Master Slide Deck & Presentation Design Engine distilled from Slide
 
 # `slide-design` — Master Presentation Design & Visual Architecture Engine
 
-`slide-design` provides autonomous presentation intelligence. It synthesizes the dynamic style derivation of **SlideSpeak** (`slide-design-skill`) and the high-contrast editorial craft of **Zara Zhang** (`frontend-slides`) with the **`next-slidedeck-engine`** runtime.
+`slide-design` provides autonomous presentation intelligence. It synthesizes the dynamic style derivation of **SlideSpeak** (`slide-design-skill`) and the high-contrast editorial craft of **Zara Zhang** (`frontend-slides`) with the **`pdf-deck`** runtime.
 
 ---
 
@@ -83,13 +83,15 @@ description: Master Slide Deck & Presentation Design Engine distilled from Slide
 
 ---
 
-## 4. Integration with `next-slidedeck-engine`
+## 4. Integration with `pdf-deck`
 
 Launch the live studio to compose and present slides interactively:
 
 ```bash
 # Start Next.js presentation studio:
-node "$HOME/.agents/skills/next-slidedeck-engine/bin/next-slidedeck.mjs" dev 5200
+node "$HOME/.agents/skills/pdf-deck/bin/pdf-deck.mjs" dev 5200
+# Or using global CLI:
+pdf-deck studio 5200
 
 # Open visible Chrome GUI on port 9223:
 bash "$HOME/.agents/tools/launch-visible-chrome.sh" 9223 "http://127.0.0.1:5200/"

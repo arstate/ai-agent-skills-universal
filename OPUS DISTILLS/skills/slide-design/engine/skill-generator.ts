@@ -247,7 +247,7 @@ The engine's base CSS is NEUTRAL — it only wires the .slide box, heading sizes
 - photograph-led cover (for editorial) — full-bleed photo with title overlay
 - framed-mat cover (for gallery / craft) — centered framed composition with mat-board chip
 - chart-led cover (for research / annual reports) — a teaser chart IS the cover
-- typography-only cover (for brutalist / literary) — huge type as the visual
+- typography-only cover (for bold minimalis / literary) — huge type as the visual
 
 NEVER default to "product-name top-left + positioning-line below + mono eyebrows in four corners + arrow-circle bottom-right" — that's the launch-warm pattern; reusing it for a new skill is a generator failure, not a design choice. The cover composition is half the brand's signal — make it distinctly its own.
 
@@ -274,7 +274,7 @@ For product/UI/person imagery use {{@placeholder}} (see above), never an AI imag
 - \`.dir-table\`, \`.dir-table thead th\`, \`.dir-table tbody th/td\` — the full table look, IF any slide-type uses {{@table}} (rule weight, label column, padding, numeric treatment). Skip if you use no tables.
 - \`.slide-flow { gap: ...; padding-bottom: ...; }\` — the vertical rhythm. Pick a gap that matches the brand's density (tight/editorial/airy), not a default 32px.
 - heading line-height / letter-spacing on \`.slide h1..h4\` if the type system wants it.
-Make these choices FROM THE BRIEF. A warm consumer brand, a brutalist editorial brand and a dense data brand must produce visibly different chrome.css — different rhythm, different label treatment, different table weight. Reusing the same values across briefs is a generator failure.
+Make these choices FROM THE BRIEF. A warm consumer brand, a bold minimalis editorial brand and a dense data brand must produce visibly different chrome.css — different rhythm, different label treatment, different table weight. Reusing the same values across briefs is a generator failure.
 
 **CRITICAL — the graphic layer. A deck of styled text boxes reads as bland, machine-made.** Typography, palette and layout alone are not a visual identity; every hand-crafted deck carries a GRAPHIC SYSTEM: drawn, bespoke, derived from the brand's world. Your skill MUST define one, implemented across components.html and chrome.css, with four parts:
 1. SIGNATURE MARK — one bespoke graphic device derived from the brand idea, authored as inline SVG (or a precise CSS construct) in the templates: a three-segment bar for a motorsport brand, a route line with stops for a logistics brand, a registration cross for a print brand, a rising tick for a fund. It recurs in the SAME place at the SAME size (masthead, divider, closing), like a wordmark would. You design this ornament yourself — the ground-truth rule bans hand-drawn DATA (maps, coordinates, fake charts), not hand-drawn ornament.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-export-pptx.py — Autonomous 16:9 PowerPoint (.pptx) Exporter for slidedeck-gen
+export-pptx.py — Autonomous 16:9 PowerPoint (.pptx) Exporter for pdf-deck
 Generates genuine, editable PowerPoint presentations with native shapes, text boxes,
 metric cards, and theme palettes using python-pptx.
 Zero npm dependencies required.

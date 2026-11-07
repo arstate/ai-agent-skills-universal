@@ -1,4 +1,4 @@
-# Master Slide Design Rules: High-Taste, Zero-Clutter Architecture (`slidedeck-gen`)
+# Master Slide Design Rules: High-Taste, Zero-Clutter Architecture (`pdf-deck`)
 
 This guide establishes the mandatory typographic, layout, and visual principles for generating publication-grade 16:9 presentation slides. Every AI agent generating slides MUST follow these rules to guarantee that outputs are never messy, cluttered, or overflowing.
 

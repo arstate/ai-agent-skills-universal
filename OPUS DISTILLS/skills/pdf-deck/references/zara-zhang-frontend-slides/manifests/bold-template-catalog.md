@@ -1,5 +1,5 @@
 # Bold Template Catalog — 34 Design Archetypes
-> Distilled from `zarazhangrui/frontend-slides` (`bold-template-pack`) for `slidedeck-gen`.
+> Distilled from `zarazhangrui/frontend-slides` (`bold-template-pack`) for `pdf-deck`.
 > All templates adhere to the 16:9 fixed-stage layout model (`1920x1080`), zero-margin vector PDF print CSS, and high-impact typographic discipline.
 
 ---

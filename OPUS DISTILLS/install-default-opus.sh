@@ -106,9 +106,7 @@ if [ -d "$HOME/.agents/skills/pdf-deck" ]; then
   echo "📦 Menyiapkan Next.js Slide Deck Studio Engine di ~/.agents/skills/pdf-deck..."
   (
     cd "$HOME/.agents/skills/pdf-deck"
-    if [ ! -d "node_modules" ] && [ -d "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ]; then
-      cp -al "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ./node_modules 2>/dev/null || cp -r "$HOME/.agents/skills/next-slidedeck-engine/node_modules" ./node_modules 2>/dev/null || npm install --no-audit
-    elif [ ! -d "node_modules" ]; then
+    if [ ! -d "node_modules" ]; then
       npm install --no-audit 2>/dev/null || npm install
     fi
     npm run build 2>/dev/null || true

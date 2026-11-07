@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * export-cdp.mjs — Autonomous Zero-Margin 16:9 PDF Exporter for slidedeck-gen
+ * export-cdp.mjs — Autonomous Zero-Margin 16:9 PDF Exporter for pdf-deck
  * Exports byte-exact, vector-sharp 16:9 PDF presentations using system Chrome / Chromium.
  * Zero external npm dependencies required.
  */

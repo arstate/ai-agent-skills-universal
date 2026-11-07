@@ -1718,7 +1718,7 @@ function generateFullDeckHtml(parsedSlides, documentTitle, globalTheme) {
           }
         })
         .catch(() => {
-          alert('PPTX export: Run "slidedeck-gen export:pptx" in terminal.');
+          alert('PPTX export: Run "pdf-deck export-pptx" in terminal.');
         });
     });
   }
