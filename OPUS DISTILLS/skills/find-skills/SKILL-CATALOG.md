@@ -48,7 +48,7 @@ python3 ~/.gemini/config/skills/find-skills/scripts/find_skills.py --category 04
 | `figcraft-use` | MANDATORY prerequisite before every use_figma tool call: Figma Plugin API patterns, node creation, variables, auto-layout, fills, and error recovery. | `../figcraft-use/SKILL.md` |
 | `figma-create-ui` | Create UI screens/components in Figma from scratch using FigCraft declarative tools (create_frame, create_text, create_component), never use_figma. | `../figma-create-ui/SKILL.md` |
 | `figma-design` | Master /figma-design v6.0: GSM v2.5 3:4 Meta Ads posters (1080x1440), 9:16 covers, Dual-MCP automation (figma-bridge + FigCraft), 40-rule overlap=0 QA. | `../figma-design/SKILL.md` |
-| `gen-img` | Generate or transform AI images (/gen-img) via 9Router Antigravity (Gemini Nano Banana / Imagen 3) in custom aspect ratios (1:1, 3:4, 9:16, 16:9). | `../gen-img/SKILL.md` |
+| `gen-img` | Dual-engine AI image CLI (/gen-img): Primary AIStudio2API 4K native (High Thinking + Web/Image Search) with auto-fallback to 9Router Antigravity. | `../gen-img/SKILL.md` |
 | `image-gen` | Studio photo prompt generator (@image-gen, /image-gen) for Nano Banana 2.1 & ChatGPT: white cyclorama, 4K optical enhancement, multi-image fusion + Seeds. | `../image-gen/SKILL.md` |
 | `prompt-generator` | 8-layer forensic prompt generator (@prompt-generator, /prompt-generator) for Nano Banana 2.1 & ChatGPT with deterministic Seeds and Negative Prompts. | `../prompt-generator/SKILL.md` |
 | `svg-gen` | 4-pass flat 2D vector & icon engineering (/svg-gen) for Adobe Stock: 15+ MP artboards, closed paths, zero live strokes, 0 raster EPS, RDF SEO. | `../svg-gen/SKILL.md` |

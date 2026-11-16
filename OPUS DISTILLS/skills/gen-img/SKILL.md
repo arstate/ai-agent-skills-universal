@@ -1,122 +1,76 @@
 ---
 name: gen-img
-description: "Generate or transform AI images (/gen-img) via 9Router Antigravity (Gemini Nano Banana / Imagen 3) in custom aspect ratios (1:1, 3:4, 9:16, 16:9)."
+description: "Dual-engine AI image CLI (/gen-img): Primary AIStudio2API 4K native (High Thinking + Web/Image Search) with auto-fallback to 9Router Antigravity."
 ---
 
-# 🎨 GEN-IMG: AI Image Generation & Reference Skill
+# GEN-IMG: Dual-Engine 4K AI Image Generator & Auto-Fallback
 
-Skill untuk pembuatan gambar AI resolusi tinggi melalui **9Router Antigravity** menggunakan arsitektur generative Google **Gemini Nano Banana / Imagen 3**. Mendukung rasio aspek fleksibel, resolusi native HD/1K tajam, dan input gambar referensi (*image-to-image / character preservation*).
-
----
-
-## ⚡ 1. CARA PENGGUNAAN CEPAT (CLI)
-
-Perintah CLI `gen-img` sudah terpasang global di `$PATH` (`/home/arya/.local/bin/gen-img`).
-
-### A. Generate Gambar Standar (1:1 Square, 1024x1024):
-```bash
-gen-img "A minimalist modern coffee cup on wooden table, warm sunlight"
-```
-
-### B. Generate Gambar Berbagai Aspek Rasio:
-```bash
-# Rasio 3:4 (Feed Instagram / Carousel, 896x1200 px)
-gen-img "Luxury modern house exterior in Surabaya, dusk lighting" -r 3:4
-
-# Rasio 9:16 (Reels / TikTok / Stories, 768x1344 px)
-gen-img "Cinematic vertical portrait of futuristic model, cyberpunk neon" -r 9:16
-
-# Rasio 16:9 (Landscape / YouTube Thumbnail, 1344x768 px)
-gen-img "Scenic mountain landscape at sunrise, ultra-realistic" -r 16:9
-
-# Rasio 4:3 (Classic Landscape, 1200x896 px)
-gen-img "Cozy living room interior, modern elegant styling" -r 4:3
-
-# Rasio 4:5 (Classic IG Portrait, 896x1120 px)
-gen-img "Commercial studio product photography of perfume bottle" -r 4:5
-```
-
-### C. Image-to-Image / Input Reference Image:
-Masukkan path file gambar lokal untuk modifikasi, ganti elemen, atau referensi gaya:
-```bash
-# Modifikasi objek dari gambar yang sudah ada
-gen-img "Keep the exact same cat but change the hat to a glowing blue cyberpunk helmet" \
-  -i "/path/to/reference.jpg" \
-  -r 3:4 \
-  -o "output_cyber_cat.jpg"
-```
-
-### D. Simpan ke File Custom & Format JSON:
-```bash
-# Tentukan path output spesifik
-gen-img "Modern property facade with garden" -r 3:4 -o "/tmp/properti_surabaya.png"
-
-# Output format JSON untuk parsing agent
-gen-img "Abstract gradient background" --json
-```
+Skill CLI & Python API untuk generate maupun transform gambar AI (`image-to-image`) dengan arsitektur **Dual-Engine**:
+1. **Primary (`aistudio2api`):** `http://127.0.0.1:2048/v1beta/models/gemini-nano-banana-2.1:generateContent` — **Native 4K**, **High Thinking**, `responseModalities: ["IMAGE", "TEXT"]`, serta grounding `googleSearch` (`webSearch` + `imageSearch`).
+2. **Auto-Fallback (`9router-fallback`):** `http://127.0.0.1:20128` (`ag/gemini-3.1-flash-image` via `/v1/chat/completions` lalu `/v1/images/generations`) — aktif otomatis saat AIStudio2API kena rate-limit (`429`), error (`4xx`/`5xx`), timeout, unreachable, JSON error, atau tidak mengembalikan gambar.
+3. **Anti-Downscale 4K:** Hasil native 4K dari AIStudio2API **dilarang** di-crop (`crop_to_ratio()` hanya berjalan untuk hasil `9router` / `9router-fallback`).
 
 ---
 
-## 📐 2. MATRIKS ASPEK RASIO & RESOLUSI
+## 1. Penggunaan Cepat (CLI Global `/home/arya/.local/bin/gen-img`)
 
-Semua gambar di-render secara native oleh Gemini Image Engine pada grid ~1.0 Megapixels (Native 1K/HD):
-
-| Rasio | Dimensi Pixel | Kebutuhan Utama | Flag CLI | Model 9Router |
-| :--- | :--- | :--- | :--- | :--- |
-| **1:1** | `1024 x 1024` | Profil, Square Post | `-r 1:1` | `ag/gemini-3.1-flash-image` |
-| **3:4** | `896 x 1200` | Instagram Carousel, Feed Vertikal | `-r 3:4` | `ag/gemini-3.1-flash-image-3x4` |
-| **4:3** | `1200 x 896` | Presentasi, Web Banner | `-r 4:3` | `ag/gemini-3.1-flash-image-4x3` |
-| **9:16**| `768 x 1344` | Reels, TikTok, IG Stories | `-r 9:16` | `ag/gemini-3.1-flash-image-9x16` |
-| **16:9**| `1344 x 768` | YouTube Thumbnail, Landscape | `-r 16:9` | `ag/gemini-3.1-flash-image-16x9` |
-| **4:5** | `896 x 1120` | Instagram Feed Classic | `-r 4:5` | `ag/gemini-3.1-flash-image-4x5` |
-| **2:3** | `896 x 1344` | Poster, Editorial Portrait | `-r 2:3` | `ag/gemini-3.1-flash-image-2x3` |
-| **3:2** | `1344 x 896` | Fotografi Klasik | `-r 3:2` | `ag/gemini-3.1-flash-image-3x2` |
-
----
-
-## 🖼️ 3. DUKUNGAN REFERENCE IMAGE (IMAGE-TO-IMAGE)
-
-* **Apakah bisa input reference?** **BISA (100% didukung).**
-* **Mekanisme Kerja:** Script secara otomatis mengonversi file gambar lokal (`.png`, `.jpg`, `.webp`) menjadi format Data URI base64 (`data:image/jpeg;base64,...`).
-* 9Router menyuntikkan data inline gambar ke dalam array `parts` multimodal sebelum prompt teks, memungkinkan model mengenali wajah, pose, layout, atau warna dari gambar sumber.
-
----
-
-## 🔌 4. INTEGRASI API LANGSUNG (CURL & PYTHON)
-
-### Perintah cURL:
 ```bash
-curl -X POST http://localhost:20128/v1/images/generations \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-47024d86a10c3a4b-2att59-c53bbf8a" \
-  -d '{
-    "model": "ag/gemini-3.1-flash-image-3x4",
-    "prompt": "Luxury modern villa with swimming pool at sunset",
-    "n": 1,
-    "output_format": "png"
-  }'
+# Default: AIStudio2API 4K Native + High Thinking + Web/Image Search (rasio auto)
+gen-img "Minimalist Indonesian specialty coffee bottle on travertine plinth, morning window light" --json
+
+# Custom rasio, resolusi 2K/4K, dan thinking level
+gen-img "Luxury modern tropical house facade in Surabaya at dusk" -r 3:4 -s 4K --thinking high -o "/tmp/facade_4k.jpg"
+
+# Image-to-Image dengan gambar referensi lokal
+gen-img "Keep the exact person identity, place in clean alabaster studio cyclorama" \
+  -i "/path/to/reference.jpg" -r 3:4 -s 4K -o "/tmp/studio_4k.jpg"
+
+# Nonaktifkan Google Web & Image Search grounding
+gen-img "Minimalist geometric poster typography, warm cream paper" --no-search -r 3:4
+
+# Paksa provider tertentu (aistudio / 9router) atau bypass langsung via prefix ag/... / ais/...
+gen-img "Clean espresso cup product shot" --provider 9router -r 1:1
+gen-img "Clean espresso cup product shot" -m "ag/gemini-3.1-flash-image" -r 3:4
 ```
 
-### Script Python:
+### Daftar Flag CLI
+| Flag | Default | Pilihan | Fungsi |
+|---|---|---|---|
+| `-r`, `--ratio` | `auto` | `auto`, `1:1`, `3:4`, `4:3`, `9:16`, `16:9`, `2:3`, `3:2`, `4:5`, `21:9` | Rasio aspek gambar |
+| `-s`, `--size` | `4K` | `1K`, `2K`, `4K` | Resolusi native AIStudio2API |
+| `--thinking` | `high` | `minimal`, `medium`, `high` | Level thinking AIStudio2API |
+| `--provider` | `auto` | `auto`, `aistudio`, `9router` | Mode routing provider |
+| `--no-search` | `False` | flag | Matikan `webSearch` + `imageSearch` grounding |
+| `-i`, `--image` | `None` | path / URL / data URI | Gambar referensi (Image-to-Image) |
+| `-o`, `--output` | auto `.jpg`/`.png` | path file | Lokasi simpan output |
+| `-m`, `--model` | auto per provider | `gemini-nano-banana-2.1`, `ag/...`, `ais/...` | Override model (`ag/` & `ais/` otomatis bypass ke 9Router) |
+| `--json` | `False` | flag | Output metadata JSON terstruktur |
+
+---
+
+## 2. Integrasi Python (`generate_image`) — Backward Compatible
+
 ```python
 import sys
 sys.path.append("/home/arya/.gemini/config/skills/gen-img/scripts")
 from gen_img import generate_image
 
 res = generate_image(
-    prompt="A cute cat wearing a sunglasses",
+    prompt="Editorial minimalist product photo of ceramic tumbler on stone surface",
     ratio="3:4",
-    output_path="cat_sunglasses.jpg"
+    size="4K",
+    thinking="high",
+    provider="auto",
+    use_search=True,
+    output_path="tumbler_4k.jpg",
 )
-print("Saved to:", res["output_path"])
+print(res["provider_used"], res["size"], res["output_path"])
 ```
 
 ---
 
-## 🛡️ 5. SPESIFIKASI SISTEM
-- **Engine Provider:** 9Router Antigravity (`http://127.0.0.1:20128`)
-- **Default Auth Token:** `Bearer sk-47024d86a10c3a4b-2att59-c53bbf8a`
-- **Model Dasar:** `ag/gemini-3.1-flash-image` (Google Gemini Nano Banana 2.1 / Imagen 3)
-- **Executable Bin:** `/home/arya/.local/bin/gen-img`
-- **Python Source:** `/home/arya/.gemini/config/skills/gen-img/scripts/gen_img.py`
-- **Dependencies:** Python 3 Standard Library (Tanpa dependensi pip eksternal).
+## 3. Spesifikasi Endpoint & Env Vars
+
+- **Primary AIStudio2API (`AISTUDIO_URL`):** `http://127.0.0.1:2048` · Header `x-goog-api-key: $AISTUDIO_API_KEY` (`sk-aistudio-local`) · Model `AISTUDIO_MODEL` (`gemini-nano-banana-2.1`).
+- **Fallback 9Router (`ROUTER_URL`):** `http://127.0.0.1:20128` · Auth `Bearer $ROUTER_API_KEY` · Model `FALLBACK_MODEL` (`ag/gemini-3.1-flash-image`).
+- **Dependencies:** Python 3 Standard Library only (opsional ImageMagick `magick` untuk crop rasio fallback `9router`).

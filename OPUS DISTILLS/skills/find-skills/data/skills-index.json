@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-16T17:23:53.461730+00:00",
+  "generated_at": "2026-11-16T18:49:21.339640+00:00",
   "total_skills": 167,
   "core_skills": 45,
   "categories": {
@@ -475,7 +475,7 @@
       "category": "03-figma-visual-media",
       "category_label": "Figma, Vectors, AI Photo Prompts & 4K Upscale",
       "is_core": true,
-      "description": "Generate or transform AI images (/gen-img) via 9Router Antigravity (Gemini Nano Banana / Imagen 3) in custom aspect ratios (1:1, 3:4, 9:16, 16:9).",
+      "description": "Dual-engine AI image CLI (/gen-img): Primary AIStudio2API 4K native (High Thinking + Web/Image Search) with auto-fallback to 9Router Antigravity.",
       "tags": [
         "4k",
         "8k",
@@ -490,7 +490,7 @@
       ],
       "rel_to_skills": "gen-img",
       "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/gen-img",
-      "mtime": 1794848186.510138
+      "mtime": 1794854941.8277285
     },
     {
       "name": "image-gen",
