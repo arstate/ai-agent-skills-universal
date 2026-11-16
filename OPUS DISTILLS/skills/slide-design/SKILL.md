@@ -1,6 +1,6 @@
 ---
 name: slide-design
-description: Master Slide Deck & Presentation Design Engine distilled from SlideSpeak (slide-design-skill) and Zara Zhang (frontend-slides). Derives bespoke visual styles and tokens from user briefs (never locked to dark mode or rigid templates). Supports 26+ curated light, cream editorial, bold vibrant, and minimalist dark aesthetics, strict typography pairing, layout grammar, and deterministic 1920×1080 export across Next.js Slide Studio, Vector PDF, editable PPTX, and pure SVG.
+description: "Slide deck aesthetic & layout engine (/slide-design): derive custom light, cream editorial, vibrant, or dark styles with strict 1920x1080 typography."
 ---
 
 # `slide-design` — Master Presentation Design & Visual Architecture Engine

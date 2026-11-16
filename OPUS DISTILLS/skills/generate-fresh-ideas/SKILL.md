@@ -1,6 +1,6 @@
 ---
 name: generate-fresh-ideas
-description: Universal Viral Outlier Research, Content Anatomy Teardown, Existing Content Auditor, and 5-Lens ATM Engine across TikTok, Instagram Reels/Carousels, YouTube Shorts, Threads, X, and Meta Ads. Adapts proactively to ANY client brand or industry (including Real Estate, Creative Agency, F&B, D2C, Clinic, SaaS) using true winning metrics (Save Rate, Share Rate, Retention) and Beat-by-Beat FYP Recipe Templates.
+description: "Viral outlier research, 5-lens ATM content engine, Save/Share/Retention teardowns, and beat-by-beat FYP templates for TikTok, Reels, Shorts, Meta Ads."
 ---
 
 # `generate-fresh-ideas` — Universal Viral Outlier Teardown, Content Auditor & 5-Lens ATM Engine

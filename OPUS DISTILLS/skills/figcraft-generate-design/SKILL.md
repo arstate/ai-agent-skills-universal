@@ -1,6 +1,6 @@
 ---
 name: figcraft-generate-design
-description: "Create screens in Figma by REUSING an existing design system's components, variables, and styles. REQUIRES a published library or local components. Triggers: 'create a screen', 'build a landing page using the design system', 'push page to Figma', 'create designs from code', 'update the Figma screen'. Extends figma-create-ui with mandatory design system discovery. Do NOT use for no-library creation (use figma-create-ui) or building a new design system (use figcraft-generate-library)."
+description: "Assemble Figma screens reusing an existing design system's components, variables, and styles. Do not use without an existing library (use figma-create-ui)."
 disable-model-invocation: false
 ---
 

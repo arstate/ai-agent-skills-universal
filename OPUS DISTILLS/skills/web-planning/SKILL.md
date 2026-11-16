@@ -1,6 +1,6 @@
 ---
 name: web-planning
-description: Strategic Web Information Architecture, Interactive Tech Stack Recommender (Next.js Static vs Next.js Fullstack Hybrid vs Astro 5 + React Islands vs React Vite SPA), Legacy Project readme-ai-agent/ Backfill Auditor, PRD Authoring, Technical SEO/GEO Planning, Free-Tier Cloud Architecture (Firebase + Cloudinary + Cloudflare), and Pre-Flight UI/UX Blueprinting Specialist. Use when the user types /web-planning, opens an existing project missing readme-ai-agent/, or asks to build a website with an underspecified prompt.
+description: "Web architecture & pre-flight planner (/web-planning): Mermaid user flows, 4-stack recommender, legacy readme-ai-agent backfill, PRD & SEO/GEO plan."
 ---
 
 # `web-planning` — Interactive Tech Stack Recommender, Legacy Repo Auditor, PRD, SEO/GEO & 12-File `AGENTS.md` Architect
@@ -114,4 +114,16 @@ Ketika user berkata *"next steps alur web page user flow md included visual flow
    - Never name a navbar item, section title, or button after its CSS layout pattern or theme slug.
    - Forbidden in customer-facing text: *"Bento"*, *"Bento Spesifikasi"*, *"Bento Grid"*, *"Hallmark"*, *"Nordic Precision"*, *"Hero Section"*, *"Social Proof"*, *"Bento Layanan"*, *"CTA Section"*.
    - Always write 100% authentic domain terminology that a real customer or plant manager in that industry expects to read (e.g., `SPESIFIKASI MESIN`, `KAPABILITAS PRODUKSI`, `KALKULATOR ESTIMASI RFQ`, `STANDAR QC ISO`).
+
+---
+
+## 7. Agency Redesign Workflow & Pre-Build Reference Audit (`@codevibes_1` · `0xdesign/design-lab` · `before.click`)
+
+1. **Pre-Build Research Stack (Before Locking Architecture):**
+   - Verify framework docs first (`ctx7` CLI if installed, else `websearch`), then pull 1–2 real outlier benchmarks matching the niche from the **300-Ref Vault** plus **`getlayers.ai`** (flows/paywalls), **`21st.dev`** (UI primitives), **`motionsites.ai`** (motion framing), or **`before.click`** (`aso` screenshots & consumer onboarding/paywall mechanics).
+2. **Agency Client Redesign Sprint (`@codevibes_1` + `0xdesign/design-lab`):**
+   - When a user brings an existing underperforming client site to pitch a redesign:
+     1) **Capture & Diagnose Leaks:** Audit the live old site (`mobile 360px` overflow, LCP speed, muddy contrast, weak above-the-fold offer, absent WhatsApp/DSR conversion hook).
+     2) **Generate 3–5 Truly Divergent Concept Directions:** Never vary colors alone—diverge across hero structure, focal interactive widget, density, and palette before presenting `design-style-preview.html`.
+     3) **Staging Preview & Conversion Closing Pitch:** Ship the selected redesign to an isolated preview URL (e.g., Vercel staging) and prepare side-by-side desktop + mobile walkthrough highlights proving measurable speed & clarity gains.
 

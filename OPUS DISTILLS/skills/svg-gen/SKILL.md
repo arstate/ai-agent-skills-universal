@@ -1,6 +1,6 @@
 ---
 name: svg-gen
-description: 4-Pass Progressive 2D Flat Vector & Icon Set Engineering Skill for Adobe Stock Contributor (Pass 1 Clean Skeleton -> Pass 2 Split-Tone Shading -> Pass 3 Micro-Details -> Pass 4 Artifact Purge & Final Retouch, 15+ MP, Auto-Fit Preview, Zero Live Strokes, Zero Cairo Raster EPS).
+description: "4-pass flat 2D vector & icon engineering (/svg-gen) for Adobe Stock: 15+ MP artboards, closed paths, zero live strokes, 0 raster EPS, RDF SEO."
 ---
 
 # /svg-gen (v4.2) — 4-Pass Progressive Vector & Artifact-Purge Skill

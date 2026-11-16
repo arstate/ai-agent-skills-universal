@@ -39,4 +39,4 @@ Every design choice must be intentional. Never rely on AI defaults.
 - NEVER use decorative icons without functional meaning
 - MUST use icon_search + icon_create for all interactive indicators (chevrons, share, notifications, social logos)
 - NEVER use text characters as icon placeholders (">" for chevron, "..." for more, "←" for back)
-- SHOULD use a single icon set consistently (e.g., all Lucide outline)
+- SHOULD use a single icon set consistently (`lucide:` default or `phosphor:` uniformly—never mix Lucide and Phosphor in the same project)

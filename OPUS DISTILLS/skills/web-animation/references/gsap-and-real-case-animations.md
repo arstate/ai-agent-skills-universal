@@ -448,3 +448,82 @@ Before marking any animated web page complete, verify all 10 items:
 8. [ ] Do pinned sections (`pin: true`) animate only inner child elements rather than the pinned container itself?
 9. [ ] Are continuous pointer/cursor animations using `gsap.quickTo()` instead of creating new tweens per frame?
 10. [ ] Is `gsap.matchMedia()` implemented to respect `prefers-reduced-motion: reduce` and adapt distances for mobile screens (`360x800`–`430x932`)?
+
+---
+
+## Case Study 7: Apple Fluid Gesture Sheet (`motion/react` — Interruptible Spring & Momentum Projection)
+
+- **Boundary Rule:** Do **NOT** attach GSAP tweens to this drawer DOM node; isolate `motion/react` exclusively to gesture/interactive components!
+
+```tsx
+"use client";
+import { motion, MotionConfig } from "motion/react";
+
+// iOS-style momentum projection helper (rate = 0.998)
+export function projectMomentum(velocityPxPerSec: number, decelerationRate = 0.998) {
+  return (velocityPxPerSec / 1000) * decelerationRate / (1 - decelerationRate);
+}
+
+export function FluidBottomSheet({ open, onClose, children }: {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <MotionConfig reducedMotion="user">
+      {open && (
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          initial={{ y: "100%", opacity: 0.96 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: "100%", opacity: 0.96 }}
+          transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          drag="y"
+          dragConstraints={{ top: 0 }}
+          dragElastic={{ top: 0.15, bottom: 0.55 }} // Rubber-banding
+          onDragEnd={(_, info) => {
+            const projectedY = info.offset.y + projectMomentum(info.velocity.y);
+            if (projectedY > 140) onClose();
+          }}
+          className="fixed inset-x-0 bottom-0 z-50 rounded-t-3xl border-t border-black/10 bg-[#FAF8F5] p-6 shadow-2xl"
+        >
+          <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-neutral-300" />
+          {children}
+        </motion.div>
+      )}
+    </MotionConfig>
+  );
+}
+```
+
+## Case Study 8: Canvas 2D / Three.js Leak-Free Cleanup Skeleton (`awesome-opus5-5-videos` Budget)
+
+```tsx
+// Mandatory cleanup & DPR cap for dynamic shader/canvas hero islands
+useEffect(() => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let rafId = 0;
+  let visible = true;
+
+  const io = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+  });
+  io.observe(canvas);
+
+  const tick = (t: number) => {
+    if (visible) {
+      /* draw frame at capped dpr */
+    }
+    rafId = requestAnimationFrame(tick);
+  };
+  rafId = requestAnimationFrame(tick);
+
+  return () => {
+    cancelAnimationFrame(rafId);
+    io.disconnect();
+  };
+}, []);
+```

@@ -1,11 +1,6 @@
 ---
 name: humanizer
-description: |
-  Rewrite AI-sounding text so it reads like an authentic human writer without changing what it says.
-  Eliminates 26 structural AI writing tells (not-X-but-Y, one-line closers, staged openers, forced triads,
-  em-dash overuse, buzzwords, sales puffery, bold labels) and Indonesian bureaucratic AI cliches.
-  Restores burstiness, varied sentence lengths, and natural rhythm. Based on Wikipedia's Signs of AI Writing
-  and Claude blader/humanizer v3.1.0.
+description: "De-robot AI prose (/humanizer): remove 26 Wikipedia AI patterns & Indonesian bureaucratic cliches, restore human burstiness and authentic cadence."
 ---
 
 # Humanizer: Anti-AI-Slop & Authentic Human Cadence Engine

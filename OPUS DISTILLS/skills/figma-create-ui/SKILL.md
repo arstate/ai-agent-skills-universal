@@ -1,6 +1,6 @@
 ---
 name: figma-create-ui
-description: "Create UI in Figma using FigCraft declarative tools (create_frame, create_text, create_component). Use when: create/design/build/make + Figma/UI/screen/page/component/button/variant WITHOUT an existing design system. IMPORTANT: Use create_frame for screens, create_component for reusable components. Never use use_figma for UI creation. Do NOT use when assembling screens from existing design system (use figcraft-generate-design) or building a full design system (use figcraft-generate-library)."
+description: "Create UI screens/components in Figma from scratch using FigCraft declarative tools (create_frame, create_text, create_component), never use_figma."
 ---
 
 # FigCraft UI Creation

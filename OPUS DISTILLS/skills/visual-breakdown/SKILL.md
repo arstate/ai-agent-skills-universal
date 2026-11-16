@@ -1,6 +1,6 @@
 ---
 name: visual-breakdown
-description: Master AI Visual Breakdown Engine & Super-Detailed Prompt Generator khusus untuk Nano Banana 2.1 (Google Gemini Image) dan ChatGPT (GPT-4o / GPT-Image-1). Gunakan SELALU saat user mengetik @visual-breakdown, /visual-breakdown, atau mengunggah gambar referensi untuk dibedah jadi prompt. HUKUM HEMAT TOKEN: Jika user HANYA mengirim gambar + tag @visual-breakdown tanpa menyebut bagian mana yang mau dibedah, WAJIB TANYA BALIK DULU dengan menu adaptif singkat sesuai objek nyata di gambar! Jika user sudah menyebut bagian spesifik (atau membalas nomor pilihan), langsung kirim Prompt Super Detail 8-Layer lengkap dengan Seed deterministik dan Negative Prompt khusus Nano Banana 2.1 & ChatGPT!
+description: "Forensic visual deconstructor (@visual-breakdown, /visual-breakdown) for Nano Banana 2.1 & ChatGPT: smart token-saver menu first, 8-layer prompt + Seed."
 ---
 
 # `visual-breakdown` — Token-Efficient Forensic Visual Deconstructor & Nano Banana 2.1 / ChatGPT Super-Prompt Engine

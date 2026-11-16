@@ -77,6 +77,7 @@ OPUS DISTILLS/
 │   ├── ponytail/                       # Extreme YAGNI lazy senior developer
 │   ├── prompt-generator/               # Commercial photography & interior prompt builder
 │   ├── pdf-deck/                  # Autonomous 16:9 Slide Engine (Live CDP Dev, In-Browser Editor, PDF/PPTX)
+│   ├── remotion/                       # Programmatic Video Director (Hybrid Mode A Facecam + Mode B Motion)
 │   ├── social-media-research/          # Viral content pattern recognition
 │   ├── svg-gen/                        # 16 MP Flat 2D Vector & Microstock Icon Set Engine (0 Strokes, Dublin Core RDF)
 │   ├── taste-design/                   # Non-web art director (3:4 feed, pitch decks, PDF)

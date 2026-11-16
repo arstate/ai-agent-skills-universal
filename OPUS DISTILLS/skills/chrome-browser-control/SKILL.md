@@ -1,6 +1,6 @@
 ---
 name: chrome-browser-control
-description: Ultra-fast, zero-dependency cross-platform (Linux, Windows, macOS) Chrome DevTools Protocol (CDP) browser automation, visible GUI window launcher, live AI visual cursor/click HUD specialist, deep table extractor, clean content reader, link & SERP scraper, and deep research agentic loop inspection engine. Use when controlling Google Chrome via WebSocket/CDP (port 9223/9222), showing live AI cursor movement and click ripples on the user's monitor, previewing or debugging websites, extracting tables and structured data without pagination bias, reading articles in clean markdown, or conducting comprehensive web research and autonomous agentic loops.
+description: "Cross-platform Chrome DevTools (CDP) automation: visible GUI launcher, live AI cursor HUD, screenshots, DOM scraping, SERP extraction, and UI auditing."
 ---
 
 # Chrome Browser Control: Cross-Platform Sub-Millisecond CDP Engine & Live AI Visual HUD (Port 9223 / 9222)

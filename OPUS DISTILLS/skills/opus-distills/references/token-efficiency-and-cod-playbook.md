@@ -67,6 +67,13 @@ Every skill reads and writes to a specific slice of `readme-ai-agent/` so no two
 
 Distilled from **`mksglu/context-mode`** (31.9k+ GitHub stars, Hacker News #1 — Context window optimization for AI coding agents across Claude Code, Cursor, Gemini CLI / Antigravity, Codex, and VS Code Copilot).
 
+#### Verified Context Compression Benchmarks (Oct 2026)
+| Workload | Raw Output | Filtered via `context-mode` | Token/Byte Savings |
+|---|---|---|---|
+| **Playwright / Web Snapshot** | `56.2 KB` | `299 B` | **`-99.4%`** |
+| **30-Min Coding Session Footprint** | `986.0 KB` | `62.0 KB` | **`-93.7%`** |
+| **Multi-Agent Search & Stability** | Slow linear grep | **5x FTS5 title boost**, SQLite trigram typo matching, 24h cache | **`17+ platforms`**, 3h stability (`~98%` savings) |
+
 ### A. Paradigm 1: "Think in Code, Not in Context" (1 Script Replaces 47 File Reads)
 When you need to audit a codebase (e.g., find all components missing `export const dynamic = 'force-static'`, check image sizes, extract hex colors, or check heading hierarchy), **DO NOT read 30 files into the LLM context window (`700 KB`)**.
 Write and run a 5-line script in the sandbox (`execute_bash` or `ctx_execute`) that computes the answer and prints **only the compact summary (`< 3 KB`)**:

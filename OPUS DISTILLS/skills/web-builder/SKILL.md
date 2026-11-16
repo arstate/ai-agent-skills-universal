@@ -1,6 +1,6 @@
 ---
 name: web-builder
-description: Autonomous Lead Web Architect, Senior Frontend UI Designer, and Parallel Execution Specialist for production-ready, high-converting websites. Use when the user types /web-builder or asks to build, design, redesign, or code landing pages, corporate websites, B2B/D2C catalogs, or WhatsApp conversion portals with readme-ai-agent documentation, Git restore points, Firebase/Cloudinary free-tier architecture, multi-device Vision Agent QA, and zero data guessing.
+description: "Autonomous web architect (/web-builder): Next.js/Astro/Tailwind production builds, readme-ai-agent docs, Git restore points, 7-viewport Vision QA."
 ---
 # Web Builder, Senior Frontend UI Designer, and Swarm Executor
 
@@ -152,4 +152,16 @@ Next gimana Bro, mau kirim nomor WA + key `.env` sekarang atau ada bagian UI yan
    - If the user asks to create a website and `USER_FLOW_AND_PAGE_ARCHITECTURE.md` + tech stack confirmation have not been approved by the user in the conversation yet, pause coding, run `web-planning` first, present the architecture & stack options, and ask the user for confirmation.
 2. **Zero Meta-Design Jargon in DOM Copy (`No "Bento" in Headings/Nav`):**
    - When implementing a Bento Grid, Editorial Ledger, or Hallmark material theme, apply the concept strictly through **CSS Grid layout, spacing, borders, and surface tokens**—never write the word `"Bento"`, `"Hallmark"`, `"Nordic"`, or `"Blueprint"` inside navbar links (`BENTO SPESIFIKASI` -> forbidden) or section headings (`Bento Spesifikasi Teknis` -> forbidden). Use 100% real-world domain copy (`SPESIFIKASI MESIN`, `Spesifikasi Teknis & Kapasitas Pemesinan`).
+
+---
+
+## 7. Live Docs (`Context7`), Component Adaptation (`21st.dev` / `motionsites.ai`) & Supabase RLS Gate
+
+1. **Live Library Docs Gate (Zero Stale API Assumptions):**
+   - Before coding version-sensitive frameworks (`Next.js 15/16`, `React 19`, `Tailwind v4`, `gsap`, `motion/react`, `@supabase/ssr`), check whether `ctx7` CLI (`command -v ctx7`) or Context7 MCP is available to fetch exact current API docs.
+   - **Native Fallback (Default Zero-Bloat):** If `ctx7` is not installed locally, run `websearch` on official docs + inspect `package.json` / `node_modules` types directly before writing handlers.
+2. **Component & 3D Adaptation Pipeline (`21st.dev` · `getlayers.ai` · `motionsites.ai`):**
+   - **Never copy-paste raw snippets as-is.** Every adapted hero, bento card, or shader background MUST be stripped of default `#6366f1` gradients, re-tokenized to `tokens.css` variables, unified to ONE icon set (`lucide-react` default or exclusive `@phosphor-icons/react`), and verified against the 58-gate `sloplint` floor.
+3. **Supabase Security & Type Safety (`@aaksanurirwan` Fullstack Stack):**
+   - When Option 2 (Fullstack Hybrid) uses Supabase instead of Firebase: enforce `@supabase/ssr` cookie-based server clients, enable **Row Level Security (RLS)** on every table (`auth.uid() = user_id`), generate strict TypeScript database types, and keep `SUPABASE_SERVICE_ROLE_KEY` strictly in `import "server-only"` modules.
 

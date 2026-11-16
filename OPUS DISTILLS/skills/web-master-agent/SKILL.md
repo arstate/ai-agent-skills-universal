@@ -1,6 +1,6 @@
 ---
 name: web-master-agent
-description: Supreme Token-Efficient Web Master Agent Orchestrator and Phase-Gated Skill Router combining brainstorming, web-planning, web-design (OpenDesign + zanwei/design-dna), web-animation (Official GSAP Suite), web-builder, web-debugging (7-layer anti-hack audit + 7-viewport Vision QA), and web-optimization with opus-distills. Enforces the mandatory 12-file readme-ai-agent/ brain (centered on AGENTS.md, never CLAUDE.md) across both new and legacy web projects with 70-85% token savings.
+description: "Phase-gated web orchestrator chaining planning, design, animation, build, debugging, and optimization with mandatory 12-file readme-ai-agent/ brain."
 ---
 
 # `web-master-agent` — Phase-Gated Web Orchestrator & 12-File `readme-ai-agent/AGENTS.md` Continuity Engine

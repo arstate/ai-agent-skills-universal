@@ -1,11 +1,6 @@
 ---
 name: gui-automation
-description: >-
-  Use when you need to visually interact with a GUI: test buttons, fill forms,
-  verify visual layouts, fuzz web pages, automate user flows, take screenshots,
-  or perform end-to-end QA on any application. Works on cloud VMs, Docker
-  containers, local machines, and sandboxes. Needs the `cua` CLI
-  (curl -fsSL https://cua.ai/install.sh | sh).
+description: "Visual GUI interaction via cua CLI: click buttons, fill forms, verify layouts, take screenshots, and run end-to-end QA on desktops, VMs, or sandboxes."
 ---
 
 # GUI Automation

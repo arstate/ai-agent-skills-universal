@@ -1,6 +1,6 @@
 ---
 name: figma-design
-description: "Master One-Shot Figma Design v6.0 (Djadi Creative GSM v2.5 Minimal High-Impact Edition), Editorial Asymmetric Split & S-Curve Art Direction, Smart Manual Image Drop-Zone + AI Photo Brief Generator, Dual-MCP Automation Engine (figma-bridge + FigCraft + Official Figma MCP), 6 Core GitHub Libraries (mcp-server-guide, figma-skills, open-design, mengto, jakubkrehel, benjitaylor), and 4 Design Agent Applications (Design System Enforcement, Heuristic Usability Evaluation, Language Localization, and Structural Code Handoff). Use ALWAYS when creating, designing, remastering, or automating 3:4 Meta Ads posters (1080x1440), 9:16 Reels covers, social carousels, or UI screens in Figma. Enforces 58%-65% Open Warm Cream (#F7F4EC) negative space, max 3-4 containers per canvas, 88px outer safe margins (x=88..992, w=904px), editorial numbered typography with 1.5px hairline dividers instead of cluttered boxes, single #FFD60A Yellow highlight pill on the key phrase, dedicated 02_HERO_IMAGE_DROP_ZONE layers, and a sleek single-row 160px conversion bar."
+description: "Master /figma-design v6.0: GSM v2.5 3:4 Meta Ads posters (1080x1440), 9:16 covers, Dual-MCP automation (figma-bridge + FigCraft), 40-rule overlap=0 QA."
 ---
 
 # Master Figma Design v6.0 — Djadi Creative GSM v2.5 Minimal High-Impact Edition

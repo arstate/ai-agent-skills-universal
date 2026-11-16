@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Master Strategic & Creative Brainstorming Engine (/brainstorming) for Design Ideas, UI/Layout Architecture, Advanced Business Strategy, Marketing Strategy, Brand Positioning, and Viral Campaign Angles. Distilled from obra/superpowers@brainstorming (301.9K stars), OpenDesign design-brief (nexu-io/open-design), coreyhaines31/marketingskills (139 proven marketing plays + 70+ behavioral psychology models), generate-fresh-ideas (5-lens ATM), and get-more-perspectives (5-Advisor Panel), complete with bundled real-world global and Indonesian case studies.
+description: "Master /brainstorming engine: design briefs, UI architecture, 139 marketing plays, 5-lens ATM, 5-advisor panel, and real-world conversion case studies."
 ---
 
 # `/brainstorming` — Master Creative, Design, Layout, Brand & Marketing Strategy Ideation Engine
@@ -59,3 +59,10 @@ Never output a flat bullet list. Present **3 to 5 distinct Strategic/Creative An
 End every brainstorming session by narrowing down to action:
 1. **The Top Recommendation (Co-Founder Pick):** State clearly which of the 3–5 angles you recommend executing **first** for the highest ROI with the lowest bloat (`/ponytail` principle).
 2. **Builder Check / Next Step Gate:** Offer to immediately turn the chosen angle into a tangible artifact (e.g., *"Mau gw langsung bikinin `brief-preview.html` / wireframe interaktif untuk Angle #2, atau kita kunci dulu ke `PRD.md`?"*).
+
+---
+
+## 4. `0xdesign/design-lab` Structural Divergence Mode (UI & Agency Redesigns)
+
+When brainstorming UI directions, app flows, or client redesign pitches (`@codevibes_1` / `before.click` / `getlayers.ai` benchmarks):
+- **Never output 3–5 clones that only change hex colors.** Force every proposed variation to diverge across **4 axes**: (1) *Hero Geometry & Focal Point*, (2) *Interactive "One Live Thing" Conversion Widget*, (3) *Surface & Typography Voice*, and (4) *Section Pacing* (`>= 2` structural deviations from classic SaaS templates).

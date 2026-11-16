@@ -1,6 +1,6 @@
 ---
 name: social-media-research
-description: Universal Viral Content Pattern Recognition, TikTok/Instagram FYP Recipe Engineer, Existing Content Auditor, and Social Media Analyst (Distilled from Insightory Falco/Strix 6-Step Framework + 4-Pattern Recognition + Tadaima 7.6M Case Study + ScrapeCreators). Adapts proactively to ANY brand/niche, audits existing drafts/videos (What Works, Mistakes/Drop-offs, Level-3 Actionable Fixes), prioritizes Save/Share/Retention over vanity views, and outputs repeatable beat-by-beat FYP templates.
+description: "Viral pattern & FYP recipe engineer: 6-step Falco audit (Save/Share/Retention), hook teardowns, draft drop-off fixes for TikTok, Instagram, and Ads."
 ---
 
 # `social-media-research` — Universal FYP Content Engineer, Pattern Analyst & Forensic Content Auditor
@@ -75,3 +75,14 @@ Whenever generating new hooks or fixing a weak hook for ANY brand, execute this 
 | **04** | **Target-Persona Scroll Simulation (`anti-yes-man` Critique!)** | Roleplay as the **exact target buyer scrolling TikTok/IG while tired/busy** and ruthlessly audit the 5 hooks against **The 3 Fatal TOFU Hook Traps**:<br>• ❌ **Trap 1 (High-Friction Instruction in `0–3s`):** Never order cold viewers to do physical/mental homework (*"Coba pegang..."*, *"Coba hitung..."*)—cold scrollers won't obey! Replace **Instruction** with **Instant Self-Recognition** (*"POV: tumbler di meja kantor udah 3 hari gak dicuci karena pulang udah capek duluan 💀"*).<br>• ❌ **Trap 2 (Ego-Defensive Accusation):** Never accuse the viewer of being dirty/stupid/broke (*"Tumbler kamu jorok!"*)—they get defensive (*"Ah lebay"*) and scroll past. Blame fatigue/busyness and use hyper-specific sensory details (*"bau apek tipis-tipis padahal udah dicuci"* -> triggers *"kok tau sih?!"*).<br>• ❌ **Trap 3 (Unbridged Problem / Helping Competitors):** Never raise a problem that makes your whole product category look bad without a **Clean Product Bridge** linking directly to your product's unique mechanism (e.g., wide-mouth tumbler + removable silicone ring = easy to wash to the bottom!). |
 | **05** | **Score Scroll-Stopping Power (`X/10`)** | Score each hook (`1/10` to `10/10`) *before* and *after* Persona Refinement (e.g., `4.2/10 -> 8.2/10`), explicitly listing what raised the score (*Self-Recognition*, *Sensory Specificity*, *Native Emoji/Slang lowering defensiveness*). |
 | **06** | **Select Top 2 Dual-Pair for Production** | Always pick the **Top 2 Winners** as a balanced pair:<br>• **Winner #1 (Problem / Self-Recognition + Clean Product Bridge):** Captures immediate pain & converts.<br>• **Winner #2 (Aspirational / Daily Ritual):** Shows the product seamlessly elevating their daily work/life rhythm without fear-mongering. |
+
+---
+
+## 5. Multi-Platform Research Extraction Fallback (`Agent-Reach` Pattern + Credential Guardrail)
+
+When gathering live trend outliers, creator engagement baselines (`Play-Through, Saves, Shares`), or video transcripts across TikTok, Instagram, YouTube, X, or Reddit:
+1. **Tool Resolution Order (Minimal Bloat):**
+   - First check if `agent-reach` CLI is installed (`command -v agent-reach`) for unified social feed lookup.
+   - **Default Native Fallback (Zero Extra Install Needed):** Combine **`websearch`** (`websearch -f <url>` via 9router + Jina Reader), **`yt-dlp --dump-json`** (public TikTok/IG/YouTube metadata & subtitles), and **`cdp_visual_agent.py research --json`** (logged-in Chrome CDP DOM extraction).
+2. **Strict Cookie & Account Security Guardrail:**
+   - **NEVER** pass personal, client, or agency primary account cookies/tokens into untrusted third-party CLI scrapers (risk of shadowban or session hijack). Use public read endpoints first or an isolated burner profile strictly when interactive scrolling is required.

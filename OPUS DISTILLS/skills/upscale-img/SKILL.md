@@ -1,6 +1,6 @@
 ---
 name: upscale-img
-description: Master Hardware-Accelerated 4K/8K AI Image Upscaler using PyTorch, Spandrel, and CUDA on NVIDIA GeForce GTX 1660 SUPER. Features seamless 256x256 cosine feather tiling, 4xNomos8kSCHAT-S Transformer Attention, zero-NaN precision guard, Adobe Stock aspect ratio scaling (16:9, 1:1, 3:4), and exiv2 metadata preservation. Trigger when user types /upscale-img, @upscale-img, /boost, upscale-img, boost, or asks to upscale images, enhance resolution to 4K/8K, or run batch upscaling.
+description: "CUDA 4K/8K image upscaler (/upscale-img, /boost) via 4xNomos8kSCHAT-S + spandrel: 256px seamless tiling, Stock ratios (16:9/1:1/3:4), exiv2 metadata."
 ---
 
 # `upscale-img` — Master Hardware-Accelerated AI Image Upscaler & Resolution Booster

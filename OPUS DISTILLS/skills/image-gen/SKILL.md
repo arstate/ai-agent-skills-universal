@@ -1,6 +1,6 @@
 ---
 name: image-gen
-description: Master Studio Image Prompt Generator & Multi-Image Reference Fusion Engine khusus untuk Nano Banana 2.1 (Google Gemini Image / AI Studio) dan ChatGPT (GPT-4o / GPT-Image-1). Gunakan SELALU saat user mengetik @image-gen, /image-gen, meminta prompt foto studio putih polos cyclorama, HD optical enhancer, persona model Indonesia, foto katalog produk komersial, atau menggabungkan 2–3 foto referensi. WAJIB langsung mengirim Prompt Super Detail 8-Layer lengkap dengan Seed deterministik dan Negative Prompt khusus Nano Banana 2.1 & ChatGPT!
+description: "Studio photo prompt generator (@image-gen, /image-gen) for Nano Banana 2.1 & ChatGPT: white cyclorama, 4K optical enhancement, multi-image fusion + Seeds."
 ---
 
 # `image-gen` — Commercial Studio & Multi-Reference Prompt Engine (Nano Banana 2.1 & ChatGPT Edition)

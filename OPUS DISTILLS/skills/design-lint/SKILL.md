@@ -1,6 +1,6 @@
 ---
 name: design-lint
-description: "Lint Figma designs for compliance and auto-fix violations. Use when: lint/fix/check compliance/clean up + design/page/screen, or when automated quality fixes are needed. Supports both quick one-step lint and granular multi-step workflows."
+description: "Lint Figma designs for token, contrast, spacing, and typography violations with one-step or granular automated compliance fixes."
 ---
 
 # Design Lint — Automated Compliance & Auto-Fix

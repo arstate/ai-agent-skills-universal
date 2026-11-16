@@ -1,6 +1,6 @@
 ---
 name: web-optimization
-description: Fullstack & Static Next.js Zero-Usage Vercel Shield (1,000,000+ Ad Clicks on Hobby Tier without overage), Cloudflare Edge & Tiered Cache Rules (CDN-Cache-Control, Ad Query Stripping without RSC poisoning), RSC-Safe PWA Service Worker, Vercel React 70-Rule CWV Optimizer (LCP < 1.2s, INP < 200ms, CLS < 0.1), Full-Free Firebase Spark 50k Read Shield, and Cloudinary 25-Credit Shield.
+description: "Fullstack Next.js zero-overage Vercel shield: Cloudflare tiered cache, RSC-safe PWA, 70-rule CWV (LCP < 1.2s), Firebase Spark & Cloudinary limits."
 ---
 
 # `web-optimization` — Fullstack & Static Next.js Zero-Usage Vercel, Cloudflare Edge, Firebase & CWV Shield

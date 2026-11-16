@@ -61,27 +61,18 @@ Monolithic UI Kits seperti **Ant Design, Material UI (MUI), Mantine, atau Vuetif
 
 ---
 
-## 🎨 3. Pilar 3: Ikon Tunggal (Lucide React)
+## 🎨 3. Pilar 3: Ikon Tunggal (`lucide-react` Default / `@phosphor-icons/react` Opsional — Zero Mixing)
 
 ### Mengapa Standardisasi 1 Library Ikon?
-Mencampuradukkan 5 library ikon (Tabler, Phosphor, FontAwesome, Remix, Heroicons) dalam satu proyek adalah penyebab utama tampilan web terlihat berantakan dan amatir:
-- Ketebalan garis (*stroke weight*) berbeda-beda (ada yang 1px, 1.5px, 2px, atau fill).
-- Bounding box grid tidak selaras (16x16 vs 20x20 vs 24x24).
-- Dependensi `package.json` membengkak dan sering memicu error build saat tree-shaking.
+Mencampuradukkan beberapa library ikon (`lucide-react` + `Phosphor` + `Tabler` + `FontAwesome` + `Heroicons`) dalam satu proyek adalah penyebab utama tampilan web terlihat berantakan dan amatir:
+- Ketebalan garis (*stroke weight*) berbeda-beda dan inkonsisten saat ikon bersanding.
+- Bounding box grid tidak selaras (`16x16` vs `20x20` vs `24x24`).
+- Dependensi `package.json` membengkak dan sering memicu konflik bundle.
 
-### Aturan Lucide React:
-1. **Satu-satunya Sumber Ikon:** Gunakan `lucide-react` untuk semua kebutuhan UI di web Next.js/React.
-2. **Konsistensi Stroke:**
-   - Gunakan `strokeWidth={1.5}` untuk gaya editorial, elegan, atau minimalis berkelas.
-   - Gunakan `strokeWidth={2.0}` untuk tombol aksi primer atau kontrol fungsional padat.
-3. **Tree-Shaking Bersih:** Selalu import nama ikon secara spesifik:
-   ```tsx
-   import { ArrowRight, CheckCircle2, ShieldCheck, Zap } from "lucide-react";
-   ```
-4. **Pewarnaan & Ukuran:** Selalu kendalikan ukuran dan warna melalui utility class Tailwind:
-   ```tsx
-   <ArrowRight className="w-5 h-5 text-neutral-900 group-hover:translate-x-1 transition-transform" />
-   ```
+### Aturan Single-Set Lock:
+1. **Default Standar — `lucide-react`:** Gunakan `lucide-react` secara konsisten di semua proyek Next.js/React/SaaS/Editorial (`strokeWidth={1.5}` untuk gaya editorial ringan, `strokeWidth={2.0}` untuk aksi padat).
+2. **Opsi Consumer / Apple-Grade — `@phosphor-icons/react`:** Diperbolehkan **HANYA JIKA** dipakai **100% eksklusif di seluruh project** dengan bobot terkunci seragam (`regular`, `bold`, atau `duotone`)—**dilarang keras mencampur Lucide dan Phosphor dalam satu repo yang sama**.
+3. **Tree-Shaking Bersih:** Selalu import nama ikon secara spesifik per komponen (`import { ArrowRight, CheckCircle2 } from "lucide-react"` atau `from "@phosphor-icons/react"`), dan atur ukuran + warna via utility class Tailwind.
 
 ---
 
@@ -105,3 +96,6 @@ Desain yang indah bukan berasal dari dekorasi berlebih, melainkan dari **pembata
    - `html, body { overflow-x: clip; }`
    - Zero 2-line button text (`whitespace-nowrap`).
    - `minmax(0, 1fr)` pada grid yang memuat gambar.
+6. **2027 Surface Craft & Atmospheric Readability:**
+   - Sticky navbars atau caption di atas foto wajib memakai **Progressive Blur Scrim** (`backdrop-blur-md` + CSS `mask-image` bertahap) bukan bar solid kaku yang memutus gambar.
+   - Efek *Light Rays* pada hero dark AI dibatasi `opacity <= 0.14` agar kontras teks tetap `|L_text - L_bg| >= 50%`.

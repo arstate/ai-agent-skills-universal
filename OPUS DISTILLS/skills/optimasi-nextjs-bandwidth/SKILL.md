@@ -1,6 +1,6 @@
 ---
 name: optimasi-nextjs-bandwidth
-description: "SOP dan panduan teknis optimasi Next.js untuk zero-usage Vercel: Cloudflare Full Page Caching (Ignore query string iklan), Service Worker PWA Cache-First, Next.js static export (output: 'export'), unoptimized images, dan vercel.json security headers. Menampung 1.000.000+ pengunjung di Vercel Hobby tier tanpa bayar/jebol."
+description: "Zero-overage Next.js bandwidth shield for Vercel Hobby: Cloudflare Full-Page Cache, ad query stripping, PWA service worker, and static export."
 ---
 
 # ⚡ OPTIMASI NEXT.JS ZERO-USAGE VERCEL & CLOUDFLARE EDGE (EXTREME BANDWIDTH BLUEPRINT)

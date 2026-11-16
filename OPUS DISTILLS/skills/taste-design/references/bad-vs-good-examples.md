@@ -128,3 +128,13 @@ export function GoodHeroEditorial() {
 | **Slide Presentasi 16:9** | Judul topik pasif (*"Latar Belakang"*), 8 bullet points panjang ukuran 14pt yang memenuhi 90% layar, tanpa margin aman. | **Judul Assertion Aktif** (*"Biaya Akuisisi Turun 62% Lewat Video Hook 2 Detik"*), 1 grafik/tabel fokus utama, **40% Negative Space**, rasio judul:body = `3.5 : 1`. |
 | **Carousel IG 3:4 (1080x1440)** | Teks menabrak tepi kanan-kiri kanvas, memakai >3 jenis font, stiker/emoji bertumpuk, dan kata terakhir judul menggantung sendirian. | **Safe Margin 8-10%** (`86px` kiri-kanan), teks rata kiri pada 1 poros vertikal tegas, kontras tinggi WCAG AAA, dan setiap baris judul seimbang (`<= 2-3 baris`). |
 | **Grafik Data / Chart** | Pie chart 3D warna pelangi dengan legenda terpisah di pojok dan garis grid tebal. | **Horizontal Bar / Clean Line Chart (Tufte Style):** Hanya **1 batang utama** yang diberi warna aksen tajam, batang pembanding diberi warna abu netral (`#CBD5E1`), angka langsung ditempel di ujung batang (*direct label*). |
+
+---
+
+## 5. Onboarding Flow, App Store Screenshots & 2027 Surface Craft (`@ux_dose` · `@garryaudie` · `before.click`)
+
+| Elemen Visual & Produk | ❌ Before (Drop-Off / Kelihatan Murahan) | ✅ After (High-Taste & High-Conversion) | Why (Dampak Retensi & Klik) |
+| :--- | :--- | :--- | :--- |
+| **Screen Onboarding / Paywall** | Dinding formulir 6–8 field sebelum user merasakan nilai produk, tanpa opsi *Skip*. | **Progressive 5-Step Flow:** 1 pilihan per layar + preview hasil nyata duluan + timeline trial transparan (*"Hari 1–7 Gratis, Pengingat H-2"*). | Menurunkan *bounce rate* onboarding dan membangun kepercayaan sebelum transaksi/registrasi. |
+| **Screenshot App Store / Produk HP** | Tangkapan layar mentah dengan teks kecil tak terbaca di dalam bingkai HP berantakan. | **1 Claim + 1 Cropped UI Focus (`before.click` `aso`):** Headline manfaat max 4 kata ukuran besar (`4.3x`), framing HP miring/close-up pada fitur inti saja. | Pengunjung toko aplikasi memutuskan klik Install dalam `< 2 detik` dari tampilan thumbnail kecil. |
+| **Header & Image Overlay Scrim** | Kotak hitam/gradient kaku atau blur rata menutupi separuh foto. | **Progressive Blur Scrim + Inner Ring:** `backdrop-blur` bertahap via `mask-image` + `ring-1 ring-inset` pada tepi frame foto. | Kontras teks tetap tajam tanpa memotong estetika gambar di bawahnya. |

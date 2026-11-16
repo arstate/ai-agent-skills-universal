@@ -1,6 +1,6 @@
 ---
 name: figcraft-generate-library
-description: "Build or update the design system itself in Figma — variables/tokens, component libraries, theming (light/dark modes), foundations documentation. Use when creating the system, not just using it. Triggers: 'build component library', 'create design tokens', 'set up theming', 'reconcile code and Figma'. Uses FigCraft declarative tools — no use_figma required. Do NOT use for assembling screens from existing system (use figcraft-generate-design)."
+description: "Build or update a Figma design system: variables/tokens, component libraries, light/dark theming, and Code Connect setup using FigCraft declarative tools."
 disable-model-invocation: false
 ---
 

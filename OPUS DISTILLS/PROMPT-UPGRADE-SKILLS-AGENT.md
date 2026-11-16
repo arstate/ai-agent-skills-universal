@@ -80,6 +80,12 @@ Mulai detik ini:
      1) `visual-breakdown/SKILL.md`
      2) `prompt-generator/SKILL.md`
      3) `image-gen/SKILL.md`
+    - **User minta edit / buat video programmatic (`@remotion` / `/remotion`):**
+      WAJIB `view_file` ke:
+      1) `remotion/SKILL.md`
+      2) `remotion/references/director-workflow-and-brief.md`
+      3) `remotion/references/motion-rules-and-safe-zones.md`
+      4) `remotion/references/effects-and-chat-render-catalog.md`
 3. **WAJIB CETAK BUKTI BACA (`🔧 [Skills Auto-Loaded]`) DI BARIS PERTAMA CHAT:**
    Di baris paling atas setiap balasanmu ke user, kamu **WAJIB** mencantumkan file `SKILL.md` dan `references/*.md` apa saja yang baru saja kamu baca lewat `view_file` pada turn tersebut:
    `🔧 [Skills Auto-Loaded: opus-distills -> web-design/SKILL.md, taste-design/SKILL.md, references/14-pass-critique-rubric.md, references/cat-08-luxury-automotive-hardware.md]`

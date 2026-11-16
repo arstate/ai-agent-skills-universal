@@ -1,6 +1,6 @@
 ---
 name: prompt-generator
-description: Master Super-Detailed Prompt Generator khusus untuk Nano Banana 2.1 (Google Gemini Image / AI Studio) dan ChatGPT (GPT-4o / GPT-Image-1). Gunakan SELALU saat user mengetik @prompt-generator, /prompt-generator, meminta dibuatkan prompt gambar/foto studio, edit foto referensi, bedah visual jadi prompt, produk komersial, model katalog, poster, atau penggabungan beberapa foto referensi. Wajib langsung mengirim prompt super detail (8-Layer Forensic Specification) lengkap dengan Seed deterministik dan Negative Prompt khusus Nano Banana 2.1 & ChatGPT tanpa menampilkan menu penghalang dan tanpa mencampur flag Midjourney/Flux kecuali diminta.
+description: "8-layer forensic prompt generator (@prompt-generator, /prompt-generator) for Nano Banana 2.1 & ChatGPT with deterministic Seeds and Negative Prompts."
 ---
 
 # `prompt-generator` — Nano Banana 2.1 & ChatGPT Super-Detailed Forensic Prompt Engine

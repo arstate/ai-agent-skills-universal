@@ -1,6 +1,6 @@
 ---
 name: free-ram
-description: Otomatis membersihkan buffer/cache RAM kernel (pagecache, dentries, inodes), melakukan defrag dan kompaksi memori fisik & ZRAM swap pool, serta menampilkan diagnosis proses pemboros memori tanpa menutup aplikasi atau sistem yang sedang berjalan. Trigger saat pengguna mengetik /free-ram, /freeram, free up ram, bersihkan ram, atau minta kurangi beban memori.
+description: "Linux RAM cleaner (/free-ram, /freeram): flush pagecache/dentries/inodes, compact physical & ZRAM memory, and diagnose top RAM hogs safely."
 ---
 
 # 🚀 FREE-RAM - Otomasi Pembersihan Memori & Kompaksi ZRAM

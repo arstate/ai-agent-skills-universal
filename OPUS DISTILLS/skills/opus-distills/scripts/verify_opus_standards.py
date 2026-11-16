@@ -2,7 +2,7 @@
 """
 Opus 5.5 Distillation Standards & Guardrails Verification Script
 Validates:
-1. Presence of all 23 required skills
+1. Presence of all required Opus skills (including /remotion)
 2. YAML frontmatter parsing for skills
 3. Active guardrails compliance (zero positive promotion of forbidden design jargon or confidential marketing commissions)
 4. Multi-file skill references integrity (checks existence and readability of required references and tests them against guardrails)
@@ -40,6 +40,7 @@ REQUIRED_24_SKILLS = [
     "figcraft-use",
     "figma-create-ui",
     "figma-design",
+    "find-skills",
     "generate-fresh-ideas",
     "hallmark",
     "humanizer",
@@ -50,6 +51,7 @@ REQUIRED_24_SKILLS = [
     "ponytail",
     "prompt-generator",
     "pdf-deck",
+    "remotion",
     "social-media-research",
     "taste-design",
     "terse-respon",
@@ -76,6 +78,11 @@ REQUIRED_MULTI_SKILLS = {
         "slide-design-and-export-guide.md",
         "theme-and-layout-catalog.md",
         "cli-tool-reference.md",
+    ],
+    "remotion": [
+        "director-workflow-and-brief.md",
+        "motion-rules-and-safe-zones.md",
+        "effects-and-chat-render-catalog.md",
     ],
     "brainstorming": ["real-case-studies-and-frameworks.md"],
     "web-animation": ["gsap-and-real-case-animations.md"],
@@ -363,6 +370,22 @@ def verify_single_skills_dir(skills_dir):
                 errors += 1
         else:
             print(f"  [PASS TEMPLATE] All 12 files verified in web-planning/resources/templates.")
+
+    fs_dir = os.path.join(skills_dir, "find-skills")
+    if os.path.isdir(fs_dir):
+        idx_p = os.path.join(fs_dir, "data", "skills-index.json")
+        cat_p = os.path.join(fs_dir, "SKILL-CATALOG.md")
+        if not os.path.isfile(idx_p) or not os.path.isfile(cat_p):
+            print(f"  [FAIL FIND-SKILLS] Missing skills-index.json or SKILL-CATALOG.md in {fs_dir}")
+            errors += 1
+        else:
+            cat_issues = check_file_guardrails(cat_p)
+            if cat_issues:
+                for line_num, line_txt, desc in cat_issues:
+                    print(f"  [FAIL GUARDRAIL] find-skills/SKILL-CATALOG.md:{line_num} -> {desc}: {line_txt[:80]}")
+                    errors += 1
+            else:
+                print(f"  [PASS FIND-SKILLS] Virtual 6-category index & catalog verified.")
     return errors
 
 def verify_global_rules():

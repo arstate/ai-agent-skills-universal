@@ -39,14 +39,15 @@ for src_base in "$SCRIPT_DIR/skills" "$SCRIPT_DIR"; do
         echo "  -> Skill installed: $dirname"
       fi
     done
-    # Consolidate legacy slidedeck-gen & next-slidedeck-engine into pdf-deck
+    # Consolidate legacy slidedeck-gen & next-slidedeck-engine into pdf-deck, and purge duplicate legacy opus aliases
     for dest in "${DEST_DIRS[@]}"; do
+      rm -f "$dest/opus-distill" "$dest/opus5.5-distill" "$dest/opus5-5s-distill" 2>/dev/null || true
       [ -d "$dest/slidedeck-gen" ] && [ ! -L "$dest/slidedeck-gen" ] && rm -rf "$dest/slidedeck-gen"
       [ -d "$dest/next-slidedeck-engine" ] && [ ! -L "$dest/next-slidedeck-engine" ] && rm -rf "$dest/next-slidedeck-engine"
       ln -sfn "pdf-deck" "$dest/slidedeck-gen"
       ln -sfn "pdf-deck" "$dest/next-slidedeck-engine"
     done
-    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck"
+    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck (+ purged stale opus aliases)"
     break
   fi
 done
@@ -86,7 +87,10 @@ chmod +x "$HOME/.agents/skills/pdf-deck/bin"/*.mjs "$HOME/.agents/skills/pdf-dec
 chmod +x "$HOME/.agents/skills/upscale-img/bin/upscale-img" "$HOME/.agents/skills/upscale-img/bin/boost" "$HOME/.agents/skills/upscale-img/scripts/upscale_cuda.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/tts-gen/scripts/gemini_tts.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/humanizer/scripts/humanize_cli.py" 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/remotion/scripts/bootstrap_facecammaxxing.sh" 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/find-skills/scripts/find_skills.py" 2>/dev/null || true
 chmod +x "$HOME/.agents/skills/figma-design/scripts"/*.ts 2>/dev/null || true
+ln -sf "$HOME/.agents/skills/find-skills/scripts/find_skills.py" "$HOME/.local/bin/find-skills" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/launch-visible-chrome.sh" "$HOME/.local/bin/launch-visible-chrome" 2>/dev/null || true
 ln -sf "$HOME/.agents/tools/cdp_visual_agent.py" "$HOME/.local/bin/cdp-agent" 2>/dev/null || true
 ln -sf "$HOME/.agents/skills/pdf-deck/bin/pdf-deck.mjs" "$HOME/.local/bin/pdf-deck" 2>/dev/null || true

@@ -52,3 +52,17 @@ Baca panduan ini saat merancang proyek baru agar pemilihan arah visual, kombinas
   - Accent (10%): Medical Sage / Emerald (`#0D9488`)
 - **Pasangan Font:** `Syne` atau `Plus Jakarta Sans` (Heading) + `DM Sans` (Body)
 - **Wajib "One Live Thing" Widget:** **Interactive Skin Concern Matcher** (Pilih 1 keluhan utama: Jerawat / Flek / Kusam -> langsung tampilkan 1 rangkaian perawatan yang tepat + estimasi durasi tindakan & tombol reservasi dokter via WA).
+
+---
+
+## 5. Consumer Mobile Apps, AI SaaS & Paywall Conversion (`before.click` + 2027 Craft)
+- **Surface Mode (`Impeccable`):** `Persuade` + `Operate`
+- **Aesthetic Direction:** *Precision Dark Obsidian / Tactile Alabaster App Craft* (referensi `before.click` & `getlayers.ai`)
+- **Palet Warna (60-30-10):**
+  - Ground (60%): Obsidian Slate (`#0B0C0F`) atau Crisp Alabaster (`#F8F9FA`)
+  - Ink & Struktur (30%): Mist Ink (`#F3F4F6`) / Carbon (`#141413`) + Subtle `1px` specular borders + **Light Rays** (`opacity <= 0.14`)
+  - Accent (10%): Signal Emerald (`#10B981`) atau Electric Cobalt (`#2563EB`) — max 2 elemen aksen per viewport
+- **Pasangan Font & Ikon:** `Plus Jakarta Sans` atau `Geist` + `JetBrains Mono` (`tabular-nums`); ikon tunggal `@phosphor-icons/react` (seragam bobot `regular`/`duotone`) atau `lucide-react`.
+- **Wajib "One Live Thing" + Onboarding / Paywall Pattern:**
+  - **5-Step Progressive Onboarding Preview:** User langsung memilih 1 tujuan/use-case dan melihat simulasi hasil sebelum registrasi atau klik install.
+  - **Transparent Paywall & App Store Showcase:** Tampilkan timeline uji coba (*"Hari 1 Akses Penuh · Hari 5 Pengingat · Hari 7 Tagihan"*), 1–2 paket maksimal dengan tombol WhatsApp / Checkout `>= 44px`, dan *App Store screenshot framing* fokus 1 klaim `<= 4 kata` per frame.

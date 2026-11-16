@@ -1,6 +1,6 @@
 ---
 name: web-debugging
-description: Forensic Multi-Device Frontend/Fullstack Web Debugger and Deep Defensive Security Auditor (Anti-Hack Hardening for Vibe-Coded Apps) with Mandatory Vision Agent QA (Mobile 360px/390px, Landscape, Tablet 768px, Desktop 1280px+) and Automatic SECURITY-AUDIT.md, BUG-AND-FIX.md, and Git Restore Point Logging. Use when the user types /web-debugging or /web-debuging, or asks to find bugs, audit web security vulnerabilities, check responsive mobile/PC layouts with Vision Agent, or harden production readiness.
+description: "Forensic web debugger & security auditor (/web-debugging): 4-phase root cause, 7-layer anti-hack audit, 58 sloplint gates, 7-viewport Vision QA."
 ---
 # Web Debugging, Multi-Device Vision QA, and Deep Defensive Security Auditor
 
@@ -169,4 +169,16 @@ Whenever running live browser checks, UI/UX verification, or interactive testing
 2. **Always Enable the Live AI Visual Cursor & Activity HUD (`ai-cursor-hud.js` / `cdp_visual_agent.py`):**
    - Inject `skills/chrome-browser-control/scripts/ai-cursor-hud.js` via `Page.addScriptToEvaluateOnNewDocument` and `Runtime.evaluate`.
    - Use `cdp_visual_agent.py` or `window.__aiCursor.highlightElement(el, label)` / `window.__aiCursor.clickSelector(sel, label)` / `window.__aiCursor.status(text)` during every test step so the user can visually watch the AI cursor glide, highlight elements, click buttons, fill forms, and scroll in real time.
+
+---
+
+## 9. Audit-Before-Patch (`ibelick/ui-skills`), CLI Smoke Gate & Active Defensive Verification (`strix` Pattern)
+
+1. **Read-Only UI & Motion Audit Before Patching (`improve-ui` + `baseline-ui`):**
+   - Before editing broken components, inspect read-only across 4 axes: (a) **React/Rendering** (unnecessary client boundaries, stale closures), (b) **Motion Isolation** (confirm GSAP and `motion/react` never mutate the same DOM node), (c) **Icon Lock** (0 mixed Lucide/Phosphor sets), and (d) **Contrast & Surface** (OKLCH `|L_text - L_bg| >= 50%`, `tabular-nums`, progressive blur scrim legibility).
+2. **Headless CLI Smoke Check vs Visible 7-Viewport Vision QA:**
+   - **Rule Boundary:** If `playwright-cli` (`command -v playwright-cli`) is installed, you MAY use it strictly for fast background smoke assertions (HTTP 200, console errors, broken links — ~4.6x lower snapshot token overhead). All **visual UI/UX & 7-viewport inspections** MUST still run in a **visible Chrome GUI window** via `cdp_visual_agent.py` (port `9223`) per Section 8!
+3. **Active Defensive Security Verification (`strix` Pattern — Sandbox Only):**
+   - Only run authorized defensive security testing against your own `localhost` or explicitly approved staging sandbox (never third-party production targets).
+   - If `strix` CLI is available (`command -v strix`), run targeted local vulnerability verification against `http://localhost:3000`; otherwise use focused native `curl` / Node reproduction checks testing IDOR (`doc.ownerId`), unauthenticated POST on Server Actions, Zod oversize payloads, XSS sinks, and Firestore/Supabase RLS bypasses, logging results into `readme-ai-agent/SECURITY.md`.
 

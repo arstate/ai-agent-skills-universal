@@ -1,6 +1,6 @@
 ---
 name: iconography
-description: "Icon rules: ordering in auto-layout (children array order = visual order), tool chain (icon_search -> icon_create with index), sizing, spacing, style consistency. Use when: icon/icons + create/place/add/order/position/wrong/layout, or when icons appear in wrong position."
+description: "Figma icon rules: auto-layout child ordering, icon_search -> icon_create tool chain, sizing, alignment, spacing, and consistent stroke weights."
 ---
 
 # Iconography
@@ -88,9 +88,9 @@ Note: `create_frame` children `type: "svg"` requires raw SVG markup string, NOT 
 
 ## Style Consistency
 
-- Single icon set per design (all `lucide:`, or all `mdi:`, etc.) — never mix sets
-- Single style: outline, filled, or duotone — never mix styles
-- Icon stroke weight should match typography weight (light type -> thin icons)
+- Single icon set per design (`lucide:` default, or uniform `phosphor:` for Apple/consumer-grade craft, or `mdi:` when mandated by an existing library) — **never mix sets** (`lucide` + `phosphor` + `mdi` in one project is strictly forbidden)
+- Single style: outline, filled, or duotone — never mix styles across the same navigation or card tier
+- Icon stroke weight should match typography weight (light type -> thin icons; Phosphor uniform weight `regular` / `duotone` locked globally)
 - NEVER use decorative icons without functional meaning
 
 ## Common Pitfalls

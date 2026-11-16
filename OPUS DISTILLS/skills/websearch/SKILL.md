@@ -1,6 +1,6 @@
 ---
 name: websearch
-description: Search the live web and fetch full-page content into clean Markdown using the local high-speed 9router Google Grounding Search API (localhost:20128) and Jina Reader / Direct Fetch. Trigger whenever the user asks to search the web, lookup real-time information, fetch URL content, or types /websearch.
+description: "Live web search & clean Markdown fetch (/websearch) via local 9router Google Grounding API (localhost:20128) and Jina Reader fallback."
 ---
 
 # 🌐 WEBSEARCH & WEB FETCH SKILL
@@ -78,3 +78,16 @@ markdown_content = fetch_url("https://example.com/artikel")
 - **Script Executable:** `/home/arya/.gemini/config/skills/websearch/scripts/websearch.py`
 - **Symlink Bin:** `/home/arya/.local/bin/websearch`
 - **Dependencies:** Python 3 Standard Library (Zero third-party pip dependencies required).
+
+---
+
+## 🔍 5. MULTI-PLATFORM SOCIAL & PLATFORM EXTRACTION FALLBACK (`Agent-Reach` PATTERN)
+
+Saat melakukan riset media sosial, video pendek, atau forum lintas platform (TikTok, Instagram, YouTube, X, Reddit, GitHub):
+1. **Urutan Fallback Native (Tanpa Install Paksa CLI Eksternal):**
+   - Cek opsional: `command -v agent-reach >/dev/null` jika sudah terpasang di mesin user.
+   - **Jalur Default Native (Zero Bloat):**
+     * **Web & Artikel Panjang:** `websearch -f "<url>"` (Jina Reader Markdown extraction) atau Google Grounding `websearch "<query>"`.
+     * **Metadata Video TikTok / Reels / YouTube:** `yt-dlp --skip-download --dump-json "<url>"` (atau `--write-auto-subs`).
+     * **Halaman Dinamis / Butuh Render JS:** `python3 ~/.agents/tools/cdp_visual_agent.py research --json`.
+2. **Aturan Keamanan Kredensial:** Jangan pernah mengekspor atau memasukkan cookie sesi akun bisnis/pribadi utama ke scraper pihak ketiga yang tidak terverifikasi. Gunakan endpoint publik atau profil terisolasi.

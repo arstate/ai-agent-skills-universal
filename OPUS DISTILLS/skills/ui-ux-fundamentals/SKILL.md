@@ -1,6 +1,6 @@
 ---
 name: ui-ux-fundamentals
-description: "Universal design quality rules: color, typography, spacing, content, iconography, elevation, composition, accessibility. Always applies regardless of library mode."
+description: "Universal UI/UX quality rules across color contrast, typography scale, spacing rhythm, iconography, elevation, layout composition, and accessibility."
 ---
 
 # UI/UX Fundamentals — Shared Design Rules
@@ -84,7 +84,7 @@ Universal design quality rules. Apply regardless of library mode.
 
 ## Iconography
 
-- MUST use a single icon style per design: outline, filled, or duotone — never mix
+- MUST use a single icon library (`lucide` default or uniform `phosphor` exclusively) and single style per design (`outline`, `filled`, or `duotone`) — never mix libraries or styles
 - SHOULD keep icon stroke weight consistent with the typography weight
 - NEVER use decorative icons without functional meaning
 

@@ -1,6 +1,6 @@
 ---
 name: web-design
-description: S-Rank Frontend & Web UI Design Specialist distilled from Impeccable (Paul Bakaus), Taste Skill v2 (Leonxlnx 247-site study), Emil Design Engineering (Emil Kowalski), Jakub Krehel's Interface Skills, UI/UX Pro Max, Build Awwwards-Quality Sites (Meng To), and Anthropic's frontend-design. Includes bundled reference guides for Bad vs Good UI examples, Niche Blueprints, and the 14-Pass Critique Rubric.
+description: "S-Rank web UI design engine: Tailwind + OKLCH, shadcn/ui, Lucide, 48 Hallmark themes, Cold-Hero-First, 300-ref niche vault, and 14-Pass rubric."
 ---
 # Web Design: S-Rank Frontend Taste & Design Engineering (`web-design`)
 
@@ -29,10 +29,10 @@ To achieve world-class, clean, and high-converting web interfaces without archit
    - **Zero CSS Clashes & Zero Runtime Vendor Lock-in:** Never use heavy, opinionated UI kits (Ant Design, MUI, Mantine, Vuetify) that impose outdated aesthetics, bloated emotion/styled-components runtimes, and impossible style overrides.
    - **World-Class Accessibility:** Built-in ARIA attributes, keyboard navigation, focus trap management, and screen-reader semantics out of the box.
 
-3. **Ikon Tunggal: Lucide React (`lucide-react`)**
-   - **Single Unified Icon System:** Standardize exclusively on Lucide React across all screens and components.
-   - **Consistent Optical Weight:** Clean `1.5px` (editorial/subtle) or `2.0px` (bold/interface) stroke width matching typography metrics.
-   - **Tree-Shaking Native:** Each icon imports individually (`import { ArrowRight, Check, Shield } from "lucide-react"`), keeping production bundles featherlight. No multi-library bloat (no mixing Tabler, Phosphor, FontAwesome, and Remix in one app).
+3. **Ikon Tunggal: Lucide React Default / `@phosphor-icons/react` Opsional (Single-Set Lock)**
+   - **Single Unified Icon System:** Standardize on `lucide-react` by default across all screens and components, OR allow `@phosphor-icons/react` (`Thin` through `Duotone` weights) for Apple/consumer-grade projects **ONLY when used 100% exclusively** across the entire codebase.
+   - **Consistent Optical Weight:** Clean `1.5px` (editorial/subtle) or `2.0px` (bold/interface) stroke width matching typography metrics (or a single locked Phosphor weight).
+   - **Tree-Shaking Native & Zero Mixing:** Import icons individually (`import { ArrowRight, Check, Shield } from "lucide-react"`). Strictly NEVER mix icon libraries (`lucide-react` + `@phosphor-icons/react` + Tabler + FontAwesome) in the same project.
 
 4. **Taste Engine: `Nutlope/hallmark` (v2.8.0) 48 Material Themes + 14-Pass Rubric**
    - **Editorial & Upright Typography:** Strict `4.3x` headline-to-body contrast (`clamp(2.25rem, 5vw, 4.5rem)` vs `16px`), `<= 2 lines` per headline, upright roman headings (`0` italic headings), and `tabular-nums` on all numbers/metrics.
@@ -258,7 +258,7 @@ Whenever the user gives you a live award-winning website URL (Awwwards, Framer, 
 
 ---
 
-## 9. `Nutlope/hallmark` (v2.8.0) Complete Anti-AI-Slop Architecture, Direct GitHub Repo Read & 83-Gate System
+## 14. `Nutlope/hallmark` (v2.8.0) Complete Anti-AI-Slop Architecture, Direct GitHub Repo Read & 83-Gate System
 
 > **Required DIRECT HALLMARK REPO & RUBRIC READ:**
 > Before designing any webpage, generating `design-style-preview.html`, or running a redesign:
@@ -289,7 +289,7 @@ Whenever the user gives you a live award-winning website URL (Awwwards, Framer, 
 
 ---
 
-## 14. Protokol Wajib Saat User Minta "Contoh Desain Style Web / Visual Preview" (Anti-Generic Showcase Law)
+## 15. Protokol Wajib Saat User Minta "Contoh Desain Style Web / Visual Preview" (Anti-Generic Showcase Law)
 
 Ketika user meminta *"contoh desain style webnya bro visual mau saya lihat"* atau meminta opsi gaya desain sebelum membangun web:
 1. **DILARANG KERAS menyodorkan 3 gaya generik klise** (seperti *Dark Steel #0B0F17*, *Swiss Clean #FFFFFF*, *Pitch Black #050505* tanpa foto dan tanpa materialitas fisik)!
@@ -326,3 +326,21 @@ A critical mistake is leaking the name of the CSS layout pattern, macrostructure
      - Instead of `Bento Spesifikasi Teknis Pemesinan` in the `<h2>` -> write `Spesifikasi Teknis & Kapasitas Pemesinan`.
    - **The Only Exception:** In a multi-style preview file (`design-style-preview.html`), only the floating top style-switcher bar may contain the theme names (`[1. Nordic Precision]`, `[2. Blueprint]`, etc.) so the user knows which button to click. Inside the rendered page canvas itself, every single heading, nav link, and badge must read like a real, live company website.
 
+
+---
+
+## 16. Frictionless Onboarding, 2027 Surface Craft & Inspiration Benchmarks (`@ux_dose` · `@garryaudie` · `before.click`)
+
+1. **5-Step Frictionless Onboarding Law (`@ux_dose` / `@wadhah_the_uxer`):**
+   - **Never hit a new user with a 6-field registration wall before proving value.** Structure onboarding as a lightweight progressive flow:
+     1) **Value-First Welcome (1 Core Promise + 1 Action):** State the immediate outcome in `<= 2 lines`.
+     2) **Progressive Micro-Commitment (1 Question / Step):** One intent selector per screen (`>= 44px` tap targets) with visible step progress (`Step 1 of 3`), never dense multi-column forms.
+     3) **Live Personalized Preview ("Show First, Gate Last"):** Render a live tailored workspace/calculation preview using their selected goal *before* asking for account/WA confirmation.
+     4) **Contextual Social Proof Near Friction Points:** Place a single verified peer fact next to email/OTP/permission prompts—never generic marketing fluff.
+     5) **Escape Hatch & Zero Empty States:** Always provide a clean secondary `Explore Demo / Skip for now` path and pre-populate the first workspace with actionable starter cards.
+2. **2027 Surface Craft & Atmospheric Discipline (`@garryaudie` / `invisibledetails.com`):**
+   - **Progressive Blur Scrims (Not Flat Dark Bars):** Replace harsh solid linear-black bars behind sticky headers or bottom photo captions with multi-stop masked backdrop blurs (`backdrop-filter: blur(12px)` paired with `mask-image: linear-gradient(...)`) so text remains WCAG `>= 4.5:1` while imagery breathes naturally.
+   - **Tactile Hairline Borders & Micro-Craft:** Combine `1px` inner optical rings (`ring-1 ring-inset ring-black/10` on light or `white/10` on dark) with subtle specular edge highlights and `tabular-nums` alignment on live controls.
+   - **Controlled Atmospheric Light Rays (Dark Surfaces Only):** Use subtle angled directional light beams (`opacity <= 0.14`, pure CSS radial/conic gradients or lightweight `<canvas>`) strictly as atmospheric framing—never place low-contrast body text directly across bright flare hotspots.
+3. **Curated Live Reference & Inspiration Benchmarks (`@rakryan.coding` · `@ikne.id` · `@aaksanurirwan`):**
+   - When researching before build (`web-planning` / `taste-design`), cross-check real category outliers across **`getlayers.ai`** (flow patterns & paywalls), **`21st.dev`** (shadcn/Tailwind primitives—must still pass 58-gate `sloplint` before shipping), **`motionsites.ai`** (3D/scroll choreography references), and **`before.click`** / **`alexszczurek/before-skills`** (`aso` App Store screenshots & consumer onboarding/paywall tear-downs).

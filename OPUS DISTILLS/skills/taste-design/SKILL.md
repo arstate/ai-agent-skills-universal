@@ -1,6 +1,6 @@
 ---
 name: taste-design
-description: Universal Art Director, Visual Critic, and High-Taste Design Engine for all non-web creative deliverables (3:4 Instagram/TikTok carousels, 16:9 pitch decks/slides, PDF reports/brochures, brand identity systems, posters, data visualizations/charts, and commercial studio imagery) plus holistic cross-medium UI review. Includes bundled reference guides for Bad vs Good examples, Niche Blueprints, and the 14-Pass Critique Rubric.
+description: "Universal Art Director for non-web visuals: 3:4 carousels, 16:9 decks, PDF brochures, brand systems, posters, charts, and 14-Pass critique rubric."
 ---
 # Taste Design: Universal Art Director & Closed-Loop Visual Critic (`taste-design`)
 
@@ -179,7 +179,7 @@ To guarantee **zero monotony** while keeping token consumption ultra-low (`~650 
 
 ---
 
-## 9. `Nutlope/hallmark` (v2.8.0) Complete Anti-AI-Slop Architecture, Direct GitHub Repo Read & 83-Gate System
+## 13. `Nutlope/hallmark` (v2.8.0) Complete Anti-AI-Slop Architecture, Direct GitHub Repo Read & 83-Gate System
 
 > **Required DIRECT HALLMARK REPO & RUBRIC READ:**
 > Before designing any webpage, generating `design-style-preview.html`, or running a redesign:
@@ -225,3 +225,11 @@ A critical mistake is leaking the name of the CSS layout pattern, macrostructure
      - Instead of `Bento Spesifikasi Teknis Pemesinan` in the `<h2>` -> write `Spesifikasi Teknis & Kapasitas Pemesinan`.
    - **The Only Exception:** In a multi-style preview file (`design-style-preview.html`), only the floating top style-switcher bar may contain the theme names (`[1. Nordic Precision]`, `[2. Blueprint]`, etc.) so the user knows which button to click. Inside the rendered page canvas itself, every single heading, nav link, and badge must read like a real, live company website.
 
+
+---
+
+## 14. 2027 Craft Polish, Onboarding Flow Visuals & App Store Narrative (`before.click` · `invisibledetails.com` · `@ux_dose`)
+
+1. **Progressive Blur Scrims & Tactile Hairline Craft:** On editorial slides, 3:4 carousels, and image overlays, favor smooth multi-stop gradient scrims or progressive blur fades over abrupt dark bars; keep inner `1px` optical borders (`rgba(0,0,0,0.08)` light / `rgba(255,255,255,0.12)` dark) and cap Light Rays highlights (`opacity <= 0.14`) away from text columns.
+2. **Frictionless Onboarding Visuals (`@ux_dose`):** Design onboarding flows across 5 crisp steps (*Value Hook -> 1-Choice Screen -> Personalized Preview -> Contextual Proof -> Skip/Start*) with visible step pacing and zero multi-field interrogation walls.
+3. **App Store & Product Screenshot Framing (`before.click` `aso`):** Restrict each store/social product frame to **1 crisp claim (`<= 4 words`) + 1 zoomed UI focus**, paired with transparent trial timelines on paywalls (*Day 1 / Reminder / Billing Date*) and single-set icon discipline (`lucide:` default or uniform `phosphor:`—never mixed).

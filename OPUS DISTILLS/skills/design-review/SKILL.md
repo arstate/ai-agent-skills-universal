@@ -1,6 +1,6 @@
 ---
 name: design-review
-description: "Review existing Figma designs against design quality rules. Outputs structured violation report with actionable fixes. Use when: review/audit/check/critique/analyze/inspect/diagnose + design/screen/page/component, analyze issues/problems with components, or after UI creation to verify quality."
+description: "Audit existing Figma designs, screens, or components against UI/UX quality rules; output structured violation reports and actionable fixes."
 ---
 
 # Design Review — Structured Quality Audit
@@ -73,7 +73,8 @@ Load the appropriate design guidelines based on mode:
   - Is composition intentional (asymmetry where appropriate, no uniform grids)?
   - Is spacing consistent and using library tokens (or 4px-grid spacing scale)?
   - Are text contents realistic and contextually appropriate (not placeholder)?
-  - Are icons consistent in style (outline/filled/duotone not mixed)?
+  - Are icons from ONE single library (`lucide:` or `phosphor:`, never mixed) and consistent in style (outline/filled/duotone not mixed)?
+  - Are interactive triggers using crisp instant press feedback, and do overlays use smooth progressive blur/contrast scrims rather than muddying text?
   - Are shadow levels consistent and within ≤ 3 tiers?
   - Does node structure complexity match the design tone?
   - Are accessibility standards met (contrast ≥ 4.5:1, touch targets)?

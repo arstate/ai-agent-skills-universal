@@ -1,6 +1,6 @@
 ---
 name: tts-gen
-description: Gemini 3.8 Flash TTS Voiceover Engine & Key Router with Edge-TTS Fallback, EBU R128 Broadcast Loudness Mastering, Multi-Key Failover, and Support for 7 Expressive Voices (Koda, Ludo, Aoede, Kore, Puck, Charon, Fenrir). Trigger when user types /tts-gen, @tts-gen, tts-gen, notif-tts, or asks for voiceover, text-to-speech, audio narration for reels, TikTok, or Remotion.
+description: "Gemini 3.8 Flash TTS voiceover (/tts-gen, notif-tts) with Edge-TTS fallback, 7 voices (Koda/Ludo/Aoede/Kore), and EBU R128 mastering for Remotion."
 ---
 
 # `tts-gen` — Gemini 3.8 Flash TTS Voiceover Engine & Key Router

@@ -1,6 +1,6 @@
 ---
 name: gen-img
-description: Generate high-fidelity AI images via 9Router Antigravity (Gemini Nano Banana / Imagen 3). Supports any custom aspect ratio (1:1, 3:4, 4:3, 9:16, 16:9, 4:5, 2:3, 3:2), native HD/1K resolutions, and multimodal image-to-image with local reference image input. Trigger when user types /gen-img, gen-img, asks to generate images, create graphics, or transform reference images.
+description: "Generate or transform AI images (/gen-img) via 9Router Antigravity (Gemini Nano Banana / Imagen 3) in custom aspect ratios (1:1, 3:4, 9:16, 16:9)."
 ---
 
 # 🎨 GEN-IMG: AI Image Generation & Reference Skill

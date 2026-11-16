@@ -1,6 +1,6 @@
 ---
 name: web-animation
-description: Master Web Animation, GSAP (GreenSock Animation Platform), ScrollTrigger, SplitText, Flip, React useGSAP, Interactive Micro-Interactions, and 60fps Motion Choreography Engine (/web-animation). Distilled from the 8 official greensock/gsap-skills modules (gsap-core, gsap-timeline, gsap-scrolltrigger, gsap-plugins, gsap-react, gsap-utils, gsap-performance, gsap-frameworks), Emil Kowalski's emil-design-eng, OpenDesign animation-discipline, and zanwei/design-dna visual_effects. Trigger when user types /web-animation or asks for web animations, GSAP, ScrollTrigger, text reveals, parallax, smooth scroll, or interactive motion.
+description: "60fps web motion choreography (/web-animation): GSAP ScrollTrigger, SplitText, Flip, React useGSAP, Emil fluid springs, and reduced-motion discipline."
 ---
 
 # `/web-animation` — Master GSAP, ScrollTrigger, SplitText & 60fps Web Motion Engine
@@ -17,8 +17,10 @@ Whenever the user invokes `/web-animation` or asks to build, refine, or debug **
 1. **GSAP & ALL Plugins Are 100% Free (Post-Webflow Acquisition Rule):**
    - Every GSAP plugin—including formerly paid Club GSAP plugins (`SplitText`, `ScrollTrigger`, `ScrollSmoother`, `Flip`, `MorphSVGPlugin`, `DrawSVGPlugin`, `Draggable`, `InertiaPlugin`, `Observer`, `ScrambleTextPlugin`, `CustomEase`, `MotionPathPlugin`)—is **100% free for commercial use** inside the standard `npm install gsap` package!
    - **NEVER** generate an `.npmrc` file with a GreenSock token, **NEVER** reference `npm.greensock.com`, and **NEVER** tell the user that `SplitText` or `MorphSVG` requires a paid Club membership.
-2. **Default Library Recommendation:**
-   - When the user asks for JavaScript/React/Next.js/Astro web animations, timelines, text reveals, or scroll-linked motion without locking another library, **always use GSAP (`gsap` + `@gsap/react`)** as the primary engine.
+2. **Default Dual-Engine Motion Routing (`GSAP` vs `motion` / Framer Motion):**
+   - **GSAP (`gsap` + `@gsap/react`) — Default Primary Engine:** Gunakan untuk *scroll storytelling* (`ScrollTrigger`), timeline kompleks, *pinned sections*, *horizontal scroll*, layout `Flip`, `SplitText`, dan `gsap.quickTo()` cursor followers.
+   - **Motion (`motion/react` / Framer Motion) — Interruptible Gesture & Spring UI Engine:** Gunakan **HANYA** untuk komponen UI interaktif bergaya Apple (*dismissible drawers/sheets, spring drag cards, shared `layoutId` tab pills, fluid micro-popovers*).
+   - **STRICT NON-COLLISION RULE:** **DILARANG KERAS** memasang GSAP tween dan `<motion.*>` physics pada **elemen DOM yang sama**—keduanya berebut menulis properti `transform`. Pisahkan batas komponennya secara tegas!
 3. **Register Plugins Once at Module/App Level:**
    - Always call `gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, Flip)` once before creating any animation. Never call `registerPlugin` repeatedly inside re-rendering loop functions.
 
@@ -94,4 +96,25 @@ Whenever the user invokes `/web-animation` or asks to build, refine, or debug **
 ### Pillar 8: Purposeful Motion Hierarchy (Anti-Motion-Slop Guardrail)
 - **Never animate everything at once.** Maximum **2–3 concurrent motion layers** per viewport.
 - **Never block user interaction:** UI buttons, tabs, and inputs must become interactive immediately—never lock clicks behind a 2-second entrance animation (`emil-design-eng` frequency rule: micro-interactions `120ms–220ms`, hero entrances `500ms–800ms`, scroll scrubs `scrub: 0.6–1.0`).
-- **Update `readme-ai-agent/STYLE-GUIDE.md` & `DESIGN-CRITIQUE.md`:** Document all active GSAP timelines, easing tokens, and reduced-motion fallbacks in the project's documentation suite.
+- **Update `readme-ai-agent/STYLE-GUIDE.md` & `DESIGN-CRITIQUE.md`:** Document all active GSAP timelines, `motion/react` spring presets, and reduced-motion fallbacks in the project's documentation suite.
+
+---
+
+## 3. Apple Fluid Interfaces & Interruptible Gestures (`emilkowalski/skills/apple-design` · `@awankkaley` · `@garryaudie`)
+
+Whenever building drawers, sheets, tabs, interactive popovers, or iOS/Apple-grade fluid web UI using `motion/react`:
+1. **Zero-Latency `pointerdown` Response:** Trigger press feedback (`scale: 0.97`) and drag tracking immediately on `pointerdown` (`0ms` wait)—never wait for click release!
+2. **Critically Damped Springs (Zero Juvenile Bounce):** Default to `{ type: "spring", bounce: 0, duration: 0.4 }` (or `0.35–0.45`) for crisp, intentional Apple settling. Reserve bouncy overshoot strictly for playful consumer badges (`bounce <= 0.2`).
+3. **Momentum Projection (`project(v, 0.998)`) & Rubber-Banding:** When dragging a bottom sheet or swipe card, project release velocity (`value + (velocity / 1000) * deceleration / (1 - deceleration)`, rate `0.998`) to snap naturally to the nearest detent, capture the pointer via `setPointerCapture()`, and clamp overscroll past limits with rubber-band dampening (`0.55`).
+4. **Symmetric `transform-origin` & No Uninterruptible Blocking:** Popovers/menus animate in/out along the **same directional axis** anchored at their trigger (`scale: 0.95 -> 1`, never `scale: 0`), and every animation remains **100% interruptible mid-flight**.
+5. **Motion Accessibility Guard (`prefers-reduced-motion`):** Wrap `<MotionConfig reducedMotion="user">` around interactive subtrees and always check `gsap.matchMedia()`.
+
+---
+
+## 4. 3D, Shader & Canvas Hero Budgets (`motionsites.ai` + `yihui-dev/awesome-opus5-5-videos`)
+
+When implementing WebGL shaders, Three.js scenes, or Canvas 2D hero effects (`703 prompts / 418 remakes` benchmark):
+1. **Tier Discipline:**
+   - **Tier 1 (CSS + SVG + Canvas 2D):** Preferred default for **Light Rays**, subtle film grain, or interactive particle hairlines (`0` extra heavy bundle).
+   - **Tier 2 (Three.js / R3F Lazy-Loaded Dynamic Island):** Mandatory `dynamic(() => import(...), { ssr: false })`, render only while intersecting viewport (`IntersectionObserver`), cap `devicePixelRatio` at `Math.min(window.devicePixelRatio, 2)`, and **strictly dispose** geometries/materials/textures/RAF loops inside cleanup.
+2. **Respect Mobile Fold & Battery:** Fall back to a crisp high-res static poster / CSS gradient on `prefers-reduced-motion: reduce` or low-power mobile widths (`< 768px`) if FPS drops below `50fps`.

@@ -128,6 +128,16 @@ export function GoodHeroEditorial() {
 | **Carousel IG 3:4 (1080x1440)** | Teks menabrak tepi kanan-kiri kanvas, memakai >3 jenis font, stiker/emoji bertumpuk, dan kata terakhir judul menggantung sendirian. | **Safe Margin 8-10%** (`86px` kiri-kanan), teks rata kiri pada 1 poros vertikal tegas, kontras tinggi WCAG AAA, dan setiap baris judul seimbang (`<= 2-3 baris`). |
 | **Grafik Data / Chart** | Pie chart 3D warna pelangi dengan legenda terpisah di pojok dan garis grid tebal. | **Horizontal Bar / Clean Line Chart (Tufte Style):** Hanya **1 batang utama** yang diberi warna aksen tajam, batang pembanding diberi warna abu netral (`#CBD5E1`), angka langsung ditempel di ujung batang (*direct label*). |
 
+---
+
+## 5. Frictionless Onboarding & 2027 Surface Craft (`| Before | After | Why |`)
+
+| Elemen Onboarding & Surface | ❌ Before (Drop-Off Tinggi / AI Slop) | ✅ After (Frictionless & 2027 Craft) | Why (Alasan Konversi & Persepsi) |
+| :--- | :--- | :--- | :--- |
+| **Form Awal / Onboarding Flow** | 8 kolom input sekaligus (*Nama, PT, No HP, Jabatan, Password, Konfirmasi*) di layar pertama sebelum user melihat hasil. | **5-Step Progressive Flow:** Welcome 1 janji -> 1 pilihan niat per langkah -> Live Preview hasil duluan -> Trust cue kontekstual -> Skip / Demo 1-tap. | Memangkas *cognitive load* saat motivasi user masih rendah; *live preview* memicu *endowment effect* sebelum sign-up. |
+| **Header Sticky / Caption di Atas Foto** | Bar solid `#000000` atau strip blur kotak tajam memotong bagian atas hero. | **Progressive Blur Scrim:** Layer bertahap `backdrop-blur-md` + `mask-image: linear-gradient(to bottom, black 45%, transparent 100%)`. | Menjaga keterbacaan teks WCAG AAA sambil menyatukan tepi scrim secara halus dengan fotografi. |
+| **Light Rays / Glow Latar Dark UI** | Bola neon besar warna ungu-cyan (`#6366f1`) ber-opacity `0.5` tepat di belakang teks paragraf. | **Controlled Directional Beam:** Masking halus di pinggir kanvas (`opacity <= 0.14`), area teks tetap di atas ground gelap solid. | Memberi kedalaman atmosferik modern tanpa merusak kontras baca (`|L_text - L_bg| >= 50%`). |
+
 
 ---
 

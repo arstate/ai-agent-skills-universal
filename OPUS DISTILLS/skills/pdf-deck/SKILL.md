@@ -1,6 +1,6 @@
 ---
 name: pdf-deck
-description: Autonomous Multi-Aesthetic 16:9 Presentation Studio & High-Fidelity PDF/PPTX Deck Engine. Built on Next.js 16/Turbopack with 39 curated palettes across Light Mode, Cream Editorial, Bold Accent, and Minimalist Monochrome Dark. Supports 34 Zara Zhang bold archetypes, live Chrome CDP auto-open with real-time AI Cursor HUD, interactive in-browser live editor with auto-save persistence to disk, decoupled Studio UI shell vs unrestricted slide canvas, arbitrary standalone HTML slide rendering (1-slide = 1 HTML file standard), and multi-format vector PDF (SVG print zero-margin), raster 4K PDF, editable PPTX (python-pptx), and pure SVG output.
+description: "16:9 Presentation Studio & PDF/PPTX engine (/pdf-deck, @pdf-deck): Next.js 16 studio, 39 light/cream/bold/dark themes, live edit, vector PDF/PPTX/SVG."
 ---
 
 # `pdf-deck` — Autonomous Multi-Aesthetic Presentation Studio & High-Fidelity 16:9 PDF/PPTX Deck Engine
