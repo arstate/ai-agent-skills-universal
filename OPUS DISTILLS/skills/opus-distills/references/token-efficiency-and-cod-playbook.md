@@ -156,3 +156,19 @@ From real-world engineering post-mortems (Hacker News #47193064 & Adobe/JetBrain
    - **DO NOT install aggressive `PreToolUse` hooks that block native `Read` / `view_file`!**
    - **100% Full Read on Active Code Files:** Whenever editing a `.tsx`, `.ts`, `.css`, or config file (`< 400 lines`), read the file directly so you have 100% structural awareness.
    - **Filter ONLY Noisy Logs & Bulk Scans:** Use script/pipe filtering (`tail -n 25`, `grep`, or summary scripts) strictly for build outputs, test logs, or counting across 50+ files.
+
+
+---
+
+## 6. `Indo-Caveman Ultra` + `Ponytail YAGNI Ultra` Distillation (`JuliusBrussee/caveman`, `caveman-micro`, `DietrichGebert/ponytail`, `JayPokale/Chisle`)
+
+| Framework | Core Mechanism | Verified Benchmark |
+|---|---|---|
+| **`JuliusBrussee/caveman` (`ultracave`)** | Strip pleasantries, intros, outros, articles, and filler; keep code, paths, commands, negations, and numbers verbatim. | **-65% prose output tokens**, **1.4–2.4x cheaper** (Adobe Research & JetBrains). |
+| **`kuba-guzik/caveman-micro`** | 6-line micro permission prompt (`85 tokens`) instead of verbose 552-token tutorials. | **-21% output tokens on Claude Opus** (`100%` quality, zero missing facts). |
+| **`DietrichGebert/ponytail` + `JayPokale/Chisle`** | **YAGNI Decision Ladder** (`Skip speculative -> Reuse repo -> Stdlib/Native -> Installed deps -> Minimal surgical patch`) + tool-output compression. | **-29% billed output tokens**, **45% shorter answers**, **156/156 accuracy**. |
+
+### Critical Co-Founder Guardrails (Preventing the 3 Failure Modes of Raw "Ultra")
+1. **No Cryptic Abbreviations That Cause Follow-Up Turns:** Never invent unreadable shorthand (`cfg`, `impl`, mangled broken grammar) that forces the user to ask a follow-up question (1 extra turn re-sends 20,000+ input tokens!). Use crisp, natural Indonesian fragments (`[Status/Hasil] -> [Akar Masalah] -> [Fix] -> [Next?]`).
+2. **No Code-Golf on Production Files:** Apply YAGNI to *architectural scope and diff size* (no unrequested wrappers, no reprinting unchanged files in chat), NEVER by stripping trust-boundary validation, error handling, or writing unreadable one-liners on disk.
+3. **Never Use Caveman Voice on Client-Facing Deliverables:** Website copywriting, Instagram captions (`@djadi.creative`), WhatsApp customer chats (Tiar Property / Djadi Creative), and PDF slide decks must always use persuasive, natural human language.

@@ -1,21 +1,28 @@
 ---
 name: opus-distills
-description: "Default Master Brain (/opus-distills): direct in-brain 6-category routing across 45 core skills + Tier-2 find-skills fallback for plugins/remote."
+description: "Default Master Brain (/opus-distills): direct in-brain 6-category routing across 45 core skills + Indo-Caveman Ultra & Ponytail YAGNI Ultra protocol."
 ---
 
 # `opus-distills` — Direct Master Brain & Zero-Overhead Dispatcher
 
-Primary router for `@opus-distills`, `/opus-distills`, and general prompts. **Route all 45 core skills directly in-brain from the map below (ZERO `find_skills.py` tool roundtrip)**; invoke `find-skills` CLI ONLY for external/plugin skills or remote `skills.sh`.
+Primary router for `@opus-distills`, `/opus-distills`, and every prompt. **Route all 45 core skills directly in-brain from the map below (ZERO `find_skills.py` tool roundtrip)**; invoke `find-skills` CLI ONLY for external/plugin skills or remote `skills.sh`.
 
-> Deep token playbook (`context-mode`, CoD `<=8 words/step`, observation masking): read `references/token-efficiency-and-cod-playbook.md` on demand.
+> Deep token playbook (`context-mode`, `Indo-Caveman Ultra`, `Ponytail YAGNI Ultra`, CoD `<=6 words/step`, observation masking): read `references/token-efficiency-and-cod-playbook.md` on demand.
 
 ---
 
-## 1. Turn-1 Execution Protocol
+## 1. Turn-1 Execution & 3-Channel Output Protocol
 
 1. **Match Intent In-Brain** via Section 2 (6 Categories) & Section 3 (Exact Sub-Skill Map).
-2. **Load Specialist `SKILL.md` + Critical `references/*.md` FIRST** via `read_file` before writing any plan, preview, or code. Never guess rules from memory alone.
+2. **Load Specialist `SKILL.md` + Critical `references/*.md` FIRST** via `read_file` in the same turn before writing any plan, preview, or code. Never guess rules from memory.
 3. **Line-1 Receipt:** Print `🔧 [Skills Auto-Loaded: opus-distills -> <loaded files>]` listing only files genuinely read in the current turn.
+4. **Enforce 3-Channel Output Law (`Indo-Caveman Ultra` + `Ponytail YAGNI Ultra` + `Anti-Yes-Man`):**
+   - **Jalur 1 — Chat ke User (`Indo-Caveman Ultra`):** Sapaan `gw/lu, Bro` (haram Melayu, haram kata `"brutalist"` -> ganti `"desain modern tegas"` / `"minimalis berkelas"`). *Answer first* (`[Status/Hasil]. [Akar Masalah -> Fix]. [Next?]`), 0 basa-basi, fragmen padat, maks 3–5 bullet. **Floor Wajib Utuh:** negasi (`jangan/bukan/tidak/hanya/kecuali`), angka/satuan, command, error, dan link `[nama](file:///path)` presisi 100%.
+   - **Jalur 2 — Internal Thinking (`CoD Ultra`):** Simbolik padat `<= 6 kata/step` (`[Goal] -> [Check] -> [Fix]`).
+   - **Jalur 3 — Kode, UI, & Deliverable Klien (`Ponytail YAGNI Ultra` + `100% Uncut`):**
+     - **YAGNI Ladder:** Skip fitur spekulatif -> reuse kode repo -> pakai stdlib/native platform -> pakai dep terpasang -> tulis kode minimal yang mudah dibaca (0 abstraksi/wrapper prematur, surgical diff di chat).
+     - **100% Uncut di Disk:** File kode, UI, & prompt di disk **HARAM** dipotong (`// ...`).
+     - **Guardrail Klien (`When to Break Caveman`):** Teks publik/konsumen (copywriting web, caption IG, chat WA Djadi/Tiar, PDF deck) **wajib bahasa manusia natural/persuasif**, dilarang pakai fragmen caveman.
 
 ---
 
