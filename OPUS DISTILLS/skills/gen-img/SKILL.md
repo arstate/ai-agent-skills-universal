@@ -9,6 +9,7 @@ Skill CLI & Python API untuk generate maupun transform gambar AI (`image-to-imag
 1. **Primary (`aistudio2api`):** `http://127.0.0.1:2048/v1beta/models/gemini-nano-banana-2.1:generateContent` — **Native 4K**, **High Thinking**, `responseModalities: ["IMAGE", "TEXT"]`, serta grounding `googleSearch` (`webSearch` + `imageSearch`).
 2. **Auto-Fallback (`9router-fallback`):** `http://127.0.0.1:20128` (`ag/gemini-3.1-flash-image` via `/v1/chat/completions` lalu `/v1/images/generations`) — aktif otomatis saat AIStudio2API kena rate-limit (`429`), error (`4xx`/`5xx`), timeout, unreachable, JSON error, atau tidak mengembalikan gambar.
 3. **Anti-Downscale 4K:** Hasil native 4K dari AIStudio2API **dilarang** di-crop (`crop_to_ratio()` hanya berjalan untuk hasil `9router` / `9router-fallback`).
+4. **Wajib Tanya Balik (Pre-Flight Gate):** Jika prompt user **belum menyebut aspek rasio (`-r`) ATAU resolusi (`-s`: `1K`/`2K`/`4K`)**, **STOP & wajib tanya balik singkat** sebelum generate (pakai `ask_question` atau 2 baris: pilih **Rasio** `1:1 / 3:4 / 4:5 / 9:16 / 16:9` & **Resolusi** `1K` cepat / `2K` tajam / `4K` master). Langsung eksekusi hanya jika keduanya sudah disebut atau user eksplisit bilang *"bebas/auto"*.
 
 ---
 
