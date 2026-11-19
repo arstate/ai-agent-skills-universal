@@ -12,7 +12,9 @@
 - `layout`: ...
 - `mood`: ...
 - `density`: ...
-- `exclude`: `["#6366f1", "framework-footer-slop", "emojis-in-ui"]`
+- `exclude`: `["#6366f1", "framework-footer-slop", "emojis-in-ui", "/_next/image"]`
+- **UI & Motion System:** `shadcn/ui` + `GSAP + motion/react` + `lucide-react` (single icon set)
+- **Media Delivery:** Cloudinary `f_auto,q_auto` (`images: { unoptimized: true }`)
 
 ## 3. Studio Footer Archetype (Anti-Footer-Slop)
 - **Chosen Archetype:** [1. Editorial Colophon | 2. Architectural Grid + Cropped Wordmark | 3. Local NAP Trust Footer | 4. Swiss Hairline `justify-between`]

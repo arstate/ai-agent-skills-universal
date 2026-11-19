@@ -17,12 +17,12 @@ Lihat daftar ringkas seluruh skill beserta trigger-nya di `SKILL-CATALOG.md`:
 
 | ID Kategori | Fokus Domain | Skill Utama |
 |---|---|---|
-| `01-web-engineering` | Arsitektur web, coding Next.js, QA debugging, speed & Vercel shield | `web-master-agent`, `web-planning`, `web-builder`, `web-debugging`, `web-optimization`, `optimasi-nextjs-bandwidth` |
-| `02-ui-design-taste` | Sistem UI web, taste audit, 48 tema Hallmark, ikonografi, Figma lint | `web-design`, `taste-design`, `hallmark`, `ui-ux-fundamentals`, `iconography`, `design-creator`, `design-guardian`, `design-lint`, `design-review` |
+| `01-web-engineering` | Arsitektur web, coding Next.js, QA debugging, speed & Vercel shield | `web-master-agent`, `web-planning`, `web-builder`, `web-debugging`, `web-optimization` |
+| `02-ui-design-taste` | Sistem UI web, taste audit, 48 tema Hallmark, ikonografi | `web-design`, `taste-design`, `hallmark`, `iconography` |
 | `03-figma-visual-media` | Otomasi kanvas Figma/FigCraft, vektor SVG, prompt foto 8-layer, upscale 4K/8K | `figma-design`, `figma-create-ui`, `figcraft-use`, `figcraft-generate-design`, `figcraft-generate-library`, `svg-gen`, `image-gen`, `prompt-generator`, `visual-breakdown`, `upscale-img`, `gen-img` |
-| `04-video-motion-audio` | Video Remotion 9:16, motion GSAP, voiceover TTS, slide deck PPTX/PDF | `remotion`, `web-animation`, `tts-gen`, `pdf-deck`, `slide-design` |
-| `05-growth-copy-research` | Riset konten viral FYP, hook lab, brainstorming, humanizer, live web search | `social-media-research`, `generate-fresh-ideas`, `brainstorming`, `humanizer`, `websearch` |
-| `06-core-agent-browser` | Master orchestrator, YAGNI minimalism, Chrome CDP HUD, GUI QA, RAM cleaner | `opus-distills`, `find-skills`, `anti-yes-man`, `ponytail`, `terse-respon`, `indo-genz-ponytail`, `chrome-browser-control`, `gui-automation`, `free-ram` |
+| `04-video-motion-audio` | Video Remotion 9:16, motion GSAP, voiceover TTS, slide deck PPTX/PDF | `remotion`, `web-animation`, `tts-gen`, `pdf-deck` |
+| `05-growth-copy-research` | Riset konten viral FYP, hook lab, brainstorming, humanizer, live web search | `social-media-research`, `brainstorming`, `humanizer`, `websearch` |
+| `06-core-agent-browser` | Master orchestrator, YAGNI minimalism, Chrome CDP HUD, GUI QA, RAM cleaner | `opus-distills`, `find-skills`, `anti-yes-man`, `chrome-browser-control`, `gui-automation`, `free-ram` |
 
 *(Plugin terpasang di `~/.gemini/config/plugins/` dan skill eksternal di `~/.agents/skills/` juga otomatis terindeks dengan tag kategori `plugin:<nama>` atau kategorisasi heuristik.)*
 
@@ -68,6 +68,6 @@ Setelah instalasi remote via `find_skills.py --add <pkg>`, indeks lokal dan `SKI
 
 ## 4. Strict Guardrails
 
-1. **Hemat Konteks Mutlak:** Default query `--top 5` agar hanya skill paling relevan yang masuk ke context; baca penuh `SKILL.md` skill terpilih dengan `read_file`/`view_file` saat akan dieksekusi.
+1. **Hemat Konteks Mutlak:** Default query `--top 5` agar hanya skill paling relevan yang masuk ke context; baca penuh `SKILL.md` skill terpilih dengan `read_file` saat akan dieksekusi.
 2. **Flat Disk Structure:** Jangan pernah memindahkan folder `skills/<nama>/` ke subfolder kategori bersarang karena akan memecah auto-discovery CLI agent.
 3. **Anti-Yes-Man & Brand Terminology:** Audit setiap skill pihak ketiga sebelum dipakai; pastikan desain eksternal diselaraskan dengan standar GSM v2.5 ("Desain Modern Tegas", minimalis berkelas, bebas jargon asing kaku).

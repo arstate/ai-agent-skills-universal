@@ -31,9 +31,9 @@ When `FigCraft` is active (`verify_design` / `lint_fix_all`), or when auditing v
 | **Elevation Hierarchy** | `elevation-consistency` | Sibling cards in the same row share identical border weight, corner radius, and shadow offset. |
 | **Zero Placeholders** | `placeholder-text` / `default-name` | Zero `"Frame 1"`, `"Rectangle 52"`, `"Lorem ipsum"`, or raw Unicode emojis (`🚀`, `🎯`). Every node has a semantic name and authentic copy. |
 
-### Step 3: High-Resolution Screenshot Export & Vision Critique (`view_file`)
+### Step 3: High-Resolution Screenshot Export & Vision Critique (`read_file`)
 1. Call `get_screenshot({ nodeId: "<rootFrameId>" })` or `export_node({ nodeId: "<rootFrameId>", format: "PNG", scale: 1 })`.
-2. Inspect the exported image using `view_file`.
+2. Inspect the exported image using `read_file`.
 3. Check the **5 Visual Instant-Fail Triggers**:
    - Does any logo or badge touch or overlap a headline? -> **Fix `y` / Auto-Layout gap immediately.**
    - Do any showcase/product cards look like empty text boxes without illustrations? -> **Inject multi-layered SVG artwork immediately.**

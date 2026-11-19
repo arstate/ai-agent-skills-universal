@@ -12,7 +12,7 @@ When `figma-bridge` is connected, you have direct read/write access to the open 
 |---|---|
 | `execute` | Runs arbitrary JavaScript inside the Figma Plugin API context (`figma` is in global scope; top-level `await` and `return` are supported). **Always `return` created/mutated node IDs and bounding-box diagnostics.** |
 | `get_layout` | Generates a **2D ASCII spatial map** of any frame (`nodeId`) with pixel rulers, column alignment clusters, and automatic detection of **`issues.overlaps`**, **`issues.overflow`**, and **`issues.nearMiss`**. **Call this BEFORE and AFTER every layout build!** |
-| `get_screenshot` | Renders the canvas or a specific `nodeId` to a PNG image so you can inspect visual quality via Vision (`view_file`). |
+| `get_screenshot` | Renders the canvas or a specific `nodeId` to a PNG image so you can inspect visual quality via Vision (`read_file`). |
 | `get_tree` | Returns the node hierarchy (`id`, `name`, `type`, `layout`, `text`, `size`) up to `max_depth`. |
 | `get_node` | Returns full properties of a single node (`fills`, `strokes`, `effects`, `textStyle`, `children`). |
 | `create_frame` / `create_text` | Fast declarative helpers for simple frames and text nodes. |

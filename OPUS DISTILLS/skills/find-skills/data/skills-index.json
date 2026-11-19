@@ -31,28 +31,6 @@
   },
   "skills": [
     {
-      "name": "optimasi-nextjs-bandwidth",
-      "category": "01-web-engineering",
-      "category_label": "Web Architecture, Coding, QA & Speed",
-      "is_core": true,
-      "description": "Zero-overage Next.js bandwidth shield for Vercel Hobby: Cloudflare Full-Page Cache, ad query stripping, PWA service worker, and static export.",
-      "tags": [
-        "architecture",
-        "astro",
-        "audit",
-        "bandwidth",
-        "cache",
-        "cloudflare",
-        "cloudinary",
-        "cwv",
-        "debug",
-        "debugging"
-      ],
-      "rel_to_skills": "optimasi-nextjs-bandwidth",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/optimasi-nextjs-bandwidth",
-      "mtime": 1794848186.5169857
-    },
-    {
       "name": "web-builder",
       "category": "01-web-engineering",
       "category_label": "Web Architecture, Coding, QA & Speed",
@@ -145,7 +123,7 @@
       "category": "01-web-engineering",
       "category_label": "Web Architecture, Coding, QA & Speed",
       "is_core": true,
-      "description": "Web architecture & pre-flight planner (/web-planning): Mermaid user flows, 4-stack recommender, legacy readme-ai-agent backfill, PRD & SEO/GEO plan.",
+      "description": "Web architecture & pre-flight planner (/web-planning): Mermaid user flows, 5-stack recommender, legacy readme-ai-agent backfill, PRD & SEO/GEO plan.",
       "tags": [
         "architecture",
         "astro",
@@ -161,94 +139,6 @@
       "rel_to_skills": "web-planning",
       "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/web-planning",
       "mtime": 1794848186.5449789
-    },
-    {
-      "name": "design-creator",
-      "category": "02-ui-design-taste",
-      "category_label": "Web UI Systems, Design Taste & Audits",
-      "is_core": true,
-      "description": "No-library mode design rules: intentional design thinking, color, typography, iconography. Extends ui-ux-fundamentals.",
-      "tags": [
-        "carousel",
-        "cold-hero",
-        "color",
-        "contrast",
-        "critique",
-        "deck",
-        "desain",
-        "design",
-        "estetik",
-        "hallmark"
-      ],
-      "rel_to_skills": "design-creator",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/design-creator",
-      "mtime": 1794848186.5006666
-    },
-    {
-      "name": "design-guardian",
-      "category": "02-ui-design-taste",
-      "category_label": "Web UI Systems, Design Taste & Audits",
-      "is_core": true,
-      "description": "Library mode design rules: token priority, typography, spacing, elevation, dark mode, conflict resolution. Extends ui-ux-fundamentals.",
-      "tags": [
-        "carousel",
-        "cold-hero",
-        "color",
-        "contrast",
-        "critique",
-        "deck",
-        "desain",
-        "design",
-        "estetik",
-        "hallmark"
-      ],
-      "rel_to_skills": "design-guardian",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/design-guardian",
-      "mtime": 1794848186.5012407
-    },
-    {
-      "name": "design-lint",
-      "category": "02-ui-design-taste",
-      "category_label": "Web UI Systems, Design Taste & Audits",
-      "is_core": true,
-      "description": "Lint Figma designs for token, contrast, spacing, and typography violations with one-step or granular automated compliance fixes.",
-      "tags": [
-        "carousel",
-        "cold-hero",
-        "color",
-        "contrast",
-        "critique",
-        "deck",
-        "desain",
-        "design",
-        "estetik",
-        "hallmark"
-      ],
-      "rel_to_skills": "design-lint",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/design-lint",
-      "mtime": 1794848186.501787
-    },
-    {
-      "name": "design-review",
-      "category": "02-ui-design-taste",
-      "category_label": "Web UI Systems, Design Taste & Audits",
-      "is_core": true,
-      "description": "Audit existing Figma designs, screens, or components against UI/UX quality rules; output structured violation reports and actionable fixes.",
-      "tags": [
-        "carousel",
-        "cold-hero",
-        "color",
-        "contrast",
-        "critique",
-        "deck",
-        "desain",
-        "design",
-        "estetik",
-        "hallmark"
-      ],
-      "rel_to_skills": "design-review",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/design-review",
-      "mtime": 1794848186.5025098
     },
     {
       "name": "hallmark",
@@ -315,28 +205,6 @@
       "rel_to_skills": "taste-design",
       "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/taste-design",
       "mtime": 1794848186.5258021
-    },
-    {
-      "name": "ui-ux-fundamentals",
-      "category": "02-ui-design-taste",
-      "category_label": "Web UI Systems, Design Taste & Audits",
-      "is_core": true,
-      "description": "Universal UI/UX quality rules across color contrast, typography scale, spacing rhythm, iconography, elevation, layout composition, and accessibility.",
-      "tags": [
-        "carousel",
-        "cold-hero",
-        "color",
-        "contrast",
-        "critique",
-        "deck",
-        "desain",
-        "design",
-        "estetik",
-        "hallmark"
-      ],
-      "rel_to_skills": "ui-ux-fundamentals",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/ui-ux-fundamentals",
-      "mtime": 1794848186.5283217
     },
     {
       "name": "web-design",
@@ -647,28 +515,6 @@
       "mtime": 1794848186.5222952
     },
     {
-      "name": "slide-design",
-      "category": "04-video-motion-audio",
-      "category_label": "Programmatic Video, GSAP Motion, TTS & Slide Decks",
-      "is_core": true,
-      "description": "Slide deck aesthetic & layout engine (/slide-design): derive custom light, cream editorial, vibrant, or dark styles with strict 1920x1080 typography.",
-      "tags": [
-        "animasi",
-        "animation",
-        "audio",
-        "cutout",
-        "deck",
-        "dubbing",
-        "facecam",
-        "facecammaxxing",
-        "gsap",
-        "loudness"
-      ],
-      "rel_to_skills": "slide-design",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/slide-design",
-      "mtime": 1794848186.5230803
-    },
-    {
       "name": "tts-gen",
       "category": "04-video-motion-audio",
       "category_label": "Programmatic Video, GSAP Motion, TTS & Slide Decks",
@@ -733,28 +579,6 @@
       "rel_to_skills": "brainstorming",
       "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/brainstorming",
       "mtime": 1794848186.4988549
-    },
-    {
-      "name": "generate-fresh-ideas",
-      "category": "05-growth-copy-research",
-      "category_label": "Viral Content, Hooks, Strategy, Humanizer & Web Search",
-      "is_core": true,
-      "description": "Viral outlier research, 5-lens ATM content engine, Save/Share/Retention teardowns, and beat-by-beat FYP templates for TikTok, Reels, Shorts, Meta Ads.",
-      "tags": [
-        "brainstorming",
-        "caption",
-        "content",
-        "copywriting",
-        "fetch",
-        "fyp",
-        "hook",
-        "hooks",
-        "humanize",
-        "humanizer"
-      ],
-      "rel_to_skills": "generate-fresh-ideas",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/generate-fresh-ideas",
-      "mtime": 1794848186.51108
     },
     {
       "name": "humanizer",
@@ -933,28 +757,6 @@
       "mtime": 1794848186.511784
     },
     {
-      "name": "indo-genz-ponytail",
-      "category": "06-core-agent-browser",
-      "category_label": "Master Brain, YAGNI Style, Chrome CDP & System Ops",
-      "is_core": true,
-      "description": "Enforce friendly terse Indonesian Gen-Z response style + /ponytail minimal engineering, zero Malay words, and layman-friendly modern design terms.",
-      "tags": [
-        "anti-yes-man",
-        "browser",
-        "catalog",
-        "cdp",
-        "chrome",
-        "click",
-        "cua",
-        "cursor",
-        "find",
-        "genz"
-      ],
-      "rel_to_skills": "indo-genz-ponytail",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/indo-genz-ponytail",
-      "mtime": 1794848186.5161047
-    },
-    {
       "name": "opus-distills",
       "category": "06-core-agent-browser",
       "category_label": "Master Brain, YAGNI Style, Chrome CDP & System Ops",
@@ -975,50 +777,6 @@
       "rel_to_skills": "opus-distills",
       "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/opus-distills",
       "mtime": 1794848896.7511973
-    },
-    {
-      "name": "ponytail",
-      "category": "06-core-agent-browser",
-      "category_label": "Master Brain, YAGNI Style, Chrome CDP & System Ops",
-      "is_core": true,
-      "description": "Senior-dev YAGNI minimalism (/ponytail): choose stdlib, native platform features, and shortest working diff over premature abstractions or bloat.",
-      "tags": [
-        "anti-yes-man",
-        "browser",
-        "catalog",
-        "cdp",
-        "chrome",
-        "click",
-        "cua",
-        "cursor",
-        "find",
-        "genz"
-      ],
-      "rel_to_skills": "ponytail",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/ponytail",
-      "mtime": 1794848186.520475
-    },
-    {
-      "name": "terse-respon",
-      "category": "06-core-agent-browser",
-      "category_label": "Master Brain, YAGNI Style, Chrome CDP & System Ops",
-      "is_core": true,
-      "description": "Split-channel terse Indonesian chat style (gw/lu, zero fluff, CoD) while keeping 100% uncut, production-complete code, UI, and deliverable files.",
-      "tags": [
-        "anti-yes-man",
-        "browser",
-        "catalog",
-        "cdp",
-        "chrome",
-        "click",
-        "cua",
-        "cursor",
-        "find",
-        "genz"
-      ],
-      "rel_to_skills": "terse-respon",
-      "abs_path": "~/Projects/ai-agent-skills-universal/OPUS DISTILLS/skills/terse-respon",
-      "mtime": 1794848186.5271506
     },
     {
       "name": "tiar-browser-mcp-control",

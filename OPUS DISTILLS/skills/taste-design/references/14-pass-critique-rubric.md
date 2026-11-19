@@ -1,6 +1,6 @@
 # The 14-Pass Visual & UX Jury Rubric (`DESIGN-CRITIQUE.md`)
 
-Distilled from Leonxlnx `taste-skill v2`, Paul Bakaus `Impeccable`, Emil Kowalski `emil-design-eng`, and Jakub Krehel `interface-review`. Run this 14-pass audit on the rendered screenshots (`view_file`) across Mobile (`360px`/`390px`), Tablet (`768px`), and Desktop (`1280px+`).
+Distilled from Leonxlnx `taste-skill v2`, Paul Bakaus `Impeccable`, Emil Kowalski `emil-design-eng`, and Jakub Krehel `interface-review`. Run this 14-pass audit on the rendered screenshots (`read_file`) across Mobile (`360px`/`390px`), Tablet (`768px`), and Desktop (`1280px+`).
 
 ---
 

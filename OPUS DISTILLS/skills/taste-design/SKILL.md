@@ -12,7 +12,7 @@ Load these bundled reference files in `references/` whenever creating or critiqu
 
 1. `references/bad-vs-good-examples.md` - Concrete **❌ Desain Jelek (Amateur Slop)** vs **✅ Desain Bagus (Agency Craft)** comparisons across slides, 3:4 carousels, charts, and UI components.
 2. `references/niche-ui-blueprints.md` - Industry-specific color palettes, font pairings, and art direction blueprints (Property, Bridal/Fashion, B2B/SaaS, Skincare/Clinic).
-3. `references/14-pass-critique-rubric.md` - The 14-Pass Visual Jury Rubric for auditing rendered previews (`view_file`) and forcing automatic revision of messy layouts.
+3. `references/14-pass-critique-rubric.md` - The 14-Pass Visual Jury Rubric for auditing rendered previews (`read_file`) and forcing automatic revision of messy layouts.
 
 ## 1. Mandatory Pre-Design Internet Reference & Mode Lock
 
@@ -60,12 +60,12 @@ Load these bundled reference files in `references/` whenever creating or critiqu
 - **Zero Double Slash (`//`) AI Slop Clichés:** Dilarang keras menggunakan karakter `//` sebagai pemisah teks judul, slide kicker, badge, kategori, atau footnote. Gunakan interpunct (`·`), em-dash (`—`), bullet point, tanda pipa (`|`), atau frase bersih tanpa pemisah artifisial.
 - **Optical Inner Border:** Add a subtle `1px` inner border (`rgba(0,0,0,0.08)`) around light screenshots/photos so they stay crisp against light paper backgrounds.
 
-## 3. Closed-Loop Visual Critique & Mandatory Revision (`view_file` Gate)
+## 3. Closed-Loop Visual Critique & Mandatory Revision (`read_file` Gate)
 
-Never deliver a visual artifact without inspecting its rendered PNG preview via **Vision Agent (`view_file`)**:
+Never deliver a visual artifact without inspecting its rendered PNG preview via **Vision Agent (`read_file`)**:
 
 1. Render every slide, PDF page, chart, or layout preview to PNG.
-2. Call `view_file` and evaluate every page against `references/14-pass-critique-rubric.md`.
+2. Call `read_file` and evaluate every page against `references/14-pass-critique-rubric.md`.
 3. Output a concise `| Before (Temuan Draft 1) | After (Perbaikan) | Why |` table (Emil Kowalski format) if any flaw was caught, fix the generation script in one batch, and re-render before delivering to the user!
 
 

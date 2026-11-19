@@ -15,28 +15,22 @@ python3 ~/.gemini/config/skills/find-skills/scripts/find_skills.py --category 04
 
 | Skill | Summary | Path |
 |---|---|---|
-| `optimasi-nextjs-bandwidth` | Zero-overage Next.js bandwidth shield for Vercel Hobby: Cloudflare Full-Page Cache, ad query stripping, PWA service worker, and static export. | `../optimasi-nextjs-bandwidth/SKILL.md` |
 | `tiar-browser-mcp-control` | Prosedur standar kontrol Browser MCP untuk otomasi penjelajahan Instagram, audit Meta Ads Manager, dan interaksi web marketing Tiar Property. | `~/.agents/skills/tiar-browser-mcp-control/SKILL.md` |
 | `web-builder` | Autonomous web architect (/web-builder): Next.js/Astro/Tailwind production builds, readme-ai-agent docs, Git restore points, 7-viewport Vision QA. | `../web-builder/SKILL.md` |
 | `web-debugging` | Forensic web debugger & security auditor (/web-debugging): 4-phase root cause, 7-layer anti-hack audit, 58 sloplint gates, 7-viewport Vision QA. | `../web-debugging/SKILL.md` |
 | `web-master-agent` | Phase-gated web orchestrator chaining planning, design, animation, build, debugging, and optimization with mandatory 12-file readme-ai-agent/ brain. | `../web-master-agent/SKILL.md` |
 | `web-optimization` | Fullstack Next.js zero-overage Vercel shield: Cloudflare tiered cache, RSC-safe PWA, 70-rule CWV (LCP < 1.2s), Firebase Spark & Cloudinary limits. | `../web-optimization/SKILL.md` |
-| `web-planning` | Web architecture & pre-flight planner (/web-planning): Mermaid user flows, 4-stack recommender, legacy readme-ai-agent backfill, PRD & SEO/GEO plan. | `../web-planning/SKILL.md` |
+| `web-planning` | Web architecture & pre-flight planner (/web-planning): Mermaid user flows, 5-stack recommender, legacy readme-ai-agent backfill, PRD & SEO/GEO plan. | `../web-planning/SKILL.md` |
 
 ## 02-ui-design-taste — Web UI Systems, Design Taste & Audits (11)
 
 | Skill | Summary | Path |
 |---|---|---|
-| `design-creator` | No-library mode design rules: intentional design thinking, color, typography, iconography. Extends ui-ux-fundamentals. | `../design-creator/SKILL.md` |
-| `design-guardian` | Library mode design rules: token priority, typography, spacing, elevation, dark mode, conflict resolution. Extends ui-ux-fundamentals. | `../design-guardian/SKILL.md` |
-| `design-lint` | Lint Figma designs for token, contrast, spacing, and typography violations with one-step or granular automated compliance fixes. | `../design-lint/SKILL.md` |
-| `design-review` | Audit existing Figma designs, screens, or components against UI/UX quality rules; output structured violation reports and actionable fixes. | `../design-review/SKILL.md` |
 | `hallmark` | Website design skill (48 material themes, Cold-Hero-First, sloplint gates) for new sites or /hallmark redesign/audit when explicitly invoked. | `../hallmark/SKILL.md` |
 | `iconography` | Figma icon rules: auto-layout child ordering, icon_search -> icon_create tool chain, sizing, alignment, spacing, and consistent stroke weights. | `../iconography/SKILL.md` |
 | `metopen-deck-designer` | Academic slide deck, moodboard, and presentation layout designer. Enforces Swiss grid, clear typographic hierarchy, balanced color palettes, and strict... | `~/.agents/skills/metopen-deck-designer/SKILL.md` |
 | `taste-design` | Universal Art Director for non-web visuals: 3:4 carousels, 16:9 decks, PDF brochures, brand systems, posters, charts, and 14-Pass critique rubric. | `../taste-design/SKILL.md` |
 | `tiar-desainer-feed-ig` | Standar visual, palet warna Dark Luxury, tipografi, layout carousel 4:5, dan penempatan logo untuk postingan feed Instagram @tiar.property. | `~/.agents/skills/tiar-desainer-feed-ig/SKILL.md` |
-| `ui-ux-fundamentals` | Universal UI/UX quality rules across color contrast, typography scale, spacing rhythm, iconography, elevation, layout composition, and accessibility. | `../ui-ux-fundamentals/SKILL.md` |
 | `web-design` | S-Rank web UI design engine: Tailwind + OKLCH, shadcn/ui, Lucide, 48 Hallmark themes, Cold-Hero-First, 300-ref niche vault, and 14-Pass rubric. | `../web-design/SKILL.md` |
 
 ## 03-figma-visual-media — Figma, Vectors, AI Photo Prompts & 4K Upscale (11)
@@ -66,7 +60,6 @@ python3 ~/.gemini/config/skills/find-skills/scripts/find_skills.py --category 04
 | `remotion-markup` | Content, animation and effects best practices | `~/.agents/skills/remotion-markup/SKILL.md` |
 | `remotion-render` | Export a Remotion video | `~/.agents/skills/remotion-render/SKILL.md` |
 | `remotion-studio` | Preview a Remotion video | `~/.agents/skills/remotion-studio/SKILL.md` |
-| `slide-design` | Slide deck aesthetic & layout engine (/slide-design): derive custom light, cream editorial, vibrant, or dark styles with strict 1920x1080 typography. | `../slide-design/SKILL.md` |
 | `tiar-konten-specialist` | Skill spesialis perancangan ide konten video pendek (Reels, TikTok, Meta Ads), B-Roll Only + VO, hook kinetik pembuka 3 detik pertama, dan retraining... | `~/.agents/skills/tiar-konten-specialist/SKILL.md` |
 | `tts-gen` | Gemini 3.8 Flash TTS voiceover (/tts-gen, notif-tts) with Edge-TTS fallback, 7 voices (Koda/Ludo/Aoede/Kore), and EBU R128 mastering for Remotion. | `../tts-gen/SKILL.md` |
 | `web-animation` | 60fps web motion choreography (/web-animation): GSAP ScrollTrigger, SplitText, Flip, React useGSAP, Emil fluid springs, and reduced-motion discipline. | `../web-animation/SKILL.md` |
@@ -77,7 +70,6 @@ python3 ~/.gemini/config/skills/find-skills/scripts/find_skills.py --category 04
 |---|---|---|
 | `brainstorming` | Master /brainstorming engine: design briefs, UI architecture, 139 marketing plays, 5-lens ATM, 5-advisor panel, and real-world conversion case studies. | `../brainstorming/SKILL.md` |
 | `djadi-caption-copywriting` | Write high-converting Instagram/TikTok captions, 5-emotion hooks (Score X/10), and short video scripts with 4-part flow and max 5 hashtags. | `~/.gemini/antigravity-cli/skills/djadi-caption-copywriting/SKILL.md` |
-| `generate-fresh-ideas` | Viral outlier research, 5-lens ATM content engine, Save/Share/Retention teardowns, and beat-by-beat FYP templates for TikTok, Reels, Shorts, Meta Ads. | `../generate-fresh-ideas/SKILL.md` |
 | `humanizer` | De-robot AI prose (/humanizer): remove 26 Wikipedia AI patterns & Indonesian bureaucratic cliches, restore human burstiness and authentic cadence. | `../humanizer/SKILL.md` |
 | `social-media-research` | Viral pattern & FYP recipe engineer: 6-step Falco audit (Save/Share/Retention), hook teardowns, draft drop-off fixes for TikTok, Instagram, and Ads. | `../social-media-research/SKILL.md` |
 | `tiar-edit-caption-ig` | Prosedur audit, pembuatan caption, dan editing caption postingan Instagram @tiar.property menggunakan Browser MCP. | `~/.agents/skills/tiar-edit-caption-ig/SKILL.md` |
@@ -97,10 +89,7 @@ python3 ~/.gemini/config/skills/find-skills/scripts/find_skills.py --category 04
 | `find-skills` | Fast categorized local & remote skill discovery (<5ms index, 6 virtual libraries, bilingual ID/EN ranking) via find_skills.py and npx skills find. | `../find-skills/SKILL.md` |
 | `free-ram` | Linux RAM cleaner (/free-ram, /freeram): flush pagecache/dentries/inodes, compact physical & ZRAM memory, and diagnose top RAM hogs safely. | `../free-ram/SKILL.md` |
 | `gui-automation` | Visual GUI interaction via cua CLI: click buttons, fill forms, verify layouts, take screenshots, and run end-to-end QA on desktops, VMs, or sandboxes. | `../gui-automation/SKILL.md` |
-| `indo-genz-ponytail` | Enforce friendly terse Indonesian Gen-Z response style + /ponytail minimal engineering, zero Malay words, and layman-friendly modern design terms. | `../indo-genz-ponytail/SKILL.md` |
 | `opus-distills` | Default Master Brain (/opus-distills): direct in-brain 6-category routing across 45 core skills + Tier-2 find-skills fallback for plugins/remote. | `../opus-distills/SKILL.md` |
-| `ponytail` | Senior-dev YAGNI minimalism (/ponytail): choose stdlib, native platform features, and shortest working diff over premature abstractions or bloat. | `../ponytail/SKILL.md` |
-| `terse-respon` | Split-channel terse Indonesian chat style (gw/lu, zero fluff, CoD) while keeping 100% uncut, production-complete code, UI, and deliverable files. | `../terse-respon/SKILL.md` |
 | `tiar-meta-ads-auditor-analyst` | Panduan analisis visual Meta Ads berbasis Browser Control & CDP MCP. Menguji kelebihan/kekurangan iklan, mengunci volume chat ber-intent tinggi... | `~/.agents/skills/tiar-meta-ads-auditor-analyst/SKILL.md` |
 
 ## external-skills — External / Workspace Skills (32)

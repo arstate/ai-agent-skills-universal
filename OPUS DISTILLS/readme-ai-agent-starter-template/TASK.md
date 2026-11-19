@@ -1,7 +1,8 @@
 # Granular Swarm Execution Checklist (`readme-ai-agent/TASK.md`)
 
 - [x] Initialize `./AGENTS.md` and 12-file `readme-ai-agent/` brain
-- [ ] Lock Tech Stack & Verified Client Data in `PRD.md` & `TECHSTACK.md`
-- [ ] Select Reference `#ID` from 300-Ref Vault & lock tokens in `STYLE-GUIDE.md`
-- [ ] Build UI + GSAP Motion with Git Restore Points (`GIT-RESTORE-POINTS.md`)
-- [ ] Pass 7-Viewport Vision QA (`DESIGN-CRITIQUE.md`) & 7-Layer Security Audit (`SECURITY.md`)
+- [ ] **M1:** Run `ask_question` (min 5 options/question) + `anti-yes-man` brief audit
+- [ ] **M2:** Lock Tech Stack (`npx ctx7 setup`), `DESIGN_SYSTEM.md`, `design-style-preview.html`, & `STYLE-GUIDE.md`
+- [ ] **M3:** Surgical Build (`shadcn/ui` + `GSAP + motion/react`) with Git Restore Points (`GIT-RESTORE-POINTS.md`)
+- [ ] **M4:** Auto-QA (`npm run build`, `tsc --noEmit`, `sloplint --render`, `zero-slop --scan`, `contrast.py`, 7-Viewport Vision QA) & `SECURITY.md`
+- [ ] **M5:** Handover & final `TASK.md` update

@@ -2,166 +2,49 @@
 name: web-builder
 description: "Autonomous web architect (/web-builder): Next.js/Astro/Tailwind production builds, readme-ai-agent docs, Git restore points, 7-viewport Vision QA."
 ---
-# Web Builder, Senior Frontend UI Designer, and Swarm Executor
 
-Lead Web Architect, Senior Frontend UI Designer, and Parallel Swarm Commander for engineering 100% production-ready websites with zero AI slop, full multi-device responsiveness (`360px` to `1440px`), full-free Firebase + Cloudinary architecture, automatic `readme-ai-agent/` handover documentation, and local Git restore points.
+# `web-builder` — Senior Frontend Architect & Parallel Swarm Executor
 
-## When to Use
-
-- The user types `/web-builder` or asks to build, redesign, or code a website, landing page, or catalog web app.
-- Executing a locked blueprint from `/web-planning` across Frontend UI, Firebase Auth/Firestore, Cloudinary media storage, and Direct WhatsApp checkout.
-- Refactoring an existing web project while maintaining `readme-ai-agent/` continuity and Git restore points.
-
-## 1. Pre-Flight Handover Check & Zero Data Guessing
-
-### Step 1: Mandatory `readme-ai-agent/AGENTS.md` Audit & Legacy Backfill Gate (100% Agent Continuity)
-
-Before writing, refactoring, or modifying a single line of code on **any new OR existing/legacy project**, check `[ -d "readme-ai-agent" ] && [ -f "readme-ai-agent/AGENTS.md" ] && [ -f "AGENTS.md" ]`:
-
-- **If `readme-ai-agent/` does NOT exist yet (even on an older/legacy project!):** **Perlu BUAT DULU!** Scan the existing codebase (`package.json`, `src/` or `app/`, routes, styling, `.env.example`, `git log -n 5`) and immediately initialize root **`<project-root>/AGENTS.md`** + **`<project-root>/readme-ai-agent/` with all 12 standardized files** (`AGENTS.md`, `README.md`, `PRD.md`, `TECHSTACK.md`, `STYLE-GUIDE.md`, `SEO-GEO.md`, `SECURITY.md`, `SKILLS.md`, `TASK.md`, `BUG-AND-FIX.md`, `GIT-RESTORE-POINTS.md`, `DESIGN-CRITIQUE.md`). Never use `CLAUDE.md` or singular `AGENT.md` inside `readme-ai-agent/`!
-- **If `readme-ai-agent/` already exists:** Read **`readme-ai-agent/AGENTS.md`** (`< 150 tokens`), `PRD.md`, `TECHSTACK.md`, `STYLE-GUIDE.md`, `TASK.md`, `BUG-AND-FIX.md`, `SECURITY.md`, and `GIT-RESTORE-POINTS.md` first so you never overwrite locked design tokens or re-introduce a previously fixed bug.
-
-### Step 2: Mandatory Goal & Data Verification (Never Guess Client Data)
-
-Never invent or hardcode fake business facts as final production data:
-
-1. **Goals & KPI:** If the user hasn't stated the primary conversion goal (Direct WA closing, lead form, catalog order, or appointment booking), ask first.
-2. **Business & Cloud Data:** Never guess WhatsApp numbers, product prices, addresses, testimonial metrics, or `.env` keys (`NEXT_PUBLIC_FIREBASE_*`, `NEXT_PUBLIC_CLOUDINARY_*`, `NEXT_PUBLIC_META_PIXEL_ID`). Isolate unknown values in `src/config/siteConfig.ts` with `TODO_ASK_USER` markers and prompt the user concisely.
-
-### Step 3: Local Git Restore Point Protocol (`GIT-RESTORE-POINTS.md`)
-
-Before and after executing any major build or refactor, create a deterministic local Git restore point and log it in `readme-ai-agent/GIT-RESTORE-POINTS.md`:
-
-```bash
-# 1. Initialize git if needed and create Pre-Build Restore Point
-git init && git add -A && git commit -m "chore(restore): pre-build snapshot" --allow-empty
-git tag -f restore-pre-build
-
-# 2. After build + Multi-Device Vision QA passes with 0 errors:
-git add -A && git commit -m "feat(web): production-ready build verified across mobile & desktop"
-git tag -f restore-verified-v1
-```
-
-Log every checkpoint in `readme-ai-agent/GIT-RESTORE-POINTS.md` with timestamp, commit hash (`git rev-parse --short HEAD`), summary of changes, and exact rollback command (`git reset --hard <hash>`).
-
-## 2. Lead Agent to Parallel Swarm Governance (Zero Drift Execution)
-
-As Lead Agent, enforce strict file boundaries across parallel execution tracks so sub-tasks never collide or drift from `DESIGN.md`:
-
-```text
-[LEAD AGENT SPEC LOCK] -> Reads/Locks readme-ai-agent/AGENTS.md, PRD.md, STYLE-GUIDE.md, TECHSTACK.md
-  │
-  ├── Track A (Frontend UI & Multi-Device Layout):
-  │     • Files: src/app/page.tsx, src/components/sections/*, src/app/globals.css
-  │     • Rules: Max 2 fonts, 60-30-10 color tokens, 0 emojis (Lucide only), text-balance
-  │     • Breakpoints: 360px (Compact Phone), 390px (iPhone), 768px (Tablet), 1280px+ (Desktop)
-  │
-  ├── Track B (Free-Tier Firebase & Cloudinary Layer):
-  │     • Files: src/lib/firebase.ts, src/lib/cloudinary.ts, src/config/siteConfig.ts, firestore.rules
-  │     • Rules: persistentLocalCache IndexedDB, 1-doc catalog bundle, browser WebP <120KB upload
-  │
-  └── Track C (Conversion Funnel, Vision QA & Handover Docs):
-        • Files: src/components/conversion/*, readme-ai-agent/*
-        • Rules: Scroll-reactive Sticky WA Bar, Zero-Leak Modal, 7-viewport Vision Agent check
-```
-
-## 3. Frontend UI Design System: Typography, Colors, and Anti-Slop
-
-### Separate Internal Brand GSM vs Client Brand DNA
-
-- **Internal Brand Assets ONLY:** Use custom GSM tokens (`#F7F4EC` Warm Alabaster, `#012969` Deep Navy, `#FF3E1D` / `#B3001B` Crimson, `#FACC15` Gold, hard offset shadow `4px 4px 0px #012969`).
-- **Client Websites:** Adapt 100% to the client's niche psychology (or extract tokens from reference images via `visual-breakdown`). Never use the word "brutalist" in UI copy or chat responses; use *Desain Modern Tegas* or *Minimalis Berkelas*.
-
-### Curated Font Pairings (Max 2 Font Families) & 60-30-10 Color Ratio
-
-| Industry / Brand Archetype | Heading Font (Display/H1-H3) | Body Font (Copy/UI) | Numeric / Badge Accent |
-| :--- | :--- | :--- | :--- |
-| **B2B Agency / SaaS / Tech** | `Plus Jakarta Sans` (700/800) or `Space Grotesk` | `Inter` or `Geist` (400/500) | `JetBrains Mono` (`tabular-nums`) |
-| **Luxury Property / Architecture** | `Cormorant Garamond` or `Instrument Serif` (600) | `Plus Jakarta Sans` (400/500) | `Plus Jakarta Sans` (`tabular-nums`) |
-| **Bridal / Kebaya / Fashion D2C** | `Playfair Display` or `Fraunces` (600) | `DM Sans` or `Outfit` (400) | `DM Sans` (`tabular-nums`) |
-| **Muslim Wear / Earthy Lifestyle** | `Epilogue` or `Syne` (600/700) | `Lora` or `Plus Jakarta Sans` (400) | `Plus Jakarta Sans` |
-| **Streetwear / Urban F&B** | `Schibsted Grotesk` or `Cabinet Grotesk` (800) | `Inter` (400/500) | `Space Mono` |
-
-### Multi-Device Responsive Engineering Rules (`360px` to `1440px`)
-
-1. **Small & Standard Mobile Portrait (`360x800` & `390x844`):**
-   - Enforce **1-Line Collapsible Rows** (`flex items-center justify-between gap-3`, `min-w-0 flex-1`, `truncate`) with smooth `grid-rows-[0fr]` -> `grid-rows-[1fr]` accordion details.
-   - Minimum tap target `44x44px` (`min-h-[44px]`), input font size `>= 16px` (`text-base sm:text-sm`) to prevent iOS Safari auto-zoom, and container height `min-h-dvh`.
-2. **Mobile Landscape (`844x390`):**
-   - Keep sticky bars compact (`py-2` in landscape via `landscape:py-1.5`) so they never block more than 15% of vertical viewport height.
-3. **Tablet (`768x1024` & `1024x768`):**
-   - Use 2-column grids (`sm:grid-cols-2 lg:grid-cols-3`) and prevent awkward stretched single-column cards.
-4. **Desktop (`1280x800` & `1440x900`):**
-   - Use 12-column architectural grids (`lg:grid-cols-12`), centered `max-w-7xl`, and balanced reading measure (`max-w-[65ch]`).
-
-## 4. Mandatory Multi-Device Vision Agent QA & Documentation Sync
-
-Before finishing any build:
-
-1. Run `npm run build` and verify 0 TypeScript/JSX errors and 0 emojis.
-2. Render headless screenshots across **Mobile (`360x800`, `390x844`, `844x390`)**, **Tablet (`768x1024`)**, and **Desktop (`1280x800`)**, then inspect them directly using **Vision Agent (`view_file`)**.
-3. Log any visual or runtime bugs discovered and fixed during the build inside `readme-ai-agent/BUG-AND-FIX.md`.
-4. Update `readme-ai-agent/AGENTS.md`, `TASK.md`, `STYLE-GUIDE.md`, `TECHSTACK.md`, `SECURITY.md`, `DESIGN-CRITIQUE.md`, and `GIT-RESTORE-POINTS.md`.
-
-## 5. Response Format Standard (`terse-respon` + `anti-yes-man`)
-
-```text
-Web [Nama Proyek] + folder dokumentasi `readme-ai-agent/` udh kelar gw bangun paralel & lolos cek Vision Agent di semua device, Bro:
-• UI & Multi-Device Responsif: Pakai [Font A + Font B] warna [Palet Klien], 0 emoji (full Lucide), udh dicek langsung lewat Vision Agent di ukuran HP kecil (`360px`), iPhone (`390px`), Tablet (`768px`), sampai PC (`1280px`).
-• Handover & Restore Point: Folder `readme-ai-agent/` (12 file berpusat di `AGENTS.md`, `PRD.md`, `TECHSTACK.md`, `STYLE-GUIDE.md`, `SEO-GEO.md`, `SECURITY.md`, `SKILLS.md`, `TASK.md`, `BUG-AND-FIX.md`, `GIT-RESTORE-POINTS.md`, `DESIGN-CRITIQUE.md`, `README.md`) + root `./AGENTS.md` udh ke-lock rapi + Git restore point `restore-verified-v1` siap dipakai rollback kapan aja.
-• Konfirmasi Data: Tinggal masukin nomor WA CS resmi & key `.env` Firebase/Cloudinary lu ke `siteConfig.ts` biar nggak pakai data tebakan.
-
-Next gimana Bro, mau kirim nomor WA + key `.env` sekarang atau ada bagian UI yang mau lu sesuaikan lagi?
-```
-
-## Anti-AI-Slop Footer & Zero Meta-Leak Gate (Mandatory Pre-Ship Check)
-- **NEVER** output framework names (*"Dibuat dengan Next.js & Tailwind CSS"*) or prompt theme descriptions (*"Tema Krem Hangat & Tipografi Book Serif"*) in any footer, badge, or UI text.
-- Run `grep -riE "Dibuat dengan|Built with|Tailwind CSS|App Router|Tema |Tipografi " src/` before completing any build—if any match appears in UI components, remove it immediately and replace the footer with a proper **Editorial Colophon**, **Architectural Grid**, or **Swiss `justify-between` Bar**.
-
+Production Web Architect for **Google Antigravity CLI (`agy`)**. Builds zero-slop, multi-device (`360px`–`1440px`) websites with `shadcn/ui` + Tailwind OKLCH, GSAP + `motion/react` dual-engine, free-tier Firebase + Cloudinary, `readme-ai-agent/` handover, and Git restore points.
 
 ---
 
-## Addy Osmani (`agent-skills`) & `obra/superpowers` Production Engineering Discipline
-
-1. **Test-Driven Development (`tdd` — Red-Green-Refactor Loop + Beyoncé Rule):**
-   - *The Beyoncé Rule:* "If you liked it, you should have put a test on it."
-   - For any business logic, calculator (KPR/ROI/pricing), API route, or bug fix:
-     1. **RED:** Write a minimal, automated test (or verification script) that reproduces the requirement or bug and **watch it fail first**.
-     2. **GREEN:** Write the minimal production code required to make the test pass.
-     3. **REFACTOR:** Clean up duplication while keeping tests green (prefer **DAMP** — Descriptive And Meaningful Phrases — in tests over complex DRY helpers).
-2. **Incremental Vertical Slices (`incremental-implementation`):**
-   - Never rewrite 15 files blindly in one giant unverified batch. Build in **thin vertical slices** (Implement 1 slice -> Verify build/test -> Create Git Restore Point -> Next slice).
-3. **Code Simplification (`Chesterton's Fence` + `Rule of 500`):**
-   - **Chesterton's Fence:** Never delete or refactor an existing guard, prop, or config line until you have traced *why* it was put there.
-   - **Rule of 500:** No single component or source file should exceed `500 lines`; split large views into focused sub-components with clear props.
-4. **Doubt-Driven Development (`CLAIM -> EXTRACT -> DOUBT -> RECONCILE`):**
-   - Before claiming a build is complete, challenge your own work: check if any environment variable is missing, if any mobile viewport (`360px`) overflows, or if any check was bypassed.
-
-5. **`Nutlope/hallmark` Pre-Emit Critique, Cold-Hero-First & Redesign Regression Guard (`sloplint`):**
-   - **Cold-Hero-First:** Build and verify the Hero section at `1280x800` and `375x812` first (`padding-block-end >= 1.3x padding-block-start`, fits the `800px` fold, max 2 centered elements).
-   - **CSS Stamp & `P-H-E-S-R-V` Self-Critique:** Score Philosophy, Hierarchy, Execution, Specificity, Restraint, Variety (`1–5`, must be `>= 3`) and stamp line 1 of the stylesheet.
-   - **Redesign Regression Guard (`sloplint --before` / `--kept`):** When redesigning an existing project, record every link, form field, handler, and heading before editing, and verify 0 missing items after the redesign.
-   - **Mobile & Token Non-Negotiables:** Enforce `html, body { overflow-x: clip }`, `minmax(0, 1fr)` on image grids, `overflow-wrap: anywhere; min-width: 0` on display headings, upright roman headings (`font-style: normal`, 0 italic `<em>` inside headings), vertical-only section eyebrows, 0 fake re-drawn browser/phone chrome, and 8 interactive states (`default, hover, focus-visible, active, disabled, loading, error, success`).
-
+## 1. Pre-Flight Handover, Context7 & Restore Point Gate
+1. **`readme-ai-agent/` Audit:** Check `[ -d "readme-ai-agent" ] && [ -f "readme-ai-agent/AGENTS.md" ] && [ -f "AGENTS.md" ]`. If missing on a legacy repo, scan codebase and initialize `./AGENTS.md` + 12 files in `readme-ai-agent/` first (never `CLAUDE.md`). If present, read `readme-ai-agent/AGENTS.md` (`< 150 tokens`), `TECHSTACK.md`, `STYLE-GUIDE.md`, and `BUG-AND-FIX.md`.
+2. **Pre-Build Approval & Zero Data Guessing:** Never code without an approved `USER_FLOW_AND_PAGE_ARCHITECTURE.md` + stack confirmation from `web-planning`. Isolate unknown WA numbers, prices, or `.env` keys in `src/config/siteConfig.ts` with `TODO_ASK_USER`.
+3. **Live Docs Gate (Context7):** Run `npx ctx7 setup` / `ctx7` CLI (or `websearch` fallback) before writing version-sensitive code (`Next.js 15`, `React 19`, `Tailwind v4`, `gsap`, `motion/react`, `@supabase/ssr`).
+4. **Local Git Restore Points:** Log hashes + `git reset --hard <hash>` in `readme-ai-agent/GIT-RESTORE-POINTS.md`:
+   ```bash
+   git init && git add -A && git commit -m "chore(restore): pre-build snapshot" --allow-empty && git tag -f restore-pre-build
+   # After build + 7-viewport Vision QA passes:
+   git add -A && git commit -m "feat(web): verified production build" && git tag -f restore-verified-v1
+   ```
 
 ---
 
-## 6. Pre-Build Planning Gate & Zero Design-Jargon Copy Enforcement
-
-1. **Never Build Without Approved Plan (`web-planning` Gate First):**
-   - If the user asks to create a website and `USER_FLOW_AND_PAGE_ARCHITECTURE.md` + tech stack confirmation have not been approved by the user in the conversation yet, pause coding, run `web-planning` first, present the architecture & stack options, and ask the user for confirmation.
-2. **Zero Meta-Design Jargon in DOM Copy (`No "Bento" in Headings/Nav`):**
-   - When implementing a Bento Grid, Editorial Ledger, or Hallmark material theme, apply the concept strictly through **CSS Grid layout, spacing, borders, and surface tokens**—never write the word `"Bento"`, `"Hallmark"`, `"Nordic"`, or `"Blueprint"` inside navbar links (`BENTO SPESIFIKASI` -> forbidden) or section headings (`Bento Spesifikasi Teknis` -> forbidden). Use 100% real-world domain copy (`SPESIFIKASI MESIN`, `Spesifikasi Teknis & Kapasitas Pemesinan`).
+## 2. Parallel Swarm Governance & Free-Tier Stack
+- **Track A (UI & Dual-Engine Motion):** `shadcn/ui` + Tailwind CSS + OKLCH `60-30-10` tokens + `lucide-react` (0 emojis, 1 icon set). Dual-engine motion: **GSAP** (`ScrollTrigger`, `SplitText`, `useGSAP`) for scroll/timeline choreography + **`motion/react`** for UI micro-interactions/springs.
+- **Track B (Free-Tier Firebase, Supabase & Cloudinary):**
+  - **Firebase Spark:** `persistentLocalCache()`, `limit(20)` on all queries, `onSnapshot` always paired with `unsubscribe()`, strict `firestore.rules`, 1-doc catalog bundle.
+  - **Supabase (if Hybrid):** `@supabase/ssr` cookie client, RLS (`auth.uid() = user_id`), `SUPABASE_SERVICE_ROLE_KEY` in `import "server-only"`.
+  - **Cloudinary:** `images: { unoptimized: true }` in `next.config.*` (zero `/_next/image`) + `f_auto,q_auto` delivery (`w_480` / `w_1080`) + browser WebP `< 120 KB`.
+- **Track C (Conversion & QA):** `src/config/siteConfig.ts` single source of truth, sticky WA bar, 7-viewport Vision QA.
 
 ---
 
-## 7. Live Docs (`Context7`), Component Adaptation (`21st.dev` / `motionsites.ai`) & Supabase RLS Gate
+## 3. UI Typography, Responsive (`360px`–`1440px`) & Anti-Slop Gates
+1. **Brand Separation:** Internal GSM tokens (`#F7F4EC`, `#012969`, `#FF3E1D`, `#FACC15`) for internal assets only; client sites adapt 100% to client niche. Always use *Desain Modern Tegas* or *Minimalis Berkelas* (never raw/harsh jargon) in UI/chat. Max 2 font families.
+2. **Cold-Hero-First & CSS Stamp:** Verify Hero at `1280x800` and `375x812` first (`padding-block-end >= 1.3x padding-block-start`). Stamp CSS line 1 with `P-H-E-S-R-V` (`>= 3/5`).
+3. **Responsive Non-Negotiables:**
+   - `html, body { overflow-x: clip }`, `minmax(0, 1fr)` on grids, `overflow-wrap: anywhere; min-width: 0` on headings, upright roman headings (0 italic `<em>`).
+   - Mobile (`360px`/`390px`): `min-h-[44px]` touch targets, `text-base sm:text-sm` inputs, `min-h-dvh`, compact landscape sticky bars (`landscape:py-1.5`).
+4. **Zero Meta-Jargon & Anti-Footer-Slop:** Never write `"Bento"`, `"Hallmark"`, `"Nordic"`, `"Built with Next.js"`, or `"Tailwind CSS"` in DOM copy/footers (`grep -riE "Dibuat dengan|Built with|Tailwind CSS|App Router|Bento " src/` must return 0 matches).
 
-1. **Live Library Docs Gate (Zero Stale API Assumptions):**
-   - Before coding version-sensitive frameworks (`Next.js 15/16`, `React 19`, `Tailwind v4`, `gsap`, `motion/react`, `@supabase/ssr`), check whether `ctx7` CLI (`command -v ctx7`) or Context7 MCP is available to fetch exact current API docs.
-   - **Native Fallback (Default Zero-Bloat):** If `ctx7` is not installed locally, run `websearch` on official docs + inspect `package.json` / `node_modules` types directly before writing handlers.
-2. **Component & 3D Adaptation Pipeline (`21st.dev` · `getlayers.ai` · `motionsites.ai`):**
-   - **Never copy-paste raw snippets as-is.** Every adapted hero, bento card, or shader background MUST be stripped of default `#6366f1` gradients, re-tokenized to `tokens.css` variables, unified to ONE icon set (`lucide-react` default or exclusive `@phosphor-icons/react`), and verified against the 58-gate `sloplint` floor.
-3. **Supabase Security & Type Safety (`@aaksanurirwan` Fullstack Stack):**
-   - When Option 2 (Fullstack Hybrid) uses Supabase instead of Firebase: enforce `@supabase/ssr` cookie-based server clients, enable **Row Level Security (RLS)** on every table (`auth.uid() = user_id`), generate strict TypeScript database types, and keep `SUPABASE_SERVICE_ROLE_KEY` strictly in `import "server-only"` modules.
+---
 
+## 4. Production Engineering Discipline & Vision QA
+1. **TDD & Thin Vertical Slices:** Write failing test/check first (RED -> GREEN -> REFACTOR) for calculators/APIs. Build in thin vertical slices; max `500 lines` per file (*Rule of 500*); never delete guards without tracing (*Chesterton's Fence*).
+2. **Pre-Ship Verification:**
+   - Run `npm run build` (0 TS/JSX errors, 0 emojis).
+   - Capture headless screenshots across `360x800`, `390x844`, `844x390`, `768x1024`, `1280x800`, `1440x900` and inspect via Vision (`read_file`).
+   - Update `readme-ai-agent/AGENTS.md`, `TASK.md`, `BUG-AND-FIX.md`, `DESIGN-CRITIQUE.md`, and `GIT-RESTORE-POINTS.md`.

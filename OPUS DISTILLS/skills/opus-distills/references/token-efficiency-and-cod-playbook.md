@@ -79,7 +79,7 @@ When you need to audit a codebase (e.g., find all components missing `export con
 Write and run a 5-line script in the sandbox (`execute_bash` or `ctx_execute`) that computes the answer and prints **only the compact summary (`< 3 KB`)**:
 
 ```bash
-# ❌ BAD: Calling view_file 25 times on every page.tsx (burns 60,000+ tokens)
+# ❌ BAD: Calling read_file 25 times on every page.tsx (burns 60,000+ tokens)
 # ✅ GOOD (Think in Code — 1 call, < 500 tokens returned!):
 python3 -c '
 import glob, re
@@ -150,10 +150,10 @@ Pair `opus-distills` with the native `mksglu/context-mode` MCP plugin on your lo
 ## 5. CRITICAL GUARDRAIL: Why Aggressive `context-mode` Hooks Make Agents "Dumb / Blind" (And How We Prevent It)
 
 From real-world engineering post-mortems (Hacker News #47193064 & Adobe/JetBrains benchmarks):
-1. **The Blind Extraction Trap:** Installing aggressive `PreToolUse` hooks that block `Read` / `view_file` forces the agent to write an extraction script *before* it knows the file structure. If the script misses a helper function, prop type, or Tailwind class, the agent **hallucinates duplicate code or breaks the component**.
+1. **The Blind Extraction Trap:** Installing aggressive `PreToolUse` hooks that block `Read` / `read_file` forces the agent to write an extraction script *before* it knows the file structure. If the script misses a helper function, prop type, or Tailwind class, the agent **hallucinates duplicate code or breaks the component**.
 2. **BM25 Failure on Code/JSX/JSON:** FTS5 keyword search fails on structural JSX/CSS hierarchies.
 3. **Our Mandatory Anti-Plenger Rule:**
-   - **DO NOT install aggressive `PreToolUse` hooks that block native `Read` / `view_file`!**
+   - **DO NOT install aggressive `PreToolUse` hooks that block native `Read` / `read_file`!**
    - **100% Full Read on Active Code Files:** Whenever editing a `.tsx`, `.ts`, `.css`, or config file (`< 400 lines`), read the file directly so you have 100% structural awareness.
    - **Filter ONLY Noisy Logs & Bulk Scans:** Use script/pipe filtering (`tail -n 25`, `grep`, or summary scripts) strictly for build outputs, test logs, or counting across 50+ files.
 

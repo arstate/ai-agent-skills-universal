@@ -23,13 +23,13 @@ Before executing ANY phase on a web repository:
 
 Never load all 7 web skills in a single turn unless executing a full one-shot build. Route strictly by phase:
 
-| Current Phase | Trigger / Condition | Skills to Call via `lookup_skills` (Max 2–3) | Target Files Updated in `readme-ai-agent/` |
+| Current Milestone | Trigger / Condition | Skills to Load (Max 2–3) | Target Files Updated in `readme-ai-agent/` |
 |---|---|---|---|
-| **0. Ideation** | User wants layout/campaign/strategy ideas | `user:brainstorming` + `user:web-design` | `PRD.md` (Selected Angle), `AGENTS.md` |
-| **1. Audit, Stack Selection & Scope** | New project, legacy project missing `readme-ai-agent/`, or underspecified request | `user:web-planning` + `user:web-design` | `./AGENTS.md`, `readme-ai-agent/AGENTS.md`, `PRD.md`, `TECHSTACK.md` (4-Stack Recommender), `STYLE-GUIDE.md`, `SEO-GEO.md`, `TASK.md` |
-| **2. UI & DNA Build** | Building components, cloning reference UI, or styling | `user:web-builder` + `user:web-design` | `STYLE-GUIDE.md` (`DESIGN-DNA.json`), `GIT-RESTORE-POINTS.md`, `TASK.md`, `AGENTS.md` |
-| **3. Motion & GSAP** | Adding ScrollTrigger, SplitText, Flip, or hero motion | `user:web-animation` + `user:web-builder` | Animated components + `STYLE-GUIDE.md` motion tokens + `AGENTS.md` |
-| **4. QA, Hack Audit & Speed** | Pre-ship verification, bug fixing, or quota shielding | `user:web-debugging` + `user:web-optimization` | `SECURITY.md`, `BUG-AND-FIX.md`, `DESIGN-CRITIQUE.md`, `TECHSTACK.md`, `AGENTS.md` |
+| **M1. Discovery & Ask-First** | New/underspecified request; mandatory `ask_question` (min 5 options/question: market, design style/ref, stack, core anchor) | `anti-yes-man` + `brainstorming` | `PRD.md` (Selected Angle), `AGENTS.md` |
+| **M2. Contract, Plan & Design** | Architecture, `DESIGN.md` / `DESIGN_SYSTEM.md`, `design-style-preview.html`, 12-file `readme-ai-agent/`, wait for user ACC | `web-planning` + `web-design` | `./AGENTS.md`, `readme-ai-agent/AGENTS.md`, `PRD.md`, `TECHSTACK.md`, `STYLE-GUIDE.md`, `SEO-GEO.md`, `TASK.md` |
+| **M3. Surgical Build** | Building components, styling, GSAP/motion (`web-animation`), 100% YAGNI | `web-builder` + `web-design` + `web-animation` | `STYLE-GUIDE.md`, `GIT-RESTORE-POINTS.md`, `TASK.md`, `AGENTS.md` |
+| **M4. Auto QA & Self-Debugging** | `build`, `sloplint.mjs --render`, `contrast.py`, 7-vp Vision QA, quota shielding | `web-debugging` + `web-optimization` | `SECURITY.md`, `BUG-AND-FIX.md`, `DESIGN-CRITIQUE.md`, `TECHSTACK.md`, `AGENTS.md` |
+| **M5. Handover** | Final verification, clean `TASK.md`, Git restore point & deploy notes (for Option 5 Android Kotlin/Compose, hand off build & ADB QA to `android-cli` via Tier-2 `find-skills`) | `web-master-agent` | `TASK.md`, `GIT-RESTORE-POINTS.md`, `AGENTS.md` |
 
 ---
 
