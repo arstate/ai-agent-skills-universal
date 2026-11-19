@@ -6,8 +6,8 @@ Paket lengkap **37+ Specialist AI Agent Skills + Nutlope/hallmark v2.8.0 + Figma
 
 ## ⚡ Fitur Utama & Keunggulan
 
-1. **Master Universal Dispatcher (`@opus-distills`):**
-   Cukup tag `@opus-distills`, agen otomatis mendeteksi kebutuhan prompt pengguna dan me-load skill spesialis yang tepat tanpa perlu tag manual satu per satu.
+1. **Master Universal Dispatcher & 5-Milestone Workflow (`@opus-distills`):**
+   Cukup tag `@opus-distills`, agen otomatis menjalankan **5-Milestone (`M1–M5`) Workflow** (M1 Planning & mandatory 5-option `ask_question`, M2 `shadcn/ui` + Hallmark Design, M3 Build + Context7 doc verification, M4 GSAP + `motion/react` Animation, M5 Forensic QA + Firebase Spark / Cloudinary `f_auto,q_auto` / Vercel Zero-Bandwidth Shield) dan me-load skill spesialis yang tepat tanpa perlu tag manual satu per satu.
 2. **Hukum Besi Anti-Plenger (`view_file` Gate):**
    Memaksa AI untuk benar-benar membuka dan membaca file `SKILL.md` serta dokumen referensi sebelum menulis kode/jawaban, dan mencetak bukti baca `🔧 [Skills Auto-Loaded: ...]` di baris pertama.
 3. **Nutlope/hallmark v2.8.0 Integration:**

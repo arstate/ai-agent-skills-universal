@@ -39,15 +39,23 @@ for src_base in "$SCRIPT_DIR/skills" "$SCRIPT_DIR"; do
         echo "  -> Skill installed: $dirname"
       fi
     done
-    # Consolidate legacy slidedeck-gen & next-slidedeck-engine into pdf-deck, and purge duplicate legacy opus aliases
+    # Consolidate legacy slidedeck-gen & next-slidedeck-engine into pdf-deck, and purge duplicate legacy opus aliases + 11 merged/deleted skills
+    STALE_SKILLS=(
+      "opus-distill" "opus5.5-distill" "opus5-5s-distill"
+      "indo-genz-ponytail" "ponytail" "terse-respon"
+      "design-creator" "design-guardian" "ui-ux-fundamentals" "design-lint" "design-review"
+      "optimasi-nextjs-bandwidth" "slide-design" "generate-fresh-ideas"
+    )
     for dest in "${DEST_DIRS[@]}"; do
-      rm -f "$dest/opus-distill" "$dest/opus5.5-distill" "$dest/opus5-5s-distill" 2>/dev/null || true
+      for stale in "${STALE_SKILLS[@]}"; do
+        rm -rf "$dest/$stale" 2>/dev/null || true
+      done
       [ -d "$dest/slidedeck-gen" ] && [ ! -L "$dest/slidedeck-gen" ] && rm -rf "$dest/slidedeck-gen"
       [ -d "$dest/next-slidedeck-engine" ] && [ ! -L "$dest/next-slidedeck-engine" ] && rm -rf "$dest/next-slidedeck-engine"
       ln -sfn "pdf-deck" "$dest/slidedeck-gen"
       ln -sfn "pdf-deck" "$dest/next-slidedeck-engine"
     done
-    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck (+ purged stale opus aliases)"
+    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck (+ purged stale opus aliases & 11 merged skills)"
     break
   fi
 done

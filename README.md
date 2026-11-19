@@ -1,17 +1,17 @@
 # Universal AI Agent Skills Ecosystem (`opus-distills` Edition)
 
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#)
-[![Skills](https://img.shields.io/badge/skills-27%2B%20Universal%20Packs-emerald.svg)](#)
-[![Standard](https://img.shields.io/badge/standards-Frontend%20Slides%20%2B%20Hallmark%20v2.8.0-orange.svg)](#)
+[![Skills](https://img.shields.io/badge/skills-34%20Consolidated%20Packs-emerald.svg)](#)
+[![Standard](https://img.shields.io/badge/standards-M1--M5%20%2B%20Hallmark%20v2.8.0-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](#)
 
-A high-performance, production-ready ecosystem of **27+ universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
+A high-performance, production-ready ecosystem of **34 consolidated universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
 
 ---
 
 ## ⚡ Prompt Sekali Paste untuk AI Agent (One-Shot Boot Prompt)
 
-> **Cukup copy-paste prompt di bawah ini ke AI Agent baru (Google Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, atau Cline) untuk langsung menginstal, memverifikasi, dan mengaktifkan seluruh 23+ skills, browser tools, dan rules secara otomatis dari awal:**
+> **Cukup copy-paste prompt di bawah ini ke AI Agent baru (Google Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, atau Cline) untuk langsung menginstal, memverifikasi, dan mengaktifkan seluruh 34 consolidated skills, browser tools, dan rules secara otomatis dari awal:**
 
 ```markdown
 Install dan inisialisasi ekosistem AI Agent Skills Universal (Opus Distills, Next.js Presentation Studio, SVG Gen, Hallmark v2.8.0, Web Builder, dll.) di mesin ini sekarang. Jalankan perintah instalasi berikut:
@@ -55,8 +55,8 @@ fi && bash "OPUS DISTILLS/install-default-opus.sh"
 
 ## 🚀 Key Highlights & Capabilities
 
-### 1. Presentation Studio & High-Fidelity PDF/PPTX Engine: `pdf-deck` & `slide-design`
-Autonomous presentation studio engine built on Next.js, featuring full multi-aesthetic creative freedom:
+### 1. Presentation Studio & High-Fidelity PDF/PPTX Engine: `pdf-deck`
+Autonomous presentation studio engine built on Next.js, featuring full multi-aesthetic creative freedom (`slide-design` & `slidedeck-gen` consolidated into `pdf-deck`):
 - **Next.js Multi-Aesthetic Presentation Studio (`pdf-deck`)**:
   * Built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
   * **Autonomous AI GEN Mode (Single Flexible Option):** Eliminates rigid template pickers in favor of 1 single `AI GEN (Autonomous Creative Layout)` option. The AI agent retains complete creative freedom to tailor visual geometry, kinetic accents, brand typography, and adaptive layouts per slide.
@@ -84,18 +84,19 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
   * In-place text editing auto-saved to disk with real-time sync.
   * 34 Zara Zhang Bold Production Archetypes (`signal`, `studio`, `capsule`, `editorial-forest`, `neo-grid-bold`, etc.).
 
-### 2. Universal Master Agent & Autonomous Router (`opus-distills`)
-- Automatically dispatches user tasks to specialist skills based on intent.
-- Guarantees zero "blind-guessing" by enforcing real file inspections before writing code.
+### 2. Universal Master Agent & 5-Milestone Workflow (`opus-distills`)
+- Automatically dispatches user tasks across **34 consolidated skills** based on intent.
+- Enforces the **5-Milestone (`M1–M5`) Workflow**: M1 Planning & Mandatory 5-option `ask_question`, M2 Design System (`shadcn/ui` + Hallmark), M3 Build & Context7 verification, M4 Animation (GSAP + `motion/react`), M5 Forensic QA & Zero-Bandwidth Shield.
+- Guarantees zero "blind-guessing" by enforcing real file inspections (`read_file`) and Context7 doc lookups before writing code.
 - Implements Split-Channel Terse communication: ultra-compressed chat commentary while producing 100% complete, unclipped deliverables.
 
 ### 3. Fullstack Web Architecture & Engineering Suite
-- **`web-planning`**: Pre-flight user flow architecture, Mermaid diagrams, Next.js 15 App Router static export recommendations (`output: 'export'`), and PRD generation.
-- **`web-design`**: High-taste frontend UI engineering integrating `Nutlope/hallmark` v2.8.0 (58 `sloplint` quality gates and 48 physical material themes).
-- **`web-builder`**: Autonomous parallel swarm implementation with cold-hero-first layouts, responsive mobile portrait + desktop views, and zero guessing.
-- **`web-animation`**: Production GSAP, ScrollTrigger, Flip, and interactive micro-interactions.
+- **`web-planning`**: Pre-flight user flow architecture, Mermaid diagrams, mandatory **5-option `ask_question`** gate, Next.js 15 App Router static export recommendations (`output: 'export'`), and PRD generation.
+- **`web-design`**: High-taste frontend UI engineering integrating `shadcn/ui`, `Nutlope/hallmark` v2.8.0 (58 `sloplint` quality gates and 48 physical material themes).
+- **`web-builder`**: Autonomous parallel swarm implementation with Context7 doc verification, cold-hero-first layouts, responsive mobile portrait + desktop views, and zero guessing.
+- **`web-animation`**: Production **GSAP** (ScrollTrigger, Flip), **`motion/react`** fluid springs, and interactive micro-interactions.
 - **`web-debugging`**: Forensic 7-viewport responsive testing (`360x800` to `1440x900`), horizontal scroll overflow detection, and security auditing.
-- **`web-optimization`**: Next.js zero-usage Vercel shield (1,000,000+ clicks on hobby tier), Cloudflare edge caching, and Core Web Vitals optimization.
+- **`web-optimization`**: **Vercel Zero-Bandwidth Shield** (`optimasi-nextjs-bandwidth` merged), **Firebase Spark** free-tier guardrails, **Cloudinary `f_auto,q_auto`** media optimization, Cloudflare edge caching, and Core Web Vitals optimization.
 
 ### 4. Visual Chrome Browser Control & Live AI Cursor HUD (`chrome-browser-control`)
 - Controls headed Google Chrome GUI across Linux, macOS, and Windows via CDP on port `9223`.
