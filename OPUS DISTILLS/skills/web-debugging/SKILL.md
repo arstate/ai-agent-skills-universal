@@ -23,6 +23,7 @@ Run this sequential loop until **0 errors, 0 FAIL, 0 overflow, 0 console errors*
    - Inspect live screenshots via Vision Agent (`read_file`) across `360x800`, `390x844`, `412x915`, `844x390`, `768x1024`, `1024x768`, `1280x800`, `1440x900`.
    - Verify `0` console errors, `document.documentElement.scrollWidth <= window.innerWidth`, `>= 44px` tap targets, `0` 2-line clickable buttons, and `0` meta-jargon leaks (`Bento`, `Hallmark`, `Dibuat dengan...`).
    - **Visible Chrome + AI Cursor HUD:** Run visual checks in visible Chrome on port `9223` (`launch-visible-chrome.sh` + `cdp_visual_agent.py` / `ai-cursor-hud.js`); use `playwright-cli` only for fast headless smoke assertions.
+   - **Legacy Pattern Scan (`modern-web-guidance`):** Optionally run `npx modern-web-guidance@latest legacy-scan .` to catch outdated JS/CSS patterns.
 
 ## 3. `obra/superpowers` 4-Phase Root Cause Protocol (The Iron Law)
 > **NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST.** Symptom fixes are forbidden.

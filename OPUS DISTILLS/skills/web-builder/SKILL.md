@@ -37,6 +37,7 @@ Production Web Architect for **Google Antigravity CLI (`agy`)**. Builds zero-slo
 2. **Cold-Hero-First & CSS Stamp:** Verify Hero at `1280x800` and `375x812` first (`padding-block-end >= 1.3x padding-block-start`). Stamp CSS line 1 with `P-H-E-S-R-V` (`>= 3/5`).
 3. **Responsive Non-Negotiables:**
    - `html, body { overflow-x: clip }`, `minmax(0, 1fr)` on grids, `overflow-wrap: anywhere; min-width: 0` on headings, upright roman headings (0 italic `<em>`).
+   - Prefer native web platform APIs (`@container`, `subgrid`, `<dialog>`, `Popover API`, `View Transitions`) over heavy JS dependencies.
    - Mobile (`360px`/`390px`): `min-h-[44px]` touch targets, `text-base sm:text-sm` inputs, `min-h-dvh`, compact landscape sticky bars (`landscape:py-1.5`).
 4. **Zero Meta-Jargon & Anti-Footer-Slop:** Never write `"Bento"`, `"Hallmark"`, `"Nordic"`, `"Built with Next.js"`, or `"Tailwind CSS"` in DOM copy/footers (`grep -riE "Dibuat dengan|Built with|Tailwind CSS|App Router|Bento " src/` must return 0 matches).
 

@@ -44,4 +44,4 @@ Never force `output: 'export'` on a Fullstack app—adapt to the active stack:
 ## 4. Firebase Spark, Cloudinary & Core Web Vitals (`LCP < 1.2s`)
 1. **Firebase Spark (50k Reads/Day):** Enable `persistentLocalCache()`, enforce `limit(20)` on queries, pair `onSnapshot` with `unsubscribe()`, and pack active catalog into 1 bundle doc (`< 800 KB`).
 2. **Cloudinary (25 Credits):** Browser `<canvas>` WebP pre-compression (`<= 1200px`, `< 120 KB`); lock delivery URLs to `f_auto,q_auto,w_480` (cards) and `f_auto,q_auto,w_1080` (hero/detail).
-3. **CWV (`LCP < 1.2s`, `INP < 200ms`, `CLS = 0`):** Hero `fetchPriority="high" loading="eager"`; below-fold `loading="lazy"`; wrap filters in `startTransition()`; lock `aspect-[4/3]` / `aspect-[16/9]`.
+3. **CWV (`LCP < 1.2s`, `INP < 200ms`, `CLS = 0`):** Hero `fetchPriority="high" loading="eager"`; below-fold `loading="lazy"`; wrap filters in `startTransition()` and yield heavy main-thread work with `scheduler.yield()`; lock `aspect-[4/3]` / `aspect-[16/9]`.

@@ -24,6 +24,7 @@ Opinionated, accessibility-aware, AI-slop-resistant Web & Frontend Design Collab
 ## 2. The 4 Iron Pillars & Dual-Engine Motion
 1. **Tailwind CSS v3.4/v4 + OKLCH:** Use `oklch(L C H)` with `|L_text - L_bg| >= 50%` (WCAG 4.5:1 / APCA Lc >= 60). No Bootstrap/Bulma.
 2. **`shadcn/ui` (Radix Primitives):** Copy-paste unstyled components (`components/ui/*`) with full ARIA & keyboard support. No Ant/MUI/Mantine.
+3. **Native Web Platform First (`modern-web-guidance`):** Prefer CSS `@container`, `subgrid`, `View Transitions`, `Popover API`, `<dialog>`, and `:user-invalid` before adding heavy JS libraries.
 3. **Single Icon Set:** `lucide-react` default (1.5px–2px stroke) or `@phosphor-icons/react` exclusively—never mix icon libraries.
 4. **Dual-Engine Motion (`GSAP + motion/react`):**
    - **GSAP (`useGSAP`, `ScrollTrigger`, `SplitText`, `Flip`):** Scroll choreography, pinned timelines, and text splits.

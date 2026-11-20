@@ -60,6 +60,9 @@ npx -y skills find "<query>" --owner vercel-labs
 
 # Filter kualitas sebelum pasang: prioritaskan >1.000 install & repo resmi kredibel
 npx -y skills add <owner/repo@skill> -g -y
+
+# On-demand Tier-2 Web Platform Guidance (262 fitur modern, hemat token):
+npx modern-web-guidance@latest search "<query>"
 ```
 
 Setelah instalasi remote via `find_skills.py --add <pkg>`, indeks lokal dan `SKILL-CATALOG.md` otomatis diperbarui.
