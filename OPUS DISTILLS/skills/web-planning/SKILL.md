@@ -28,9 +28,10 @@ Never assume a single stack blindly. Present a sharp Co-Founder recommendation w
 | **5. Hono Cloudflare Workers / Android Kotlin** | Edge APIs/Webhooks (`Hono`) or Native Mobile (`Kotlin/Compose MVVM/MVI`) | Hono: `0ms` cold start on CF Workers. Android: Jetpack Compose + Hilt + Room + StateFlow MVI/MVVM (hand off build & ADB QA to `android-cli` via Tier-2 `find-skills`). |
 
 ### Mandatory Pre-Build Verification Checklist (Ask via `ask_question` Before Coding)
-1. **Stack & Surface Lock:** Confirm Option 1–5 + target market/language.
-2. **Primary Conversion KPI:** Direct WhatsApp (`wa.me`), Calculator Lead Capture, Catalog Checkout, or Booking.
-3. **Real Business Data (`[stated]` Only):** Official WA number, real prices, NAP address, verified metrics (`TODO_ASK_USER` in `src/config/siteConfig.ts` if missing).
+1. **5 Product & Stack Discovery Questions (`M1 Ide`, min 5 options each via `ask_question`):**
+   - User & kebiasaan saat ini -> 1 aksi utama sebelum menutup web -> Top 3 fitur wajib (`is_multi_select: true`) -> Keunggulan & retensi -> Stack (Option 1–5) & arah visual (`R1–R4`).
+2. **Interactive Mindmap (`M2` via `mindmap-engine` MCP):** Call `render_mindmap(project_dir, title, phases)` + `open_mindmap_preview(project_dir)` to save & preview `readme-ai-agent/mindmap.json` and `readme-ai-agent/mindmap.html` (Fase 1–4 + Sub Fitur) in visible Chrome (port `9223`).
+3. **Primary Conversion KPI & Real Business Data (`[stated]` Only):** Official WA number, real prices, NAP address, verified metrics (`TODO_ASK_USER` in `src/config/siteConfig.ts` if missing).
 4. **Live Docs & Visual Register:** Run `npx ctx7 setup` (Upstash Context7) for version-sensitive docs (`Next.js 15`, `React 19`, `Tailwind v4`, `Compose`). Lock `DESIGN_SYSTEM.md` (60/30/10 OKLCH tokens, `R1–R4`).
 5. **Cloud & Free-Tier Shield Keys:**
    - **Firebase Spark:** `persistentLocalCache()`, `limit(20)` on queries, `onSnapshot` paired with `unsubscribe()`, strict `firestore.rules`.

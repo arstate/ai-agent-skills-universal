@@ -26,6 +26,10 @@ for cfg_path in candidates:
     data = json.loads(cfg_path.read_text(encoding="utf-8"))
     mcp = data.setdefault("mcpServers", {})
     mcp["context-mode"] = {"command": bin_path}
+    mcp["mindmap-engine"] = {
+        "command": "python3",
+        "args": [str(Path.home() / ".agents/tools/mindmap-engine/mindmap_mcp.py")],
+    }
     cfg_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    print(f"[context-mode] Registered in {cfg_path}")
+    print(f"[context-mode + mindmap-engine] Registered in {cfg_path}")
 PY

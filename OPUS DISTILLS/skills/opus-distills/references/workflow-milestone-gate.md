@@ -1,27 +1,28 @@
 # Mandatory 5-Step Milestone Workflow & Critical Ask-First Gate
 
-Setiap task kompleks (build fitur, web, redesign, sistem, atau arsitektur) **WAJIB** mengikuti 5 milestone berurut. Dilarang keras loncat langsung ke coding sebelum M1 & M2 beres.
+Setiap task kompleks (build fitur, web, redesign, sistem, atau arsitektur) **WAJIB** mengikuti 5 milestone berurut (**Ide -> Mindmap -> PRD -> Task -> Build -> QA**). Dilarang keras loncat langsung ke coding sebelum M1 & M2 beres.
 
 ---
 
-## M1 — Critical Discovery & Ask-First Gate (`ask_question`)
+## M1 — Critical Discovery & Ask-First Gate (`Ide`: `ask_question` Minimal 5 Opsi)
 1. **Audit Brief & Asumsi:** Identifikasi celah, ambiguitas, atau keputusan berisiko dari prompt user.
-2. **Wajib Tanya Dulu (1 pesan padat, maks 4 pertanyaan tajam):**
-   - **(a) Market & Bahasa:** Target audiens, negara, dan bahasa utama UI/copy.
-   - **(b) Existing System vs New:** Ada design system/Figma/tokens/repo existing, atau bangun dari nol?
-   - **(c) Core Anchor / 1 Hal Utama:** 1 hal paling berkesan atau fungsi utama yang wajib langsung terlihat di viewport pertama.
-   - **(d) Expression Register (`R1–R4`):** `R1 Utility` / `R2 Composed` / `R3 Expressive` / `R4 Experimental` + rekomendasi agent & trade-off-nya.
-3. **Rule:** Jika ada yang tidak jelas, **panggil `ask_question`**. Dilarang menebak diam-diam.
+2. **Wajib Tanya Dulu (panggil `ask_question`, minimal 5 opsi pilihan per pertanyaan):**
+   - **Q1 — User & Kebiasaan Saat Ini:** Siapa target user utama & cara mereka mencari/menyelesaikan masalah ini sekarang?
+   - **Q2 — 1 Aksi Utama (Core Anchor):** Satu hal wajib berhasil dilakukan user sebelum menutup web/app?
+   - **Q3 — Top 3 Fitur Wajib (`is_multi_select: true`):** Pilih 3 fitur prioritas Fase 1 (min 5 opsi fitur sesuai niche).
+   - **Q4 — Keunggulan & Alasan Kembali (Retensi):** Apa pembeda utama dari solusi yang ada & apa yang bikin user balik lagi?
+   - **Q5 — Arah Visual (`R1–R4`) & Tech Stack:** 5 opsi rekomendasi stack/visual (e.g., Next.js 15 Export, Hybrid BaaS, Astro 5, Vite SPA, Compose + register `R1–R4`).
+3. **Rule:** Dilarang menebak data/tujuan bisnis diam-diam — kunci via `ask_question` dulu.
 
 ---
 
-## M2 — Architecture, `DESIGN_SYSTEM.md` & Milestone Plan
-1. **Binary Anti-Slop Checks:** Konversi brief jadi aturan biner (warna 60/30/10, tipografi, grid, larangan AI slop).
-2. **Artifact Wajib (untuk web/UI):**
-   - `DESIGN_SYSTEM.md` (single source of truth token, font, spacing, komponen).
-   - `readme-ai-agent/` (12 file) + `USER_FLOW_AND_PAGE_ARCHITECTURE.md` (Mermaid) jika proyek repo baru.
-3. **Pecah Milestone:** Tulis daftar milestone berurut (M3.1, M3.2, dst.) dengan kriteria selesai yang terukur.
-4. **Confirm Gate:** Minta ACC user sebelum masuk M3.
+## M2 — Mindmap Engine, `PRD`, `DESIGN_SYSTEM.md` & `Task`
+1. **Visual Mindmap Struktur Fitur (`mindmap-engine` MCP):**
+   - Panggil MCP `mindmap-engine` -> `render_mindmap(project_dir, title, phases)` untuk membuat `readme-ai-agent/mindmap.json` + `readme-ai-agent/mindmap.html` (tree **Fase 1–4** lengkap dengan **Sub Fitur** tiap fitur).
+   - Panggil `open_mindmap_preview(project_dir)` untuk auto-preview langsung di browser Chrome visible (port `9223`).
+2. **Generate `PRD` & `Task` (`readme-ai-agent/`):**
+   - Setelah Mindmap di-review/ACC, tulis `readme-ai-agent/` (12 file, termasuk `PRD.md`, `TECHSTACK.md`, `STYLE-GUIDE.md`, `TASK.md` terstruktur per Fase 1–4), `DESIGN_SYSTEM.md`, & `USER_FLOW_AND_PAGE_ARCHITECTURE.md` (plus `design-style-preview.html` untuk web).
+3. **Confirm Gate:** Minta ACC user sebelum masuk M3.
 
 ---
 

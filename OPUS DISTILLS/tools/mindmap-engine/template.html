@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__TITLE__ — Project Mindmap</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: #0b0f19;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: #e2e8f0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  }
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 56px;
+    background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; z-index: 50;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; }
+  .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: #f97316; box-shadow: 0 0 12px #f97316; }
+  .steps { display: flex; align-items: center; gap: 20px; font-size: 13px; color: #64748b; }
+  .step.active { color: #f8fafc; font-weight: 600; }
+  .step.active::before { content: "• "; color: #f97316; }
+  .controls { display: flex; align-items: center; gap: 8px; }
+  .btn {
+    background: #1e293b; color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.2);
+    padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
+  }
+  .btn:hover { background: #334155; }
+  #viewport { width: 100vw; height: 100vh; cursor: grab; position: relative; }
+  #viewport:active { cursor: grabbing; }
+  #canvas { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+  #edges { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; }
+  .node {
+    position: absolute; background: #131b2e; border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 12px; padding: 14px 18px; width: 240px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); transition: border-color 0.2s, transform 0.2s;
+  }
+  .node:hover { border-color: rgba(249, 115, 22, 0.6); }
+  .node-root {
+    width: 230px; border-color: rgba(249, 115, 22, 0.45);
+    background: linear-gradient(145deg, #172036, #111827);
+  }
+  .node-title { font-size: 14px; font-weight: 600; color: #f8fafc; margin-bottom: 4px; }
+  .node-sub { font-size: 12px; color: #94a3b8; }
+  .badge {
+    position: absolute; top: -10px; right: 14px; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 999px; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .fase-1 { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+  .fase-2 { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.4); }
+  .fase-3 { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+  .fase-4 { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+  .sub-card { width: 250px; padding: 12px 14px; }
+  .sub-header { font-size: 10px; font-weight: 700; color: #64748b; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .sub-item {
+    background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #cbd5e1; margin-bottom: 5px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sub-item::before { content: "•"; color: #64748b; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><span class="brand-dot"></span><span>__TITLE__</span></div>
+    <div class="steps">
+      <span class="step active">Ide &amp; Mindmap</span>
+      <span class="step">PRD</span>
+      <span class="step">Task</span>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetView()">Reset View</button>
+      <button class="btn" onclick="zoomBy(1.15)">+</button>
+      <button class="btn" onclick="zoomBy(0.85)">−</button>
+    </div>
+  </div>
+  <div id="viewport">
+    <div id="canvas">
+      <svg id="edges" width="3000" height="3000"></svg>
+    </div>
+  </div>
+<script>
+const DATA = __DATA_JSON__;
+const canvas = document.getElementById('canvas');
+const edgesSvg = document.getElementById('edges');
+const viewport = document.getElementById('viewport');
+
+let scale = 0.9, panX = 60, panY = 90, isDragging = false, startX = 0, startY = 0;
+
+function applyTransform() {
+  canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+}
+function resetView() { scale = 0.9; panX = 60; panY = 90; applyTransform(); }
+function zoomBy(f) { scale = Math.min(2, Math.max(0.35, scale * f)); applyTransform(); }
+
+viewport.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX - panX; startY = e.clientY - panY; });
+window.addEventListener('mousemove', e => { if (!isDragging) return; panX = e.clientX - startX; panY = e.clientY - startY; applyTransform(); });
+window.addEventListener('mouseup', () => { isDragging = false; });
+viewport.addEventListener('wheel', e => { e.preventDefault(); zoomBy(e.deltaY < 0 ? 1.08 : 0.92); }, { passive: false });
+
+function createNode(html, x, y, cls = '') {
+  const el = document.createElement('div');
+  el.className = `node ${cls}`;
+  el.style.left = `${x}px`;
+  el.style.top = `${y}px`;
+  el.innerHTML = html;
+  canvas.appendChild(el);
+  return el;
+}
+
+function connect(x1, y1, x2, y2) {
+  const dx = Math.abs(x2 - x1) * 0.55;
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`);
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', 'rgba(148, 163, 184, 0.35)');
+  path.setAttribute('stroke-width', '1.6');
+  edgesSvg.appendChild(path);
+}
+
+const features = DATA.phases || [];
+const rowGap = 155;
+const totalH = Math.max(1, features.length) * rowGap;
+const rootY = Math.max(120, totalH / 2 - 40);
+const rootEl = createNode(`<div class="node-title">${DATA.title}</div><div class="node-sub">Perencanaan &amp; Arsitektur</div>`, 20, rootY, 'node-root');
+
+features.forEach((f, idx) => {
+  const y = 30 + idx * rowGap;
+  const faseNum = Math.min(4, Math.max(1, parseInt(f.phase || 1, 10)));
+  const fEl = createNode(
+    `<span class="badge fase-${faseNum}">FASE ${faseNum}</span><div class="node-title">${f.name}</div><div class="node-sub">${f.status || 'Direncanakan'}</div>`,
+    360, y
+  );
+  const subs = (f.sub_features || []).map(s => `<div class="sub-item">${s}</div>`).join('');
+  const sEl = createNode(`<div class="sub-header">SUB FITUR</div>${subs}`, 700, y - 12, 'sub-card');
+
+  requestAnimationFrame(() => {
+    const rMidY = rootEl.offsetTop + rootEl.offsetHeight / 2;
+    const fMidY = fEl.offsetTop + fEl.offsetHeight / 2;
+    const sMidY = sEl.offsetTop + sEl.offsetHeight / 2;
+    connect(rootEl.offsetLeft + rootEl.offsetWidth, rMidY, fEl.offsetLeft, fMidY);
+    connect(fEl.offsetLeft + fEl.offsetWidth, fMidY, sEl.offsetLeft, sMidY);
+  });
+});
+
+applyTransform();
+</script>
+</body>
+</html>
