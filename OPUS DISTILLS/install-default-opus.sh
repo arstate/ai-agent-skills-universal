@@ -138,6 +138,11 @@ if [ -f "$HOME/.agents/skills/pdf-deck/scripts/install-engine.sh" ]; then
 fi
 echo "✅ Tools & pdf-deck Engine berhasil dipasang dan dioptimasi!"
 
+# Setup context-mode and mindmap-engine MCP in Antigravity / Cursor configs
+if [ -f "$SCRIPT_DIR/skills/opus-distills/scripts/setup_context_mode.sh" ]; then
+  bash "$SCRIPT_DIR/skills/opus-distills/scripts/setup_context_mode.sh" || true
+fi
+
 echo ""
 echo "=========================================================================="
 echo "🎉 INSTALASI SELESAI DENGAN SUKSES!"

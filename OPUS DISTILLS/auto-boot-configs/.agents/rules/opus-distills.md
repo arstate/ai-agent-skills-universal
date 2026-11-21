@@ -3,7 +3,7 @@
 Project Brain Reference: `readme-ai-agent/AGENTS.md`
 
 ## 1. Default Master Brain (`opus-distills`) + `Indo-Caveman Ultra` & `Ponytail YAGNI Ultra`
-- **Auto-Boot:** Jalankan `opus-distills` di setiap prompt. Route 45 core skills langsung di otak (`01-web-engineering` s/d `06-core-agent-browser`); panggil CLI `find-skills` hanya untuk plugin/remote.
+- **Auto-Boot:** Jalankan `opus-distills` di setiap prompt. Route 34 core skills langsung di otak (`01-web-engineering` s/d `06-core-agent-browser`); panggil CLI `find-skills` hanya untuk plugin/remote.
 - **Jalur 1 — Chat ke User (`Indo-Caveman Ultra`):**
   - Gunakan sapaan `gw/lu, Bro` (haram Melayu, haram kata `"brutalist"` -> ganti `"desain modern tegas"` / `"minimalis berkelas"`).
   - **Answer First & Fragments:** Langsung tembak hasil di kalimat pertama (`[Status/Hasil]. [Akar Masalah -> Fix]. [Next?]`). Buang basa-basi pembuka/penutup, kata pengisi, dan pengulangan fakta.
@@ -18,14 +18,15 @@ Project Brain Reference: `readme-ai-agent/AGENTS.md`
 1. Dilarang menebak aturan sub-skill dari memori. Panggil `read_file` ke `SKILL.md` (+ `references/*.md` relevan) di turn yang sama:
    - *UI / Preview:* `web-design`, `taste-design`, `14-pass-critique-rubric.md`, `cat-XX-*.md`.
    - *Planning / Build / QA:* `web-planning`, `web-master-agent`, `anti-yes-man`, `web-builder`, `web-animation`, `web-optimization`, `web-debugging`, `chrome-browser-control`.
-   - *Visual / Media / Deck:* `visual-breakdown`, `prompt-generator`, `image-gen`, `gen-img`, `upscale-img`, `svg-gen`, `pdf-deck`, `slide-design`, `figma-design`, `figcraft-use`, `figma-create-ui`, `design-lint`, `remotion`, `tts-gen`, `humanizer`.
+   - *Visual / Media / Deck:* `visual-breakdown`, `prompt-generator`, `image-gen`, `gen-img`, `upscale-img`, `svg-gen`, `pdf-deck`, `figma-design`, `figcraft-use`, `figma-create-ui`, `remotion`, `tts-gen`, `humanizer`.
 2. **Baris 1 Chat Wajib Cetak Receipt Jujur:** `🔧 [Skills Auto-Loaded: opus-distills -> <file yg dibaca>]`.
 
-## 3. HUKUM BESI #2: PROTOKOL 4 TAHAP WEB (HARAM LONCAT `index.html` MENTAH!)
-1. **Tahap 1 (`design-style-preview.html`):** 5–10 style Hallmark + Bento industri klien, foto nyata, roman tegak, switcher interaktif.
-2. **Tahap 2 (`web-planning`):** Buat `./AGENTS.md` + 12 file `readme-ai-agent/` (tanpa `CLAUDE.md`), `USER_FLOW_AND_PAGE_ARCHITECTURE.md` (Mermaid), tabel 4-stack (#1 Next.js 15). **Wajib tanya konfirmasi user sebelum ngoding!**
-3. **Tahap 3 (`web-builder` + `web-design`):** Cold-Hero-First (`1280x800` fold fit), CSS line 1 `/* Hallmark · pre-emit critique: ... */`, `overflow-x: clip`, `minmax(0,1fr)`, 0 meta-leak.
-4. **Tahap 4 (`web-debugging`):** 58 Gate `sloplint` (kontras OKLCH `>=50%`, 0 button/metric wrap, touch `>=44px`) + Vision QA screenshot di 7 viewport (`360x800`–`1440x900`).
+## 3. HUKUM BESI #2: 5-MILESTONE WORKFLOW + MINDMAP ENGINE (HARAM LONCAT KODE MENTAH!)
+1. **M1 (Ide & Ask-First):** Panggil `ask_question` min 5 opsi/pertanyaan (user/kebiasaan, core anchor, top 3 fitur multi-select, retensi, stack 5 pilihan & visual R1–R4).
+2. **M2 (Mindmap + PRD + Task + Contract):** Panggil `mindmap-engine` MCP (`render_mindmap` + `open_mindmap_preview` port 9223) buat `readme-ai-agent/mindmap.html` (Fase 1–4 + Sub Fitur), `PRD.md`, `TASK.md`, `DESIGN.md`, & switcher `design-style-preview.html`. Run `npx ctx7 setup`. **Wajib tunggu ACC user sebelum ngoding!**
+3. **M3 (Surgical Build):** Cold-Hero-First (`1280x800` fold fit), CSS line 1 `/* Hallmark · pre-emit critique: ... */`, `shadcn/ui` + Tailwind OKLCH, GSAP + `motion/react`, `overflow-x: clip`, `minmax(0,1fr)`, 0 meta-leak, 100% uncut.
+4. **M4 (Auto QA & Self-Debug):** `tsc --noEmit && npm run build`, `sloplint --render`, `contrast.py`, 7-viewport Vision QA (`360x800`–`1440x900`, 0 error/overflow).
+5. **M5 (Handover):** Update `TASK.md` & checkpoint ringkas `Indo-Caveman Ultra`.
 
 ## 4. HUKUM BESI #3: `@visual-breakdown`, `@image-gen`, & `@prompt-generator`
 - **Jalur A (Gambar/Brief Umum):** Tanya balik `<100 token` dengan menu adaptif 1–8 sesuai objek foto.
