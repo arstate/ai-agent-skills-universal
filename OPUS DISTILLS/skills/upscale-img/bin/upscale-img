@@ -8,15 +8,18 @@ SCRIPT_DIR="$(cd "$(dirname "$REAL_BIN")/.." && pwd)"
 PYTHON_SCRIPT="$SCRIPT_DIR/scripts/upscale_cuda.py"
 
 # Detect Python with CUDA & Spandrel
-CHAINNER_PY="/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11"
+CHAINNER_PY="${CHAINNER_PY:-$HOME/.local/share/chaiNNer/python/bin/python3}"
+LEGACY_CHAINNER_PY="/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11"
 
 if [ -x "$CHAINNER_PY" ]; then
   EXEC_PY="$CHAINNER_PY"
+elif [ -x "$LEGACY_CHAINNER_PY" ]; then
+  EXEC_PY="$LEGACY_CHAINNER_PY"
 elif command -v python3 &>/dev/null && python3 -c "import spandrel, torch" &>/dev/null; then
   EXEC_PY="python3"
 else
   echo "❌ Error: Could not find Python runtime with spandrel and PyTorch CUDA."
-  echo "Expected path: $CHAINNER_PY"
+  echo "Set CHAINNER_PY or install spandrel & torch into python3 (checked: $CHAINNER_PY)."
   exit 1
 fi
 

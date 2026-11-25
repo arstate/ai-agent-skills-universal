@@ -11,7 +11,7 @@ Skill untuk penelusuran web real-time berkecepatan tinggi dan ekstraksi konten w
 
 ## ⚡ 1. CARA PENGGUNAAN CEPAT (CLI)
 
-Perintah CLI `websearch` sudah terpasang global di `$PATH` (`/home/arya/.local/bin/websearch`).
+Perintah CLI `websearch` sudah terpasang global di `$PATH` (`~/.local/bin/websearch`).
 
 ### A. Penelusuran Web (Google Grounding AI Search):
 ```bash
@@ -75,8 +75,8 @@ markdown_content = fetch_url("https://example.com/artikel")
 ## 🛡️ 4. KONFIGURASI SISTEM
 - **Endpoint:** `http://localhost:20128/v1/search`
 - **Default Auth Token:** `Bearer sk-47024d86a10c3a4b-2att59-c53bbf8a`
-- **Script Executable:** `/home/arya/.gemini/config/skills/websearch/scripts/websearch.py`
-- **Symlink Bin:** `/home/arya/.local/bin/websearch`
+- **Script Executable:** `~/.agents/skills/websearch/scripts/websearch.py`
+- **Symlink Bin:** `~/.local/bin/websearch`
 - **Dependencies:** Python 3 Standard Library (Zero third-party pip dependencies required).
 
 ---

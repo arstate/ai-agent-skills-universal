@@ -14,8 +14,8 @@ Engine standar industri untuk upscaling resolusi tinggi (4K/8K) bebas artefak da
 ## ⚡ 1. Cara Cepat Eksekusi CLI (`upscale-img` / `boost`)
 
 CLI launcher global tersedia di `$PATH`:
-- `/home/arya/.local/bin/upscale-img`
-- `/home/arya/.local/bin/boost`
+- `~/.local/bin/upscale-img`
+- `~/.local/bin/boost`
 
 ### A. Upscale Satu Gambar (Otomatis 4X ke Output `_4k.jpg`):
 ```bash
@@ -60,7 +60,7 @@ upscale-img "/path/to/folder_1k" "/path/to/folder_4k"
 |---|---|
 | **GPU Primer** | NVIDIA GeForce GTX 1660 SUPER (Turing TU116, 6GB VRAM GDDR6) |
 | **CUDA Capability** | Compute 7.5, CUDA 12.x |
-| **Python Runtime** | `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11` |
+| **Python Runtime** | `${CHAINNER_PY:-$HOME/.local/share/chaiNNer/python/bin/python3}` (fallback `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11` atau `python3`) |
 | **Pustaka Inti** | `torch` (CUDA 12.4), `spandrel` (0.4.1), `spandrel_extra_arches`, `Pillow`, `numpy` |
 | **Tool Metadata** | `exiv2` (Preservasi & Injeksi IPTC/XMP Lossless) |
 
@@ -69,7 +69,7 @@ upscale-img "/path/to/folder_1k" "/path/to/folder_4k"
 ## 📦 3. Katalog Model & HUKUM BESI "ONNX FP16 NaN Trap"
 
 Direktori Model:
-`/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL/`
+`${UPSCALE_MODELS_DIR:-$HOME/.local/share/upscale-models}` (fallback `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL/`)
 
 ### ⚠️ PERINGATAN KERAS: The ONNX FP16 NaN Trap
 - **Model Rusak:** `4xNomos8kSCHAT-S.onnx` memiliki bug ekspor FP16 dari arsitektur attention SCHAT. Saat dieksekusi di CUDA maupun CPU, bobot layer attention menghasilkan output NaN (menghasilkan gambar hitam kosong atau artefak abu-abu).

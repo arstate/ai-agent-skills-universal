@@ -18,7 +18,7 @@ Untuk menjaga penghematan token maksimal (`75%–90%` token saved) tanpa mengorb
 ### Jalur A — User Kirim Gambar + Prompt Belum Detail (Cuma Ketik `@visual-breakdown` / *"Breakdown ini"*) -> WAJIB TANYA BALIK DULU!
 Jika user mengunggah gambar referensi tapi **belum menyebutkan bagian visual mana yang ingin dibedah**:
 1. **DILARANG langsung memuntahkan seluruh prompt panjang sekaligus** (karena memboroskan ribuan token jika user sebenarnya cuma butuh ambil *pose*-nya atau *outfit*-nya saja!).
-2. **Pindai Objek Nyata di Gambar & Tanya Balik Secara Ringkas (`terse-respon`, `< 100 token`):**
+2. **Pindai Objek Nyata di Gambar & Tanya Balik Secara Ringkas (`Indo-Caveman Ultra` via `opus-distills`, `< 100 token`):**
    Sebutkan 1 kalimat ringkas apa yang terdeteksi di gambar, lalu tampilkan **Menu Kontekstual Adaptif** (hanya cantumkan elemen yang benar-benar ada di foto tersebut):
 
 ```text

@@ -93,10 +93,10 @@ for p in sorted(glob.glob("src/app/**/page.tsx", recursive=True)):
 
 ### B. Paradigm 2: Why `context-mode` Retired Aggressive Prose Brevity (PR #482 — The Split-Channel Law)
 In `mksglu/context-mode` commit `#482` (*"retire prose-style enforcement entirely"*), benchmarks (including Moonshot AI's `kimi-k2.5` evaluations) proved that telling an LLM *"always be ultra-brief in everything you generate"* causes the model to **write lazier code, skip edge-case guards, and output stubbed/truncated components**.
-- **Our Solution (`Split-Channel terse-respon`):**
+- **Our Solution (`Split-Channel Indo-Caveman Ultra`):**
   1. **Keep Raw Tool Data Out of Context (`-98%`):** Filter all terminal/file observations before they hit context.
   2. **Keep Reasoning Symbolic (`Chain-of-Draft` `-76%`):** `<= 8 words` per reasoning step.
-  3. **Keep Chat Replies Ultra-Terse (`terse-respon` `-75%`):** Direct Indonesian chat (`gw/lu/Bro`), bulleted summary, 1-line follow-up.
+  3. **Keep Chat Replies Ultra-Terse (`Indo-Caveman Ultra` `-75%`):** Direct Indonesian chat (`gw/lu/Bro`), bulleted summary, 1-line follow-up.
   4. **Keep Code & Design Deliverables 100% UNCUT (`0% Reduction on Artifacts`):** Every file written via `write_to_file` must be 100% complete, rich, and production-ready!
 
 ### C. One-Command Installation of `mksglu/context-mode` MCP Server & Hooks on Your Local Agent

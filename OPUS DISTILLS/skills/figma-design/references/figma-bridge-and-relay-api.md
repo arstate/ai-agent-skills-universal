@@ -10,11 +10,12 @@ Spesifikasi arsitektur komunikasi dua arah (*bidirectional read/write*) antara A
 [AI Agent CLI / Bun]  ──stdio / ts──>  [Relay Client]  ──WebSocket (4395)──>  [Relay Daemon (127.0.0.1:4395)]  <──WebSocket──  [Figma Desktop Plugin]
 ```
 
-### Path Penting di Sistem:
-- **Relay Server Daemon:** `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/server/relay.ts`
-- **Relay Client Module:** `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/server/src/relay-client.ts`
-- **CLI Runner:** `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/call_figma.ts`
-- **Figma Plugin Manifest:** `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/plugin/manifest.json`
+### Path Penting di Sistem (Konfigurasi via `FIGMA_BRIDGE_DIR`):
+Default: `FIGMA_BRIDGE_DIR="${FIGMA_BRIDGE_DIR:-$HOME/.local/share/figma-bridge}"` (atau legacy `/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge`).
+- **Relay Server Daemon:** `$FIGMA_BRIDGE_DIR/server/relay.ts`
+- **Relay Client Module:** `$FIGMA_BRIDGE_DIR/server/src/relay-client.ts`
+- **CLI Runner:** `$FIGMA_BRIDGE_DIR/call_figma.ts`
+- **Figma Plugin Manifest:** `$FIGMA_BRIDGE_DIR/plugin/manifest.json`
 
 ---
 
@@ -24,7 +25,10 @@ Spesifikasi arsitektur komunikasi dua arah (*bidirectional read/write*) antara A
 Gunakan pendekatan ini untuk membangun, memodifikasi, atau mengekspor frame Figma yang kompleks:
 
 ```ts
-import { callPlugin } from "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/server/src/relay-client";
+import * as os from "os";
+import * as path from "path";
+const bridgeDir = process.env.FIGMA_BRIDGE_DIR || path.join(os.homedir(), ".local/share/figma-bridge");
+const { callPlugin } = await import(path.join(bridgeDir, "server/src/relay-client"));
 
 async function main() {
   const code = `
@@ -60,7 +64,7 @@ bun /tmp/my_figma_script.ts
 ### Cara 2: One-Liner CLI Query
 Gunakan untuk mengecek halaman aktif, seleksi, atau node cepat:
 ```bash
-bun "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/call_figma.ts" execute 'return { page: figma.currentPage.name, count: figma.currentPage.children.length };'
+bun "${FIGMA_BRIDGE_DIR:-$HOME/.local/share/figma-bridge}/call_figma.ts" execute 'return { page: figma.currentPage.name, count: figma.currentPage.children.length };'
 ```
 
 ---
@@ -109,7 +113,7 @@ const res = await callPlugin("execute", {
 
 if (res?.value?.base64) {
   const fs = require("fs");
-  const outPath = "/home/arya/.gemini/antigravity-cli/brain/<conv-id>/poster_preview.png";
+  const outPath = "~/.gemini/antigravity-cli/brain/<conv-id>/poster_preview.png";
   fs.writeFileSync(outPath, Buffer.from(res.value.base64, "base64"));
 }
 ```
@@ -125,7 +129,7 @@ Lalu panggil `read_file` pada file PNG tersebut untuk melakukan audit:
 | Gejala Error | Akar Masalah | Solusi Cepat |
 | :--- | :--- | :--- |
 | `Figma is not connected` | Plugin Figma di Desktop tertutup atau belum dijalankan. | Buka Figma Desktop -> Buka file proyek -> Klik kanan -> Plugins -> Development -> **figma-bridge**. Pastikan strip kecil muncul dengan lampu hijau. |
-| `Cannot connect to ws://127.0.0.1:4395` | Daemon relay server belum aktif. | Jalankan `bun "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/server/relay.ts" &` di background. |
+| `Cannot connect to ws://127.0.0.1:4395` | Daemon relay server belum aktif. | Jalankan `bun "${FIGMA_BRIDGE_DIR:-$HOME/.local/share/figma-bridge}/server/relay.ts" &` di background. |
 | `Port 4395 already in use` | Sesi relay lama masih tersangkut. | `lsof -ti :4395 \| xargs kill -9` lalu restart relay. |
 | `Font not loaded error` | Text node dimanipulasi sebelum font di-load. | Wajib panggil `await figma.loadFontAsync({ family, style })` di baris pertama eksekusi script. |
 | `Cannot read properties of null` | ID Node salah atau berada di Page lain. | Panggil `await figma.loadAllPagesAsync()` sebelum mencari node jika melintasi beberapa halaman. |

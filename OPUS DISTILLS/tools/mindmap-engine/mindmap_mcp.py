@@ -4,14 +4,21 @@ Generates readme-ai-agent/mindmap.json + readme-ai-agent/mindmap.html
 and opens preview in visible Chrome (CDP port 9223) or default browser.
 """
 
+import html as html_lib
 import json
 import os
 import subprocess
 import sys
+import webbrowser
 from pathlib import Path
 
 TEMPLATE_PATH = Path(__file__).resolve().parent / "template.html"
-CHROME_SCRIPT = Path.home() / ".gemini/config/skills/chrome-browser-control/scripts/launch-visible-chrome.sh"
+CHROME_CANDIDATES = [
+    Path.home() / ".agents/tools/launch-visible-chrome.sh",
+    Path.home() / ".agents/skills/chrome-browser-control/scripts/launch-visible-chrome.sh",
+    Path.home() / ".gemini/config/skills/chrome-browser-control/scripts/launch-visible-chrome.sh",
+]
+CHROME_SCRIPT = next((p for p in CHROME_CANDIDATES if p.is_file()), CHROME_CANDIDATES[0])
 
 
 def render_mindmap(project_dir: str, title: str, phases: list) -> dict:
@@ -26,7 +33,9 @@ def render_mindmap(project_dir: str, title: str, phases: list) -> dict:
     json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     tpl = TEMPLATE_PATH.read_text(encoding="utf-8")
-    html = tpl.replace("__TITLE__", title).replace("__DATA_JSON__", json.dumps(payload, ensure_ascii=False))
+    safe_title = html_lib.escape(title, quote=True)
+    safe_json = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
+    html = tpl.replace("__TITLE__", safe_title).replace("__DATA_JSON__", safe_json)
     html_path.write_text(html, encoding="utf-8")
 
     return {
@@ -43,12 +52,12 @@ def open_mindmap_preview(project_dir: str) -> dict:
         return {"status": "error", "message": f"Not found: {html_path}"}
 
     url = f"file://{html_path}"
-    if CHROME_SCRIPT.is_file():
+    if CHROME_SCRIPT.is_file() and os.name != "nt":
         subprocess.Popen(["bash", str(CHROME_SCRIPT), "9223", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return {"status": "opened", "via": "launch-visible-chrome.sh (9223)", "url": url}
 
-    subprocess.Popen(["xdg-open", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    return {"status": "opened", "via": "xdg-open", "url": url}
+    webbrowser.open(url)
+    return {"status": "opened", "via": "webbrowser", "url": url}
 
 
 TOOLS = [

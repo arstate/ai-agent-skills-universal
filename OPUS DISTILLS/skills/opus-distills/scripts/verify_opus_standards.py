@@ -190,21 +190,28 @@ GLOBAL_RULES_FILES = [
     os.path.expanduser("~/.gemini/GEMINI.md"),
     os.path.expanduser("~/.gemini/antigravity-cli/rules/opus-distills.md"),
     os.path.expanduser("~/.gemini/config/rules/opus-distills.md"),
-    os.path.expanduser("~/.claude/CLAUDE.md"),
-    os.path.expanduser("~/.cursorrules"),
+    os.path.expanduser("~/.agents/rules/opus-distills.md"),
 ]
+if os.path.isdir(os.path.expanduser("~/.config/opencode")):
+    GLOBAL_RULES_FILES.append(os.path.expanduser("~/.config/opencode/AGENTS.md"))
+if os.path.isfile(os.path.expanduser("~/.claude/CLAUDE.md")):
+    GLOBAL_RULES_FILES.append(os.path.expanduser("~/.claude/CLAUDE.md"))
+if os.path.isfile(os.path.expanduser("~/.cursorrules")):
+    GLOBAL_RULES_FILES.append(os.path.expanduser("~/.cursorrules"))
 
 TARGET_SKILL_DIRS = [
     os.path.expanduser("~/.gemini/antigravity-cli/skills"),
     os.path.expanduser("~/.gemini/config/skills"),
     os.path.expanduser("~/.gemini/antigravity/skills"),
     os.path.expanduser("~/.agents/skills"),
+]
+for _opt_dir in [
     os.path.expanduser("~/.claude/skills"),
     os.path.expanduser("~/.cursor/skills"),
-]
-_hdd_skills = "/mnt/HDD-2/BACKUP LINUX/FILE DATA/AI AGENT SKILLS/OPUS DISTILLS/skills"
-if os.path.isdir(_hdd_skills):
-    TARGET_SKILL_DIRS.append(_hdd_skills)
+    "/mnt/HDD-2/BACKUP LINUX/FILE DATA/AI AGENT SKILLS/OPUS DISTILLS/skills",
+]:
+    if os.path.isdir(_opt_dir):
+        TARGET_SKILL_DIRS.append(_opt_dir)
 TARGET_6_SKILL_DIRS = TARGET_SKILL_DIRS
 
 def check_file_guardrails(filepath):
@@ -270,8 +277,8 @@ def verify_project_structure(repo_dir, check_full=False):
 
 def verify_single_skills_dir(skills_dir):
     errors = 0
-    print(f"\n[1] Checking 23 Skills Presence & Frontmatter in {skills_dir}...")
-    for skill in REQUIRED_22_SKILLS:
+    print(f"\n[1] Checking {len(REQUIRED_SKILLS)} Skills Presence & Frontmatter in {skills_dir}...")
+    for skill in REQUIRED_SKILLS:
         skill_path = os.path.join(skills_dir, skill)
         skill_md = os.path.join(skill_path, "SKILL.md")
         if not os.path.exists(skill_md):
@@ -404,16 +411,17 @@ def verify_global_rules():
     return errors
 
 def main():
-    default_skills = (
-        os.path.expanduser("~/.gemini/antigravity-cli/skills")
-        if os.path.isdir(os.path.expanduser("~/.gemini/antigravity-cli/skills"))
-        else os.path.expanduser("~/.gemini/config/skills")
-    )
-    parser = argparse.ArgumentParser(description="Verify Opus 5.5 Distillation Standards")
+    _candidates = [
+        os.path.expanduser("~/.agents/skills"),
+        os.path.expanduser("~/.gemini/antigravity-cli/skills"),
+        os.path.expanduser("~/.gemini/config/skills"),
+    ]
+    default_skills = next((p for p in _candidates if os.path.isdir(p)), _candidates[0])
+    parser = argparse.ArgumentParser(description="Verify Opus-Distills Standards")
     parser.add_argument("--repo", help="Path to project repository to check for readme-ai-agent continuity")
     parser.add_argument("--full", action="store_true", help="Check for full 12-file standard suite")
     parser.add_argument("--skills-dir", default=default_skills, help="Path to skills directory")
-    parser.add_argument("--all-targets", action="store_true", help="Verify all 6 target skills directories")
+    parser.add_argument("--all-targets", action="store_true", help="Verify all detected target skills directories")
     parser.add_argument("--templates-dir", default=os.path.expanduser("~/.gemini/config/templates/readme-ai-agent-starter-template"), help="Path to starter templates")
     args = parser.parse_args()
 

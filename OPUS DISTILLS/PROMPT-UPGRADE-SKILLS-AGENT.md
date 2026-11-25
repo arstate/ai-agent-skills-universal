@@ -2,7 +2,7 @@
 
 Dokumen ini berisi **2 bagian lengkap siap pakai** khusus buat pengguna **Google Antigravity CLI (`agy`)**, Antigravity IDE, & Workspace Agent:
 
-1. **Cara Instalasi Cepat (Otomatis ke `~/.gemini/antigravity-cli/skills/` & Global `AGENTS.md`)** dari file `opus_distills_skills_pack.zip` (total **140 file dari 22 skill**).
+1. **Cara Instalasi Cepat (Otomatis ke `~/.gemini/antigravity-cli/skills/`, `~/.agents/skills/`, & Global `AGENTS.md`)** untuk **34 consolidated skills** (`opus_distills_universal_pack.zip` / `install-default-opus.sh`).
 
 2. **Master Prompt Copy-Paste Lengkap (Anti-Plenger / Anti-Skip Sub-Skill Edition)** untuk diberikan langsung ke Antigravity CLI lu agar otomatis:
 
@@ -19,12 +19,12 @@ Dokumen ini berisi **2 bagian lengkap siap pakai** khusus buat pengguna **Google
 Jalankan perintah berikut di terminal lu:
 
 ```
-# 1. Buat folder sementara & ekstrak ZIP (140 file dari 22 skill)
+# 1. Buat folder sementara & ekstrak ZIP (34 consolidated skills)
 mkdir -p /tmp/opus-skills-upgrade
-unzip -o opus_distills_skills_pack.zip -d /tmp/opus-skills-upgrade
+unzip -o opus_distills_universal_pack.zip -d /tmp/opus-skills-upgrade
 
-# 2. Jalankan Installer Otomatis Antigravity CLI (Pasang 22 Skill + Global AGENTS.md & GEMINI.md Anti-Plenger):
-bash /tmp/opus-skills-upgrade/install-default-opus.sh
+# 2. Jalankan Installer Otomatis (Pasang 34 Skills + Global AGENTS.md & GEMINI.md):
+bash /tmp/opus-skills-upgrade/"OPUS DISTILLS"/install-default-opus.sh
 
 # 3. (Opsional) Pasang juga ke folder project aktif (.agents/skills/) + buat/migrasi readme-ai-agent/:
 mkdir -p .agents/skills

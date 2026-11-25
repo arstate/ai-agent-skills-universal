@@ -35,8 +35,8 @@ This SKILL.md is a **lightweight entry point**. The detailed, context-aware crea
 - This skill covers **both** simple layouts and **library component assembly**. In library mode, use `search_design_system` and `type:"instance"` as described in the Library Components section below.
 - This skill also covers **creating new reusable components** (buttons, inputs, cards). See the Component Authoring section below.
 - If the task is **building a full design system** (variables + components + theming), switch to [figcraft-generate-library](../figcraft-generate-library/SKILL.md).
-- If the task is **reviewing existing designs**, switch to [design-review](../design-review/SKILL.md).
-- If the task is **implementing code from Figma**, switch to [figcraft-implement-design](../figcraft-implement-design/SKILL.md).
+- If the task is **reviewing existing designs**, switch to [web-debugging](../web-debugging/SKILL.md).
+- If the task is **implementing code from Figma**, switch to [figma-design](../figma-design/SKILL.md) (or [figcraft-generate-design](../figcraft-generate-design/SKILL.md)).
 
 ## Library Components — Reuse Design System
 

@@ -3,9 +3,9 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "🚀 Installing Universal Opus 5.5 Skills & Auto-Boot Rules for Google Antigravity CLI..."
+echo "🚀 Installing Universal Opus-Distills Skills & Auto-Boot Rules (Antigravity + OpenCode)..."
 
-# 1. Target Directories
+# 1. Target Directories (~/.agents/skills is canonical for OpenCode v2.4.1+ & universal agents)
 DEST_DIRS=(
   "$HOME/.gemini/antigravity-cli/skills"
   "$HOME/.gemini/config/skills"
@@ -52,10 +52,15 @@ for src_base in "$SCRIPT_DIR/skills" "$SCRIPT_DIR"; do
       done
       [ -d "$dest/slidedeck-gen" ] && [ ! -L "$dest/slidedeck-gen" ] && rm -rf "$dest/slidedeck-gen"
       [ -d "$dest/next-slidedeck-engine" ] && [ ! -L "$dest/next-slidedeck-engine" ] && rm -rf "$dest/next-slidedeck-engine"
-      ln -sfn "pdf-deck" "$dest/slidedeck-gen"
-      ln -sfn "pdf-deck" "$dest/next-slidedeck-engine"
+      # Skip directory symlinks inside ~/.agents/skills/ to prevent duplicate skill registration in OpenCode v2.4.1+
+      if [ "$dest" = "$HOME/.agents/skills" ]; then
+        rm -f "$dest/slidedeck-gen" "$dest/next-slidedeck-engine" 2>/dev/null || true
+      else
+        ln -sfn "pdf-deck" "$dest/slidedeck-gen"
+        ln -sfn "pdf-deck" "$dest/next-slidedeck-engine"
+      fi
     done
-    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck (+ purged stale opus aliases & 11 merged skills)"
+    echo "  -> Consolidated slidedeck-gen & next-slidedeck-engine -> pdf-deck (+ purged stale aliases & 11 merged skills)"
     break
   fi
 done
@@ -69,6 +74,17 @@ cp -f "$SCRIPT_DIR/auto-boot-configs/GEMINI.md" "$HOME/.gemini/GEMINI.md"
 cp -f "$SCRIPT_DIR/auto-boot-configs/.agents/rules/opus-distills.md" "$HOME/.gemini/antigravity-cli/rules/opus-distills.md"
 cp -f "$SCRIPT_DIR/auto-boot-configs/.agents/rules/opus-distills.md" "$HOME/.gemini/config/rules/opus-distills.md"
 cp -f "$SCRIPT_DIR/auto-boot-configs/.agents/rules/opus-distills.md" "$HOME/.agents/rules/opus-distills.md"
+
+# 2b. OpenCode v2.4.1+ V2 Tool Mapping Bridge (~/.config/opencode/AGENTS.md)
+if [ -d "$HOME/.config/opencode" ] || command -v opencode >/dev/null 2>&1; then
+  mkdir -p "$HOME/.config/opencode"
+  if [ ! -f "$HOME/.config/opencode/AGENTS.md" ]; then
+    cp -f "$SCRIPT_DIR/auto-boot-configs/opencode/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+    echo "✅ OpenCode V2 Tool Mapping Bridge dipasang ke ~/.config/opencode/AGENTS.md"
+  else
+    echo "ℹ️  ~/.config/opencode/AGENTS.md sudah ada (dipertahankan, tidak ditimpa)."
+  fi
+fi
 echo "✅ Global AGENTS.md, GEMINI.md, & rules/opus-distills.md berhasil disinkronkan!"
 
 # 3. Install init-readme-ai-agent helper to ~/.local/bin if available
@@ -86,9 +102,9 @@ cp -rf "$SCRIPT_DIR/tools"/* "$HOME/browser-tools/"
 chmod +x "$HOME/.agents/tools"/*.sh "$HOME/.agents/tools"/*/*.sh "$HOME/.agents/tools"/*/*.command "$HOME/.agents/tools"/*.py 2>/dev/null || true
 chmod +x "$HOME/browser-tools"/*.sh "$HOME/browser-tools"/*/*.sh "$HOME/browser-tools"/*/*.command "$HOME/browser-tools"/*.py 2>/dev/null || true
 
-# Ensure Python websockets and python-pptx dependencies are present
-python3 -c "import websockets" 2>/dev/null || pip install --quiet websockets 2>/dev/null || pip3 install --quiet websockets 2>/dev/null || true
-python3 -c "import pptx" 2>/dev/null || pip install --quiet python-pptx 2>/dev/null || pip3 install --quiet python-pptx 2>/dev/null || true
+# Ensure Python websockets and python-pptx dependencies are present (PEP 668 compatible)
+python3 -c "import websockets" 2>/dev/null || python3 -m pip install --user --quiet websockets 2>/dev/null || python3 -m pip install --user --break-system-packages --quiet websockets 2>/dev/null || true
+python3 -c "import pptx" 2>/dev/null || python3 -m pip install --user --quiet python-pptx 2>/dev/null || python3 -m pip install --user --break-system-packages --quiet python-pptx 2>/dev/null || true
 
 # Symlink convenience binaries to ~/.local/bin
 chmod +x "$HOME/.agents/skills/pdf-deck/bin"/*.mjs "$HOME/.agents/skills/pdf-deck/scripts"/*.mjs "$HOME/.agents/skills/pdf-deck/scripts"/*.py "$HOME/.agents/skills/pdf-deck/scripts"/*.sh 2>/dev/null || true
@@ -124,9 +140,9 @@ if [ -d "$HOME/.agents/skills/pdf-deck" ]; then
     npm run build 2>/dev/null || true
   ) || true
   if [ -d "$HOME/.agents/skills/pdf-deck/node_modules" ]; then
-    for other in "$HOME/.gemini/antigravity-cli/skills/pdf-deck" "$HOME/.gemini/config/skills/pdf-deck" "$HOME/.gemini/antigravity/skills/pdf-deck"; do
+    for other in "$HOME/.gemini/antigravity-cli/skills/pdf-deck" "$HOME/.gemini/config/skills/pdf-deck" "$HOME/.gemini/antigravity/skills/pdf-deck" "$HOME/.claude/skills/pdf-deck" "$HOME/.cursor/skills/pdf-deck"; do
       if [ -d "$other" ] && [ ! -d "$other/node_modules" ]; then
-        ln -s "$HOME/.agents/skills/pdf-deck/node_modules" "$other/node_modules" 2>/dev/null || true
+        ln -sfn "$HOME/.agents/skills/pdf-deck/node_modules" "$other/node_modules" 2>/dev/null || true
       fi
     done
   fi
@@ -146,6 +162,7 @@ fi
 echo ""
 echo "=========================================================================="
 echo "🎉 INSTALASI SELESAI DENGAN SUKSES!"
-echo "Semua 37+ skill universal, browser tools, dan rules anti-plenger sudah aktif."
-echo "Untuk me-reload di sesi aktif Antigravity CLI, ketik: /skills reload"
+echo "Semua 34 consolidated universal skills, browser tools, MCP, & rules aktif."
+echo "  • Antigravity CLI : ketik /skills reload"
+echo "  • OpenCode v2.4+  : restart session (auto-discover ~/.agents/skills/)"
 echo "=========================================================================="

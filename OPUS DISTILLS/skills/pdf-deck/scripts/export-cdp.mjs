@@ -9,13 +9,15 @@ import { spawn, execFileSync } from 'node:child_process';
 import { existsSync, statSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import net from 'node:net';
+import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 function findSystemBrowserExecutable() {
   const candidates = [
     process.env.CHROME_BIN,
     process.env.CHROME_PATH,
-    '/home/arya/.local/bin/google-chrome',
+    path.join(os.homedir(), '.local/bin/google-chrome'),
     '/usr/bin/google-chrome-stable',
     '/usr/bin/google-chrome',
     '/usr/bin/chromium',
@@ -197,7 +199,7 @@ function getFreePort() {
 }
 
 // CLI direct run
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.meta.filename)) {
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
   const [input, out] = process.argv.slice(2);
   if (!input || !out) {
     console.error('Usage: node export-cdp.mjs <deck-dir-or-html> <out.pdf>');

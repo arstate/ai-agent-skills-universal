@@ -64,7 +64,7 @@ CHROME_BIN=""
 CANDIDATES=(
   "${CHROME_BIN:-}"
   "${CHROME_PATH:-}"
-  "/home/arya/.local/bin/google-chrome"
+  "${HOME}/.local/bin/google-chrome"
   "/usr/bin/google-chrome-stable"
   "/usr/bin/google-chrome"
   "/usr/bin/chromium"

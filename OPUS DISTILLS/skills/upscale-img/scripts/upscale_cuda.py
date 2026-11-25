@@ -13,7 +13,12 @@ import argparse
 import numpy as np
 from PIL import Image
 
-MODELS_DIR = "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL"
+_DEFAULT_MODELS_DIR = os.path.expanduser("~/.local/share/upscale-models")
+_LEGACY_MODELS_DIR = "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL"
+MODELS_DIR = os.environ.get(
+    "UPSCALE_MODELS_DIR",
+    _DEFAULT_MODELS_DIR if os.path.isdir(_DEFAULT_MODELS_DIR) else _LEGACY_MODELS_DIR,
+)
 
 MODEL_MAP = {
     "schat": "4xNomos8kSCHAT-S.pth",

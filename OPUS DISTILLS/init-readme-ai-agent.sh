@@ -29,7 +29,7 @@ cat << 'EOT' > AGENTS.md
 @[Project Brain State](readme-ai-agent/AGENTS.md)
 
 ## Mandatory Rules
-- **Master Brain:** Always apply `opus-distills` + `web-master-agent` + `terse-respon`.
+- **Master Brain:** Always apply `opus-distills` + `web-master-agent`.
 - **State Continuity:** Read `readme-ai-agent/AGENTS.md` (<150 tokens) at the start of every turn and update it at the end of every milestone.
 - **Anti-Footer-Slop:** Never output framework names ("Built with Next.js/Tailwind") or theme prompt labels in UI footers.
 EOT
@@ -38,9 +38,9 @@ fi
 # 2. 12 Files inside readme-ai-agent/
 [ ! -f "readme-ai-agent/AGENTS.md" ] && cat << 'EOT' > readme-ai-agent/AGENTS.md
 # Live Project State Checkpoint (`readme-ai-agent/AGENTS.md` — Max 150 Tokens)
-- **Active Phase:** Phase 1 (Audit & Planning)
+- **Active Phase:** M1 (Ide & Ask-First) -> M2 (Mindmap + PRD + Contract)
 - **Chosen Tech Stack:** Pending Verification / Backfill from `package.json`
-- **Locked Design Tokens:** Pending `STYLE-GUIDE.md` lock (OpenDesign 8-Dim + 300-Ref Vault)
+- **Locked Design Tokens:** Pending `STYLE-GUIDE.md` lock (DESIGN_SYSTEM.md + Hallmark + 300-Ref Vault)
 - **Latest Git Restore Tag:** `restore-init`
 - **Next Action:** Scan codebase & populate `PRD.md`, `TECHSTACK.md`, `STYLE-GUIDE.md`, and `TASK.md`.
 EOT

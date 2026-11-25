@@ -127,20 +127,26 @@ function connect(x1, y1, x2, y2) {
   edgesSvg.appendChild(path);
 }
 
+function esc(str) {
+  return String(str ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
 const features = DATA.phases || [];
 const rowGap = 155;
 const totalH = Math.max(1, features.length) * rowGap;
 const rootY = Math.max(120, totalH / 2 - 40);
-const rootEl = createNode(`<div class="node-title">${DATA.title}</div><div class="node-sub">Perencanaan &amp; Arsitektur</div>`, 20, rootY, 'node-root');
+const rootEl = createNode(`<div class="node-title">${esc(DATA.title)}</div><div class="node-sub">Perencanaan &amp; Arsitektur</div>`, 20, rootY, 'node-root');
 
 features.forEach((f, idx) => {
   const y = 30 + idx * rowGap;
   const faseNum = Math.min(4, Math.max(1, parseInt(f.phase || 1, 10)));
   const fEl = createNode(
-    `<span class="badge fase-${faseNum}">FASE ${faseNum}</span><div class="node-title">${f.name}</div><div class="node-sub">${f.status || 'Direncanakan'}</div>`,
+    `<span class="badge fase-${faseNum}">FASE ${faseNum}</span><div class="node-title">${esc(f.name)}</div><div class="node-sub">${esc(f.status || 'Direncanakan')}</div>`,
     360, y
   );
-  const subs = (f.sub_features || []).map(s => `<div class="sub-item">${s}</div>`).join('');
+  const subs = (f.sub_features || []).map(s => `<div class="sub-item">${esc(s)}</div>`).join('');
   const sEl = createNode(`<div class="sub-header">SUB FITUR</div>${subs}`, 700, y - 12, 'sub-card');
 
   requestAnimationFrame(() => {

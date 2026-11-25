@@ -8,8 +8,8 @@ description: "Figma icon rules: auto-layout child ordering, icon_search -> icon_
 ## Skill Boundaries
 
 - Use this skill for **icon placement, ordering, sizing, and tool chain** (`icon_search` → `icon_create`).
-- General icon design rules (single set, no text placeholders) are in [ui-ux-fundamentals](../ui-ux-fundamentals/SKILL.md).
-- Library-specific icon discovery (search_design_system for icon components) is handled by [design-guardian](../design-guardian/SKILL.md) workflow.
+- General icon design rules (single set, no text placeholders) are in [web-design](../web-design/SKILL.md).
+- Library-specific icon discovery (search_design_system for icon components) is handled by [web-debugging](../web-debugging/SKILL.md) workflow.
 
 ## Ordering — children order = visual order (CRITICAL)
 

@@ -1,5 +1,14 @@
-import { callPlugin, exec } from "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge/server/src/relay-client";
 import * as fs from "fs";
+import * as os from "os";
+import * as path from "path";
+
+const bridgeDir =
+  process.env.FIGMA_BRIDGE_DIR ||
+  (fs.existsSync(path.join(os.homedir(), ".local/share/figma-bridge"))
+    ? path.join(os.homedir(), ".local/share/figma-bridge")
+    : "/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/figma-bridge");
+
+const { callPlugin, exec } = await import(path.join(bridgeDir, "server/src/relay-client"));
 
 /**
  * figma-exec CLI

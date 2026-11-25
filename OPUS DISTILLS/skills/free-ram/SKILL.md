@@ -16,7 +16,7 @@ Setiap kali pengguna mengetik `/free-ram`, `free up ram`, atau meminta membersih
 ### 1. EKSEKUSI SKRIP PEMBERSIH UTAMA
 Jalankan skrip otomasi yang telah tersedia:
 ```bash
-/home/arya/.gemini/config/skills/free-ram/scripts/free_ram.sh
+~/.agents/skills/free-ram/scripts/free_ram.sh
 ```
 
 Atau eksekusi perintah kernel langsung:

@@ -19,20 +19,22 @@ Dokumen ini adalah referensi teknis resmi mengenai hardware target, lingkungan r
 
 ## 2. Path Runtime Python & Dependency Inti
 
-Executable Python yang memiliki dependensi lengkap (`spandrel`, `spandrel_extra_arches`, `torch` CUDA, `torchvision`, `PIL`, `numpy`) berada di:
+Executable Python yang memiliki dependensi lengkap (`spandrel`, `spandrel_extra_arches`, `torch` CUDA, `torchvision`, `PIL`, `numpy`) dapat dikonfigurasi via `${CHAINNER_PY}` (default `$HOME/.local/share/chaiNNer/python/bin/python3`, atau fallback legacy):
 ```bash
-/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11
+${CHAINNER_PY:-$HOME/.local/share/chaiNNer/python/bin/python3}
+# Legacy fallback: /mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/chaiNNer-linux-x64/python/python/bin/python3.11
 ```
 
-Script launcher `upscale-img` dan `boost` otomatis mendeteksi path ini sebelum fallback ke sistem `python3`.
+Script launcher `upscale-img` dan `boost` otomatis mendeteksi `$CHAINNER_PY`, fallback legacy path, sebelum fallback ke sistem `python3`.
 
 ---
 
 ## 3. Direktori Model & Daftar Bobot Neural Network
 
-Lokasi penyimpanan model upscale:
+Lokasi penyimpanan model upscale dapat dikonfigurasi via `${UPSCALE_MODELS_DIR}`:
 ```bash
-/mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL/
+${UPSCALE_MODELS_DIR:-$HOME/.local/share/upscale-models}
+# Legacy fallback: /mnt/HDD-2/BACKUP LINUX/FILE DATA/SOFTWARE LINUX/UPSCALE MODEL/
 ```
 
 ### Rincian Arsitektur & Rekomendasi Penggunaan:

@@ -15,14 +15,17 @@ import subprocess
 import requests
 
 SEARCH_CONFIG_PATHS = [
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.json"),
-    os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "config.json"),
-    os.path.expanduser("~/.gemini/config/skills/tts-gen/config.json"),
-    os.path.expanduser("~/.agents/skills/tts-gen/config.json"),
-    os.path.expanduser("~/.gemini/antigravity-cli/skills/tts-gen/config.json"),
-    os.path.expanduser("~/.gemini/antigravity/skills/tts-gen/config.json"),
-    "/mnt/HDD-2/BACKUP LINUX/FILE DATA/TIAR.PROPERTY/BAHAN POSTINGAN/AI AGENT EDITOR/GEMINI_TTS_ROUTER/config.json",
-    "/mnt/HDD-2/BACKUP LINUX/FILE DATA/AI AGENT SKILLS/OPUS DISTILLS/skills/tts-gen/config.json",
+    p for p in [
+        os.environ.get("GEMINI_TTS_CONFIG"),
+        os.path.expanduser("~/.agents/skills/tts-gen/config.json"),
+        os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.json"),
+        os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "config.json"),
+        os.path.expanduser("~/.gemini/config/skills/tts-gen/config.json"),
+        os.path.expanduser("~/.gemini/antigravity-cli/skills/tts-gen/config.json"),
+        os.path.expanduser("~/.gemini/antigravity/skills/tts-gen/config.json"),
+        "/mnt/HDD-2/BACKUP LINUX/FILE DATA/TIAR.PROPERTY/BAHAN POSTINGAN/AI AGENT EDITOR/GEMINI_TTS_ROUTER/config.json",
+        "/mnt/HDD-2/BACKUP LINUX/FILE DATA/AI AGENT SKILLS/OPUS DISTILLS/skills/tts-gen/config.json",
+    ] if p
 ]
 
 VOICE_PROFILES = {

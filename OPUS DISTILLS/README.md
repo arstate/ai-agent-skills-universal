@@ -1,6 +1,6 @@
 # 🧠 Universal Opus Distills 5.5 Skills Pack — Google Antigravity CLI & IDE Edition
 
-Paket lengkap **37+ Specialist AI Agent Skills + Nutlope/hallmark v2.8.0 + Figma Design v4.5 & FigCraft Declarative Suite + High-Speed Browser Control + Rules Anti-Plenger + 12-File `readme-ai-agent/` Architecture** yang dirancang universal untuk Google Antigravity CLI (`agy`), Antigravity IDE, Cursor, dan VS Code.
+Paket lengkap **34 consolidated Specialist AI Agent Skills + Nutlope/hallmark v2.8.0 + Figma Design v4.5 & FigCraft Declarative Suite + High-Speed Browser Control + Rules Anti-Plenger + 12-File `readme-ai-agent/` Architecture** yang dirancang universal untuk OpenCode v2.4.1+, Google Antigravity CLI (`agy`), Antigravity IDE, Cursor, dan VS Code.
 
 ---
 
@@ -49,14 +49,10 @@ Salin folder `skills/` ke `%USERPROFILE%\.gemini\antigravity-cli\skills\` dan fi
 OPUS DISTILLS/
 ├── auto-boot-configs/                  # Global Rules (AGENTS.md, GEMINI.md, .agents/rules, .cursor/rules)
 ├── readme-ai-agent-starter-template/   # 12 Template File Arsitektur Web (AGENTS, PRD, TECHSTACK, dll.)
-├── skills/                             # 37+ Specialist Skills
+├── skills/                             # 34 Consolidated Specialist Skills
 │   ├── anti-yes-man/                   # Co-Founder critical thinking
 │   ├── brainstorming/                  # 139 marketing plays & psychology models
 │   ├── chrome-browser-control/         # High-speed CDP browser automation + Visual HUD
-│   ├── design-creator/                 # Design proposal builder with user alignment
-│   ├── design-guardian/                # Design gatekeeper preventing unreviewed UI
-│   ├── design-lint/                    # Automated 40-rule Figma lint & auto-fix
-│   ├── design-review/                  # Structured human critique & heuristic evaluation
 │   ├── figcraft-generate-design/       # Production UI from existing component library
 │   ├── figcraft-generate-library/      # Design system & token generator in Figma
 │   ├── figcraft-use/                   # Plugin API runner with atomic execution & 17 rules
@@ -64,26 +60,20 @@ OPUS DISTILLS/
 │   ├── figma-design/                   # Master Figma Engine v4.5 (Dual-MCP + Djadi GSM v2.5 Clean Agency)
 │   ├── find-skills/                    # Dynamic on-demand skill discovery
 │   ├── free-ram/                       # Linux kernel cache cleaning & RAM defrag
-│   ├── generate-fresh-ideas/           # Viral outlier content research & 5-lens ATM
 │   ├── gen-img/                        # Multi-ratio AI image generator
 │   ├── gui-automation/                 # Multi-platform GUI tester
 │   ├── hallmark/                       # Nutlope/hallmark v2.8.0 + 58-gate sloplint.mjs
 │   ├── humanizer/                      # Anti-AI Slop Humanizer (26 patterns & Indonesian cliches)
 │   ├── iconography/                    # Design system icon selection & placement
 │   ├── image-gen/                      # 8-layer photorealistic studio image prompt engine
-│   ├── indo-genz-ponytail/             # Concise Indonesian tone
-│   ├── optimasi-nextjs-bandwidth/      # Zero-usage Vercel bandwidth shield
-│   ├── opus-distills/                  # Universal Master Auto-Skill Dispatcher
-│   ├── ponytail/                       # Extreme YAGNI lazy senior developer
+│   ├── opus-distills/                  # Universal Master Auto-Skill Dispatcher (includes Indo-Caveman Ultra & Ponytail YAGNI Ultra)
+│   ├── pdf-deck/                       # Autonomous 16:9 Slide Engine (Live CDP Dev, In-Browser Editor, PDF/PPTX)
 │   ├── prompt-generator/               # Commercial photography & interior prompt builder
-│   ├── pdf-deck/                  # Autonomous 16:9 Slide Engine (Live CDP Dev, In-Browser Editor, PDF/PPTX)
 │   ├── remotion/                       # Programmatic Video Director (Hybrid Mode A Facecam + Mode B Motion)
-│   ├── social-media-research/          # Viral content pattern recognition
+│   ├── social-media-research/          # Viral content pattern recognition & fresh ideas
 │   ├── svg-gen/                        # 16 MP Flat 2D Vector & Microstock Icon Set Engine (0 Strokes, Dublin Core RDF)
 │   ├── taste-design/                   # Non-web art director (3:4 feed, pitch decks, PDF)
-│   ├── terse-respon/                   # Split-channel terse chat vs uncut code deliverables
 │   ├── tts-gen/                        # Gemini 3.8 Flash TTS Voiceover Engine & Key Router (7 voices, EBU R128)
-│   ├── ui-ux-fundamentals/             # Core UI/UX design laws & accessibility standards
 │   ├── upscale-img/                    # 4K/8K AI Image Upscaler (CUDA + Spandrel + Nomos8k)
 │   ├── visual-breakdown/               # Smart 2-path image decomposition
 │   ├── web-animation/                  # Official GreenSock GSAP Suite & ScrollTrigger
@@ -91,7 +81,7 @@ OPUS DISTILLS/
 │   ├── web-debugging/                  # 7-viewport responsive vision QA & security auditor
 │   ├── web-design/                     # S-rank UI/UX + 300-Ref vault
 │   ├── web-master-agent/               # Master web orchestrator
-│   ├── web-optimization/               # Next.js CWV (LCP < 1.2s, INP < 200ms)
+│   ├── web-optimization/               # Next.js CWV (LCP < 1.2s, INP < 200ms) & Vercel Zero-Bandwidth Shield
 │   ├── web-planning/                   # User flow & interactive tech stack recommender
 │   └── websearch/                      # Real-time web search engine
 ├── tools/                              # Cross-Platform Browser CLI & HUD Tools

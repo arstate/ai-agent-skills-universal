@@ -5,11 +5,89 @@
 [![Standard](https://img.shields.io/badge/standards-M1--M5%20%2B%20Hallmark%20v2.8.0-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](#)
 
-A high-performance, production-ready ecosystem of **34 consolidated universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**Google Antigravity CLI**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
+A high-performance, production-ready ecosystem of **34 consolidated universal skills**, browser automation tools, and rules engineered for autonomous AI coding agents (**OpenCode v2.4.1+**, **Google Antigravity CLI & Desktop v2.0.6+**, **Claude Desktop / Code**, **Cursor**, **Windsurf**, **Copilot**, **Roo Code**, and **Cline**).
 
 ---
 
-## ⚡ Prompt Sekali Paste untuk AI Agent (One-Shot Boot Prompt)
+## ⚡ Quick Install by Platform
+
+### 1. OpenCode Install (v2.4.1+)
+
+#### Option A — One-Shot AI Prompt (Paste into OpenCode)
+```markdown
+Install dan inisialisasi ekosistem AI Agent Skills Universal (34 consolidated skills, OpenCode v2.4.1+ bridge, context-mode & mindmap-engine MCP) di mesin ini sekarang:
+
+1. Jalankan installer:
+   if [ -d "$HOME/ai-agent-skills-universal" ]; then
+     cd "$HOME/ai-agent-skills-universal" && git pull origin main
+   else
+     git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+   fi && bash "OPUS DISTILLS/install-default-opus.sh"
+
+2. Verifikasi setup OpenCode:
+   - Auto-discovery skills di `~/.agents/skills/` (34 consolidated skills)
+   - Bridge tool-mapping V2 di `~/.config/opencode/AGENTS.md`
+   - `opencode.json` (`mcp.servers` untuk `context-mode` & `mindmap-engine`, serta `instructions`)
+   - Jalankan `opencode debug config` untuk memastikan MCP & instructions terbaca tanpa error.
+
+3. Restart session OpenCode agar seluruh 34 skills dan MCP servers aktif.
+```
+
+#### Option B — Manual CLI (OpenCode v2.4.1+)
+```bash
+if [ -d "$HOME/ai-agent-skills-universal" ]; then
+  cd "$HOME/ai-agent-skills-universal" && git pull origin main
+else
+  git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+fi && bash "OPUS DISTILLS/install-default-opus.sh"
+
+# Verifikasi konfigurasi OpenCode (skills di ~/.agents/skills/, bridge ~/.config/opencode/AGENTS.md, & opencode.json mcp.servers + instructions):
+opencode debug config
+# Lalu restart session OpenCode untuk reload 34 consolidated skills & MCP servers.
+```
+
+---
+
+### 2. Antigravity Install (`agy` CLI & Desktop v2.0.6+)
+
+#### Option A — One-Shot AI Prompt (Paste into Antigravity)
+```markdown
+Install dan inisialisasi ekosistem AI Agent Skills Universal (34 consolidated skills, browser tools, context-mode & mindmap-engine MCP) di mesin ini sekarang:
+
+1. Jalankan installer:
+   if [ -d "$HOME/ai-agent-skills-universal" ]; then
+     cd "$HOME/ai-agent-skills-universal" && git pull origin main
+   else
+     git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+   fi && bash "OPUS DISTILLS/install-default-opus.sh"
+
+2. Verifikasi direktori Antigravity & global rules:
+   - `~/.agents/skills/`
+   - `~/.gemini/config/skills/`
+   - `~/.gemini/antigravity-cli/skills/`
+   - `~/.gemini/antigravity/skills/`
+   - `~/.gemini/AGENTS.md`, `~/.gemini/config/mcp_config.json`, dan `~/.gemini/antigravity-cli/settings.json` (`context-mode` & `mindmap-engine`)
+
+3. Jalankan `/skills reload` (atau restart session) lalu konfirmasi semua 34 consolidated skills aktif.
+```
+
+#### Option B — Manual CLI (Antigravity `agy` CLI & Desktop v2.0.6+)
+```bash
+if [ -d "$HOME/ai-agent-skills-universal" ]; then
+  cd "$HOME/ai-agent-skills-universal" && git pull origin main
+else
+  git clone --depth 1 https://github.com/arstate/ai-agent-skills-universal.git "$HOME/ai-agent-skills-universal" && cd "$HOME/ai-agent-skills-universal"
+fi && bash "OPUS DISTILLS/install-default-opus.sh"
+
+# Terpasang otomatis ke:
+# - ~/.agents/skills/ & ~/.gemini/{config,antigravity-cli,antigravity}/skills/
+# - ~/.gemini/AGENTS.md, ~/.gemini/config/mcp_config.json & ~/.gemini/antigravity-cli/settings.json
+# Di dalam sesi Antigravity, jalankan: /skills reload
+```
+
+---
+
+## ⚡ Universal One-Shot Boot Prompt (All Agents: Cursor, Claude, Windsurf, Cline)
 
 > **Cukup copy-paste prompt di bawah ini ke AI Agent baru (Google Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, atau Cline) untuk langsung menginstal, memverifikasi, dan mengaktifkan seluruh 34 consolidated skills, browser tools, dan rules secara otomatis dari awal:**
 
@@ -76,9 +154,9 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
     3) Editable PowerPoint (`.pptx` via native PPTX builder)
     4) Pure SVG Vector (single slide or all slides in a ZIP bundle)
   * **Fullscreen Presentation Mode (`F5`):** Complete distraction-free presentation with full keyboard controls (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
-- **Master Presentation Design Engine (`slide-design`)**:
+- **Presentation Design & Layout Grammars (`pdf-deck`)**:
   * Automated style derivation derived from the brief (never picked from rigid templates).
-  * 8 Distinct layout grammars, tokens, and component sets from SlideSpeak (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
+  * 8 Distinct layout grammars, tokens, and component sets (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
 - **Zara Zhang Editorial & Live Preview Engine (`pdf-deck`)**:
   * Live Preview Daemon: `pdf-deck dev <dir> --daemon` or `pdf-deck studio` immediately opens Chrome GUI on CDP port 9223.
   * In-place text editing auto-saved to disk with real-time sync.
@@ -141,7 +219,7 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 
 ```
 ├── OPUS DISTILLS/
-│   ├── skills/                       # 23+ Specialized Agent Skills
+│   ├── skills/                       # 34 Consolidated Agent Skills
 │   │   ├── pdf-deck/            # Presentation Studio & Frontend Slides Engine
 │   │   │   ├── bin/pdf-deck.mjs # Universal CLI Binary
 │   │   │   ├── scripts/              # Compiler, Preview Server, PDF & PPTX Exporters
@@ -160,9 +238,9 @@ Autonomous presentation studio engine built on Next.js, featuring full multi-aes
 │   │   └── ...                       # Brainstorming, Image Gen, Websearch, etc.
 │   ├── auto-boot-configs/            # Global Rules (~/.gemini/AGENTS.md, etc.)
 │   ├── tools/                        # Chrome Launchers & CDP Visual Agents
-│   ├── install-default-opus.sh       # Multi-Directory Installer
+│   ├── install-default-opus.sh       # Multi-Directory Installer (Antigravity + OpenCode)
 │   └── init-readme-ai-agent.sh       # Project Memory Scaffolder
-├── opus_distills_universal_pack.zip  # Re-bundled Universal Distribution Package
+├── install-universal.sh              # One-Command Remote/Local Installer
 ├── PROMPT_INSTALL_AI_AGENT.md        # Extended AI Agent Boot Prompt
 └── README.md                         # This Documentation
 ```

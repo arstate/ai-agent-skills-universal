@@ -1,6 +1,6 @@
 # Master Prompt: Install & Auto-Boot Universal AI Agent Skills Ecosystem
 
-> **Copy and paste this prompt directly into your AI Agent (Antigravity CLI, Claude, Cursor, Windsurf, Copilot, Roo Code, or Cline) to automatically download, install, verify, and activate all 27+ universal skills, browser automation tools, and rules.**
+> **Copy and paste this prompt directly into your AI Agent (OpenCode v2.4.1+, Antigravity CLI & Desktop v2.0.6+, Claude, Cursor, Windsurf, Copilot, Roo Code, or Cline) to automatically download, install, verify, and activate all 34 consolidated skills, browser automation tools, and rules.**
 
 ```markdown
 # MISSION: INSTALL, CONFIGURE & ACTIVATE THE UNIVERSAL AI AGENT SKILLS ECOSYSTEM (OPUS DISTILLS EDITION)
@@ -21,7 +21,7 @@ fi && bash "OPUS DISTILLS/install-default-opus.sh"
 
 *(Offline / Zip Fallback alternative):*
 ```bash
-curl -sSL "https://raw.githubusercontent.com/arstate/ai-agent-skills-universal/main/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip 2>/dev/null && \
+curl -sSL "https://github.com/arstate/ai-agent-skills-universal/archive/refs/heads/main.zip" -o /tmp/opus_pack.zip 2>/dev/null && \
 mkdir -p /tmp/opus_pack && \
 unzip -q -o /tmp/opus_pack.zip -d /tmp/opus_pack && \
 bash /tmp/opus_pack/"OPUS DISTILLS"/install-default-opus.sh && \
@@ -30,21 +30,26 @@ rm -rf /tmp/opus_pack.zip /tmp/opus_pack
 
 ## Step 2: Verify Target Directory Installations
 Ensure skills are installed into the following agent directories:
+- `~/.agents/skills/` (Primary auto-discovery for **OpenCode v2.4.1+** & **Antigravity**)
 - `~/.gemini/antigravity-cli/skills/`
 - `~/.gemini/config/skills/`
 - `~/.gemini/antigravity/skills/`
-- `~/.agents/skills/`
 - `~/.cursor/skills/` (if Cursor IDE is present)
 - `~/.claude/skills/` (if Claude Desktop is present)
 
-And verify global auto-boot rules:
-- `~/.gemini/AGENTS.md`
-- `~/.gemini/GEMINI.md`
-- `~/.agents/rules/opus-distills.md`
+And verify global auto-boot rules & MCP configs:
+- **OpenCode (v2.4.1+):**
+  - `~/.config/opencode/AGENTS.md` (V2 tool-mapping bridge)
+  - `~/.config/opencode/opencode.json` (`mcp.servers` for `context-mode` & `mindmap-engine`, plus `instructions`)
+  - Run `opencode debug config` to verify config & MCP registration without errors
+- **Antigravity (`agy` CLI & Desktop v2.0.6+):**
+  - `~/.gemini/AGENTS.md` & `~/.gemini/GEMINI.md`
+  - `~/.gemini/config/mcp_config.json` & `~/.gemini/settings.json` (`context-mode` & `mindmap-engine`)
+  - `~/.agents/rules/opus-distills.md`
 
 ## Step 3: Verified Capabilities Overview
 
-### 1. Presentation Studio & High-Fidelity PDF/PPTX Engine: `pdf-deck` & `slide-design`
+### 1. Presentation Studio & High-Fidelity PDF/PPTX Engine: `pdf-deck`
 - **Multi-Aesthetic Next.js Presentation Studio (`pdf-deck`):**
   * Custom lightweight studio built from scratch on Next.js App Router, React 19, Tailwind CSS, Lucide icons, and Framer Motion.
   * **Autonomous AI GEN Mode (Single Flexible Option):** Eliminates rigid template pickers in favor of 1 single `AI GEN (Autonomous Creative Layout)` option. The AI agent retains complete creative freedom to tailor visual geometry, kinetic accents, brand typography, and adaptive layouts per slide.
@@ -64,9 +69,9 @@ And verify global auto-boot rules:
     3) Editable PowerPoint (`.pptx` via native PPTX builder)
     4) Pure SVG Vector (single slide or all slides in a ZIP bundle)
   * **Fullscreen Presentation Mode (`F5`):** Complete distraction-free presentation with full keyboard controls (`Arrow`, `Space`, `Enter`, `Home`, `End`, `Esc`).
-- **Master Presentation Design Engine (`slide-design`):**
+- **Presentation Design & Layout Grammars (`pdf-deck`):**
   * Automated style derivation derived from the brief (never picked from rigid templates).
-  * 8 Distinct layout grammars, tokens, and component sets from SlideSpeak (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
+  * 8 Distinct layout grammars, tokens, and component sets (`academic`, `consulting`, `kanagi`, `neue-klasse`, `opex`, `pitch`, `product-marketing`, `training`).
 - **Zara Zhang Editorial & Live Preview Engine (`pdf-deck`):**
   * Live Preview Daemon: `pdf-deck dev <dir> --daemon` or `pdf-deck studio` immediately opens Chrome GUI on CDP port 9223.
   * In-place text editing auto-saved to disk with real-time sync.
@@ -117,6 +122,10 @@ And verify global auto-boot rules:
 - Global CLI commands: `figma-exec`, `figma-audit`, and `figma-handoff`.
 
 ## Step 4: Confirm Setup
-After running the installation, type `/skills reload` (or restart your agent session) and reply:
-"All 27+ universal skills, browser automation tools, and rules successfully installed and verified!"
+After running the installation:
+- On **OpenCode v2.4.1+**: run `opencode debug config` and restart your OpenCode session so all 34 consolidated skills and MCP servers reload.
+- On **Antigravity**: run `/skills reload` (or restart your agent session).
+
+Then reply:
+"All 34 consolidated skills, browser automation tools, MCP servers, and rules successfully installed and verified!"
 ```

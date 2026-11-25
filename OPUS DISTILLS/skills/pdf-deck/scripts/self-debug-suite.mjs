@@ -169,7 +169,9 @@ print("PPTX verification passed: 8 slides with rich shapes")
 
   // 8. Universal Package Bundle & Cloudflare Tunnel Check
   console.log('\n[Phase 8: Universal Package & Cloudflare Tunnel Check]');
-  const packPath = '/mnt/HDD-2/BACKUP LINUX/FILE DATA/AI AGENT SKILLS/opus_distills_universal_pack.zip';
+  const packPath = process.env.OPUS_PACK_ZIP ||
+    [path.resolve(__dirname, '../../../opus_distills_universal_pack.zip'), path.resolve(__dirname, '../../../../opus_distills_universal_pack.zip')].find(p => existsSync(p)) ||
+    path.resolve(__dirname, '../../../opus_distills_universal_pack.zip');
   assert(existsSync(packPath), 'Universal pack zip exists on filesystem');
   const packSizeMB = (readFileSync(packPath).length / 1024 / 1024).toFixed(2);
   assert(Number(packSizeMB) > 4.0, `Universal pack has valid archive size (${packSizeMB} MB)`);

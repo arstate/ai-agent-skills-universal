@@ -13,7 +13,7 @@ Skill CLI & Python API untuk generate maupun transform gambar AI (`image-to-imag
 
 ---
 
-## 1. Penggunaan Cepat (CLI Global `/home/arya/.local/bin/gen-img`)
+## 1. Penggunaan Cepat (CLI Global `~/.local/bin/gen-img`)
 
 ```bash
 # Default: AIStudio2API 4K Native + High Thinking + Web/Image Search (rasio auto)
@@ -52,8 +52,9 @@ gen-img "Clean espresso cup product shot" -m "ag/gemini-3.1-flash-image" -r 3:4
 ## 2. Integrasi Python (`generate_image`) — Backward Compatible
 
 ```python
+import os
 import sys
-sys.path.append("/home/arya/.gemini/config/skills/gen-img/scripts")
+sys.path.append(os.path.expanduser("~/.agents/skills/gen-img/scripts"))
 from gen_img import generate_image
 
 res = generate_image(

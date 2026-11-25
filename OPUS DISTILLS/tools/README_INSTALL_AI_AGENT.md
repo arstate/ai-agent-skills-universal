@@ -88,7 +88,7 @@ Pilih salah satu metode instalasi sesuai sistem operasi perangkat.
 
 1. **Jalankan Terminal 1-Liner:**
    ```bash
-   curl -sSL "https://accuracy-translations-nights-situations.trycloudflare.com/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip && \
+   curl -sSL "https://github.com/arstate/ai-agent-skills-universal/archive/refs/heads/main.zip" -o /tmp/opus_pack.zip && \
    mkdir -p /tmp/opus_pack && \
    unzip -q -o /tmp/opus_pack.zip -d /tmp/opus_pack && \
    bash /tmp/opus_pack/"OPUS DISTILLS"/install-default-opus.sh && \
@@ -113,7 +113,7 @@ Pilih salah satu metode instalasi sesuai sistem operasi perangkat.
 
 1. **Buka Terminal macOS dan Jalankan:**
    ```bash
-   curl -sSL "https://accuracy-translations-nights-situations.trycloudflare.com/opus_distills_universal_pack.zip" -o /tmp/opus_pack.zip && \
+   curl -sSL "https://github.com/arstate/ai-agent-skills-universal/archive/refs/heads/main.zip" -o /tmp/opus_pack.zip && \
    mkdir -p /tmp/opus_pack && \
    unzip -q -o /tmp/opus_pack.zip -d /tmp/opus_pack && \
    bash /tmp/opus_pack/"OPUS DISTILLS"/install-default-opus.sh && \
@@ -132,7 +132,7 @@ Pilih salah satu metode instalasi sesuai sistem operasi perangkat.
 1. **Buka PowerShell (Run as Administrator jika perlu) dan Copas:**
    ```powershell
    # 1. Download file arsip zip
-   Invoke-WebRequest -Uri "https://accuracy-translations-nights-situations.trycloudflare.com/opus_distills_universal_pack.zip" -OutFile "$env:TEMP\opus_pack.zip"
+   Invoke-WebRequest -Uri "https://github.com/arstate/ai-agent-skills-universal/archive/refs/heads/main.zip" -OutFile "$env:TEMP\opus_pack.zip"
    
    # 2. Ekstrak ke folder temporary
    Expand-Archive -Path "$env:TEMP\opus_pack.zip" -DestinationPath "$env:TEMP\opus_pack" -Force
