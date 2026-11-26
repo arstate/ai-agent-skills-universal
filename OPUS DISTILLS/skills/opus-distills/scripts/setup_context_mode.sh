@@ -87,12 +87,12 @@ if opencode_cfg.exists():
         servers = mcp_root.setdefault("servers", {})
         servers["context-mode"] = {
             "type": "local",
-            "command": ["context-mode"],
+            "command": [bin_path],
             "disabled": False,
         }
         servers["mindmap-engine"] = {
             "type": "local",
-            "command": ["python3", mindmap_py],
+            "command": [sys.executable, mindmap_py],
             "disabled": False,
         }
 
